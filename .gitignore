@@ -1,0 +1,10 @@
+elm-stuff
+node_modules
+build-app/
+build-ip/
+temp/
+docs/elm.js
+docs/dir.json
+generated-images/
+docs/screenshots
+docs/screenshots-NEW
