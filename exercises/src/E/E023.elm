@@ -10,7 +10,7 @@ import Html
 exerciseData : ExerciseData
 exerciseData =
     { id = 23
-    , ellieId = ""
+    , ellieId = "dFdF4NRQPVSa1"
     , title = "Extract randomly selected elements from a list"
     , difficulty = Hard
     , problem = """Extract a given number of randomly selected elements from a list.
@@ -25,13 +25,13 @@ You must use [Elm's Random](https://package.elm-lang.org/packages/elm/random/lat
 
 `Random.step` will return both a randomly generated value from the generator, and a new seed. You must use the new seed for subsequent random numbers."""
     , tests =
-        [ "List.sort l1 |> equal (List.sort l2)"
-        , "l2 |> notEqual l3"
-        , "List.sort l4 |> equal (List.range 1 9)"
-        , "List.sort l5 |> equal [ \"a\", \"b\" ]"
-        , "l6 |> equal []"
-        , "l7 |> equal []"
-        , "l8 |> equal []"
+        [ "List.sort list1 |> equal (List.sort list2)"
+        , "list2 |> notEqual list3"
+        , "List.sort list4 |> equal (List.range 1 9)"
+        , "List.sort list5 |> equal [ \"a\", \"b\" ]"
+        , "list6 |> equal []"
+        , "list7 |> equal []"
+        , "list8 |> equal []"
         ]
     , hints =
         [ "[`getAt`](https://package.elm-lang.org/packages/elm-community/list-extra/latest/List-Extra#getAt) and [`removeAt`](https://package.elm-lang.org/packages/elm-community/list-extra/latest/List-Extra#removeAt) from `elm-community/list-extra` could prove useful."

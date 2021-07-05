@@ -5186,7 +5186,53 @@ function _Url_percentDecode(string)
 	{
 		return $elm$core$Maybe$Nothing;
 	}
-}var $elm$core$List$cons = _List_cons;
+}
+
+
+function _Time_now(millisToPosix)
+{
+	return _Scheduler_binding(function(callback)
+	{
+		callback(_Scheduler_succeed(millisToPosix(Date.now())));
+	});
+}
+
+var _Time_setInterval = F2(function(interval, task)
+{
+	return _Scheduler_binding(function(callback)
+	{
+		var id = setInterval(function() { _Scheduler_rawSpawn(task); }, interval);
+		return function() { clearInterval(id); };
+	});
+});
+
+function _Time_here()
+{
+	return _Scheduler_binding(function(callback)
+	{
+		callback(_Scheduler_succeed(
+			A2($elm$time$Time$customZone, -(new Date().getTimezoneOffset()), _List_Nil)
+		));
+	});
+}
+
+
+function _Time_getZoneName()
+{
+	return _Scheduler_binding(function(callback)
+	{
+		try
+		{
+			var name = $elm$time$Time$Name(Intl.DateTimeFormat().resolvedOptions().timeZone);
+		}
+		catch (e)
+		{
+			var name = $elm$time$Time$Offset(new Date().getTimezoneOffset());
+		}
+		callback(_Scheduler_succeed(name));
+	});
+}
+var $elm$core$List$cons = _List_cons;
 var $elm$core$Elm$JsArray$foldr = _JsArray_foldr;
 var $elm$core$Array$foldr = F3(
 	function (func, baseCase, _v0) {
@@ -26546,7 +26592,7 @@ var $author$project$Exercises$viewElement = F2(
 																										_List_fromArray(
 																											[
 																												$mdgriffith$elm_ui$Element$Background$color(
-																												A4($mdgriffith$elm_ui$Element$rgba, 0, 0, 0, 0.7)),
+																												A4($mdgriffith$elm_ui$Element$rgba, 0, 0, 0, 0.5)),
 																												$mdgriffith$elm_ui$Element$Font$color(
 																												A4($mdgriffith$elm_ui$Element$rgba, 1, 1, 1, 0.9)),
 																												$mdgriffith$elm_ui$Element$Border$rounded(2),
@@ -26648,27 +26694,163 @@ var $author$project$Exercises$exerciseWithTea = function (tea) {
 			view: $author$project$Exercises$view(tea)
 		});
 };
-var $author$project$Exercises$onlyTests = function (tests) {
-	return {
-		init: _Utils_Tuple2(_Utils_Tuple0, $elm$core$Platform$Cmd$none),
-		subscriptions: function (_v0) {
-			return $elm$core$Platform$Sub$none;
-		},
-		tests: function (_v1) {
-			return tests;
-		},
-		update: F2(
-			function (_v2, _v3) {
-				return _Utils_Tuple2(_Utils_Tuple0, $elm$core$Platform$Cmd$none);
-			}),
-		view: function (_v4) {
-			return $elm$html$Html$text('');
-		}
-	};
+var $author$project$MainWithTea$NewFace = function (a) {
+	return {$: 'NewFace', a: a};
 };
-var $author$project$Exercises$exercise = function (tests) {
-	return $author$project$Exercises$exerciseWithTea(
-		$author$project$Exercises$onlyTests(tests));
+var $elm$random$Random$Generate = function (a) {
+	return {$: 'Generate', a: a};
+};
+var $elm$random$Random$Seed = F2(
+	function (a, b) {
+		return {$: 'Seed', a: a, b: b};
+	});
+var $elm$random$Random$next = function (_v0) {
+	var state0 = _v0.a;
+	var incr = _v0.b;
+	return A2($elm$random$Random$Seed, ((state0 * 1664525) + incr) >>> 0, incr);
+};
+var $elm$random$Random$initialSeed = function (x) {
+	var _v0 = $elm$random$Random$next(
+		A2($elm$random$Random$Seed, 0, 1013904223));
+	var state1 = _v0.a;
+	var incr = _v0.b;
+	var state2 = (state1 + x) >>> 0;
+	return $elm$random$Random$next(
+		A2($elm$random$Random$Seed, state2, incr));
+};
+var $elm$time$Time$Name = function (a) {
+	return {$: 'Name', a: a};
+};
+var $elm$time$Time$Offset = function (a) {
+	return {$: 'Offset', a: a};
+};
+var $elm$time$Time$Zone = F2(
+	function (a, b) {
+		return {$: 'Zone', a: a, b: b};
+	});
+var $elm$time$Time$customZone = $elm$time$Time$Zone;
+var $elm$time$Time$Posix = function (a) {
+	return {$: 'Posix', a: a};
+};
+var $elm$time$Time$millisToPosix = $elm$time$Time$Posix;
+var $elm$time$Time$now = _Time_now($elm$time$Time$millisToPosix);
+var $elm$time$Time$posixToMillis = function (_v0) {
+	var millis = _v0.a;
+	return millis;
+};
+var $elm$random$Random$init = A2(
+	$elm$core$Task$andThen,
+	function (time) {
+		return $elm$core$Task$succeed(
+			$elm$random$Random$initialSeed(
+				$elm$time$Time$posixToMillis(time)));
+	},
+	$elm$time$Time$now);
+var $elm$random$Random$step = F2(
+	function (_v0, seed) {
+		var generator = _v0.a;
+		return generator(seed);
+	});
+var $elm$random$Random$onEffects = F3(
+	function (router, commands, seed) {
+		if (!commands.b) {
+			return $elm$core$Task$succeed(seed);
+		} else {
+			var generator = commands.a.a;
+			var rest = commands.b;
+			var _v1 = A2($elm$random$Random$step, generator, seed);
+			var value = _v1.a;
+			var newSeed = _v1.b;
+			return A2(
+				$elm$core$Task$andThen,
+				function (_v2) {
+					return A3($elm$random$Random$onEffects, router, rest, newSeed);
+				},
+				A2($elm$core$Platform$sendToApp, router, value));
+		}
+	});
+var $elm$random$Random$onSelfMsg = F3(
+	function (_v0, _v1, seed) {
+		return $elm$core$Task$succeed(seed);
+	});
+var $elm$random$Random$Generator = function (a) {
+	return {$: 'Generator', a: a};
+};
+var $elm$random$Random$map = F2(
+	function (func, _v0) {
+		var genA = _v0.a;
+		return $elm$random$Random$Generator(
+			function (seed0) {
+				var _v1 = genA(seed0);
+				var a = _v1.a;
+				var seed1 = _v1.b;
+				return _Utils_Tuple2(
+					func(a),
+					seed1);
+			});
+	});
+var $elm$random$Random$cmdMap = F2(
+	function (func, _v0) {
+		var generator = _v0.a;
+		return $elm$random$Random$Generate(
+			A2($elm$random$Random$map, func, generator));
+	});
+_Platform_effectManagers['Random'] = _Platform_createManager($elm$random$Random$init, $elm$random$Random$onEffects, $elm$random$Random$onSelfMsg, $elm$random$Random$cmdMap);
+var $elm$random$Random$command = _Platform_leaf('Random');
+var $elm$random$Random$generate = F2(
+	function (tagger, generator) {
+		return $elm$random$Random$command(
+			$elm$random$Random$Generate(
+				A2($elm$random$Random$map, tagger, generator)));
+	});
+var $elm$core$Bitwise$xor = _Bitwise_xor;
+var $elm$random$Random$peel = function (_v0) {
+	var state = _v0.a;
+	var word = (state ^ (state >>> ((state >>> 28) + 4))) * 277803737;
+	return ((word >>> 22) ^ word) >>> 0;
+};
+var $elm$random$Random$int = F2(
+	function (a, b) {
+		return $elm$random$Random$Generator(
+			function (seed0) {
+				var _v0 = (_Utils_cmp(a, b) < 0) ? _Utils_Tuple2(a, b) : _Utils_Tuple2(b, a);
+				var lo = _v0.a;
+				var hi = _v0.b;
+				var range = (hi - lo) + 1;
+				if (!((range - 1) & range)) {
+					return _Utils_Tuple2(
+						(((range - 1) & $elm$random$Random$peel(seed0)) >>> 0) + lo,
+						$elm$random$Random$next(seed0));
+				} else {
+					var threshhold = (((-range) >>> 0) % range) >>> 0;
+					var accountForBias = function (seed) {
+						accountForBias:
+						while (true) {
+							var x = $elm$random$Random$peel(seed);
+							var seedN = $elm$random$Random$next(seed);
+							if (_Utils_cmp(x, threshhold) < 0) {
+								var $temp$seed = seedN;
+								seed = $temp$seed;
+								continue accountForBias;
+							} else {
+								return _Utils_Tuple2((x % range) + lo, seedN);
+							}
+						}
+					};
+					return accountForBias(seed0);
+				}
+			});
+	});
+var $elm$random$Random$maxInt = 2147483647;
+var $elm$random$Random$minInt = -2147483648;
+var $author$project$MainWithTea$init = _Utils_Tuple2(
+	{intSeed: 1},
+	A2(
+		$elm$random$Random$generate,
+		$author$project$MainWithTea$NewFace,
+		A2($elm$random$Random$int, $elm$random$Random$minInt, $elm$random$Random$maxInt)));
+var $author$project$MainWithTea$subscriptions = function (model) {
+	return $elm$core$Platform$Sub$none;
 };
 var $elm_explorations$test$Test$Runner$Failure$Equality = F2(
 	function (a, b) {
@@ -26725,41 +26907,166 @@ var $elm_explorations$test$Expect$equateWith = F4(
 	});
 var $elm_explorations$test$Expect$equal = A2($elm_explorations$test$Expect$equateWith, 'Expect.equal', $elm$core$Basics$eq);
 var $author$project$Exercises$equal = $elm_explorations$test$Expect$equal;
-var $author$project$MainSimple$last = function (xs) {
-	return $elm$core$Maybe$Nothing;
+var $elm_explorations$test$Expect$notEqual = A2($elm_explorations$test$Expect$equateWith, 'Expect.notEqual', $elm$core$Basics$neq);
+var $author$project$Exercises$notEqual = $elm_explorations$test$Expect$notEqual;
+var $author$project$MainWithTea$randomSelect = F3(
+	function (seed, n, list) {
+		return _Utils_Tuple2(_List_Nil, seed);
+	});
+var $elm$core$List$sort = function (xs) {
+	return A2($elm$core$List$sortBy, $elm$core$Basics$identity, xs);
 };
-var $author$project$MainSimple$testNEW = _List_fromArray(
-	[
-		A2(
-		$author$project$Exercises$equal,
-		$elm$core$Maybe$Just(4),
-		$author$project$MainSimple$last(
+var $author$project$MainWithTea$tests = function (modelExercise) {
+	var seed = $elm$random$Random$initialSeed(modelExercise.intSeed);
+	var _v0 = A3(
+		$author$project$MainWithTea$randomSelect,
+		seed,
+		3,
+		A2($elm$core$List$range, 1, 1000));
+	var list2 = _v0.a;
+	var seed2 = _v0.b;
+	var _v1 = A3(
+		$author$project$MainWithTea$randomSelect,
+		seed2,
+		3,
+		A2($elm$core$List$range, 1, 1000));
+	var list3 = _v1.a;
+	var seed3 = _v1.b;
+	var _v2 = A3(
+		$author$project$MainWithTea$randomSelect,
+		seed3,
+		9,
+		A2($elm$core$List$range, 1, 9));
+	var list4 = _v2.a;
+	var seed4 = _v2.b;
+	var _v3 = A3(
+		$author$project$MainWithTea$randomSelect,
+		seed4,
+		3,
+		_List_fromArray(
+			['a', 'b']));
+	var list5 = _v3.a;
+	var seed5 = _v3.b;
+	var _v4 = A3(
+		$author$project$MainWithTea$randomSelect,
+		seed5,
+		0,
+		_List_fromArray(
+			[
+				_Utils_chr('a'),
+				_Utils_chr('b')
+			]));
+	var list6 = _v4.a;
+	var seed6 = _v4.b;
+	var _v5 = A3(
+		$author$project$MainWithTea$randomSelect,
+		seed6,
+		-1,
+		_List_fromArray(
+			[
+				_Utils_chr('a'),
+				_Utils_chr('b')
+			]));
+	var list7 = _v5.a;
+	var seed7 = _v5.b;
+	var _v6 = A3($author$project$MainWithTea$randomSelect, seed6, 1, _List_Nil);
+	var list8 = _v6.a;
+	var seed8 = _v6.b;
+	var _v7 = A3(
+		$author$project$MainWithTea$randomSelect,
+		seed,
+		3,
+		A2($elm$core$List$range, 1, 1000));
+	var list1 = _v7.a;
+	var seed1 = _v7.b;
+	return _List_fromArray(
+		[
+			A2(
+			$author$project$Exercises$equal,
+			$elm$core$List$sort(list2),
+			$elm$core$List$sort(list1)),
+			A2($author$project$Exercises$notEqual, list3, list2),
+			A2(
+			$author$project$Exercises$equal,
+			A2($elm$core$List$range, 1, 9),
+			$elm$core$List$sort(list4)),
+			A2(
+			$author$project$Exercises$equal,
 			_List_fromArray(
-				[1, 2, 3, 4]))),
-		A2(
-		$author$project$Exercises$equal,
-		$elm$core$Maybe$Just(1),
-		$author$project$MainSimple$last(
-			_List_fromArray(
-				[1]))),
-		A2(
-		$author$project$Exercises$equal,
-		$elm$core$Maybe$Nothing,
-		$author$project$MainSimple$last(_List_Nil)),
-		A2(
-		$author$project$Exercises$equal,
-		$elm$core$Maybe$Just(
-			_Utils_chr('c')),
-		$author$project$MainSimple$last(
-			_List_fromArray(
-				[
-					_Utils_chr('a'),
-					_Utils_chr('b'),
-					_Utils_chr('c')
-				])))
-	]);
-var $author$project$MainSimple$main = $author$project$Exercises$exercise($author$project$MainSimple$testNEW);
-_Platform_export({'MainSimple':{'init':$author$project$MainSimple$main(
+				['a', 'b']),
+			$elm$core$List$sort(list5)),
+			A2($author$project$Exercises$equal, _List_Nil, list6),
+			A2($author$project$Exercises$equal, _List_Nil, list7),
+			A2($author$project$Exercises$equal, _List_Nil, list8)
+		]);
+};
+var $author$project$MainWithTea$update = F2(
+	function (msg, model) {
+		if (msg.$ === 'Test') {
+			return _Utils_Tuple2(
+				model,
+				A2(
+					$elm$random$Random$generate,
+					$author$project$MainWithTea$NewFace,
+					A2($elm$random$Random$int, $elm$random$Random$minInt, $elm$random$Random$maxInt)));
+		} else {
+			var newSeed = msg.a;
+			return _Utils_Tuple2(
+				_Utils_update(
+					model,
+					{intSeed: newSeed}),
+				$elm$core$Platform$Cmd$none);
+		}
+	});
+var $author$project$MainWithTea$Test = {$: 'Test'};
+var $author$project$MainWithTea$view = function (model) {
+	return A2(
+		$elm$html$Html$div,
+		_List_Nil,
+		_List_fromArray(
+			[
+				A2(
+				$elm$html$Html$p,
+				_List_Nil,
+				_List_fromArray(
+					[
+						$elm$html$Html$text(
+						'Seed value: ' + $elm$core$String$fromInt(model.intSeed))
+					])),
+				A2(
+				$elm$html$Html$p,
+				_List_Nil,
+				_List_fromArray(
+					[
+						$elm$html$Html$text(
+						'Your die roll is ' + A2(
+							$elm$core$Maybe$withDefault,
+							'',
+							A2(
+								$elm$core$Maybe$map,
+								$elm$core$String$fromInt,
+								$elm$core$List$head(
+									A3(
+										$author$project$MainWithTea$randomSelect,
+										$elm$random$Random$initialSeed(model.intSeed),
+										1,
+										A2($elm$core$List$range, 1, 6)).a))))
+					])),
+				A2(
+				$elm$html$Html$button,
+				_List_fromArray(
+					[
+						$elm$html$Html$Events$onClick($author$project$MainWithTea$Test)
+					]),
+				_List_fromArray(
+					[
+						$elm$html$Html$text('Test again')
+					]))
+			]));
+};
+var $author$project$MainWithTea$main = $author$project$Exercises$exerciseWithTea(
+	{init: $author$project$MainWithTea$init, subscriptions: $author$project$MainWithTea$subscriptions, tests: $author$project$MainWithTea$tests, update: $author$project$MainWithTea$update, view: $author$project$MainWithTea$view});
+_Platform_export({'MainWithTea':{'init':$author$project$MainWithTea$main(
 	A2(
 		$elm$json$Json$Decode$andThen,
 		function (index) {
@@ -26771,4 +27078,4 @@ _Platform_export({'MainSimple':{'init':$author$project$MainSimple$main(
 				},
 				A2($elm$json$Json$Decode$field, 'exerciseData', $elm$json$Json$Decode$string));
 		},
-		A2($elm$json$Json$Decode$field, 'index', $elm$json$Json$Decode$string)))({"versions":{"elm":"0.19.1"},"types":{"message":"Exercises.Msg ()","aliases":{},"unions":{"Exercises.Msg":{"args":["msgExercise"],"tags":{"ShowHint":["Basics.Int"],"ShowHintsAll":[],"ShowHintsNone":[],"HideHint":["Basics.Int"],"ShowSolution":["Basics.Int"],"ShowSolutionsAll":[],"ShowSolutionsNone":[],"HideSolution":["Basics.Int"],"MsgTEA":["msgExercise"]}},"Basics.Int":{"args":[],"tags":{"Int":[]}}}}})}});}(this));
+		A2($elm$json$Json$Decode$field, 'index', $elm$json$Json$Decode$string)))({"versions":{"elm":"0.19.1"},"types":{"message":"Exercises.Msg MainWithTea.MsgExercise","aliases":{},"unions":{"Exercises.Msg":{"args":["msgExercise"],"tags":{"ShowHint":["Basics.Int"],"ShowHintsAll":[],"ShowHintsNone":[],"HideHint":["Basics.Int"],"ShowSolution":["Basics.Int"],"ShowSolutionsAll":[],"ShowSolutionsNone":[],"HideSolution":["Basics.Int"],"MsgTEA":["msgExercise"]}},"MainWithTea.MsgExercise":{"args":[],"tags":{"Test":[],"NewFace":["Basics.Int"]}},"Basics.Int":{"args":[],"tags":{"Int":[]}}}}})}});}(this));

@@ -64,7 +64,8 @@ version =
     "1.0.0"
 
 
-{-| -}
+{-| In this package I change `Expect.Expectation` to `Expectation`
+-}
 type alias Expectation =
     Expect.Expectation
 
@@ -661,7 +662,7 @@ viewElement tea model =
                                         [ paragraph [] <|
                                             [ text "Try solving the problem by writing Elm code in the editor on the left. Then click the "
                                             , row
-                                                [ Background.color <| rgba 0 0 0 0.7
+                                                [ Background.color <| rgba 0 0 0 0.5
                                                 , Font.color <| rgba 1 1 1 0.9
                                                 , Border.rounded 2
                                                 , paddingXY 5 2

@@ -9,7 +9,7 @@ import Exercises exposing (..)
 exerciseData : ExerciseData
 exerciseData =
     { id = 1
-    , ellieId = ""
+    , ellieId = "dFdp5PGGgGfa1"
     , title = "Returns the last element of a list"
     , difficulty = Easy
     , problem = "Write a function `last` that returns the last element of a list. An empty list doesn't have a last element, therefore `last` must return a `Maybe`."
@@ -45,8 +45,8 @@ last list =
         , """Reverse and take the head.
 ```
 last : List a -> Maybe a
-last xs =
-    List.reverse xs |> List.head
+last list =
+    List.reverse list |> List.head
 ```"""
         , """[Point-free style](https://en.wikipedia.org/wiki/Tacit_programming), reverse and take the head.
 ```
