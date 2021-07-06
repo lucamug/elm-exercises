@@ -5186,53 +5186,7 @@ function _Url_percentDecode(string)
 	{
 		return $elm$core$Maybe$Nothing;
 	}
-}
-
-
-function _Time_now(millisToPosix)
-{
-	return _Scheduler_binding(function(callback)
-	{
-		callback(_Scheduler_succeed(millisToPosix(Date.now())));
-	});
-}
-
-var _Time_setInterval = F2(function(interval, task)
-{
-	return _Scheduler_binding(function(callback)
-	{
-		var id = setInterval(function() { _Scheduler_rawSpawn(task); }, interval);
-		return function() { clearInterval(id); };
-	});
-});
-
-function _Time_here()
-{
-	return _Scheduler_binding(function(callback)
-	{
-		callback(_Scheduler_succeed(
-			A2($elm$time$Time$customZone, -(new Date().getTimezoneOffset()), _List_Nil)
-		));
-	});
-}
-
-
-function _Time_getZoneName()
-{
-	return _Scheduler_binding(function(callback)
-	{
-		try
-		{
-			var name = $elm$time$Time$Name(Intl.DateTimeFormat().resolvedOptions().timeZone);
-		}
-		catch (e)
-		{
-			var name = $elm$time$Time$Offset(new Date().getTimezoneOffset());
-		}
-		callback(_Scheduler_succeed(name));
-	});
-}
-var $elm$core$List$cons = _List_cons;
+}var $elm$core$List$cons = _List_cons;
 var $elm$core$Elm$JsArray$foldr = _JsArray_foldr;
 var $elm$core$Array$foldr = F3(
 	function (func, baseCase, _v0) {
@@ -11065,6 +11019,7 @@ var $author$project$Exercises$init = F2(
 	function (tea, flags) {
 		return _Utils_Tuple2(
 			{
+				flags: flags,
 				hints: $author$project$Exercises$ShowNone,
 				modelExercise: tea.init.a,
 				resultExerciseData: A2($miniBill$elm_codec$Codec$decodeString, $author$project$Exercises$codecExerciseData, flags.exerciseData),
@@ -24695,19 +24650,12 @@ var $author$project$Exercises$Markdown$code = function (snippet) {
 		_List_fromArray(
 			[
 				$mdgriffith$elm_ui$Element$Background$color(
-				A4($mdgriffith$elm_ui$Element$rgba, 0, 0, 0, 0.02)),
+				A4($mdgriffith$elm_ui$Element$rgba, 0, 0, 0, 0.05)),
 				$mdgriffith$elm_ui$Element$Border$rounded(2),
 				$mdgriffith$elm_ui$Element$Font$size(14),
-				$mdgriffith$elm_ui$Element$Border$width(1),
-				$mdgriffith$elm_ui$Element$Border$color(
-				A4($mdgriffith$elm_ui$Element$rgba, 0, 0, 0, 0.15)),
 				$mdgriffith$elm_ui$Element$Font$color(
 				A3($mdgriffith$elm_ui$Element$rgb255, 181, 137, 0)),
-				$mdgriffith$elm_ui$Element$htmlAttribute(
-				A2($elm$html$Html$Attributes$style, 'margin-left', '5px')),
-				$mdgriffith$elm_ui$Element$htmlAttribute(
-				A2($elm$html$Html$Attributes$style, 'margin-right', '5px')),
-				A2($mdgriffith$elm_ui$Element$paddingXY, 3, 2),
+				A2($mdgriffith$elm_ui$Element$paddingXY, 5, 2),
 				$mdgriffith$elm_ui$Element$Font$family(
 				_List_fromArray(
 					[
@@ -25476,7 +25424,7 @@ var $author$project$Exercises$accordion = function (_v0) {
 														$mdgriffith$elm_ui$Element$Background$color(
 														A4($mdgriffith$elm_ui$Element$rgba, 0, 0, 0, 0.05))
 													])),
-												$mdgriffith$elm_ui$Element$padding(4)
+												A2($mdgriffith$elm_ui$Element$paddingXY, 0, 6)
 											]),
 										_List_fromArray(
 											[
@@ -25524,7 +25472,7 @@ var $author$project$Exercises$accordion = function (_v0) {
 														$mdgriffith$elm_ui$Element$Background$color(
 														A4($mdgriffith$elm_ui$Element$rgba, 0, 0, 0, 0.05))
 													])),
-												$mdgriffith$elm_ui$Element$padding(4)
+												A2($mdgriffith$elm_ui$Element$paddingXY, 0, 6)
 											]),
 										_List_fromArray(
 											[
@@ -25641,6 +25589,7 @@ var $elm_explorations$test$Test$Runner$getFailureReason = function (expectation)
 		return $elm$core$Maybe$Just(record);
 	}
 };
+var $author$project$Exercises$green = A3($mdgriffith$elm_ui$Element$rgb, 0, 0.6, 0);
 var $mdgriffith$elm_ui$Internal$Model$InFront = {$: 'InFront'};
 var $mdgriffith$elm_ui$Element$createNearby = F2(
 	function (loc, element) {
@@ -25660,8 +25609,57 @@ var $mdgriffith$elm_ui$Element$moveDown = function (y) {
 		$mdgriffith$elm_ui$Internal$Flag$moveY,
 		$mdgriffith$elm_ui$Internal$Model$MoveY(y));
 };
+var $author$project$Exercises$getAt = F2(
+	function (idx, xs) {
+		return (idx < 0) ? $elm$core$Maybe$Nothing : $elm$core$List$head(
+			A2($elm$core$List$drop, idx, xs));
+	});
+var $author$project$Exercises$indexedFoldl = F3(
+	function (func, acc, list) {
+		var step = F2(
+			function (x, _v0) {
+				var i = _v0.a;
+				var thisAcc = _v0.b;
+				return _Utils_Tuple2(
+					i + 1,
+					A3(func, i, x, thisAcc));
+			});
+		return A3(
+			$elm$core$List$foldl,
+			step,
+			_Utils_Tuple2(0, acc),
+			list).b;
+	});
+var $author$project$Exercises$previousAndNext = F2(
+	function (exerciseData, listIndex) {
+		var maybeCurrentPosition = A3(
+			$author$project$Exercises$indexedFoldl,
+			F3(
+				function (i, index, acc) {
+					if (_Utils_eq(exerciseData.id, index.id)) {
+						if (acc.$ === 'Nothing') {
+							return $elm$core$Maybe$Just(i);
+						} else {
+							return acc;
+						}
+					} else {
+						return acc;
+					}
+				}),
+			$elm$core$Maybe$Nothing,
+			listIndex);
+		if (maybeCurrentPosition.$ === 'Nothing') {
+			return _Utils_Tuple2($elm$core$Maybe$Nothing, $elm$core$Maybe$Nothing);
+		} else {
+			var currentPosition = maybeCurrentPosition.a;
+			return _Utils_Tuple2(
+				A2($author$project$Exercises$getAt, currentPosition - 1, listIndex),
+				A2($author$project$Exercises$getAt, currentPosition + 1, listIndex));
+		}
+	});
+var $author$project$Exercises$red = A3($mdgriffith$elm_ui$Element$rgb, 0.8, 0, 0);
 var $mdgriffith$elm_ui$Element$Font$sansSerif = $mdgriffith$elm_ui$Internal$Model$SansSerif;
-var $author$project$Exercises$version = '1.0.0';
+var $author$project$Exercises$version = '1.0.1';
 var $elm$svg$Svg$Attributes$fill = _VirtualDom_attribute('fill');
 var $elm$svg$Svg$Attributes$height = _VirtualDom_attribute('height');
 var $elm$svg$Svg$Attributes$points = _VirtualDom_attribute('points');
@@ -25731,54 +25729,6 @@ var $author$project$Exercises$logo = A2(
 				]),
 			_List_Nil)
 		]));
-var $author$project$Exercises$getAt = F2(
-	function (idx, xs) {
-		return (idx < 0) ? $elm$core$Maybe$Nothing : $elm$core$List$head(
-			A2($elm$core$List$drop, idx, xs));
-	});
-var $author$project$Exercises$indexedFoldl = F3(
-	function (func, acc, list) {
-		var step = F2(
-			function (x, _v0) {
-				var i = _v0.a;
-				var thisAcc = _v0.b;
-				return _Utils_Tuple2(
-					i + 1,
-					A3(func, i, x, thisAcc));
-			});
-		return A3(
-			$elm$core$List$foldl,
-			step,
-			_Utils_Tuple2(0, acc),
-			list).b;
-	});
-var $author$project$Exercises$previousAndNext = F2(
-	function (exerciseData, listIndex) {
-		var maybeCurrentPosition = A3(
-			$author$project$Exercises$indexedFoldl,
-			F3(
-				function (i, index, acc) {
-					if (_Utils_eq(exerciseData.id, index.id)) {
-						if (acc.$ === 'Nothing') {
-							return $elm$core$Maybe$Just(i);
-						} else {
-							return acc;
-						}
-					} else {
-						return acc;
-					}
-				}),
-			$elm$core$Maybe$Nothing,
-			listIndex);
-		if (maybeCurrentPosition.$ === 'Nothing') {
-			return _Utils_Tuple2($elm$core$Maybe$Nothing, $elm$core$Maybe$Nothing);
-		} else {
-			var currentPosition = maybeCurrentPosition.a;
-			return _Utils_Tuple2(
-				A2($author$project$Exercises$getAt, currentPosition - 1, listIndex),
-				A2($author$project$Exercises$getAt, currentPosition + 1, listIndex));
-		}
-	});
 var $author$project$Exercises$viewHeader = F2(
 	function (exerciseData, resultIndex) {
 		return A2(
@@ -25868,7 +25818,7 @@ var $author$project$Exercises$viewHeader = F2(
 														_List_fromArray(
 															[
 																A2(
-																$mdgriffith$elm_ui$Element$link,
+																$mdgriffith$elm_ui$Element$newTabLink,
 																_List_fromArray(
 																	[
 																		$mdgriffith$elm_ui$Element$htmlAttribute(
@@ -26103,8 +26053,13 @@ var $mdgriffith$elm_ui$Element$wrappedRow = F2(
 var $author$project$Exercises$zip = $elm$core$List$map2($elm$core$Tuple$pair);
 var $author$project$Exercises$viewElement = F2(
 	function (tea, model) {
+		var tests = A2(
+			$elm$core$List$map,
+			$elm_explorations$test$Test$Runner$getFailureReason,
+			tea.tests(model.modelExercise));
 		var _v0 = model.resultExerciseData;
 		if (_v0.$ === 'Err') {
+			var error = _v0.a;
 			return A2(
 				$mdgriffith$elm_ui$Element$column,
 				_List_fromArray(
@@ -26123,17 +26078,43 @@ var $author$project$Exercises$viewElement = F2(
 						_List_fromArray(
 							[
 								A2(
-								$mdgriffith$elm_ui$Element$paragraph,
+								$mdgriffith$elm_ui$Element$column,
 								_List_fromArray(
 									[
 										$mdgriffith$elm_ui$Element$centerX,
 										$mdgriffith$elm_ui$Element$centerY,
-										$mdgriffith$elm_ui$Element$Font$size(30),
-										$mdgriffith$elm_ui$Element$Font$center
+										$mdgriffith$elm_ui$Element$spacing(30)
 									]),
 								_List_fromArray(
 									[
-										$mdgriffith$elm_ui$Element$text('Error')
+										A2(
+										$mdgriffith$elm_ui$Element$paragraph,
+										_List_fromArray(
+											[
+												$mdgriffith$elm_ui$Element$Font$size(30),
+												$mdgriffith$elm_ui$Element$Font$center
+											]),
+										_List_fromArray(
+											[
+												$mdgriffith$elm_ui$Element$text('Error')
+											])),
+										A2(
+										$mdgriffith$elm_ui$Element$paragraph,
+										_List_fromArray(
+											[$mdgriffith$elm_ui$Element$Font$center]),
+										_List_fromArray(
+											[
+												$mdgriffith$elm_ui$Element$text('Problems while decoding the flag \'exerciseData\' that is uqual to \'' + (model.flags.exerciseData + '\'.'))
+											])),
+										A2(
+										$mdgriffith$elm_ui$Element$paragraph,
+										_List_fromArray(
+											[$mdgriffith$elm_ui$Element$Font$center]),
+										_List_fromArray(
+											[
+												$mdgriffith$elm_ui$Element$text(
+												$elm$json$Json$Decode$errorToString(error))
+											]))
 									]))
 							]))));
 		} else {
@@ -26270,92 +26251,201 @@ var $author$project$Exercises$viewElement = F2(
 																				$mdgriffith$elm_ui$Element$html(
 																					tea.view(model.modelExercise))))
 																		]),
-																	function () {
-																		var zipped = A2(
-																			$author$project$Exercises$zip,
-																			exerciseData.tests,
-																			tea.tests(model.modelExercise));
-																		return A2(
-																			$elm$core$List$map,
-																			function (_v1) {
-																				var test = _v1.a;
-																				var expectation = _v1.b;
-																				var failureReason = $elm_explorations$test$Test$Runner$getFailureReason(expectation);
-																				if (failureReason.$ === 'Nothing') {
-																					return A2(
-																						$mdgriffith$elm_ui$Element$wrappedRow,
-																						_List_fromArray(
-																							[
-																								$mdgriffith$elm_ui$Element$spacing(10)
-																							]),
-																						_List_fromArray(
-																							[
-																								A2(
-																								$mdgriffith$elm_ui$Element$el,
-																								_List_fromArray(
-																									[
-																										$mdgriffith$elm_ui$Element$alignTop,
-																										$mdgriffith$elm_ui$Element$moveDown(3)
-																									]),
-																								$mdgriffith$elm_ui$Element$text('✅')),
-																								A2(
-																								$mdgriffith$elm_ui$Element$el,
-																								_List_fromArray(
-																									[
-																										$mdgriffith$elm_ui$Element$Font$color(
-																										A3($mdgriffith$elm_ui$Element$rgb, 0, 0.6, 0)),
-																										$mdgriffith$elm_ui$Element$width(
-																										$mdgriffith$elm_ui$Element$px(50)),
-																										$mdgriffith$elm_ui$Element$alignTop,
-																										$mdgriffith$elm_ui$Element$moveDown(3)
-																									]),
-																								$mdgriffith$elm_ui$Element$text('Passed')),
-																								A2(
-																								$mdgriffith$elm_ui$Element$paragraph,
+																	_Utils_ap(
+																		function () {
+																			var zipped = A2($author$project$Exercises$zip, exerciseData.tests, tests);
+																			return A2(
+																				$elm$core$List$map,
+																				function (_v1) {
+																					var test = _v1.a;
+																					var failureReason = _v1.b;
+																					if (failureReason.$ === 'Nothing') {
+																						return A2(
+																							$mdgriffith$elm_ui$Element$wrappedRow,
+																							_List_fromArray(
+																								[
+																									$mdgriffith$elm_ui$Element$spacing(10)
+																								]),
+																							_List_fromArray(
+																								[
+																									A2(
+																									$mdgriffith$elm_ui$Element$el,
+																									_List_fromArray(
+																										[
+																											$mdgriffith$elm_ui$Element$alignTop,
+																											$mdgriffith$elm_ui$Element$moveDown(3)
+																										]),
+																									$mdgriffith$elm_ui$Element$text('✅')),
+																									A2(
+																									$mdgriffith$elm_ui$Element$el,
+																									_List_fromArray(
+																										[
+																											$mdgriffith$elm_ui$Element$Font$color($author$project$Exercises$green),
+																											$mdgriffith$elm_ui$Element$width(
+																											$mdgriffith$elm_ui$Element$px(50)),
+																											$mdgriffith$elm_ui$Element$alignTop,
+																											$mdgriffith$elm_ui$Element$moveDown(3)
+																										]),
+																									$mdgriffith$elm_ui$Element$text('Passed')),
+																									A2(
+																									$mdgriffith$elm_ui$Element$paragraph,
+																									_List_Nil,
+																									$author$project$Exercises$Markdown$markdown('`' + (test + '`')))
+																								]));
+																					} else {
+																						var reason = failureReason.a;
+																						return A2(
+																							$mdgriffith$elm_ui$Element$wrappedRow,
+																							_List_fromArray(
+																								[
+																									$mdgriffith$elm_ui$Element$spacing(10),
+																									$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+																								]),
+																							_List_fromArray(
+																								[
+																									A2(
+																									$mdgriffith$elm_ui$Element$el,
+																									_List_fromArray(
+																										[
+																											$mdgriffith$elm_ui$Element$alignTop,
+																											$mdgriffith$elm_ui$Element$moveDown(3)
+																										]),
+																									$mdgriffith$elm_ui$Element$text('❌')),
+																									A2(
+																									$mdgriffith$elm_ui$Element$el,
+																									_List_fromArray(
+																										[
+																											$mdgriffith$elm_ui$Element$Font$color($author$project$Exercises$red),
+																											$mdgriffith$elm_ui$Element$width(
+																											$mdgriffith$elm_ui$Element$px(50)),
+																											$mdgriffith$elm_ui$Element$alignTop,
+																											$mdgriffith$elm_ui$Element$moveDown(3)
+																										]),
+																									$mdgriffith$elm_ui$Element$text('Failed')),
+																									A2(
+																									$mdgriffith$elm_ui$Element$paragraph,
+																									_List_Nil,
+																									$author$project$Exercises$Markdown$markdown(
+																										'`' + (test + ('` ' + $author$project$Exercises$failureReasonToString(reason.reason)))))
+																								]));
+																					}
+																				},
+																				zipped);
+																		}(),
+																		_List_fromArray(
+																			[
+																				function () {
+																				var total = $elm$core$List$length(tests);
+																				var failed = $elm$core$List$length(
+																					A2(
+																						$elm$core$List$filter,
+																						function (failureReason) {
+																							if (failureReason.$ === 'Just') {
+																								return true;
+																							} else {
+																								return false;
+																							}
+																						},
+																						tests));
+																				switch (failed) {
+																					case 0:
+																						return A2(
+																							$mdgriffith$elm_ui$Element$column,
+																							_List_fromArray(
+																								[
+																									$mdgriffith$elm_ui$Element$spacing(15)
+																								]),
+																							_Utils_ap(
 																								_List_Nil,
-																								$author$project$Exercises$Markdown$markdown('`' + (test + '`')))
-																							]));
-																				} else {
-																					var reason = failureReason.a;
-																					return A2(
-																						$mdgriffith$elm_ui$Element$wrappedRow,
-																						_List_fromArray(
-																							[
-																								$mdgriffith$elm_ui$Element$spacing(10),
-																								$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
-																							]),
-																						_List_fromArray(
-																							[
-																								A2(
-																								$mdgriffith$elm_ui$Element$el,
-																								_List_fromArray(
-																									[
-																										$mdgriffith$elm_ui$Element$alignTop,
-																										$mdgriffith$elm_ui$Element$moveDown(3)
-																									]),
-																								$mdgriffith$elm_ui$Element$text('❌')),
-																								A2(
-																								$mdgriffith$elm_ui$Element$el,
-																								_List_fromArray(
-																									[
-																										$mdgriffith$elm_ui$Element$Font$color(
-																										A3($mdgriffith$elm_ui$Element$rgb, 0.8, 0, 0)),
-																										$mdgriffith$elm_ui$Element$width(
-																										$mdgriffith$elm_ui$Element$px(50)),
-																										$mdgriffith$elm_ui$Element$alignTop,
-																										$mdgriffith$elm_ui$Element$moveDown(3)
-																									]),
-																								$mdgriffith$elm_ui$Element$text('Failed')),
-																								A2(
-																								$mdgriffith$elm_ui$Element$paragraph,
-																								_List_Nil,
-																								$author$project$Exercises$Markdown$markdown(
-																									'`' + (test + ('` ' + $author$project$Exercises$failureReasonToString(reason.reason)))))
-																							]));
+																								_Utils_ap(
+																									_List_fromArray(
+																										[
+																											A2(
+																											$mdgriffith$elm_ui$Element$paragraph,
+																											_List_fromArray(
+																												[
+																													$mdgriffith$elm_ui$Element$Font$color($author$project$Exercises$green),
+																													$mdgriffith$elm_ui$Element$Font$size(20)
+																												]),
+																											_List_fromArray(
+																												[
+																													$mdgriffith$elm_ui$Element$text('The current implementation passed all tests! 🎉')
+																												]))
+																										]),
+																									function () {
+																										var _v4 = model.resultIndex;
+																										if (_v4.$ === 'Ok') {
+																											var index = _v4.a;
+																											var maybeNext = A2($author$project$Exercises$previousAndNext, exerciseData, index).b;
+																											if (maybeNext.$ === 'Just') {
+																												var next = maybeNext.a;
+																												return _List_fromArray(
+																													[
+																														A2(
+																														$mdgriffith$elm_ui$Element$paragraph,
+																														_List_fromArray(
+																															[
+																																$mdgriffith$elm_ui$Element$Font$color($author$project$Exercises$green),
+																																$mdgriffith$elm_ui$Element$Font$size(20)
+																															]),
+																														_List_fromArray(
+																															[
+																																A2(
+																																$mdgriffith$elm_ui$Element$el,
+																																_List_Nil,
+																																$mdgriffith$elm_ui$Element$text('Check the next exercise: ')),
+																																A2(
+																																$mdgriffith$elm_ui$Element$newTabLink,
+																																_List_Nil,
+																																{
+																																	label: A2(
+																																		$mdgriffith$elm_ui$Element$paragraph,
+																																		_List_Nil,
+																																		_List_fromArray(
+																																			[
+																																				A2(
+																																				$mdgriffith$elm_ui$Element$el,
+																																				_List_Nil,
+																																				$mdgriffith$elm_ui$Element$text(next.title))
+																																			])),
+																																	url: 'https://ellie-app.com/' + next.ellieId
+																																})
+																															]))
+																													]);
+																											} else {
+																												return _List_Nil;
+																											}
+																										} else {
+																											return _List_Nil;
+																										}
+																									}())));
+																					case 1:
+																						return A2(
+																							$mdgriffith$elm_ui$Element$paragraph,
+																							_List_fromArray(
+																								[
+																									$mdgriffith$elm_ui$Element$Font$color($author$project$Exercises$red)
+																								]),
+																							_List_fromArray(
+																								[
+																									$mdgriffith$elm_ui$Element$text('The current implementation failed one test, try again!')
+																								]));
+																					default:
+																						var x = failed;
+																						return A2(
+																							$mdgriffith$elm_ui$Element$paragraph,
+																							_List_fromArray(
+																								[
+																									$mdgriffith$elm_ui$Element$Font$color($author$project$Exercises$red)
+																								]),
+																							_List_fromArray(
+																								[
+																									$mdgriffith$elm_ui$Element$text(
+																									'The current implementation failed ' + ($elm$core$String$fromInt(x) + ' tests, try again'))
+																								]));
 																				}
-																			},
-																			zipped);
-																	}())))
+																			}()
+																			])))))
 														]),
 													_Utils_ap(
 														_List_fromArray(
@@ -26467,9 +26557,9 @@ var $author$project$Exercises$viewElement = F2(
 																			_List_fromArray(
 																				[
 																					function () {
-																					var _v3 = model.resultIndex;
-																					if (_v3.$ === 'Ok') {
-																						var index = _v3.a;
+																					var _v7 = model.resultIndex;
+																					if (_v7.$ === 'Ok') {
+																						var index = _v7.a;
 																						return A2(
 																							$mdgriffith$elm_ui$Element$column,
 																							_List_fromArray(
@@ -26520,7 +26610,7 @@ var $author$project$Exercises$viewElement = F2(
 																													]) : _List_fromArray(
 																													[
 																														A2(
-																														$mdgriffith$elm_ui$Element$link,
+																														$mdgriffith$elm_ui$Element$newTabLink,
 																														_List_fromArray(
 																															[$mdgriffith$elm_ui$Element$alignTop]),
 																														{
@@ -26662,7 +26752,7 @@ var $author$project$Exercises$viewElement = F2(
 																								_List_Nil,
 																								{
 																									label: $mdgriffith$elm_ui$Element$text('elm-exercises'),
-																									url: 'https://package.elm-lang.org/packages/lucamu/elm-exercises/latest/'
+																									url: 'https://package.elm-lang.org/packages/lucamug/elm-exercises/latest/'
 																								}),
 																								$mdgriffith$elm_ui$Element$text(' '),
 																								$mdgriffith$elm_ui$Element$text($author$project$Exercises$version)
@@ -26694,163 +26784,27 @@ var $author$project$Exercises$exerciseWithTea = function (tea) {
 			view: $author$project$Exercises$view(tea)
 		});
 };
-var $author$project$MainWithTea$NewFace = function (a) {
-	return {$: 'NewFace', a: a};
-};
-var $elm$random$Random$Generate = function (a) {
-	return {$: 'Generate', a: a};
-};
-var $elm$random$Random$Seed = F2(
-	function (a, b) {
-		return {$: 'Seed', a: a, b: b};
-	});
-var $elm$random$Random$next = function (_v0) {
-	var state0 = _v0.a;
-	var incr = _v0.b;
-	return A2($elm$random$Random$Seed, ((state0 * 1664525) + incr) >>> 0, incr);
-};
-var $elm$random$Random$initialSeed = function (x) {
-	var _v0 = $elm$random$Random$next(
-		A2($elm$random$Random$Seed, 0, 1013904223));
-	var state1 = _v0.a;
-	var incr = _v0.b;
-	var state2 = (state1 + x) >>> 0;
-	return $elm$random$Random$next(
-		A2($elm$random$Random$Seed, state2, incr));
-};
-var $elm$time$Time$Name = function (a) {
-	return {$: 'Name', a: a};
-};
-var $elm$time$Time$Offset = function (a) {
-	return {$: 'Offset', a: a};
-};
-var $elm$time$Time$Zone = F2(
-	function (a, b) {
-		return {$: 'Zone', a: a, b: b};
-	});
-var $elm$time$Time$customZone = $elm$time$Time$Zone;
-var $elm$time$Time$Posix = function (a) {
-	return {$: 'Posix', a: a};
-};
-var $elm$time$Time$millisToPosix = $elm$time$Time$Posix;
-var $elm$time$Time$now = _Time_now($elm$time$Time$millisToPosix);
-var $elm$time$Time$posixToMillis = function (_v0) {
-	var millis = _v0.a;
-	return millis;
-};
-var $elm$random$Random$init = A2(
-	$elm$core$Task$andThen,
-	function (time) {
-		return $elm$core$Task$succeed(
-			$elm$random$Random$initialSeed(
-				$elm$time$Time$posixToMillis(time)));
-	},
-	$elm$time$Time$now);
-var $elm$random$Random$step = F2(
-	function (_v0, seed) {
-		var generator = _v0.a;
-		return generator(seed);
-	});
-var $elm$random$Random$onEffects = F3(
-	function (router, commands, seed) {
-		if (!commands.b) {
-			return $elm$core$Task$succeed(seed);
-		} else {
-			var generator = commands.a.a;
-			var rest = commands.b;
-			var _v1 = A2($elm$random$Random$step, generator, seed);
-			var value = _v1.a;
-			var newSeed = _v1.b;
-			return A2(
-				$elm$core$Task$andThen,
-				function (_v2) {
-					return A3($elm$random$Random$onEffects, router, rest, newSeed);
-				},
-				A2($elm$core$Platform$sendToApp, router, value));
+var $author$project$Exercises$onlyTests = function (tests) {
+	return {
+		init: _Utils_Tuple2(_Utils_Tuple0, $elm$core$Platform$Cmd$none),
+		subscriptions: function (_v0) {
+			return $elm$core$Platform$Sub$none;
+		},
+		tests: function (_v1) {
+			return tests;
+		},
+		update: F2(
+			function (_v2, _v3) {
+				return _Utils_Tuple2(_Utils_Tuple0, $elm$core$Platform$Cmd$none);
+			}),
+		view: function (_v4) {
+			return $elm$html$Html$text('');
 		}
-	});
-var $elm$random$Random$onSelfMsg = F3(
-	function (_v0, _v1, seed) {
-		return $elm$core$Task$succeed(seed);
-	});
-var $elm$random$Random$Generator = function (a) {
-	return {$: 'Generator', a: a};
+	};
 };
-var $elm$random$Random$map = F2(
-	function (func, _v0) {
-		var genA = _v0.a;
-		return $elm$random$Random$Generator(
-			function (seed0) {
-				var _v1 = genA(seed0);
-				var a = _v1.a;
-				var seed1 = _v1.b;
-				return _Utils_Tuple2(
-					func(a),
-					seed1);
-			});
-	});
-var $elm$random$Random$cmdMap = F2(
-	function (func, _v0) {
-		var generator = _v0.a;
-		return $elm$random$Random$Generate(
-			A2($elm$random$Random$map, func, generator));
-	});
-_Platform_effectManagers['Random'] = _Platform_createManager($elm$random$Random$init, $elm$random$Random$onEffects, $elm$random$Random$onSelfMsg, $elm$random$Random$cmdMap);
-var $elm$random$Random$command = _Platform_leaf('Random');
-var $elm$random$Random$generate = F2(
-	function (tagger, generator) {
-		return $elm$random$Random$command(
-			$elm$random$Random$Generate(
-				A2($elm$random$Random$map, tagger, generator)));
-	});
-var $elm$core$Bitwise$xor = _Bitwise_xor;
-var $elm$random$Random$peel = function (_v0) {
-	var state = _v0.a;
-	var word = (state ^ (state >>> ((state >>> 28) + 4))) * 277803737;
-	return ((word >>> 22) ^ word) >>> 0;
-};
-var $elm$random$Random$int = F2(
-	function (a, b) {
-		return $elm$random$Random$Generator(
-			function (seed0) {
-				var _v0 = (_Utils_cmp(a, b) < 0) ? _Utils_Tuple2(a, b) : _Utils_Tuple2(b, a);
-				var lo = _v0.a;
-				var hi = _v0.b;
-				var range = (hi - lo) + 1;
-				if (!((range - 1) & range)) {
-					return _Utils_Tuple2(
-						(((range - 1) & $elm$random$Random$peel(seed0)) >>> 0) + lo,
-						$elm$random$Random$next(seed0));
-				} else {
-					var threshhold = (((-range) >>> 0) % range) >>> 0;
-					var accountForBias = function (seed) {
-						accountForBias:
-						while (true) {
-							var x = $elm$random$Random$peel(seed);
-							var seedN = $elm$random$Random$next(seed);
-							if (_Utils_cmp(x, threshhold) < 0) {
-								var $temp$seed = seedN;
-								seed = $temp$seed;
-								continue accountForBias;
-							} else {
-								return _Utils_Tuple2((x % range) + lo, seedN);
-							}
-						}
-					};
-					return accountForBias(seed0);
-				}
-			});
-	});
-var $elm$random$Random$maxInt = 2147483647;
-var $elm$random$Random$minInt = -2147483648;
-var $author$project$MainWithTea$init = _Utils_Tuple2(
-	{intSeed: 1},
-	A2(
-		$elm$random$Random$generate,
-		$author$project$MainWithTea$NewFace,
-		A2($elm$random$Random$int, $elm$random$Random$minInt, $elm$random$Random$maxInt)));
-var $author$project$MainWithTea$subscriptions = function (model) {
-	return $elm$core$Platform$Sub$none;
+var $author$project$Exercises$exercise = function (tests) {
+	return $author$project$Exercises$exerciseWithTea(
+		$author$project$Exercises$onlyTests(tests));
 };
 var $elm_explorations$test$Test$Runner$Failure$Equality = F2(
 	function (a, b) {
@@ -26907,166 +26861,57 @@ var $elm_explorations$test$Expect$equateWith = F4(
 	});
 var $elm_explorations$test$Expect$equal = A2($elm_explorations$test$Expect$equateWith, 'Expect.equal', $elm$core$Basics$eq);
 var $author$project$Exercises$equal = $elm_explorations$test$Expect$equal;
-var $elm_explorations$test$Expect$notEqual = A2($elm_explorations$test$Expect$equateWith, 'Expect.notEqual', $elm$core$Basics$neq);
-var $author$project$Exercises$notEqual = $elm_explorations$test$Expect$notEqual;
-var $author$project$MainWithTea$randomSelect = F3(
-	function (seed, n, list) {
-		return _Utils_Tuple2(_List_Nil, seed);
-	});
-var $elm$core$List$sort = function (xs) {
-	return A2($elm$core$List$sortBy, $elm$core$Basics$identity, xs);
-};
-var $author$project$MainWithTea$tests = function (modelExercise) {
-	var seed = $elm$random$Random$initialSeed(modelExercise.intSeed);
-	var _v0 = A3(
-		$author$project$MainWithTea$randomSelect,
-		seed,
-		3,
-		A2($elm$core$List$range, 1, 1000));
-	var list2 = _v0.a;
-	var seed2 = _v0.b;
-	var _v1 = A3(
-		$author$project$MainWithTea$randomSelect,
-		seed2,
-		3,
-		A2($elm$core$List$range, 1, 1000));
-	var list3 = _v1.a;
-	var seed3 = _v1.b;
-	var _v2 = A3(
-		$author$project$MainWithTea$randomSelect,
-		seed3,
-		9,
-		A2($elm$core$List$range, 1, 9));
-	var list4 = _v2.a;
-	var seed4 = _v2.b;
-	var _v3 = A3(
-		$author$project$MainWithTea$randomSelect,
-		seed4,
-		3,
-		_List_fromArray(
-			['a', 'b']));
-	var list5 = _v3.a;
-	var seed5 = _v3.b;
-	var _v4 = A3(
-		$author$project$MainWithTea$randomSelect,
-		seed5,
-		0,
-		_List_fromArray(
-			[
-				_Utils_chr('a'),
-				_Utils_chr('b')
-			]));
-	var list6 = _v4.a;
-	var seed6 = _v4.b;
-	var _v5 = A3(
-		$author$project$MainWithTea$randomSelect,
-		seed6,
-		-1,
-		_List_fromArray(
-			[
-				_Utils_chr('a'),
-				_Utils_chr('b')
-			]));
-	var list7 = _v5.a;
-	var seed7 = _v5.b;
-	var _v6 = A3($author$project$MainWithTea$randomSelect, seed6, 1, _List_Nil);
-	var list8 = _v6.a;
-	var seed8 = _v6.b;
-	var _v7 = A3(
-		$author$project$MainWithTea$randomSelect,
-		seed,
-		3,
-		A2($elm$core$List$range, 1, 1000));
-	var list1 = _v7.a;
-	var seed1 = _v7.b;
-	return _List_fromArray(
-		[
-			A2(
-			$author$project$Exercises$equal,
-			$elm$core$List$sort(list2),
-			$elm$core$List$sort(list1)),
-			A2($author$project$Exercises$notEqual, list3, list2),
-			A2(
-			$author$project$Exercises$equal,
-			A2($elm$core$List$range, 1, 9),
-			$elm$core$List$sort(list4)),
-			A2(
-			$author$project$Exercises$equal,
-			_List_fromArray(
-				['a', 'b']),
-			$elm$core$List$sort(list5)),
-			A2($author$project$Exercises$equal, _List_Nil, list6),
-			A2($author$project$Exercises$equal, _List_Nil, list7),
-			A2($author$project$Exercises$equal, _List_Nil, list8)
-		]);
-};
-var $author$project$MainWithTea$update = F2(
-	function (msg, model) {
-		if (msg.$ === 'Test') {
-			return _Utils_Tuple2(
-				model,
-				A2(
-					$elm$random$Random$generate,
-					$author$project$MainWithTea$NewFace,
-					A2($elm$random$Random$int, $elm$random$Random$minInt, $elm$random$Random$maxInt)));
+var $author$project$MainSimple$last = function (list) {
+	last:
+	while (true) {
+		if (!list.b) {
+			return $elm$core$Maybe$Nothing;
 		} else {
-			var newSeed = msg.a;
-			return _Utils_Tuple2(
-				_Utils_update(
-					model,
-					{intSeed: newSeed}),
-				$elm$core$Platform$Cmd$none);
+			if (!list.b.b) {
+				var a = list.a;
+				return $elm$core$Maybe$Just(a);
+			} else {
+				var x = list.a;
+				var xs = list.b;
+				var $temp$list = xs;
+				list = $temp$list;
+				continue last;
+			}
 		}
-	});
-var $author$project$MainWithTea$Test = {$: 'Test'};
-var $author$project$MainWithTea$view = function (model) {
-	return A2(
-		$elm$html$Html$div,
-		_List_Nil,
-		_List_fromArray(
-			[
-				A2(
-				$elm$html$Html$p,
-				_List_Nil,
-				_List_fromArray(
-					[
-						$elm$html$Html$text(
-						'Seed value: ' + $elm$core$String$fromInt(model.intSeed))
-					])),
-				A2(
-				$elm$html$Html$p,
-				_List_Nil,
-				_List_fromArray(
-					[
-						$elm$html$Html$text(
-						'Your die roll is ' + A2(
-							$elm$core$Maybe$withDefault,
-							'',
-							A2(
-								$elm$core$Maybe$map,
-								$elm$core$String$fromInt,
-								$elm$core$List$head(
-									A3(
-										$author$project$MainWithTea$randomSelect,
-										$elm$random$Random$initialSeed(model.intSeed),
-										1,
-										A2($elm$core$List$range, 1, 6)).a))))
-					])),
-				A2(
-				$elm$html$Html$button,
-				_List_fromArray(
-					[
-						$elm$html$Html$Events$onClick($author$project$MainWithTea$Test)
-					]),
-				_List_fromArray(
-					[
-						$elm$html$Html$text('Test again')
-					]))
-			]));
+	}
 };
-var $author$project$MainWithTea$main = $author$project$Exercises$exerciseWithTea(
-	{init: $author$project$MainWithTea$init, subscriptions: $author$project$MainWithTea$subscriptions, tests: $author$project$MainWithTea$tests, update: $author$project$MainWithTea$update, view: $author$project$MainWithTea$view});
-_Platform_export({'MainWithTea':{'init':$author$project$MainWithTea$main(
+var $author$project$MainSimple$tests = _List_fromArray(
+	[
+		A2(
+		$author$project$Exercises$equal,
+		$elm$core$Maybe$Just(4),
+		$author$project$MainSimple$last(
+			_List_fromArray(
+				[1, 2, 3, 4]))),
+		A2(
+		$author$project$Exercises$equal,
+		$elm$core$Maybe$Just(1),
+		$author$project$MainSimple$last(
+			_List_fromArray(
+				[1]))),
+		A2(
+		$author$project$Exercises$equal,
+		$elm$core$Maybe$Nothing,
+		$author$project$MainSimple$last(_List_Nil)),
+		A2(
+		$author$project$Exercises$equal,
+		$elm$core$Maybe$Just(
+			_Utils_chr('c')),
+		$author$project$MainSimple$last(
+			_List_fromArray(
+				[
+					_Utils_chr('a'),
+					_Utils_chr('b'),
+					_Utils_chr('c')
+				])))
+	]);
+var $author$project$MainSimple$main = $author$project$Exercises$exercise($author$project$MainSimple$tests);
+_Platform_export({'MainSimple':{'init':$author$project$MainSimple$main(
 	A2(
 		$elm$json$Json$Decode$andThen,
 		function (index) {
@@ -27078,4 +26923,4 @@ _Platform_export({'MainWithTea':{'init':$author$project$MainWithTea$main(
 				},
 				A2($elm$json$Json$Decode$field, 'exerciseData', $elm$json$Json$Decode$string));
 		},
-		A2($elm$json$Json$Decode$field, 'index', $elm$json$Json$Decode$string)))({"versions":{"elm":"0.19.1"},"types":{"message":"Exercises.Msg MainWithTea.MsgExercise","aliases":{},"unions":{"Exercises.Msg":{"args":["msgExercise"],"tags":{"ShowHint":["Basics.Int"],"ShowHintsAll":[],"ShowHintsNone":[],"HideHint":["Basics.Int"],"ShowSolution":["Basics.Int"],"ShowSolutionsAll":[],"ShowSolutionsNone":[],"HideSolution":["Basics.Int"],"MsgTEA":["msgExercise"]}},"MainWithTea.MsgExercise":{"args":[],"tags":{"Test":[],"NewFace":["Basics.Int"]}},"Basics.Int":{"args":[],"tags":{"Int":[]}}}}})}});}(this));
+		A2($elm$json$Json$Decode$field, 'index', $elm$json$Json$Decode$string)))({"versions":{"elm":"0.19.1"},"types":{"message":"Exercises.Msg ()","aliases":{},"unions":{"Exercises.Msg":{"args":["msgExercise"],"tags":{"ShowHint":["Basics.Int"],"ShowHintsAll":[],"ShowHintsNone":[],"HideHint":["Basics.Int"],"ShowSolution":["Basics.Int"],"ShowSolutionsAll":[],"ShowSolutionsNone":[],"HideSolution":["Basics.Int"],"MsgTEA":["msgExercise"]}},"Basics.Int":{"args":[],"tags":{"Int":[]}}}}})}});}(this));

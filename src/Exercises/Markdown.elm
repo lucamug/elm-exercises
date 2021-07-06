@@ -326,17 +326,18 @@ code : String -> Element msg
 code snippet =
     el
         [ Background.color
-            (rgba 0 0 0 0.02)
+            (rgba 0 0 0 0.05)
         , Border.rounded 2
         , Font.size 14
-        , Border.width 1
-        , Border.color <| rgba 0 0 0 0.15
 
+        -- , Border.width 1
+        -- , Border.color <| rgba 0 0 0 0.15
         -- , Font.color <| rgb255 38 139 210
         , Font.color <| rgb255 181 137 0
-        , htmlAttribute <| Html.Attributes.style "margin-left" "5px"
-        , htmlAttribute <| Html.Attributes.style "margin-right" "5px"
-        , paddingXY 3 2
+
+        -- , htmlAttribute <| Html.Attributes.style "margin-left" "5px"
+        -- , htmlAttribute <| Html.Attributes.style "margin-right" "5px"
+        , paddingXY 5 2
         , Font.family
             [ Font.typeface "Source Code Pro"
             , Font.monospace

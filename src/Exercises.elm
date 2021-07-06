@@ -52,6 +52,7 @@ import Exercises.Markdown
 import Expect
 import Html
 import Html.Attributes
+import Json.Decode
 import Set
 import Svg
 import Svg.Attributes as SA
@@ -61,7 +62,7 @@ import Test.Runner.Failure
 
 version : String
 version =
-    "1.0.0"
+    "1.0.1"
 
 
 {-| In this package I change `Expect.Expectation` to `Expectation`
@@ -299,6 +300,7 @@ init tea flags =
       , resultIndex = Codec.decodeString (Codec.list codecIndex) flags.index
       , resultExerciseData = Codec.decodeString codecExerciseData flags.exerciseData
       , modelExercise = Tuple.first tea.init
+      , flags = flags
       }
     , Cmd.none
     )
@@ -316,6 +318,7 @@ type alias InternalModel modelExercise =
     , resultExerciseData : Result Codec.Error ExerciseData
     , resultIndex : Result Codec.Error (List Index)
     , modelExercise : modelExercise
+    , flags : Flags
     }
 
 
@@ -455,15 +458,35 @@ type Show
     | Show (Set.Set Int)
 
 
+type alias FailureReason =
+    Maybe
+        { description : String
+        , given : Maybe String
+        , reason : Test.Runner.Failure.Reason
+        }
+
+
 {-| -}
 viewElement : TEA modelExercise msgExercise -> Model modelExercise -> Element (Msg msgExercise)
 viewElement tea model =
+    let
+        tests : List FailureReason
+        tests =
+            model.modelExercise
+                |> tea.tests
+                |> List.map Test.Runner.getFailureReason
+    in
     case model.resultExerciseData of
-        Err _ ->
+        Err error ->
             column [ spacing 0, width fill, height fill ]
                 ([]
                     ++ [ viewHeader emptyExerciseData model.resultIndex ]
-                    ++ [ paragraph [ centerX, centerY, Font.size 30, Font.center ] [ text "Error" ] ]
+                    ++ [ column [ centerX, centerY, spacing 30 ]
+                            [ paragraph [ Font.size 30, Font.center ] [ text <| "Error" ]
+                            , paragraph [ Font.center ] [ text <| "Problems while decoding the flag 'exerciseData' that is uqual to '" ++ model.flags.exerciseData ++ "'." ]
+                            , paragraph [ Font.center ] [ text <| Json.Decode.errorToString error ]
+                            ]
+                       ]
                 )
 
         Ok exerciseData ->
@@ -531,25 +554,15 @@ viewElement tea model =
                                             ++ [ el [] <| map MsgTEA <| html <| tea.view model.modelExercise ]
                                             ++ (let
                                                     zipped =
-                                                        zip exerciseData.tests (tea.tests model.modelExercise)
+                                                        zip exerciseData.tests tests
                                                 in
                                                 List.map
-                                                    (\( test, expectation ) ->
-                                                        let
-                                                            failureReason :
-                                                                Maybe
-                                                                    { description : String
-                                                                    , given : Maybe String
-                                                                    , reason : Test.Runner.Failure.Reason
-                                                                    }
-                                                            failureReason =
-                                                                Test.Runner.getFailureReason expectation
-                                                        in
+                                                    (\( test, failureReason ) ->
                                                         case failureReason of
                                                             Nothing ->
                                                                 wrappedRow [ spacing 10 ]
                                                                     [ el [ alignTop, moveDown 3 ] <| text "✅"
-                                                                    , el [ Font.color <| rgb 0 0.6 0, width <| px 50, alignTop, moveDown 3 ] <| text "Passed"
+                                                                    , el [ Font.color green, width <| px 50, alignTop, moveDown 3 ] <| text "Passed"
                                                                     , paragraph [] <|
                                                                         Exercises.Markdown.markdown <|
                                                                             "`"
@@ -560,7 +573,7 @@ viewElement tea model =
                                                             Just reason ->
                                                                 wrappedRow [ spacing 10, width fill ]
                                                                     [ el [ alignTop, moveDown 3 ] <| text "❌"
-                                                                    , el [ Font.color <| rgb 0.8 0 0, width <| px 50, alignTop, moveDown 3 ] <| text "Failed"
+                                                                    , el [ Font.color red, width <| px 50, alignTop, moveDown 3 ] <| text "Failed"
                                                                     , paragraph [] <|
                                                                         Exercises.Markdown.markdown <|
                                                                             "`"
@@ -571,34 +584,80 @@ viewElement tea model =
                                                     )
                                                     zipped
                                                )
-                                         --
-                                         -- TODO restore this part
-                                         --
-                                         -- ++ [ case
-                                         --         tea.tests model.modelExercise
-                                         --             |> List.filter ((==) False)
-                                         --             |> List.length
-                                         --      of
-                                         --         0 ->
-                                         --             paragraph [ Font.color green, Font.size 20, Font.bold ]
-                                         --                 [ text <|
-                                         --                     "The current implementation passed all tests! 🎉"
-                                         --                 ]
-                                         --
-                                         --         1 ->
-                                         --             paragraph [ Font.color red ]
-                                         --                 [ text <|
-                                         --                     "The current implementation failed one test, try again!"
-                                         --                 ]
-                                         --
-                                         --         x ->
-                                         --             paragraph [ Font.color red ]
-                                         --                 [ text <|
-                                         --                     "The current implementation failed "
-                                         --                         ++ String.fromInt x
-                                         --                         ++ " tests, try again"
-                                         --                 ]
-                                         --    ]
+                                            ++ [ let
+                                                    failed : Int
+                                                    failed =
+                                                        tests
+                                                            |> List.filter
+                                                                (\failureReason ->
+                                                                    case failureReason of
+                                                                        Just _ ->
+                                                                            True
+
+                                                                        Nothing ->
+                                                                            False
+                                                                )
+                                                            |> List.length
+
+                                                    total : Int
+                                                    total =
+                                                        tests
+                                                            |> List.length
+                                                 in
+                                                 case
+                                                    failed
+                                                 of
+                                                    0 ->
+                                                        column [ spacing 15 ] <|
+                                                            []
+                                                                ++ [ paragraph [ Font.color green, Font.size 20 ]
+                                                                        [ text <|
+                                                                            "The current implementation passed all tests! 🎉"
+                                                                        ]
+                                                                   ]
+                                                                ++ (case model.resultIndex of
+                                                                        Ok index ->
+                                                                            let
+                                                                                maybeNext =
+                                                                                    Tuple.second <| previousAndNext exerciseData index
+                                                                            in
+                                                                            case maybeNext of
+                                                                                Just next ->
+                                                                                    [ paragraph [ Font.color green, Font.size 20 ]
+                                                                                        [ el [] <|
+                                                                                            text <|
+                                                                                                "Check the next exercise: "
+                                                                                        , newTabLink []
+                                                                                            { url = "https://ellie-app.com/" ++ next.ellieId
+                                                                                            , label =
+                                                                                                paragraph []
+                                                                                                    [ el [] <| text <| next.title
+                                                                                                    ]
+                                                                                            }
+                                                                                        ]
+                                                                                    ]
+
+                                                                                Nothing ->
+                                                                                    []
+
+                                                                        _ ->
+                                                                            []
+                                                                   )
+
+                                                    1 ->
+                                                        paragraph [ Font.color red ]
+                                                            [ text <|
+                                                                "The current implementation failed one test, try again!"
+                                                            ]
+
+                                                    x ->
+                                                        paragraph [ Font.color red ]
+                                                            [ text <|
+                                                                "The current implementation failed "
+                                                                    ++ String.fromInt x
+                                                                    ++ " tests, try again"
+                                                            ]
+                                               ]
                                         )
                                    ]
                                 ++ [ wrappedRow [ spacing 10 ]
@@ -637,7 +696,7 @@ viewElement tea model =
                                                                     ]
 
                                                                 else
-                                                                    [ link [ alignTop ]
+                                                                    [ newTabLink [ alignTop ]
                                                                         { url = "https://ellie-app.com/" ++ i.ellieId
                                                                         , label =
                                                                             paragraph []
@@ -692,7 +751,7 @@ If you have some exercise that you would like to add to this list or if you have
                                    , paragraph [ Font.center, paddingXY 10 30 ] [ text "♡ Happy coding! ♡" ]
                                    , paragraph [ Font.center, paddingXY 10 30, Font.size 14, Font.color <| rgba 0 0 0 0.5 ]
                                         [ text <| "Made with "
-                                        , newTabLink [] { url = "https://package.elm-lang.org/packages/lucamu/elm-exercises/latest/", label = text "elm-exercises" }
+                                        , newTabLink [] { url = "https://package.elm-lang.org/packages/lucamug/elm-exercises/latest/", label = text "elm-exercises" }
                                         , text " "
                                         , text version
                                         ]
@@ -818,7 +877,7 @@ viewHeader exerciseData resultIndex =
                                         case maybeNext of
                                             Just next ->
                                                 [ paragraph []
-                                                    [ link [ htmlAttribute <| Html.Attributes.class "linkInTheHeader" ]
+                                                    [ newTabLink [ htmlAttribute <| Html.Attributes.class "linkInTheHeader" ]
                                                         { url = "https://ellie-app.com/" ++ next.ellieId
                                                         , label =
                                                             row [ spacing 10 ]
@@ -875,7 +934,7 @@ accordion { items, hideItem, showItem, itemsContent } =
                                     [ width fill
                                     , spacing 10
                                     , mouseOver [ Background.color <| rgba 0 0 0 0.05 ]
-                                    , padding 4
+                                    , paddingXY 0 6
                                     ]
                                     [ el attrsButton <| text <| String.fromInt (index + 1)
                                     , el
@@ -897,7 +956,7 @@ accordion { items, hideItem, showItem, itemsContent } =
                                     [ width fill
                                     , spacing 10
                                     , mouseOver [ Background.color <| rgba 0 0 0 0.05 ]
-                                    , padding 4
+                                    , paddingXY 0 6
                                     ]
                                     [ el attrsButton <| text <| String.fromInt (index + 1)
                                     , el
@@ -1113,3 +1172,13 @@ failureReasonToString failureReason =
                         Test.Runner.Failure.DuplicatedName ->
                             "DuplicatedName"
                    )
+
+
+green : Color
+green =
+    rgb 0 0.6 0
+
+
+red : Color
+red =
+    rgb 0.8 0 0

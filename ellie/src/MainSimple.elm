@@ -5,11 +5,27 @@ import Exercises exposing (..)
 
 last : List a -> Maybe a
 last list =
-    -- Your implementation goes here
-    Nothing
+    case list of
+        [] ->
+            Nothing
+
+        [ a ] ->
+            Just a
+
+        x :: xs ->
+            last xs
 
 
-tests : List Test
+
+--
+-- last : List a -> Maybe a
+-- last list =
+--     -- Your implementation goes here
+--     Nothing
+--
+
+
+tests : List Expectation
 tests =
     -- Your implementation should pass
     -- these tests
