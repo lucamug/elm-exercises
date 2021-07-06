@@ -1,5 +1,5 @@
 module Exercises exposing
-    ( exercise, exerciseWithTea, Flags, Model, Msg
+    ( exercise, exerciseWithView, exerciseWithTea, Flags, Model, Msg
     , ExerciseData, Difficulty(..)
     , Expectation, equal, notEqual, all, lessThan, atMost, greaterThan, atLeast, FloatingPointTolerance, within, notWithin, true, false, ok, err, equalLists, equalDicts, equalSets, pass, fail, onFail
     , update, viewElement, init, onlyTests, TEA, Index
@@ -13,7 +13,7 @@ module Exercises exposing
 
 These are the elements used inside Ellie to build an exercise.
 
-@docs exercise, exerciseWithTea, Flags, Model, Msg
+@docs exercise, exerciseWithView, exerciseWithTea, Flags, Model, Msg
 
 
 # ExerciseData
@@ -65,8 +65,7 @@ version =
     "1.0.1"
 
 
-{-| In this package I change `Expect.Expectation` to `Expectation`
--}
+{-| -}
 type alias Expectation =
     Expect.Expectation
 
@@ -190,6 +189,27 @@ onFail =
     Expect.onFail
 
 
+{-| -}
+onlyTests : List Expectation -> Element () -> TEA () ()
+onlyTests tests view_ =
+    { init = ( (), Cmd.none )
+    , view = \_ -> view_
+    , update = \_ _ -> ( (), Cmd.none )
+    , subscriptions = \_ -> Sub.none
+    , tests = \_ -> tests
+    }
+
+
+{-| -}
+type alias TEA modelExercise msgExercise =
+    { init : ( modelExercise, Cmd msgExercise )
+    , view : modelExercise -> Element msgExercise
+    , update : msgExercise -> modelExercise -> ( modelExercise, Cmd msgExercise )
+    , subscriptions : modelExercise -> Sub msgExercise
+    , tests : modelExercise -> List Expectation
+    }
+
+
 {-|
 
     import Exercises exposing (..)
@@ -215,31 +235,17 @@ onFail =
             ]
 
 -}
-exercise : List Expectation -> Program Flags (Model ()) (Msg ())
-exercise tests =
+exercise : { tests : List Expectation } -> Program Flags (Model ()) (Msg ())
+exercise { tests } =
     exerciseWithTea
-        (onlyTests tests)
+        (onlyTests tests none)
 
 
 {-| -}
-onlyTests : List Expectation -> TEA () ()
-onlyTests tests =
-    { init = ( (), Cmd.none )
-    , view = \_ -> Html.text ""
-    , update = \_ _ -> ( (), Cmd.none )
-    , subscriptions = \_ -> Sub.none
-    , tests = \_ -> tests
-    }
-
-
-{-| -}
-type alias TEA modelExercise msgExercise =
-    { init : ( modelExercise, Cmd msgExercise )
-    , view : modelExercise -> Html.Html msgExercise
-    , update : msgExercise -> modelExercise -> ( modelExercise, Cmd msgExercise )
-    , subscriptions : modelExercise -> Sub msgExercise
-    , tests : modelExercise -> List Expectation
-    }
+exerciseWithView : { tests : List Expectation, view : Element () } -> Program Flags (Model ()) (Msg ())
+exerciseWithView args =
+    exerciseWithTea
+        (onlyTests args.tests args.view)
 
 
 {-| If the exercise require The Elm Architecure and tests need to access the Model, it is possible to use `exerciseWithTea` instead of the simpler `exercise`. It is the analogue of `Browser.element` but without flags.
@@ -551,7 +557,7 @@ viewElement tea model =
                                 ++ [ paragraph [ Region.heading 2, Font.size 20, Font.bold ] [ text "Tests" ] ]
                                 ++ [ column [ paddignLeft, spacing 20, width fill ] <|
                                         ([]
-                                            ++ [ el [] <| map MsgTEA <| html <| tea.view model.modelExercise ]
+                                            ++ [ map MsgTEA <| tea.view model.modelExercise ]
                                             ++ (let
                                                     zipped =
                                                         zip exerciseData.tests tests

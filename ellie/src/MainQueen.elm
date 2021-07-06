@@ -4,15 +4,6 @@ import Html
 import List.Extra
 
 
-visualize : State -> List (List Int)
-visualize state =
-    List.map
-        (\( y, x ) ->
-            List.Extra.setAt x 1 (List.repeat (List.length state) 0)
-        )
-        state
-
-
 type alias State =
     List ( Int, Int )
 
@@ -26,33 +17,69 @@ stateToSolution =
     List.map Tuple.second
 
 
-actions2 : Int -> Solutions -> State -> ( List State, Solutions )
-actions2 n solutions state =
-    let
-        y =
-            List.length state
-    in
-    if y < n then
-        List.range 0 (n - 1)
-            |> List.filter (\x -> not (isAttacked y x state))
-            |> List.map (\x -> ( y, x ) :: state)
-            |> List.map (actions2 n solutions)
-            |> List.unzip
-            |> (\( a, b ) -> ( List.concat a, List.concat b ))
-
-    else
-        ( [], stateToSolution state :: solutions )
-
-
-main : Html.Html msg
-main =
-    Html.text <| Debug.toString <| Tuple.second <| actions2 8 [] []
-
-
-isAttacked : Int -> Int -> State -> Bool
-isAttacked y x state =
+isQueenAttacked : Int -> Int -> State -> Bool
+isQueenAttacked y x state =
     List.any
         (\( yy, xx ) ->
             xx == x || yy == y || abs (yy - y) == abs (xx - x)
         )
         state
+
+
+cycle : Int -> List State -> State -> ( List State, List State )
+cycle boardSize solutions state =
+    let
+        y : Int
+        y =
+            List.length state
+    in
+    if y < boardSize then
+        List.range 0 (boardSize - 1)
+            |> List.filter (\x -> not (isQueenAttacked y x state))
+            |> List.map (\x -> ( y, x ) :: state)
+            |> List.map (cycle boardSize solutions)
+            |> List.unzip
+            |> Tuple.mapBoth List.concat List.concat
+
+    else
+        ( [], state :: solutions )
+
+
+queen : Int -> List State
+queen n =
+    cycle n [] []
+        |> Tuple.second
+
+
+visualize : State -> List (List Char)
+visualize state =
+    List.map
+        (\( y, x ) ->
+            List.Extra.setAt x '♛' (List.repeat (List.length state) '•')
+        )
+        state
+
+
+main : Html.Html msg
+main =
+    let
+        queenSolutions : List State
+        queenSolutions =
+            queen 8
+    in
+    Html.div [] <|
+        List.indexedMap
+            (\index state ->
+                Html.div []
+                    [ Html.p [] [ Html.text <| "Solution " ++ String.fromInt (index + 1) ]
+                    , Html.div [] <|
+                        List.map
+                            (\row ->
+                                Html.pre []
+                                    [ Html.text <| String.fromList row
+                                    ]
+                            )
+                            (visualize state)
+                    ]
+            )
+            queenSolutions
