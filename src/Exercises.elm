@@ -1,7 +1,8 @@
 module Exercises exposing
     ( exercise, exerciseWithView, exerciseWithTea, Flags, Model, Msg
     , ExerciseData, Difficulty(..)
-    , Expectation, equal, notEqual, all, lessThan, atMost, greaterThan, atLeast, FloatingPointTolerance, within, notWithin, true, false, ok, err, equalLists, equalDicts, equalSets, pass, fail, onFail
+    , attrsButton
+    , Test, equal, notEqual, all, lessThan, atMost, greaterThan, atLeast, FloatingPointTolerance, within, notWithin, true, false, ok, err, equalLists, equalDicts, equalSets, pass, fail, onFail
     , update, viewElement, init, onlyTests, TEA, Index
     , codecExerciseData, codecIndex
     )
@@ -21,11 +22,16 @@ These are the elements used inside Ellie to build an exercise.
 @docs ExerciseData, Difficulty
 
 
+# Helpers
+
+@docs attrsButton
+
+
 # Tests
 
 These are the same tests of [elm-explorations/test](https://package.elm-lang.org/packages/elm-explorations/test/latest/Expect). Refer to that package for the documentation.
 
-@docs Expectation, equal, notEqual, all, lessThan, atMost, greaterThan, atLeast, FloatingPointTolerance, within, notWithin, true, false, ok, err, equalLists, equalDicts, equalSets, pass, fail, onFail
+@docs Test, equal, notEqual, all, lessThan, atMost, greaterThan, atLeast, FloatingPointTolerance, within, notWithin, true, false, ok, err, equalLists, equalDicts, equalSets, pass, fail, onFail
 
 
 # For internal use
@@ -65,49 +71,50 @@ version =
     "1.0.1"
 
 
-{-| -}
-type alias Expectation =
+{-| Rename `Expectation` to `Test` as they can be run immediately in this context
+-}
+type alias Test =
     Expect.Expectation
 
 
 {-| -}
-equal : a -> a -> Expectation
+equal : a -> a -> Test
 equal =
     Expect.equal
 
 
 {-| -}
-notEqual : a -> a -> Expectation
+notEqual : a -> a -> Test
 notEqual =
     Expect.notEqual
 
 
 {-| -}
-all : List (subject -> Expectation) -> subject -> Expectation
+all : List (subject -> Test) -> subject -> Test
 all =
     Expect.all
 
 
 {-| -}
-lessThan : comparable -> comparable -> Expectation
+lessThan : comparable -> comparable -> Test
 lessThan =
     Expect.lessThan
 
 
 {-| -}
-atMost : comparable -> comparable -> Expectation
+atMost : comparable -> comparable -> Test
 atMost =
     Expect.atMost
 
 
 {-| -}
-greaterThan : comparable -> comparable -> Expectation
+greaterThan : comparable -> comparable -> Test
 greaterThan =
     Expect.greaterThan
 
 
 {-| -}
-atLeast : comparable -> comparable -> Expectation
+atLeast : comparable -> comparable -> Test
 atLeast =
     Expect.atLeast
 
@@ -118,79 +125,88 @@ type alias FloatingPointTolerance =
 
 
 {-| -}
-within : FloatingPointTolerance -> Float -> Float -> Expectation
+within : FloatingPointTolerance -> Float -> Float -> Test
 within =
     Expect.within
 
 
 {-| -}
-notWithin : FloatingPointTolerance -> Float -> Float -> Expectation
+notWithin : FloatingPointTolerance -> Float -> Float -> Test
 notWithin =
     Expect.notWithin
 
 
 {-| -}
-true : String -> Bool -> Expectation
+true : String -> Bool -> Test
 true =
     Expect.true
 
 
 {-| -}
-false : String -> Bool -> Expectation
+false : String -> Bool -> Test
 false =
     Expect.false
 
 
 {-| -}
-ok : Result a b -> Expectation
+ok : Result a b -> Test
 ok =
     Expect.ok
 
 
 {-| -}
-err : Result a b -> Expectation
+err : Result a b -> Test
 err =
     Expect.err
 
 
 {-| -}
-equalLists : List a -> List a -> Expectation
+equalLists : List a -> List a -> Test
 equalLists =
     Expect.equalLists
 
 
 {-| -}
-equalDicts : Dict.Dict comparable a -> Dict.Dict comparable a -> Expectation
+equalDicts : Dict.Dict comparable a -> Dict.Dict comparable a -> Test
 equalDicts =
     Expect.equalDicts
 
 
 {-| -}
-equalSets : Set.Set comparable -> Set.Set comparable -> Expectation
+equalSets : Set.Set comparable -> Set.Set comparable -> Test
 equalSets =
     Expect.equalSets
 
 
 {-| -}
-pass : Expectation
+pass : Test
 pass =
     Expect.pass
 
 
 {-| -}
-fail : String -> Expectation
+fail : String -> Test
 fail =
     Expect.fail
 
 
 {-| -}
-onFail : String -> Expectation -> Expectation
+onFail : String -> Test -> Test
 onFail =
     Expect.onFail
 
 
 {-| -}
-onlyTests : List Expectation -> Element () -> TEA () ()
+onlyTests :
+    List Test
+    -> Element ()
+    ->
+        { init : ( (), Cmd () )
+        , view : () -> Element ()
+        , update : () -> () -> ( (), Cmd () )
+        , subscriptions : () -> Sub ()
+        , tests : () -> List Test
+        }
 onlyTests tests view_ =
     { init = ( (), Cmd.none )
     , view = \_ -> view_
@@ -203,10 +219,10 @@ onlyTests tests view_ =
 {-| -}
 type alias TEA modelExercise msgExercise =
     { init : ( modelExercise, Cmd msgExercise )
-    , view : modelExercise -> Element msgExercise
+    , maybeView : Maybe (modelExercise -> Element msgExercise)
     , update : msgExercise -> modelExercise -> ( modelExercise, Cmd msgExercise )
     , subscriptions : modelExercise -> Sub msgExercise
-    , tests : modelExercise -> List Expectation
+    , tests : modelExercise -> List Test
     }
 
 
@@ -235,14 +251,14 @@ type alias TEA modelExercise msgExercise =
             ]
 
 -}
-exercise : { tests : List Expectation } -> Program Flags (Model ()) (Msg ())
+exercise : { tests : List Test } -> Program Flags (Model ()) (Msg ())
 exercise { tests } =
     exerciseWithTea
         (onlyTests tests none)
 
 
 {-| -}
-exerciseWithView : { tests : List Expectation, view : Element () } -> Program Flags (Model ()) (Msg ())
+exerciseWithView : { tests : List Test, view : Element () } -> Program Flags (Model ()) (Msg ())
 exerciseWithView args =
     exerciseWithTea
         (onlyTests args.tests args.view)
@@ -283,13 +299,29 @@ exerciseWithView args =
     -- init, view, update, and subscriptions.
 
 -}
-exerciseWithTea : TEA modelExercise msgExercise -> Program Flags (Model modelExercise) (Msg msgExercise)
+exerciseWithTea :
+    { init : ( modelExercise, Cmd msgExercise )
+    , view : modelExercise -> Element msgExercise
+    , update : msgExercise -> modelExercise -> ( modelExercise, Cmd msgExercise )
+    , subscriptions : modelExercise -> Sub msgExercise
+    , tests : modelExercise -> List Test
+    }
+    -> Program Flags (Model modelExercise) (Msg msgExercise)
 exerciseWithTea tea =
+    let
+        tea2 =
+            { init = tea.init
+            , maybeView = Just tea.view
+            , update = tea.update
+            , subscriptions = tea.subscriptions
+            , tests = tea.tests
+            }
+    in
     Browser.element
-        { init = init tea
-        , subscriptions = subscriptions tea
-        , update = update tea
-        , view = view tea
+        { init = init tea2
+        , subscriptions = subscriptions tea2
+        , update = update tea2
+        , view = view tea2
         }
 
 
@@ -546,7 +578,7 @@ viewElement tea model =
                     ++ [ column [ padding 20, spacing 20, width fill ]
                             ([]
                                 ++ [ paragraph [ Region.heading 2, Font.size 20, Font.bold ] [ text "Problem" ] ]
-                                ++ [ column [ paddignLeft, spacing 16, width fill ] <|
+                                ++ [ column [ paddingLeft, spacing 16, width fill ] <|
                                         Exercises.Markdown.markdown exerciseData.problem
                                             ++ [ paragraph [ alpha 0.5 ]
                                                     [ text "Diffculty level: "
@@ -554,42 +586,18 @@ viewElement tea model =
                                                     ]
                                                ]
                                    ]
-                                ++ [ paragraph [ Region.heading 2, Font.size 20, Font.bold ] [ text "Tests" ] ]
-                                ++ [ column [ paddignLeft, spacing 20, width fill ] <|
-                                        ([]
-                                            ++ [ map MsgTEA <| tea.view model.modelExercise ]
-                                            ++ (let
-                                                    zipped =
-                                                        zip exerciseData.tests tests
-                                                in
-                                                List.map
-                                                    (\( test, failureReason ) ->
-                                                        case failureReason of
-                                                            Nothing ->
-                                                                wrappedRow [ spacing 10 ]
-                                                                    [ el [ alignTop, moveDown 3 ] <| text "✅"
-                                                                    , el [ Font.color green, width <| px 50, alignTop, moveDown 3 ] <| text "Passed"
-                                                                    , paragraph [] <|
-                                                                        Exercises.Markdown.markdown <|
-                                                                            "`"
-                                                                                ++ test
-                                                                                ++ "`"
-                                                                    ]
+                                ++ (case tea.maybeView of
+                                        Just view_ ->
+                                            [ paragraph [ Region.heading 2, Font.size 20, Font.bold ] [ text "Result" ]
+                                            , el [ paddingLeft, width fill ] <| map MsgTEA <| view_ model.modelExercise
+                                            ]
 
-                                                            Just reason ->
-                                                                wrappedRow [ spacing 10, width fill ]
-                                                                    [ el [ alignTop, moveDown 3 ] <| text "❌"
-                                                                    , el [ Font.color red, width <| px 50, alignTop, moveDown 3 ] <| text "Failed"
-                                                                    , paragraph [] <|
-                                                                        Exercises.Markdown.markdown <|
-                                                                            "`"
-                                                                                ++ test
-                                                                                ++ "` "
-                                                                                ++ failureReasonToString reason.reason
-                                                                    ]
-                                                    )
-                                                    zipped
-                                               )
+                                        Nothing ->
+                                            []
+                                   )
+                                ++ [ paragraph [ Region.heading 2, Font.size 20, Font.bold ] [ text "Tests" ] ]
+                                ++ [ column [ paddingLeft, spacing 20, width fill ] <|
+                                        ([]
                                             ++ [ let
                                                     failed : Int
                                                     failed =
@@ -664,6 +672,38 @@ viewElement tea model =
                                                                     ++ " tests, try again"
                                                             ]
                                                ]
+                                            ++ (let
+                                                    zipped =
+                                                        zip exerciseData.tests tests
+                                                in
+                                                List.map
+                                                    (\( test, failureReason ) ->
+                                                        case failureReason of
+                                                            Nothing ->
+                                                                wrappedRow [ spacing 10 ]
+                                                                    [ el [ alignTop, moveDown 3 ] <| text "✅"
+                                                                    , el [ Font.color green, width <| px 50, alignTop, moveDown 3 ] <| text "Passed"
+                                                                    , paragraph [] <|
+                                                                        Exercises.Markdown.markdown <|
+                                                                            "`"
+                                                                                ++ test
+                                                                                ++ "`"
+                                                                    ]
+
+                                                            Just reason ->
+                                                                wrappedRow [ spacing 10, width fill ]
+                                                                    [ el [ alignTop, moveDown 3 ] <| text "❌"
+                                                                    , el [ Font.color red, width <| px 50, alignTop, moveDown 3 ] <| text "Failed"
+                                                                    , paragraph [] <|
+                                                                        Exercises.Markdown.markdown <|
+                                                                            "`"
+                                                                                ++ test
+                                                                                ++ "` "
+                                                                                ++ failureReasonToString reason.reason
+                                                                    ]
+                                                    )
+                                                    zipped
+                                               )
                                         )
                                    ]
                                 ++ [ wrappedRow [ spacing 10 ]
@@ -683,7 +723,7 @@ viewElement tea model =
                                 ++ [ paragraph [ Region.heading 2, Font.size 20, Font.bold ] [ text "Other exercises" ] ]
                                 ++ [ case model.resultIndex of
                                         Ok index ->
-                                            column [ paddignLeft, spacing 5 ] <|
+                                            column [ paddingLeft, spacing 5 ] <|
                                                 List.map
                                                     (\i ->
                                                         row [ spacing 10 ]
@@ -720,10 +760,10 @@ viewElement tea model =
                                                     index
 
                                         Err _ ->
-                                            el [ paddignLeft ] <| text "Index not available"
+                                            el [ paddingLeft ] <| text "Index not available"
                                    ]
                                 ++ [ paragraph [ Region.heading 2, Font.size 20, Font.bold ] [ text "How does this work?" ] ]
-                                ++ [ column [ paddignLeft, spacing 16, width fill ] <|
+                                ++ [ column [ paddingLeft, spacing 16, width fill ] <|
                                         [ paragraph [] <|
                                             [ text "Try solving the problem by writing Elm code in the editor on the left. Then click the "
                                             , row
@@ -825,21 +865,27 @@ f showSet =
             Set.empty
 
 
+{-| -}
 attrsButton : List (Attribute msg)
 attrsButton =
     [ Border.width 1
     , Border.color <| rgba 0 0 0 0.2
-    , Font.size 13
+    , Border.rounded 2
     , mouseOver
-        [ Border.shadow { offset = ( 0, 0 ), size = 1, blur = 0, color = rgba255 18 147 216 0.8 }
+        [ Border.shadow
+            { offset = ( 0, 0 )
+            , size = 1
+            , blur = 0
+            , color = rgba255 18 147 216 0.8
+            }
         ]
-    , paddingXY 5 2
+    , paddingXY 7 5
     , alignTop
     ]
 
 
-paddignLeft : Attribute msg
-paddignLeft =
+paddingLeft : Attribute msg
+paddingLeft =
     paddingEach { top = 0, right = 0, bottom = 0, left = 20 }
 
 
@@ -929,7 +975,7 @@ accordion :
     }
     -> Element msg
 accordion { items, hideItem, showItem, itemsContent } =
-    column [ paddignLeft, spacing 0, width fill ] <|
+    column [ paddingLeft, spacing 0, width fill ] <|
         List.indexedMap
             (\index solution ->
                 column [ width fill, spacing 5 ]

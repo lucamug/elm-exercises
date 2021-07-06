@@ -1,8 +1,9 @@
 module MainWithTea exposing (..)
 
+import Element exposing (..)
+import Element.Border as Border
+import Element.Input as Input
 import Exercises exposing (..)
-import Html
-import Html.Events
 import Random
 
 
@@ -12,7 +13,7 @@ randomSelect seed n list =
     ( [], seed )
 
 
-tests : ModelExercise -> List Expectation
+tests : ModelExercise -> List Test
 tests modelExercise =
     -- Your implementation should pass
     -- these tests
@@ -118,10 +119,13 @@ subscriptions model =
 -- VIEW
 
 
-view : ModelExercise -> Html.Html MsgExercise
+view : ModelExercise -> Element MsgExercise
 view model =
-    Html.div []
-        [ Html.p [] [ Html.text ("Seed value: " ++ String.fromInt model.intSeed) ]
-        , Html.p [] [ Html.text ("Your die roll is " ++ (Maybe.withDefault "" <| Maybe.map String.fromInt <| List.head <| Tuple.first <| randomSelect (Random.initialSeed model.intSeed) 1 (List.range 1 6))) ]
-        , Html.button [ Html.Events.onClick Test ] [ Html.text "Test again" ]
+    column [ spacing 10 ]
+        [ paragraph [] [ text ("Seed value: " ++ String.fromInt model.intSeed) ]
+        , paragraph [] [ text ("Your die roll is " ++ (Maybe.withDefault "" <| Maybe.map String.fromInt <| List.head <| Tuple.first <| randomSelect (Random.initialSeed model.intSeed) 1 (List.range 1 6))) ]
+        , Input.button attrsButton
+            { onPress = Just Test
+            , label = text "Test again"
+            }
         ]

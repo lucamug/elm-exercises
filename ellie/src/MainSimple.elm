@@ -25,7 +25,7 @@ last list =
 --
 
 
-tests : List Expectation
+tests : List Test
 tests =
     -- Your implementation should pass
     -- these tests
@@ -38,4 +38,4 @@ tests =
 
 main : Program Flags (Model ()) (Msg ())
 main =
-    exercise tests
+    exercise { tests = tests }
