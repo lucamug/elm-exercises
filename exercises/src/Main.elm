@@ -170,8 +170,13 @@ view model =
 onlyTests : Int -> Exercises.TEA () ()
 onlyTests qty =
     -- TODO - Add some test here
-    -- Exercises.onlyTests (List.repeat qty False)
-    Exercises.onlyTests []
+    --
+    { init = ( (), Cmd.none )
+    , maybeView = Nothing
+    , update = \_ _ -> ( (), Cmd.none )
+    , subscriptions = \_ -> Sub.none
+    , tests = \_ -> []
+    }
 
 
 textarea : List (Attribute msg) -> String -> Element msg

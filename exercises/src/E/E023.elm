@@ -39,7 +39,7 @@ You must use [Elm's Random](https://package.elm-lang.org/packages/elm/random/lat
         ]
     , dummySolution = """randomSelect : Random.Seed -> Int -> List a -> ( List a, Random.Seed )
 randomSelect seed n list =
-    -- Your implementation goes here
+    -- """ ++ yourImplementationGoesHere ++ """
     ( [], seed )"""
     , solutions = [ """Using [`getAt`](https://package.elm-lang.org/packages/elm-community/list-extra/latest/List-Extra#getAt) and [`removeAt`](https://package.elm-lang.org/packages/elm-community/list-extra/latest/List-Extra#removeAt) from `elm-community/list-extra`.
     

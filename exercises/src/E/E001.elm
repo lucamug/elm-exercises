@@ -25,7 +25,7 @@ exerciseData =
         ]
     , dummySolution = """last : List a -> Maybe a
 last xs =
-    -- Your implementation goes here
+    -- """ ++ yourImplementationGoesHere ++ """
     Nothing"""
     , solutions =
         [ """Recursive search for the last element.

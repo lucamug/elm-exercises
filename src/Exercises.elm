@@ -1,9 +1,9 @@
 module Exercises exposing
     ( exercise, exerciseWithView, exerciseWithTea, Flags, Model, Msg
     , ExerciseData, Difficulty(..)
-    , attrsButton
+    , attrsButton, yourImplementationGoesHere
     , Test, equal, notEqual, all, lessThan, atMost, greaterThan, atLeast, FloatingPointTolerance, within, notWithin, true, false, ok, err, equalLists, equalDicts, equalSets, pass, fail, onFail
-    , update, viewElement, init, onlyTests, TEA, Index
+    , update, viewElement, init, TEA, Index
     , codecExerciseData, codecIndex
     )
 
@@ -24,7 +24,7 @@ These are the elements used inside Ellie to build an exercise.
 
 # Helpers
 
-@docs attrsButton
+@docs attrsButton, yourImplementationGoesHere
 
 
 # Tests
@@ -36,7 +36,7 @@ These are the same tests of [elm-explorations/test](https://package.elm-lang.org
 
 # For internal use
 
-@docs update, viewElement, init, onlyTests, TEA, Index
+@docs update, viewElement, init, TEA, Index
 
 
 ## Codecs
@@ -68,7 +68,13 @@ import Test.Runner.Failure
 
 version : String
 version =
-    "1.0.1"
+    "2.0.0"
+
+
+{-| -}
+yourImplementationGoesHere : String
+yourImplementationGoesHere =
+    "Your implementation goes here"
 
 
 {-| Rename `Expectation` to `Test` as they can be run immediately in this context
@@ -777,7 +783,7 @@ viewElement tea model =
                                                 , Border.width 1
                                                 ]
                                                 [ el [ Font.size 13 ] <| text "▶"
-                                                , el [ Font.color <| rgba 0 0 0 0.9 ] <| text "|"
+                                                , el [ Font.color <| rgba 0 0 0 0.2 ] <| text "|"
                                                 , text "COMPILE"
                                                 ]
                                             , text " button that you find at the top and check if your implementation passes all tests. If not, try again!"

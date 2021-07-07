@@ -4,17 +4,40 @@ import Html
 import List.Extra
 
 
+
+-- inspired by
+--
+-- http://rosettacode.org/wiki/N-queens_problem#Haskell
+
+
+queens : Int -> List (List Int)
+queens n =
+    oneMoreQueen n [] []
+        |> Tuple.second
+        |> List.map (List.map Tuple.second)
+
+
 type alias State =
     List ( Int, Int )
 
 
-type alias Solutions =
-    List (List Int)
+oneMoreQueen : Int -> List State -> State -> ( List State, List State )
+oneMoreQueen boardSize solutions state =
+    let
+        y : Int
+        y =
+            List.length state
+    in
+    if y < boardSize then
+        List.range 0 (boardSize - 1)
+            |> List.filter (\x -> not (isQueenAttacked y x state))
+            |> List.map (\x -> ( y, x ) :: state)
+            |> List.map (oneMoreQueen boardSize solutions)
+            |> List.unzip
+            |> Tuple.mapBoth List.concat List.concat
 
-
-stateToSolution : List ( a, b ) -> List b
-stateToSolution =
-    List.map Tuple.second
+    else
+        ( [], state :: solutions )
 
 
 isQueenAttacked : Int -> Int -> State -> Bool
@@ -26,46 +49,29 @@ isQueenAttacked y x state =
         state
 
 
-cycle : Int -> List State -> State -> ( List State, List State )
-cycle boardSize solutions state =
-    let
-        y : Int
-        y =
-            List.length state
-    in
-    if y < boardSize then
-        List.range 0 (boardSize - 1)
-            |> List.filter (\x -> not (isQueenAttacked y x state))
-            |> List.map (\x -> ( y, x ) :: state)
-            |> List.map (cycle boardSize solutions)
-            |> List.unzip
-            |> Tuple.mapBoth List.concat List.concat
 
-    else
-        ( [], state :: solutions )
+--
+--
+--
+--
+--
 
 
-queen : Int -> List State
-queen n =
-    cycle n [] []
-        |> Tuple.second
-
-
-visualize : State -> List (List Char)
-visualize state =
-    List.map
-        (\( y, x ) ->
-            List.Extra.setAt x '♛' (List.repeat (List.length state) '•')
+visualize : List Int -> List (List Char)
+visualize solution =
+    List.indexedMap
+        (\index x ->
+            List.Extra.setAt x '♛' (List.repeat (List.length solution) '•')
         )
-        state
+        solution
 
 
 main : Html.Html msg
 main =
     let
-        queenSolutions : List State
+        queenSolutions : List (List Int)
         queenSolutions =
-            queen 8
+            queens 8
     in
     Html.div [] <|
         List.indexedMap

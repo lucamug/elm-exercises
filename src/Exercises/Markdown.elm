@@ -259,10 +259,10 @@ elmUiRenderer =
         \image_ ->
             case image_.title of
                 Just _ ->
-                    image [ width fill ] { src = image_.src, description = image_.alt }
+                    image [] { src = image_.src, description = image_.alt }
 
                 Nothing ->
-                    image [ width fill ] { src = image_.src, description = image_.alt }
+                    image [] { src = image_.src, description = image_.alt }
     , blockQuote =
         \children ->
             column

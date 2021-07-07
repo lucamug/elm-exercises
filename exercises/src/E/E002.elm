@@ -28,7 +28,7 @@ exerciseData =
         ]
     , dummySolution = """penultimate : List a -> Maybe a
 penultimate list =
-    -- Your implementation goes here
+    -- """ ++ yourImplementationGoesHere ++ """
     Nothing"""
     , solutions =
         [ """Recursive search for the last element
