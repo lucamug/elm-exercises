@@ -31,6 +31,7 @@ Represent the positions of the queens as a list of numbers 1..N. Example: [4,2,7
         , "List.length (queens 0) |> equal 1"
         ]
     , hints =
+        -- Add this: https://stackoverflow.com/questions/19998153/algorithm-of-n-queens
         []
     , dummySolution = """queens : Int -> List (List Int)
 queens n = 

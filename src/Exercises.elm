@@ -51,11 +51,13 @@ import Dict
 import Element exposing (..)
 import Element.Background as Background
 import Element.Border as Border
+import Element.Events as Events
 import Element.Font as Font
 import Element.Input as Input
 import Element.Region as Region
 import Exercises.Markdown
 import Expect
+import FeatherIcons
 import Html
 import Html.Attributes
 import Json.Decode
@@ -344,6 +346,8 @@ init tea flags =
       , resultIndex = Codec.decodeString (Codec.list codecIndex) flags.index
       , resultExerciseData = Codec.decodeString codecExerciseData flags.exerciseData
       , modelExercise = Tuple.first tea.init
+      , menuOpen = False
+      , menuOver = False
       , flags = flags
       }
     , Cmd.none
@@ -362,6 +366,8 @@ type alias InternalModel modelExercise =
     , resultExerciseData : Result Codec.Error ExerciseData
     , resultIndex : Result Codec.Error (List Index)
     , modelExercise : modelExercise
+    , menuOpen : Bool
+    , menuOver : Bool
     , flags : Flags
     }
 
@@ -380,6 +386,9 @@ type Msg msgExercise
     | HideSolution Int
       --
     | MsgTEA msgExercise
+      --
+    | ToggleMenu
+    | MenuOver Bool
 
 
 {-| `Flags` are the way to pass details about the exercises to the page.
@@ -494,6 +503,12 @@ update tea msg model =
             in
             ( { model | modelExercise = modelExercise }, Cmd.map MsgTEA cmdTEA )
 
+        ToggleMenu ->
+            ( { model | menuOpen = not model.menuOpen }, Cmd.none )
+
+        MenuOver bool ->
+            ( { model | menuOver = bool }, Cmd.none )
+
 
 {-| -}
 type Show
@@ -513,13 +528,6 @@ type alias FailureReason =
 {-| -}
 viewElement : TEA modelExercise msgExercise -> Model modelExercise -> Element (Msg msgExercise)
 viewElement tea model =
-    let
-        tests : List FailureReason
-        tests =
-            model.modelExercise
-                |> tea.tests
-                |> List.map Test.Runner.getFailureReason
-    in
     case model.resultExerciseData of
         Err error ->
             column [ spacing 0, width fill, height fill ]
@@ -531,6 +539,7 @@ viewElement tea model =
                             , paragraph [ Font.center ] [ text <| Json.Decode.errorToString error ]
                             ]
                        ]
+                    ++ [ viewFooter ]
                 )
 
         Ok exerciseData ->
@@ -581,240 +590,174 @@ viewElement tea model =
                 ]
                 ([]
                     ++ [ viewHeader exerciseData model.resultIndex ]
-                    ++ [ column [ padding 20, spacing 20, width fill ]
-                            ([]
-                                ++ [ paragraph [ Region.heading 2, Font.size 20, Font.bold ] [ text "Problem" ] ]
-                                ++ [ column [ paddingLeft, spacing 16, width fill ] <|
-                                        Exercises.Markdown.markdown exerciseData.problem
-                                            ++ [ paragraph [ alpha 0.5 ]
-                                                    [ text "Diffculty level: "
-                                                    , el [] <| text <| difficultyToString exerciseData.difficulty
-                                                    ]
-                                               ]
-                                   ]
-                                ++ (case tea.maybeView of
-                                        Just view_ ->
-                                            [ paragraph [ Region.heading 2, Font.size 20, Font.bold ] [ text "Result" ]
-                                            , el [ paddingLeft, width fill ] <| map MsgTEA <| view_ model.modelExercise
-                                            ]
-
-                                        Nothing ->
-                                            []
-                                   )
-                                ++ [ paragraph [ Region.heading 2, Font.size 20, Font.bold ] [ text "Tests" ] ]
-                                ++ [ column [ paddingLeft, spacing 20, width fill ] <|
-                                        ([]
-                                            ++ [ let
-                                                    failed : Int
-                                                    failed =
-                                                        tests
-                                                            |> List.filter
-                                                                (\failureReason ->
-                                                                    case failureReason of
-                                                                        Just _ ->
-                                                                            True
-
-                                                                        Nothing ->
-                                                                            False
-                                                                )
-                                                            |> List.length
-
-                                                    total : Int
-                                                    total =
-                                                        tests
-                                                            |> List.length
-                                                 in
-                                                 case
-                                                    failed
-                                                 of
-                                                    0 ->
-                                                        column [ spacing 15 ] <|
-                                                            []
-                                                                ++ [ paragraph [ Font.color green, Font.size 20 ]
-                                                                        [ text <|
-                                                                            "The current implementation passed all tests! 🎉"
-                                                                        ]
-                                                                   ]
-                                                                ++ (case model.resultIndex of
-                                                                        Ok index ->
-                                                                            let
-                                                                                maybeNext =
-                                                                                    Tuple.second <| previousAndNext exerciseData index
-                                                                            in
-                                                                            case maybeNext of
-                                                                                Just next ->
-                                                                                    [ paragraph [ Font.color green, Font.size 20 ]
-                                                                                        [ el [] <|
-                                                                                            text <|
-                                                                                                "Check the next exercise: "
-                                                                                        , newTabLink []
-                                                                                            { url = "https://ellie-app.com/" ++ next.ellieId
-                                                                                            , label =
-                                                                                                paragraph []
-                                                                                                    [ el [] <| text <| next.title
-                                                                                                    ]
-                                                                                            }
-                                                                                        ]
-                                                                                    ]
-
-                                                                                Nothing ->
-                                                                                    []
-
-                                                                        _ ->
-                                                                            []
-                                                                   )
-
-                                                    1 ->
-                                                        paragraph [ Font.color red ]
-                                                            [ text <|
-                                                                "The current implementation failed one test, try again!"
-                                                            ]
-
-                                                    x ->
-                                                        paragraph [ Font.color red ]
-                                                            [ text <|
-                                                                "The current implementation failed "
-                                                                    ++ String.fromInt x
-                                                                    ++ " tests, try again"
-                                                            ]
-                                               ]
-                                            ++ (let
-                                                    zipped =
-                                                        zip exerciseData.tests tests
-                                                in
-                                                List.map
-                                                    (\( test, failureReason ) ->
-                                                        case failureReason of
-                                                            Nothing ->
-                                                                wrappedRow [ spacing 10 ]
-                                                                    [ el [ alignTop, moveDown 3 ] <| text "✅"
-                                                                    , el [ Font.color green, width <| px 50, alignTop, moveDown 3 ] <| text "Passed"
-                                                                    , paragraph [] <|
-                                                                        Exercises.Markdown.markdown <|
-                                                                            "`"
-                                                                                ++ test
-                                                                                ++ "`"
-                                                                    ]
-
-                                                            Just reason ->
-                                                                wrappedRow [ spacing 10, width fill ]
-                                                                    [ el [ alignTop, moveDown 3 ] <| text "❌"
-                                                                    , el [ Font.color red, width <| px 50, alignTop, moveDown 3 ] <| text "Failed"
-                                                                    , paragraph [] <|
-                                                                        Exercises.Markdown.markdown <|
-                                                                            "`"
-                                                                                ++ test
-                                                                                ++ "` "
-                                                                                ++ failureReasonToString reason.reason
-                                                                    ]
-                                                    )
-                                                    zipped
-                                               )
-                                        )
-                                   ]
-                                ++ [ wrappedRow [ spacing 10 ]
-                                        [ paragraph [ Region.heading 2, Font.size 20, Font.bold ] [ text "Hints" ]
-                                        , Input.button attrsButton { onPress = Just ShowHintsAll, label = text "Show All" }
-                                        , Input.button attrsButton { onPress = Just ShowHintsNone, label = text "Hide All" }
-                                        ]
-                                   ]
-                                ++ [ accordion { items = model.hints, hideItem = HideHint, showItem = ShowHint, itemsContent = exerciseData.hints } ]
-                                ++ [ wrappedRow [ spacing 10 ]
-                                        [ paragraph [ Region.heading 2, Font.size 20, Font.bold ] [ text "Solutions" ]
-                                        , Input.button attrsButton { onPress = Just ShowSolutionsAll, label = text "Show All" }
-                                        , Input.button attrsButton { onPress = Just ShowSolutionsNone, label = text "Hide All" }
-                                        ]
-                                   ]
-                                ++ [ accordion { items = model.solutions, hideItem = HideSolution, showItem = ShowSolution, itemsContent = exerciseData.solutions } ]
-                                ++ [ paragraph [ Region.heading 2, Font.size 20, Font.bold ] [ text "Other exercises" ] ]
-                                ++ [ case model.resultIndex of
-                                        Ok index ->
-                                            column [ paddingLeft, spacing 5 ] <|
-                                                List.map
-                                                    (\i ->
-                                                        row [ spacing 10 ]
-                                                            [ el [ alignTop ] <| text "•"
-                                                            , paragraph [] <|
-                                                                if i.id == exerciseData.id then
-                                                                    [ paragraph []
-                                                                        [ el [ Font.bold ] <| text "You are here ☞ "
-                                                                        , text <| i.title
-                                                                        , text " (#"
-                                                                        , text <| String.fromInt i.id
-                                                                        , text ", "
-                                                                        , text <| difficultyToString i.difficulty
-                                                                        , text ")"
-                                                                        ]
-                                                                    ]
-
-                                                                else
-                                                                    [ newTabLink [ alignTop ]
-                                                                        { url = "https://ellie-app.com/" ++ i.ellieId
-                                                                        , label =
-                                                                            paragraph []
-                                                                                [ text <| i.title
-                                                                                , text " (#"
-                                                                                , text <| String.fromInt i.id
-                                                                                , text ", "
-                                                                                , text <| difficultyToString i.difficulty
-                                                                                , text ")"
-                                                                                ]
-                                                                        }
-                                                                    ]
-                                                            ]
-                                                    )
-                                                    index
-
-                                        Err _ ->
-                                            el [ paddingLeft ] <| text "Index not available"
-                                   ]
-                                ++ [ paragraph [ Region.heading 2, Font.size 20, Font.bold ] [ text "How does this work?" ] ]
-                                ++ [ column [ paddingLeft, spacing 16, width fill ] <|
-                                        [ paragraph [] <|
-                                            [ text "Try solving the problem by writing Elm code in the editor on the left. Then click the "
-                                            , row
-                                                [ Background.color <| rgba 0 0 0 0.5
-                                                , Font.color <| rgba 1 1 1 0.9
-                                                , Border.rounded 2
-                                                , paddingXY 5 2
-                                                , Font.size 14
-                                                , spacing 3
-                                                , Border.color <| rgba 0 0 0 0.8
-                                                , Border.width 1
-                                                ]
-                                                [ el [ Font.size 13 ] <| text "▶"
-                                                , el [ Font.color <| rgba 0 0 0 0.2 ] <| text "|"
-                                                , text "COMPILE"
-                                                ]
-                                            , text " button that you find at the top and check if your implementation passes all tests. If not, try again!"
-                                            ]
-                                        , column [ spacing 16, width fill ] <| Exercises.Markdown.markdown """If you need support, [join the Elm community in Slack](https://elmlang.herokuapp.com/).
-
-There are also a lot of valuable resources to learn Elm on-line. for example:
-    
-* [An Introduction to Elm](https://guide.elm-lang.org/) - The official Elm Guide
-* [Elm Packages](https://package.elm-lang.org/) - Documentation of Elm Packages
-* [Elm Cheat Sheet](https://lucamug.github.io/elm-cheat-sheet/) - A condensate list of the most useful Elm concepts
-* [Awesome Elm](https://github.com/sporto/awesome-elm) - A list of Elm resources
-
-If you have some exercise that you would like to add to this list or if you have any other feedback, [learn how you can contribute](https://github.com/lucamug/elm-exercises/blob/master/CONTRIBUTING.md).
-"""
-                                        ]
-                                   , paragraph [ Font.center, paddingXY 10 30 ] [ text "♡ Happy coding! ♡" ]
-                                   , paragraph [ Font.center, paddingXY 10 30, Font.size 14, Font.color <| rgba 0 0 0 0.5 ]
-                                        [ text <| "Made with "
-                                        , newTabLink [] { url = "https://package.elm-lang.org/packages/lucamug/elm-exercises/latest/", label = text "elm-exercises" }
-                                        , text " "
-                                        , text version
-                                        ]
-                                   ]
-                            )
-                       ]
+                    ++ [ viewBody tea model exerciseData ]
+                    ++ [ viewFooter ]
                 )
 
 
 
 -- INTERNALS
+
+
+viewBody :
+    TEA modelExercise msgExercise
+    -> Model modelExercise
+    -> ExerciseData
+    -> Element (Msg msgExercise)
+viewBody tea model exerciseData =
+    let
+        tests : List FailureReason
+        tests =
+            model.modelExercise
+                |> tea.tests
+                |> List.map Test.Runner.getFailureReason
+    in
+    column [ padding 20, spacing 20, width fill ]
+        ([]
+            ++ [ paragraph [ Region.heading 2, Font.size 20, Font.bold ] [ text "Problem" ] ]
+            ++ [ column [ paddingLeft, spacing 16, width fill ] <|
+                    Exercises.Markdown.markdown exerciseData.problem
+                        ++ [ paragraph [ alpha 0.5 ]
+                                [ text "Diffculty level: "
+                                , el [] <| text <| difficultyToString exerciseData.difficulty
+                                ]
+                           ]
+               ]
+            ++ (case tea.maybeView of
+                    Just view_ ->
+                        [ paragraph [ Region.heading 2, Font.size 20, Font.bold ] [ text "Result" ]
+                        , el [ paddingLeft, width fill ] <| map MsgTEA <| view_ model.modelExercise
+                        ]
+
+                    Nothing ->
+                        []
+               )
+            ++ [ paragraph [ Region.heading 2, Font.size 20, Font.bold ] [ text "Tests" ] ]
+            ++ [ column [ paddingLeft, spacing 20, width fill ] <|
+                    ([]
+                        ++ [ let
+                                failed : Int
+                                failed =
+                                    tests
+                                        |> List.filter
+                                            (\failureReason ->
+                                                case failureReason of
+                                                    Just _ ->
+                                                        True
+
+                                                    Nothing ->
+                                                        False
+                                            )
+                                        |> List.length
+
+                                total : Int
+                                total =
+                                    tests
+                                        |> List.length
+                             in
+                             case
+                                failed
+                             of
+                                0 ->
+                                    column [ spacing 15 ] <|
+                                        []
+                                            ++ [ paragraph [ Font.color green, Font.size 20 ]
+                                                    [ text <|
+                                                        "The current implementation passed all tests! 🎉"
+                                                    ]
+                                               ]
+                                            ++ (case model.resultIndex of
+                                                    Ok index ->
+                                                        let
+                                                            maybeNext =
+                                                                Tuple.second <| previousAndNext exerciseData index
+                                                        in
+                                                        case maybeNext of
+                                                            Just next ->
+                                                                [ paragraph [ Font.color green, Font.size 20 ]
+                                                                    [ el [] <|
+                                                                        text <|
+                                                                            "Check the next exercise: "
+                                                                    , newTabLink []
+                                                                        { url = "https://ellie-app.com/" ++ next.ellieId
+                                                                        , label =
+                                                                            paragraph []
+                                                                                [ el [] <| text <| next.title
+                                                                                ]
+                                                                        }
+                                                                    ]
+                                                                ]
+
+                                                            Nothing ->
+                                                                []
+
+                                                    _ ->
+                                                        []
+                                               )
+
+                                1 ->
+                                    paragraph [ Font.color red ]
+                                        [ text <|
+                                            "The current implementation failed one test, try again!"
+                                        ]
+
+                                x ->
+                                    paragraph [ Font.color red ]
+                                        [ text <|
+                                            "The current implementation failed "
+                                                ++ String.fromInt x
+                                                ++ " tests, try again"
+                                        ]
+                           ]
+                        ++ (let
+                                zipped =
+                                    zip exerciseData.tests tests
+                            in
+                            List.map
+                                (\( test, failureReason ) ->
+                                    case failureReason of
+                                        Nothing ->
+                                            wrappedRow [ spacing 10 ]
+                                                [ el [ alignTop, moveDown 3 ] <| text "✅"
+                                                , el [ Font.color green, width <| px 50, alignTop, moveDown 3 ] <| text "Passed"
+                                                , paragraph [] <|
+                                                    Exercises.Markdown.markdown <|
+                                                        "`"
+                                                            ++ test
+                                                            ++ "`"
+                                                ]
+
+                                        Just reason ->
+                                            wrappedRow [ spacing 10, width fill ]
+                                                [ el [ alignTop, moveDown 3 ] <| text "❌"
+                                                , el [ Font.color red, width <| px 50, alignTop, moveDown 3 ] <| text "Failed"
+                                                , paragraph [] <|
+                                                    Exercises.Markdown.markdown <|
+                                                        "`"
+                                                            ++ test
+                                                            ++ "` "
+                                                            ++ failureReasonToString reason.reason
+                                                ]
+                                )
+                                zipped
+                           )
+                    )
+               ]
+            ++ [ wrappedRow [ spacing 10 ]
+                    [ paragraph [ Region.heading 2, Font.size 20, Font.bold ] [ text "Hints" ]
+                    , Input.button attrsButton { onPress = Just ShowHintsAll, label = text "Show All" }
+                    , Input.button attrsButton { onPress = Just ShowHintsNone, label = text "Hide All" }
+                    ]
+               ]
+            ++ [ accordion { items = model.hints, hideItem = HideHint, showItem = ShowHint, itemsContent = exerciseData.hints } ]
+            ++ [ wrappedRow [ spacing 10 ]
+                    [ paragraph [ Region.heading 2, Font.size 20, Font.bold ] [ text "Solutions" ]
+                    , Input.button attrsButton { onPress = Just ShowSolutionsAll, label = text "Show All" }
+                    , Input.button attrsButton { onPress = Just ShowSolutionsNone, label = text "Hide All" }
+                    ]
+               ]
+            ++ [ accordion { items = model.solutions, hideItem = HideSolution, showItem = ShowSolution, itemsContent = exerciseData.solutions } ]
+        )
 
 
 previousAndNext : { a | id : Int } -> List Index -> ( Maybe Index, Maybe Index )
@@ -895,19 +838,326 @@ paddingLeft =
     paddingEach { top = 0, right = 0, bottom = 0, left = 20 }
 
 
+viewSideButtons : Model modelExercise -> Element (Msg msgExercise)
+viewSideButtons model =
+    column
+        [ alignRight
+        , centerY
+        , spacing 10
+        , Events.onMouseEnter <| MenuOver True
+        , Events.onMouseLeave <| MenuOver False
+        , htmlAttribute <| Html.Attributes.style "transition" "0.2s"
+        , if model.menuOpen then
+            if model.menuOver then
+                moveRight 0
+
+            else
+                moveRight 130
+
+          else if model.menuOver then
+            moveRight 0
+
+          else
+            moveRight 93
+        ]
+        [ Input.button
+            [ padding 13
+            , Border.widthEach { bottom = 1, left = 1, right = 0, top = 1 }
+            , Border.roundEach { topLeft = 4, topRight = 0, bottomLeft = 4, bottomRight = 0 }
+            , Border.color <| rgba 0 0 0 0.2
+            , Background.color <| rgba 1 1 1 0.9
+            , width fill
+            ]
+            { label =
+                row [ spacing 15 ]
+                    [ FeatherIcons.list
+                        |> FeatherIcons.toHtml []
+                        |> html
+                        |> el [ centerX ]
+                    , column [ width fill, spacing 4 ]
+                        [ el [ Font.size 12 ] <| text "OTHER"
+                        , el [ Font.size 12 ] <| text "EXERCISES"
+                        ]
+                    ]
+            , onPress = Just ToggleMenu
+            }
+        , Input.button
+            [ padding 13
+            , Border.widthEach { bottom = 1, left = 1, right = 0, top = 1 }
+            , Border.roundEach { topLeft = 4, topRight = 0, bottomLeft = 4, bottomRight = 0 }
+            , Border.color <| rgba 0 0 0 0.2
+            , Background.color <| rgba 1 1 1 0.8
+            , width fill
+            ]
+            { label =
+                row [ spacing 15 ]
+                    [ FeatherIcons.helpCircle
+                        |> FeatherIcons.toHtml []
+                        |> html
+                        |> el [ centerX ]
+                    , el [ Font.size 12 ] <| text "HELP"
+                    ]
+            , onPress = Just ToggleMenu
+            }
+        , Input.button
+            [ padding 13
+            , Border.widthEach { bottom = 1, left = 1, right = 0, top = 1 }
+            , Border.roundEach { topLeft = 4, topRight = 0, bottomLeft = 4, bottomRight = 0 }
+            , Border.color <| rgba 0 0 0 0.2
+            , Background.color <| rgba 1 1 1 0.8
+            , width fill
+            ]
+            { label =
+                row [ spacing 15 ]
+                    [ FeatherIcons.heart
+                        |> FeatherIcons.toHtml []
+                        |> html
+                        |> el [ centerX ]
+                    , el [ Font.size 12 ] <| text "CONTRIBUTE"
+                    ]
+            , onPress = Just ToggleMenu
+            }
+        ]
+
+
 view : TEA modelExercise msgExercise -> Model modelExercise -> Html.Html (Msg msgExercise)
 view tea model =
     layoutWith
         { options = [ focusStyle { borderColor = Nothing, backgroundColor = Nothing, shadow = Nothing } ] }
-        []
+        ([]
+            ++ (if model.menuOpen then
+                    [ inFront <|
+                        el
+                            [ width fill
+                            , height fill
+                            , Background.color <| rgba 0 0 0 0.2
+                            , htmlAttribute <| Html.Attributes.style "transition" "0.2s"
+                            , Events.onClick <| ToggleMenu
+                            ]
+                        <|
+                            none
+                    ]
+
+                else
+                    [ inFront <| text "" ]
+               )
+            ++ [ inFront <| viewSideMenu model ]
+            ++ [ inFront <| viewSideButtons model ]
+            ++ (if model.menuOpen then
+                    [ inFront <|
+                        Input.button
+                            (attrsButton
+                                ++ [ alignRight
+                                   , Font.size 24
+                                   , padding 10
+                                   , Border.width 0
+                                   , moveLeft 15
+                                   , moveDown 17
+                                   , mouseOver []
+                                   ]
+                            )
+                            { label =
+                                FeatherIcons.x
+                                    |> FeatherIcons.withSize 32
+                                    |> FeatherIcons.toHtml []
+                                    |> html
+                            , onPress = Just ToggleMenu
+                            }
+                    ]
+
+                else
+                    []
+               )
+        )
+        (viewElement tea model)
+
+
+viewSideMenu : Model modelExercise -> Element (Msg msgExercise)
+viewSideMenu model =
+    let
+        widthSize : Int
+        widthSize =
+            400
+    in
+    column
+        [ width <| px widthSize
+        , Font.size 16
+        , Font.family [ Font.typeface "Source Sans Pro", Font.sansSerif ]
+        , paddingEach { top = 70, right = 20, bottom = 20, left = 20 }
+        , spacing 20
+        , height fill
+        , alignRight
+        , scrollbarY
+        , Background.color <| rgba 1 1 1 1
+        , htmlAttribute <| Html.Attributes.style "transition" "0.2s"
+        , Border.shadow { offset = ( 0, 0 ), size = 0, blur = 10, color = rgba 0 0 0 0.2 }
+        , if model.menuOpen then
+            moveRight 0
+
+          else
+            moveRight <| toFloat <| widthSize + 10
+
+        -- , inFront <|
+        --     Input.button
+        --         (attrsButton
+        --             ++ [ alignRight
+        --                , Font.size 24
+        --                , padding 10
+        --                , Border.width 0
+        --                , htmlAttribute <| Html.Attributes.style "position" "fixed"
+        --                , alignTop
+        --                ]
+        --         )
+        --         { label = text "☰"
+        --         , onPress = Just ToggleMenu
+        --         }
+        ]
     <|
-        viewElement tea model
+        []
+            ++ [ paragraph [ Region.heading 2, Font.size 20, Font.bold ] [ text "Other exercises" ] ]
+            ++ [ case model.resultIndex of
+                    Ok index ->
+                        column [ paddingLeft, spacing 5 ] <|
+                            List.map
+                                (\i ->
+                                    row [ spacing 10 ]
+                                        [ el [ alignTop ] <| text "•"
+                                        , paragraph [] <|
+                                            -- if i.id == exerciseData.id then
+                                            --     [ paragraph []
+                                            --         [ el [ Font.bold ] <| text "You are here ☞ "
+                                            --         , text <| i.title
+                                            --         , text " (#"
+                                            --         , text <| String.fromInt i.id
+                                            --         , text ", "
+                                            --         , text <| difficultyToString i.difficulty
+                                            --         , text ")"
+                                            --         ]
+                                            --     ]
+                                            --
+                                            -- else
+                                            [ newTabLink [ alignTop ]
+                                                { url = "https://ellie-app.com/" ++ i.ellieId
+                                                , label =
+                                                    paragraph []
+                                                        [ text <| i.title
+                                                        , text " (#"
+                                                        , text <| String.fromInt i.id
+                                                        , text ", "
+                                                        , text <| difficultyToString i.difficulty
+                                                        , text ")"
+                                                        ]
+                                                }
+                                            ]
+                                        ]
+                                )
+                                index
+
+                    Err _ ->
+                        el [ paddingLeft ] <| text "Index not available"
+               ]
+            ++ [ paragraph [ Region.heading 2, Font.size 20, Font.bold ] [ text "How does this work?" ] ]
+            ++ [ column [ paddingLeft, spacing 16, width fill ] <|
+                    [ paragraph [] <|
+                        [ text "Try solving the problem by writing Elm code in the editor on the left. Then click the "
+                        , row
+                            [ Background.color <| rgba 0 0 0 0.5
+                            , Font.color <| rgba 1 1 1 0.9
+                            , Border.rounded 2
+                            , paddingXY 5 2
+                            , Font.size 14
+                            , spacing 3
+                            , Border.color <| rgba 0 0 0 0.8
+                            , Border.width 1
+                            ]
+                            [ el [ Font.size 13 ] <| text "▶"
+                            , el [ Font.color <| rgba 0 0 0 0.2 ] <| text "|"
+                            , text "COMPILE"
+                            ]
+                        , text " button that you find at the top and check if your implementation passes all tests. If not, try again!"
+                        ]
+                    , column [ spacing 16, width fill ] <| Exercises.Markdown.markdown """If you need support, [join the Elm community in Slack](https://elmlang.herokuapp.com/).
+
+There are also a lot of valuable resources to learn Elm on-line. for example:
+
+* [An Introduction to Elm](https://guide.elm-lang.org/) - The official Elm Guide
+* [Elm Packages](https://package.elm-lang.org/) - Documentation of Elm Packages
+* [Elm Cheat Sheet](https://lucamug.github.io/elm-cheat-sheet/) - A condensate list of the most useful Elm concepts
+* [Awesome Elm](https://github.com/sporto/awesome-elm) - A list of Elm resources
+
+If you have some exercise that you would like to add to this list or if you have any other feedback, [learn how you can contribute](https://github.com/lucamug/elm-exercises/blob/master/CONTRIBUTING.md).
+"""
+                    ]
+               ]
+            ++ [ paragraph [ Font.center, paddingXY 10 30 ] [ text "♡ Happy coding! ♡" ] ]
+
+
+viewFooter : Element (Msg msgExercise)
+viewFooter =
+    column [ width fill ]
+        [ wrappedRow
+            [ paddingEach { top = 40, right = 0, bottom = 0, left = 0 }
+            , Font.color <| rgba 0 0 0 0.5
+            , Background.color <| rgba 0 0 0 0.05
+            , width fill
+            , spacing 20
+            ]
+            [ Input.button (attrsButton ++ [ padding 10, centerX, Border.width 0 ])
+                { onPress = Just ToggleMenu
+                , label =
+                    row [ spacing 7 ]
+                        [ FeatherIcons.list
+                            |> FeatherIcons.withSize 16
+                            |> FeatherIcons.toHtml []
+                            |> html
+                            |> el [ centerX ]
+                        , text <| "Other Exercises"
+                        ]
+                }
+            , Input.button (attrsButton ++ [ padding 10, centerX, Border.width 0 ])
+                { onPress = Just ToggleMenu
+                , label =
+                    row [ spacing 7 ]
+                        [ FeatherIcons.helpCircle
+                            |> FeatherIcons.withSize 16
+                            |> FeatherIcons.toHtml []
+                            |> html
+                            |> el [ centerX ]
+                        , text <| "Help"
+                        ]
+                }
+            , Input.button (attrsButton ++ [ padding 10, centerX, Border.width 0 ])
+                { onPress = Just ToggleMenu
+                , label =
+                    row [ spacing 7 ]
+                        [ FeatherIcons.heart
+                            |> FeatherIcons.withSize 16
+                            |> FeatherIcons.toHtml []
+                            |> html
+                            |> el [ centerX ]
+                        , text <| "Contribute"
+                        ]
+                }
+            ]
+        , paragraph
+            [ Font.center
+            , paddingXY 10 30
+            , Font.size 14
+            , Font.color <| rgba 0 0 0 0.5
+            , Background.color <| rgba 0 0 0 0.05
+            ]
+            [ text <| "Made with "
+            , newTabLink [] { url = "https://package.elm-lang.org/packages/lucamug/elm-exercises/latest/", label = text "elm-exercises" }
+            , text " "
+            , text version
+            ]
+        ]
 
 
 viewHeader :
     { a | difficulty : Difficulty, id : Int, title : String }
     -> Result Codec.Error (List Index)
-    -> Element msg
+    -> Element (Msg msgExercise)
 viewHeader exerciseData resultIndex =
     row
         [ width fill
@@ -956,6 +1206,18 @@ viewHeader exerciseData resultIndex =
                                         []
                                )
                     )
+               ]
+            ++ [ Input.button
+                    (attrsButton
+                        ++ [ alignRight
+                           , Font.size 24
+                           , padding 10
+                           , Border.width 0
+                           ]
+                    )
+                    { label = text "☰"
+                    , onPress = Just ToggleMenu
+                    }
                ]
         )
 
