@@ -10,10 +10,11 @@ import Html
 exerciseData : ExerciseData
 exerciseData =
     { id = 23
-    , ellieId = "dFdF4NRQPVSa1"
     , title = "Extract randomly selected elements from a list"
     , difficulty = Hard
     , categories = [ "Randomness" ]
+    , ellieId = "dFdF4NRQPVSa1"
+    , reference = "https://johncrane.gitbooks.io/ninety-nine-elm-problems/content/p/p23.html"
     , problem = """Extract a given number of randomly selected elements from a list.
 
 ### Example

@@ -1,4 +1,4 @@
-module Exercises.Markdown exposing (main, markdown)
+module Internal.Markdown exposing (main, markdown)
 
 import Browser
 import Element exposing (..)

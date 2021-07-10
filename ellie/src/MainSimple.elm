@@ -1,4 +1,4 @@
-module MainSimple exposing (main)
+port module MainSimple exposing (main)
 
 import Exercises exposing (..)
 
@@ -38,4 +38,14 @@ tests =
 
 main : Program Flags (Model ()) (Msg ())
 main =
-    exercise { tests = tests }
+    exercise
+        { tests = tests
+        , portLocalStoragePop = portLocalStoragePop
+        , portLocalStoragePush = portLocalStoragePush
+        }
+
+
+port portLocalStoragePop : (String -> msg) -> Sub msg
+
+
+port portLocalStoragePush : String -> Cmd msg

@@ -10788,16 +10788,18 @@ var $elm$browser$Browser$element = _Browser_element;
 var $author$project$Exercises$OtherExercises = {$: 'OtherExercises'};
 var $author$project$Exercises$ShowNone = {$: 'ShowNone'};
 var $author$project$Exercises$ExerciseData = function (id) {
-	return function (ellieId) {
-		return function (title) {
-			return function (difficulty) {
-				return function (categories) {
-					return function (problem) {
-						return function (tests) {
-							return function (hints) {
-								return function (dummySolution) {
-									return function (solutions) {
-										return {categories: categories, difficulty: difficulty, dummySolution: dummySolution, ellieId: ellieId, hints: hints, id: id, problem: problem, solutions: solutions, tests: tests, title: title};
+	return function (title) {
+		return function (difficulty) {
+			return function (categories) {
+				return function (ellieId) {
+					return function (reference) {
+						return function (problem) {
+							return function (tests) {
+								return function (hints) {
+									return function (dummySolution) {
+										return function (solutions) {
+											return {categories: categories, difficulty: difficulty, dummySolution: dummySolution, ellieId: ellieId, hints: hints, id: id, problem: problem, reference: reference, solutions: solutions, tests: tests, title: title};
+										};
 									};
 								};
 							};
@@ -10968,40 +10970,47 @@ var $author$project$Exercises$codecExerciseData = $miniBill$elm_codec$Codec$buil
 						$miniBill$elm_codec$Codec$string,
 						A4(
 							$miniBill$elm_codec$Codec$field,
-							'categories',
+							'reference',
 							function ($) {
-								return $.categories;
+								return $.reference;
 							},
-							$miniBill$elm_codec$Codec$list($miniBill$elm_codec$Codec$string),
+							$miniBill$elm_codec$Codec$string,
 							A4(
 								$miniBill$elm_codec$Codec$field,
-								'difficulty',
+								'ellieId',
 								function ($) {
-									return $.difficulty;
+									return $.ellieId;
 								},
-								A3($miniBill$elm_codec$Codec$map, $author$project$Exercises$stringToDifficulty, $author$project$Exercises$difficultyToString, $miniBill$elm_codec$Codec$string),
+								$miniBill$elm_codec$Codec$string,
 								A4(
 									$miniBill$elm_codec$Codec$field,
-									'title',
+									'categories',
 									function ($) {
-										return $.title;
+										return $.categories;
 									},
-									$miniBill$elm_codec$Codec$string,
+									$miniBill$elm_codec$Codec$list($miniBill$elm_codec$Codec$string),
 									A4(
 										$miniBill$elm_codec$Codec$field,
-										'ellieId',
+										'difficulty',
 										function ($) {
-											return $.ellieId;
+											return $.difficulty;
 										},
-										$miniBill$elm_codec$Codec$string,
+										A3($miniBill$elm_codec$Codec$map, $author$project$Exercises$stringToDifficulty, $author$project$Exercises$difficultyToString, $miniBill$elm_codec$Codec$string),
 										A4(
 											$miniBill$elm_codec$Codec$field,
-											'id',
+											'title',
 											function ($) {
-												return $.id;
+												return $.title;
 											},
-											$miniBill$elm_codec$Codec$int,
-											$miniBill$elm_codec$Codec$object($author$project$Exercises$ExerciseData))))))))))));
+											$miniBill$elm_codec$Codec$string,
+											A4(
+												$miniBill$elm_codec$Codec$field,
+												'id',
+												function ($) {
+													return $.id;
+												},
+												$miniBill$elm_codec$Codec$int,
+												$miniBill$elm_codec$Codec$object($author$project$Exercises$ExerciseData)))))))))))));
 var $author$project$Exercises$Index = F5(
 	function (id, title, difficulty, categories, ellieId) {
 		return {categories: categories, difficulty: difficulty, ellieId: ellieId, id: id, title: title};
@@ -11066,23 +11075,253 @@ var $author$project$Exercises$init = F2(
 			},
 			$elm$core$Platform$Cmd$none);
 	});
-var $elm$core$Platform$Sub$batch = _Platform_batch;
-var $elm$core$Platform$Sub$none = $elm$core$Platform$Sub$batch(_List_Nil);
-var $author$project$Exercises$subscriptions = F2(
-	function (_v0, _v1) {
-		return $elm$core$Platform$Sub$none;
-	});
-var $author$project$Exercises$MsgTEA = function (a) {
-	return {$: 'MsgTEA', a: a};
+var $author$project$Exercises$PortLocalStoragePop = function (a) {
+	return {$: 'PortLocalStoragePop', a: a};
 };
+var $author$project$Exercises$subscriptions = F2(
+	function (tea, _v0) {
+		return tea.portLocalStoragePop($author$project$Exercises$PortLocalStoragePop);
+	});
+var $author$project$Exercises$andThen = F3(
+	function (updater, msg, _v0) {
+		var model = _v0.a;
+		var cmd = _v0.b;
+		var _v1 = A2(updater, msg, model);
+		var modelNew = _v1.a;
+		var cmdNew = _v1.b;
+		return _Utils_Tuple2(
+			modelNew,
+			$elm$core$Platform$Cmd$batch(
+				_List_fromArray(
+					[cmd, cmdNew])));
+	});
+var $author$project$Exercises$LocalStorage = F4(
+	function (hints, solutions, menuOpen, menuContent) {
+		return {hints: hints, menuContent: menuContent, menuOpen: menuOpen, solutions: solutions};
+	});
+var $elm$json$Json$Decode$bool = _Json_decodeBool;
+var $elm$json$Json$Encode$bool = _Json_wrap;
+var $miniBill$elm_codec$Codec$bool = A2($miniBill$elm_codec$Codec$build, $elm$json$Json$Encode$bool, $elm$json$Json$Decode$bool);
 var $author$project$Exercises$Show = function (a) {
 	return {$: 'Show', a: a};
 };
 var $author$project$Exercises$ShowAll = {$: 'ShowAll'};
+var $elm$json$Json$Decode$fail = _Json_fail;
+var $miniBill$elm_codec$Codec$buildCustom = function (_v0) {
+	var am = _v0.a;
+	return $miniBill$elm_codec$Codec$Codec(
+		{
+			decoder: A2(
+				$elm$json$Json$Decode$andThen,
+				function (tag) {
+					var _v1 = A2($elm$core$Dict$get, tag, am.decoder);
+					if (_v1.$ === 'Nothing') {
+						return $elm$json$Json$Decode$fail('tag ' + (tag + 'did not match'));
+					} else {
+						var dec = _v1.a;
+						return A2($elm$json$Json$Decode$field, 'args', dec);
+					}
+				},
+				A2($elm$json$Json$Decode$field, 'tag', $elm$json$Json$Decode$string)),
+			encoder: function (v) {
+				return am.match(v);
+			}
+		});
+};
+var $miniBill$elm_codec$Codec$CustomCodec = function (a) {
+	return {$: 'CustomCodec', a: a};
+};
+var $miniBill$elm_codec$Codec$custom = function (match) {
+	return $miniBill$elm_codec$Codec$CustomCodec(
+		{decoder: $elm$core$Dict$empty, match: match});
+};
 var $elm$core$Set$Set_elm_builtin = function (a) {
 	return {$: 'Set_elm_builtin', a: a};
 };
 var $elm$core$Set$empty = $elm$core$Set$Set_elm_builtin($elm$core$Dict$empty);
+var $elm$core$Set$insert = F2(
+	function (key, _v0) {
+		var dict = _v0.a;
+		return $elm$core$Set$Set_elm_builtin(
+			A3($elm$core$Dict$insert, key, _Utils_Tuple0, dict));
+	});
+var $elm$core$Set$fromList = function (list) {
+	return A3($elm$core$List$foldl, $elm$core$Set$insert, $elm$core$Set$empty, list);
+};
+var $miniBill$elm_codec$Codec$set = A2(
+	$miniBill$elm_codec$Codec$composite,
+	function (e) {
+		return A2(
+			$elm$core$Basics$composeL,
+			$elm$json$Json$Encode$list(e),
+			$elm$core$Set$toList);
+	},
+	A2(
+		$elm$core$Basics$composeL,
+		$elm$json$Json$Decode$map($elm$core$Set$fromList),
+		$elm$json$Json$Decode$list));
+var $miniBill$elm_codec$Codec$variant = F4(
+	function (name, matchPiece, decoderPiece, _v0) {
+		var am = _v0.a;
+		var enc = function (v) {
+			return $elm$json$Json$Encode$object(
+				_List_fromArray(
+					[
+						_Utils_Tuple2(
+						'tag',
+						$elm$json$Json$Encode$string(name)),
+						_Utils_Tuple2(
+						'args',
+						A2($elm$json$Json$Encode$list, $elm$core$Basics$identity, v))
+					]));
+		};
+		return $miniBill$elm_codec$Codec$CustomCodec(
+			{
+				decoder: A3($elm$core$Dict$insert, name, decoderPiece, am.decoder),
+				match: am.match(
+					matchPiece(enc))
+			});
+	});
+var $miniBill$elm_codec$Codec$variant0 = F2(
+	function (name, ctor) {
+		return A3(
+			$miniBill$elm_codec$Codec$variant,
+			name,
+			function (c) {
+				return c(_List_Nil);
+			},
+			$elm$json$Json$Decode$succeed(ctor));
+	});
+var $elm$json$Json$Decode$index = _Json_decodeIndex;
+var $miniBill$elm_codec$Codec$variant1 = F3(
+	function (name, ctor, m1) {
+		return A3(
+			$miniBill$elm_codec$Codec$variant,
+			name,
+			F2(
+				function (c, v) {
+					return c(
+						_List_fromArray(
+							[
+								A2($miniBill$elm_codec$Codec$encoder, m1, v)
+							]));
+				}),
+			A2(
+				$elm$json$Json$Decode$map,
+				ctor,
+				A2(
+					$elm$json$Json$Decode$index,
+					0,
+					$miniBill$elm_codec$Codec$decoder(m1))));
+	});
+var $author$project$Exercises$codecShow = $miniBill$elm_codec$Codec$buildCustom(
+	A4(
+		$miniBill$elm_codec$Codec$variant1,
+		'Show',
+		$author$project$Exercises$Show,
+		$miniBill$elm_codec$Codec$set($miniBill$elm_codec$Codec$int),
+		A3(
+			$miniBill$elm_codec$Codec$variant0,
+			'ShowNone',
+			$author$project$Exercises$ShowNone,
+			A3(
+				$miniBill$elm_codec$Codec$variant0,
+				'ShowAll',
+				$author$project$Exercises$ShowAll,
+				$miniBill$elm_codec$Codec$custom(
+					F4(
+						function (showAll, showNone, show, value) {
+							switch (value.$) {
+								case 'ShowAll':
+									return showAll;
+								case 'ShowNone':
+									return showNone;
+								default:
+									var setInt = value.a;
+									return show(setInt);
+							}
+						}))))));
+var $author$project$Exercises$menuContentToString = function (menuContent) {
+	switch (menuContent.$) {
+		case 'OtherExercises':
+			return 'OtherExercises';
+		case 'Help':
+			return 'Help';
+		default:
+			return 'Contribute';
+	}
+};
+var $author$project$Exercises$Contribute = {$: 'Contribute'};
+var $author$project$Exercises$Help = {$: 'Help'};
+var $author$project$Exercises$stringToMenuContent = function (string) {
+	return _Utils_eq(
+		string,
+		$author$project$Exercises$menuContentToString($author$project$Exercises$OtherExercises)) ? $author$project$Exercises$OtherExercises : (_Utils_eq(
+		string,
+		$author$project$Exercises$menuContentToString($author$project$Exercises$Help)) ? $author$project$Exercises$Help : (_Utils_eq(
+		string,
+		$author$project$Exercises$menuContentToString($author$project$Exercises$Contribute)) ? $author$project$Exercises$Contribute : $author$project$Exercises$Contribute));
+};
+var $author$project$Exercises$codecLocalStorage = $miniBill$elm_codec$Codec$buildObject(
+	A4(
+		$miniBill$elm_codec$Codec$field,
+		'menuContent',
+		function ($) {
+			return $.menuContent;
+		},
+		A3($miniBill$elm_codec$Codec$map, $author$project$Exercises$stringToMenuContent, $author$project$Exercises$menuContentToString, $miniBill$elm_codec$Codec$string),
+		A4(
+			$miniBill$elm_codec$Codec$field,
+			'menuOpen',
+			function ($) {
+				return $.menuOpen;
+			},
+			$miniBill$elm_codec$Codec$bool,
+			A4(
+				$miniBill$elm_codec$Codec$field,
+				'solutions',
+				function ($) {
+					return $.solutions;
+				},
+				$author$project$Exercises$codecShow,
+				A4(
+					$miniBill$elm_codec$Codec$field,
+					'hints',
+					function ($) {
+						return $.hints;
+					},
+					$author$project$Exercises$codecShow,
+					$miniBill$elm_codec$Codec$object($author$project$Exercises$LocalStorage))))));
+var $miniBill$elm_codec$Codec$encodeToString = F2(
+	function (indentation, codec) {
+		return A2(
+			$elm$core$Basics$composeR,
+			$miniBill$elm_codec$Codec$encoder(codec),
+			$elm$json$Json$Encode$encode(indentation));
+	});
+var $author$project$Exercises$localStorageToString = function (model) {
+	return A3($miniBill$elm_codec$Codec$encodeToString, 4, $author$project$Exercises$codecLocalStorage, model);
+};
+var $author$project$Exercises$modelToLocalStorage = function (model) {
+	return {hints: model.hints, menuContent: model.menuContent, menuOpen: model.menuOpen, solutions: model.solutions};
+};
+var $author$project$Exercises$updateLocalStorage = F3(
+	function (tea, msg, model) {
+		return _Utils_Tuple2(
+			model,
+			function () {
+				if (msg.$ === 'PortLocalStoragePop') {
+					return $elm$core$Platform$Cmd$none;
+				} else {
+					return tea.portLocalStoragePush(
+						$author$project$Exercises$localStorageToString(
+							$author$project$Exercises$modelToLocalStorage(model)));
+				}
+			}());
+	});
+var $author$project$Exercises$MsgTEA = function (a) {
+	return {$: 'MsgTEA', a: a};
+};
 var $author$project$Exercises$f = function (showSet) {
 	if (showSet.$ === 'Show') {
 		var set = showSet.a;
@@ -11091,19 +11330,14 @@ var $author$project$Exercises$f = function (showSet) {
 		return $elm$core$Set$empty;
 	}
 };
-var $elm$core$Set$insert = F2(
-	function (key, _v0) {
-		var dict = _v0.a;
-		return $elm$core$Set$Set_elm_builtin(
-			A3($elm$core$Dict$insert, key, _Utils_Tuple0, dict));
-	});
 var $elm$core$Set$remove = F2(
 	function (key, _v0) {
 		var dict = _v0.a;
 		return $elm$core$Set$Set_elm_builtin(
 			A2($elm$core$Dict$remove, key, dict));
 	});
-var $author$project$Exercises$update = F3(
+var $elm$core$Debug$todo = _Debug_todo;
+var $author$project$Exercises$updateMain = F3(
 	function (tea, msg, model) {
 		switch (msg.$) {
 			case 'ShowHint':
@@ -11203,14 +11437,34 @@ var $author$project$Exercises$update = F3(
 						model,
 						{menuContent: menuContent, menuOpen: true}),
 					$elm$core$Platform$Cmd$none);
-			default:
+			case 'MenuOver':
 				var bool = msg.a;
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
 						{menuOver: bool}),
 					$elm$core$Platform$Cmd$none);
+			default:
+				var string = msg.a;
+				return _Debug_todo(
+					'Exercises',
+					{
+						start: {line: 674, column: 13},
+						end: {line: 674, column: 23}
+					})('xxx');
 		}
+	});
+var $author$project$Exercises$update = F3(
+	function (tea, msg, model) {
+		return A3(
+			$author$project$Exercises$andThen,
+			$author$project$Exercises$updateLocalStorage(tea),
+			msg,
+			A3(
+				$author$project$Exercises$andThen,
+				$author$project$Exercises$updateMain(tea),
+				msg,
+				_Utils_Tuple2(model, $elm$core$Platform$Cmd$none)));
 	});
 var $author$project$Exercises$ChangeMenu = function (a) {
 	return {$: 'ChangeMenu', a: a};
@@ -11723,7 +11977,6 @@ var $mdgriffith$elm_ui$Internal$Model$Unkeyed = function (a) {
 var $mdgriffith$elm_ui$Internal$Model$AsEl = {$: 'AsEl'};
 var $mdgriffith$elm_ui$Internal$Model$asEl = $mdgriffith$elm_ui$Internal$Model$AsEl;
 var $mdgriffith$elm_ui$Internal$Style$classes = {above: 'a', active: 'atv', alignBottom: 'ab', alignCenterX: 'cx', alignCenterY: 'cy', alignContainerBottom: 'acb', alignContainerCenterX: 'accx', alignContainerCenterY: 'accy', alignContainerRight: 'acr', alignLeft: 'al', alignRight: 'ar', alignTop: 'at', alignedHorizontally: 'ah', alignedVertically: 'av', any: 's', behind: 'bh', below: 'b', bold: 'w7', borderDashed: 'bd', borderDotted: 'bdt', borderNone: 'bn', borderSolid: 'bs', capturePointerEvents: 'cpe', clip: 'cp', clipX: 'cpx', clipY: 'cpy', column: 'c', container: 'ctr', contentBottom: 'cb', contentCenterX: 'ccx', contentCenterY: 'ccy', contentLeft: 'cl', contentRight: 'cr', contentTop: 'ct', cursorPointer: 'cptr', cursorText: 'ctxt', focus: 'fcs', focusedWithin: 'focus-within', fullSize: 'fs', grid: 'g', hasBehind: 'hbh', heightContent: 'hc', heightExact: 'he', heightFill: 'hf', heightFillPortion: 'hfp', hover: 'hv', imageContainer: 'ic', inFront: 'fr', inputLabel: 'lbl', inputMultiline: 'iml', inputMultilineFiller: 'imlf', inputMultilineParent: 'imlp', inputMultilineWrapper: 'implw', inputText: 'it', italic: 'i', link: 'lnk', nearby: 'nb', noTextSelection: 'notxt', onLeft: 'ol', onRight: 'or', opaque: 'oq', overflowHidden: 'oh', page: 'pg', paragraph: 'p', passPointerEvents: 'ppe', root: 'ui', row: 'r', scrollbars: 'sb', scrollbarsX: 'sbx', scrollbarsY: 'sby', seButton: 'sbt', single: 'e', sizeByCapital: 'cap', spaceEvenly: 'sev', strike: 'sk', text: 't', textCenter: 'tc', textExtraBold: 'w8', textExtraLight: 'w2', textHeavy: 'w9', textJustify: 'tj', textJustifyAll: 'tja', textLeft: 'tl', textLight: 'w3', textMedium: 'w5', textNormalWeight: 'w4', textRight: 'tr', textSemiBold: 'w6', textThin: 'w1', textUnitalicized: 'tun', transition: 'ts', transparent: 'clr', underline: 'u', widthContent: 'wc', widthExact: 'we', widthFill: 'wf', widthFillPortion: 'wfp', wrapped: 'wrp'};
-var $elm$json$Json$Encode$bool = _Json_wrap;
 var $elm$html$Html$Attributes$boolProperty = F2(
 	function (key, bool) {
 		return A2(
@@ -16883,7 +17136,6 @@ var $mdgriffith$elm_ui$Element$Input$focusDefault = function (attrs) {
 var $mdgriffith$elm_ui$Element$height = $mdgriffith$elm_ui$Internal$Model$Height;
 var $mdgriffith$elm_ui$Element$Events$onClick = A2($elm$core$Basics$composeL, $mdgriffith$elm_ui$Internal$Model$Attr, $elm$html$Html$Events$onClick);
 var $mdgriffith$elm_ui$Element$Input$enter = 'Enter';
-var $elm$json$Json$Decode$fail = _Json_fail;
 var $elm$virtual_dom$VirtualDom$MayPreventDefault = function (a) {
 	return {$: 'MayPreventDefault', a: a};
 };
@@ -17408,7 +17660,7 @@ var $mdgriffith$elm_ui$Element$column = F2(
 						attrs))),
 			$mdgriffith$elm_ui$Internal$Model$Unkeyed(children));
 	});
-var $author$project$Exercises$emptyExerciseData = {categories: _List_Nil, difficulty: $author$project$Exercises$Undefined, dummySolution: '', ellieId: '', hints: _List_Nil, id: 0, problem: '', solutions: _List_Nil, tests: _List_Nil, title: ''};
+var $author$project$Exercises$emptyExerciseData = {categories: _List_Nil, difficulty: $author$project$Exercises$Undefined, dummySolution: '', ellieId: '', hints: _List_Nil, id: 0, problem: '', reference: '', solutions: _List_Nil, tests: _List_Nil, title: ''};
 var $mdgriffith$elm_ui$Element$Font$family = function (families) {
 	return A2(
 		$mdgriffith$elm_ui$Internal$Model$StyleClass,
@@ -24629,7 +24881,7 @@ var $mdgriffith$elm_ui$Internal$Model$Px = function (a) {
 	return {$: 'Px', a: a};
 };
 var $mdgriffith$elm_ui$Element$px = $mdgriffith$elm_ui$Internal$Model$Px;
-var $author$project$Exercises$Markdown$avatarView = function (avatarUrl) {
+var $author$project$Internal$Markdown$avatarView = function (avatarUrl) {
 	return A2(
 		$mdgriffith$elm_ui$Element$el,
 		_List_fromArray(
@@ -24698,7 +24950,7 @@ var $mdgriffith$elm_ui$Element$row = F2(
 						attrs))),
 			$mdgriffith$elm_ui$Internal$Model$Unkeyed(children));
 	});
-var $author$project$Exercises$Markdown$icons = F3(
+var $author$project$Internal$Markdown$icons = F3(
 	function (twitter, github, dribbble) {
 		return A2(
 			$mdgriffith$elm_ui$Element$row,
@@ -24755,7 +25007,7 @@ var $author$project$Exercises$Markdown$icons = F3(
 						dribbble)
 					])));
 	});
-var $author$project$Exercises$Markdown$bioView = F6(
+var $author$project$Internal$Markdown$bioView = F6(
 	function (renderedChildren, name, photoUrl, twitter, github, dribbble) {
 		return A2(
 			$mdgriffith$elm_ui$Element$column,
@@ -24783,7 +25035,7 @@ var $author$project$Exercises$Markdown$bioView = F6(
 						]),
 					_List_fromArray(
 						[
-							$author$project$Exercises$Markdown$avatarView(photoUrl),
+							$author$project$Internal$Markdown$avatarView(photoUrl),
 							A2(
 							$mdgriffith$elm_ui$Element$el,
 							_List_fromArray(
@@ -24792,7 +25044,7 @@ var $author$project$Exercises$Markdown$bioView = F6(
 									$mdgriffith$elm_ui$Element$Font$size(30)
 								]),
 							$mdgriffith$elm_ui$Element$text(name)),
-							A3($author$project$Exercises$Markdown$icons, twitter, github, dribbble)
+							A3($author$project$Internal$Markdown$icons, twitter, github, dribbble)
 						])),
 				renderedChildren));
 	});
@@ -24813,7 +25065,7 @@ var $mdgriffith$elm_ui$Element$rgb255 = F3(
 	function (red, green, blue) {
 		return A4($mdgriffith$elm_ui$Internal$Model$Rgba, red / 255, green / 255, blue / 255, 1);
 	});
-var $author$project$Exercises$Markdown$code = function (snippet) {
+var $author$project$Internal$Markdown$code = function (snippet) {
 	return A2(
 		$mdgriffith$elm_ui$Element$el,
 		_List_fromArray(
@@ -24837,7 +25089,7 @@ var $author$project$Exercises$Markdown$code = function (snippet) {
 var $elm$html$Html$pre = _VirtualDom_node('pre');
 var $mdgriffith$elm_ui$Internal$Flag$overflow = $mdgriffith$elm_ui$Internal$Flag$flag(20);
 var $mdgriffith$elm_ui$Element$scrollbars = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$overflow, $mdgriffith$elm_ui$Internal$Style$classes.scrollbars);
-var $author$project$Exercises$Markdown$codeBlock = function (details) {
+var $author$project$Internal$Markdown$codeBlock = function (details) {
 	return A2(
 		$mdgriffith$elm_ui$Element$el,
 		_List_fromArray(
@@ -24990,14 +25242,14 @@ var $dillonkearns$elm_markdown$Markdown$Block$headingLevelToInt = function (head
 			return 6;
 	}
 };
-var $author$project$Exercises$Markdown$rawTextToId = function (rawText) {
+var $author$project$Internal$Markdown$rawTextToId = function (rawText) {
 	return $elm$core$String$toLower(
 		A2(
 			$elm$core$String$join,
 			'-',
 			A2($elm$core$String$split, ' ', rawText)));
 };
-var $author$project$Exercises$Markdown$heading = function (_v0) {
+var $author$project$Internal$Markdown$heading = function (_v0) {
 	var level = _v0.level;
 	var rawText = _v0.rawText;
 	var children = _v0.children;
@@ -25025,10 +25277,10 @@ var $author$project$Exercises$Markdown$heading = function (_v0) {
 				A2(
 					$elm$html$Html$Attributes$attribute,
 					'name',
-					$author$project$Exercises$Markdown$rawTextToId(rawText))),
+					$author$project$Internal$Markdown$rawTextToId(rawText))),
 				$mdgriffith$elm_ui$Element$htmlAttribute(
 				$elm$html$Html$Attributes$id(
-					$author$project$Exercises$Markdown$rawTextToId(rawText)))
+					$author$project$Internal$Markdown$rawTextToId(rawText)))
 			]),
 		children);
 };
@@ -25196,7 +25448,7 @@ var $mdgriffith$elm_ui$Element$paddingEach = function (_v0) {
 	}
 };
 var $mdgriffith$elm_ui$Element$Font$strike = $mdgriffith$elm_ui$Internal$Model$htmlClass($mdgriffith$elm_ui$Internal$Style$classes.strike);
-var $author$project$Exercises$Markdown$elmUiRenderer = {
+var $author$project$Internal$Markdown$elmUiRenderer = {
 	blockQuote: function (children) {
 		return A2(
 			$mdgriffith$elm_ui$Element$column,
@@ -25212,8 +25464,8 @@ var $author$project$Exercises$Markdown$elmUiRenderer = {
 				]),
 			children);
 	},
-	codeBlock: $author$project$Exercises$Markdown$codeBlock,
-	codeSpan: $author$project$Exercises$Markdown$code,
+	codeBlock: $author$project$Internal$Markdown$codeBlock,
+	codeSpan: $author$project$Internal$Markdown$code,
 	emphasis: function (content) {
 		return A2(
 			$mdgriffith$elm_ui$Element$row,
@@ -25223,7 +25475,7 @@ var $author$project$Exercises$Markdown$elmUiRenderer = {
 	},
 	hardLineBreak: $mdgriffith$elm_ui$Element$html(
 		A2($elm$html$Html$br, _List_Nil, _List_Nil)),
-	heading: $author$project$Exercises$Markdown$heading,
+	heading: $author$project$Internal$Markdown$heading,
 	html: $dillonkearns$elm_markdown$Markdown$Html$oneOf(_List_Nil),
 	image: function (image_) {
 		var _v0 = image_.title;
@@ -25450,8 +25702,8 @@ var $dillonkearns$elm_markdown$Markdown$Html$withOptionalAttribute = F2(
 						A3(renderer, tagName, attributes, innerBlocks));
 				}));
 	});
-var $author$project$Exercises$Markdown$renderer = _Utils_update(
-	$author$project$Exercises$Markdown$elmUiRenderer,
+var $author$project$Internal$Markdown$renderer = _Utils_update(
+	$author$project$Internal$Markdown$elmUiRenderer,
 	{
 		html: $dillonkearns$elm_markdown$Markdown$Html$oneOf(
 			_List_fromArray(
@@ -25476,14 +25728,14 @@ var $author$project$Exercises$Markdown$renderer = _Utils_update(
 										'bio',
 										F6(
 											function (name, photoUrl, twitter, github, dribbble, renderedChildren) {
-												return A6($author$project$Exercises$Markdown$bioView, renderedChildren, name, photoUrl, twitter, github, dribbble);
+												return A6($author$project$Internal$Markdown$bioView, renderedChildren, name, photoUrl, twitter, github, dribbble);
 											})))))))
 				]))
 	});
-var $author$project$Exercises$Markdown$markdownView = function (string) {
+var $author$project$Internal$Markdown$markdownView = function (string) {
 	return A2(
 		$elm$core$Result$andThen,
-		$dillonkearns$elm_markdown$Markdown$Renderer$render($author$project$Exercises$Markdown$renderer),
+		$dillonkearns$elm_markdown$Markdown$Renderer$render($author$project$Internal$Markdown$renderer),
 		A2(
 			$elm$core$Result$mapError,
 			function (error) {
@@ -25494,8 +25746,8 @@ var $author$project$Exercises$Markdown$markdownView = function (string) {
 			},
 			$dillonkearns$elm_markdown$Markdown$Parser$parse(string)));
 };
-var $author$project$Exercises$Markdown$markdown = function (string) {
-	var _v0 = $author$project$Exercises$Markdown$markdownView(string);
+var $author$project$Internal$Markdown$markdown = function (string) {
+	var _v0 = $author$project$Internal$Markdown$markdownView(string);
 	if (_v0.$ === 'Ok') {
 		var res = _v0.a;
 		return res;
@@ -25646,7 +25898,7 @@ var $author$project$Exercises$accordion = function (_v0) {
 											$mdgriffith$elm_ui$Element$htmlAttribute(
 											A2($elm$html$Html$Attributes$style, 'display', 'none'))
 										])),
-								$author$project$Exercises$Markdown$markdown(solution))
+								$author$project$Internal$Markdown$markdown(solution))
 							]));
 				}),
 			itemsContent));
@@ -26003,7 +26255,7 @@ var $author$project$Exercises$viewBody = F3(
 										$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
 									]),
 								_Utils_ap(
-									$author$project$Exercises$Markdown$markdown(exerciseData.problem),
+									$author$project$Internal$Markdown$markdown(exerciseData.problem),
 									_List_fromArray(
 										[
 											A2(
@@ -26240,7 +26492,7 @@ var $author$project$Exercises$viewBody = F3(
 																				A2(
 																				$mdgriffith$elm_ui$Element$paragraph,
 																				_List_Nil,
-																				$author$project$Exercises$Markdown$markdown('`' + (test + '`')))
+																				$author$project$Internal$Markdown$markdown('`' + (test + '`')))
 																			]));
 																} else {
 																	var reason = failureReason.a;
@@ -26275,7 +26527,7 @@ var $author$project$Exercises$viewBody = F3(
 																				A2(
 																				$mdgriffith$elm_ui$Element$paragraph,
 																				_List_Nil,
-																				$author$project$Exercises$Markdown$markdown(
+																				$author$project$Internal$Markdown$markdown(
 																					'`' + (test + ('` ' + $author$project$Exercises$failureReasonToString(reason.reason)))))
 																			]));
 																}
@@ -26373,8 +26625,6 @@ var $author$project$Exercises$viewBody = F3(
 														{hideItem: $author$project$Exercises$HideSolution, items: model.solutions, itemsContent: exerciseData.solutions, showItem: $author$project$Exercises$ShowSolution})
 													])))))))))));
 	});
-var $author$project$Exercises$Contribute = {$: 'Contribute'};
-var $author$project$Exercises$Help = {$: 'Help'};
 var $elm$svg$Svg$Attributes$d = _VirtualDom_attribute('d');
 var $feathericons$elm_feather$FeatherIcons$Icon = function (a) {
 	return {$: 'Icon', a: a};
@@ -27005,6 +27255,29 @@ var $author$project$Exercises$viewElement = F2(
 var $author$project$Exercises$MenuOver = function (a) {
 	return {$: 'MenuOver', a: a};
 };
+var $elm$svg$Svg$polyline = $elm$svg$Svg$trustedNode('polyline');
+var $feathericons$elm_feather$FeatherIcons$clock = A2(
+	$feathericons$elm_feather$FeatherIcons$makeBuilder,
+	'clock',
+	_List_fromArray(
+		[
+			A2(
+			$elm$svg$Svg$circle,
+			_List_fromArray(
+				[
+					$elm$svg$Svg$Attributes$cx('12'),
+					$elm$svg$Svg$Attributes$cy('12'),
+					$elm$svg$Svg$Attributes$r('10')
+				]),
+			_List_Nil),
+			A2(
+			$elm$svg$Svg$polyline,
+			_List_fromArray(
+				[
+					$elm$svg$Svg$Attributes$points('12 6 12 12 16 14')
+				]),
+			_List_Nil)
+		]));
 var $feathericons$elm_feather$FeatherIcons$crosshair = A2(
 	$feathericons$elm_feather$FeatherIcons$makeBuilder,
 	'crosshair',
@@ -27057,6 +27330,26 @@ var $feathericons$elm_feather$FeatherIcons$crosshair = A2(
 					$elm$svg$Svg$Attributes$y1('22'),
 					$elm$svg$Svg$Attributes$x2('12'),
 					$elm$svg$Svg$Attributes$y2('18')
+				]),
+			_List_Nil)
+		]));
+var $feathericons$elm_feather$FeatherIcons$edit = A2(
+	$feathericons$elm_feather$FeatherIcons$makeBuilder,
+	'edit',
+	_List_fromArray(
+		[
+			A2(
+			$elm$svg$Svg$path,
+			_List_fromArray(
+				[
+					$elm$svg$Svg$Attributes$d('M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7')
+				]),
+			_List_Nil),
+			A2(
+			$elm$svg$Svg$path,
+			_List_fromArray(
+				[
+					$elm$svg$Svg$Attributes$d('M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z')
 				]),
 			_List_Nil)
 		]));
@@ -27243,7 +27536,58 @@ var $author$project$Exercises$viewSideButtons = function (model) {
 								_List_fromArray(
 									[$mdgriffith$elm_ui$Element$centerX]),
 								$mdgriffith$elm_ui$Element$html(
-									A2($feathericons$elm_feather$FeatherIcons$toHtml, _List_Nil, $feathericons$elm_feather$FeatherIcons$list))),
+									A2($feathericons$elm_feather$FeatherIcons$toHtml, _List_Nil, $feathericons$elm_feather$FeatherIcons$clock))),
+								A2(
+								$mdgriffith$elm_ui$Element$column,
+								_List_fromArray(
+									[
+										$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+										$mdgriffith$elm_ui$Element$spacing(4)
+									]),
+								_List_fromArray(
+									[
+										A2(
+										$mdgriffith$elm_ui$Element$el,
+										_List_fromArray(
+											[
+												$mdgriffith$elm_ui$Element$Font$size(12)
+											]),
+										$mdgriffith$elm_ui$Element$text('HISTORY'))
+									]))
+							])),
+					onPress: $elm$core$Maybe$Just(
+						$author$project$Exercises$ChangeMenu($author$project$Exercises$OtherExercises))
+				}),
+				A2(
+				$mdgriffith$elm_ui$Element$Input$button,
+				_List_fromArray(
+					[
+						$mdgriffith$elm_ui$Element$padding(13),
+						$mdgriffith$elm_ui$Element$Border$widthEach(
+						{bottom: 1, left: 1, right: 0, top: 1}),
+						$mdgriffith$elm_ui$Element$Border$roundEach(
+						{bottomLeft: 4, bottomRight: 0, topLeft: 4, topRight: 0}),
+						$mdgriffith$elm_ui$Element$Border$color(
+						A4($mdgriffith$elm_ui$Element$rgba, 0, 0, 0, 0.2)),
+						$mdgriffith$elm_ui$Element$Background$color(
+						A4($mdgriffith$elm_ui$Element$rgba, 1, 1, 1, 0.9)),
+						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+					]),
+				{
+					label: A2(
+						$mdgriffith$elm_ui$Element$row,
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$spacing(15)
+							]),
+						_List_fromArray(
+							[
+								A2(
+								$mdgriffith$elm_ui$Element$el,
+								_List_fromArray(
+									[$mdgriffith$elm_ui$Element$centerX]),
+								$mdgriffith$elm_ui$Element$html(
+									A2($feathericons$elm_feather$FeatherIcons$toHtml, _List_Nil, $feathericons$elm_feather$FeatherIcons$edit))),
 								A2(
 								$mdgriffith$elm_ui$Element$column,
 								_List_fromArray(
@@ -27356,32 +27700,6 @@ var $author$project$Exercises$viewSideButtons = function (model) {
 				})
 			]));
 };
-var $author$project$Exercises$contentContribute = _Utils_Tuple2(
-	'Contribute',
-	_Utils_ap(
-		_List_Nil,
-		_List_fromArray(
-			[
-				A2(
-				$mdgriffith$elm_ui$Element$column,
-				_List_fromArray(
-					[
-						$author$project$Exercises$paddingLeft,
-						$mdgriffith$elm_ui$Element$spacing(16),
-						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
-					]),
-				_List_fromArray(
-					[
-						A2(
-						$mdgriffith$elm_ui$Element$column,
-						_List_fromArray(
-							[
-								$mdgriffith$elm_ui$Element$spacing(16),
-								$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
-							]),
-						$author$project$Exercises$Markdown$markdown('If you have some exercise that you would like to add to this list or if you have any other feedback, [learn how you can contribute](https://github.com/lucamug/elm-exercises/blob/master/CONTRIBUTING.md).\n    '))
-					]))
-			])));
 var $author$project$Exercises$subtitle = function (string) {
 	return A2(
 		$mdgriffith$elm_ui$Element$paragraph,
@@ -27395,6 +27713,66 @@ var $author$project$Exercises$subtitle = function (string) {
 				$mdgriffith$elm_ui$Element$text(string)
 			]));
 };
+var $author$project$Exercises$contentContribute = _Utils_Tuple2(
+	'Contribute',
+	_Utils_ap(
+		_List_Nil,
+		_Utils_ap(
+			_List_fromArray(
+				[
+					$author$project$Exercises$subtitle('Improve this Exercise')
+				]),
+			_Utils_ap(
+				_List_fromArray(
+					[
+						A2(
+						$mdgriffith$elm_ui$Element$column,
+						_List_fromArray(
+							[
+								$author$project$Exercises$paddingLeft,
+								$mdgriffith$elm_ui$Element$spacing(16),
+								$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+							]),
+						$author$project$Internal$Markdown$markdown('If you find some mistake or you have some goot hint or a nice solution to add to this exercise, you can [edit it directly](https://github.com/lucamug/elm-exercises/edit/master/exercises/src/E/E001.elm).'))
+					]),
+				_List_fromArray(
+					[
+						A2(
+						$mdgriffith$elm_ui$Element$column,
+						_List_fromArray(
+							[
+								$author$project$Exercises$paddingLeft,
+								$mdgriffith$elm_ui$Element$spacing(16),
+								$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+							]),
+						_List_fromArray(
+							[
+								A2(
+								$mdgriffith$elm_ui$Element$column,
+								_List_fromArray(
+									[
+										$mdgriffith$elm_ui$Element$spacing(16),
+										$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+									]),
+								$author$project$Internal$Markdown$markdown('If you have some exercise that you would like to add to this list or if you have any other feedback, [learn how you can contribute](https://github.com/lucamug/elm-exercises/blob/master/CONTRIBUTING.md).'))
+							]))
+					])))));
+var $author$project$Exercises$viewTitle = function (string) {
+	return A2(
+		$mdgriffith$elm_ui$Element$paragraph,
+		_List_fromArray(
+			[
+				$mdgriffith$elm_ui$Element$Region$heading(2),
+				$mdgriffith$elm_ui$Element$Font$size(20),
+				$mdgriffith$elm_ui$Element$Font$bold,
+				$mdgriffith$elm_ui$Element$Font$color(
+				A4($mdgriffith$elm_ui$Element$rgba, 0, 0, 0, 0.8))
+			]),
+		_List_fromArray(
+			[
+				$mdgriffith$elm_ui$Element$text(string)
+			]));
+};
 var $author$project$Exercises$contentHelp = _Utils_Tuple2(
 	'Help',
 	_Utils_ap(
@@ -27402,7 +27780,7 @@ var $author$project$Exercises$contentHelp = _Utils_Tuple2(
 		_Utils_ap(
 			_List_fromArray(
 				[
-					$author$project$Exercises$subtitle('How does this work?')
+					$author$project$Exercises$viewTitle('How does this work?')
 				]),
 			_Utils_ap(
 				_List_fromArray(
@@ -27474,7 +27852,7 @@ var $author$project$Exercises$contentHelp = _Utils_Tuple2(
 										$mdgriffith$elm_ui$Element$spacing(16),
 										$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
 									]),
-								$author$project$Exercises$Markdown$markdown('If you need support, [join the Elm community in Slack](https://elmlang.herokuapp.com/).\n\nThere are also a lot of valuable resources to learn Elm on-line. for example:\n\n* [An Introduction to Elm](https://guide.elm-lang.org/) - The official Elm Guide\n* [Elm Packages](https://package.elm-lang.org/) - Documentation of Elm Packages\n* [Elm Cheat Sheet](https://lucamug.github.io/elm-cheat-sheet/) - A condensate list of the most useful Elm concepts\n* [Awesome Elm](https://github.com/sporto/awesome-elm) - A list of Elm resources\n\nIf you have some exercise that you would like to add to this list or if you have any other feedback, [learn how you can contribute](https://github.com/lucamug/elm-exercises/blob/master/CONTRIBUTING.md).\n'))
+								$author$project$Internal$Markdown$markdown('If you need support, [join the Elm community in Slack](https://elmlang.herokuapp.com/).\n\nThere are also a lot of valuable resources to learn Elm on-line. for example:\n\n* [An Introduction to Elm](https://guide.elm-lang.org/) - The official Elm Guide\n* [Elm Packages](https://package.elm-lang.org/) - Documentation of Elm Packages\n* [Elm Cheat Sheet](https://lucamug.github.io/elm-cheat-sheet/) - A condensate list of the most useful Elm concepts\n* [Awesome Elm](https://github.com/sporto/awesome-elm) - A list of Elm resources'))
 							]))
 					]),
 				_List_fromArray(
@@ -27522,15 +27900,10 @@ var $author$project$Exercises$categories = function (exercises) {
 		$elm$core$Dict$empty,
 		exercises);
 };
-var $elm$core$Debug$log = _Debug_log;
 var $author$project$Exercises$contentOtherExercises = function (model) {
 	var _v0 = model.resultIndex;
 	if (_v0.$ === 'Ok') {
 		var index = _v0.a;
-		var _v1 = A2(
-			$elm$core$Debug$log,
-			'xxx1',
-			$author$project$Exercises$categories(index));
 		return _Utils_Tuple2(
 			'Other Exercises',
 			_Utils_ap(
@@ -27538,7 +27911,7 @@ var $author$project$Exercises$contentOtherExercises = function (model) {
 				_Utils_ap(
 					_List_fromArray(
 						[
-							$author$project$Exercises$subtitle('Exercises by Category')
+							$author$project$Exercises$viewTitle('Exercises by Category')
 						]),
 					_Utils_ap(
 						_List_fromArray(
@@ -27552,8 +27925,8 @@ var $author$project$Exercises$contentOtherExercises = function (model) {
 										F2(
 											function (category, excercises) {
 												return $author$project$Exercises$subtitle(
-													'- ' + (category + (' (' + ($elm$core$String$fromInt(
-														$elm$core$List$length(excercises)) + ')'))));
+													category + (' (' + ($elm$core$String$fromInt(
+														$elm$core$List$length(excercises)) + ')')));
 											}),
 										$author$project$Exercises$categories(index))))
 							]),
@@ -27831,6 +28204,8 @@ var $author$project$Exercises$exerciseWithTea = function (tea) {
 	var tea2 = {
 		init: tea.init,
 		maybeView: $elm$core$Maybe$Just(tea.view),
+		portLocalStoragePop: tea.portLocalStoragePop,
+		portLocalStoragePush: tea.portLocalStoragePush,
 		subscriptions: tea.subscriptions,
 		tests: tea.tests,
 		update: tea.update
@@ -27843,15 +28218,19 @@ var $author$project$Exercises$exerciseWithTea = function (tea) {
 			view: $author$project$Exercises$view(tea2)
 		});
 };
+var $elm$core$Platform$Sub$batch = _Platform_batch;
+var $elm$core$Platform$Sub$none = $elm$core$Platform$Sub$batch(_List_Nil);
 var $author$project$Exercises$onlyTests = F2(
-	function (tests, view_) {
+	function (args, view_) {
 		return {
 			init: _Utils_Tuple2(_Utils_Tuple0, $elm$core$Platform$Cmd$none),
+			portLocalStoragePop: args.portLocalStoragePop,
+			portLocalStoragePush: args.portLocalStoragePush,
 			subscriptions: function (_v0) {
 				return $elm$core$Platform$Sub$none;
 			},
 			tests: function (_v1) {
-				return tests;
+				return args.tests;
 			},
 			update: F2(
 				function (_v2, _v3) {
@@ -27862,11 +28241,12 @@ var $author$project$Exercises$onlyTests = F2(
 			}
 		};
 	});
-var $author$project$Exercises$exercise = function (_v0) {
-	var tests = _v0.tests;
+var $author$project$Exercises$exercise = function (args) {
 	return $author$project$Exercises$exerciseWithTea(
-		A2($author$project$Exercises$onlyTests, tests, $mdgriffith$elm_ui$Element$none));
+		A2($author$project$Exercises$onlyTests, args, $mdgriffith$elm_ui$Element$none));
 };
+var $author$project$MainSimple$portLocalStoragePop = _Platform_incomingPort('portLocalStoragePop', $elm$json$Json$Decode$string);
+var $author$project$MainSimple$portLocalStoragePush = _Platform_outgoingPort('portLocalStoragePush', $elm$json$Json$Encode$string);
 var $elm_explorations$test$Test$Runner$Failure$Equality = F2(
 	function (a, b) {
 		return {$: 'Equality', a: a, b: b};
@@ -27972,7 +28352,7 @@ var $author$project$MainSimple$tests = _List_fromArray(
 				])))
 	]);
 var $author$project$MainSimple$main = $author$project$Exercises$exercise(
-	{tests: $author$project$MainSimple$tests});
+	{portLocalStoragePop: $author$project$MainSimple$portLocalStoragePop, portLocalStoragePush: $author$project$MainSimple$portLocalStoragePush, tests: $author$project$MainSimple$tests});
 _Platform_export({'MainSimple':{'init':$author$project$MainSimple$main(
 	A2(
 		$elm$json$Json$Decode$andThen,
@@ -27985,4 +28365,4 @@ _Platform_export({'MainSimple':{'init':$author$project$MainSimple$main(
 				},
 				A2($elm$json$Json$Decode$field, 'exerciseData', $elm$json$Json$Decode$string));
 		},
-		A2($elm$json$Json$Decode$field, 'index', $elm$json$Json$Decode$string)))({"versions":{"elm":"0.19.1"},"types":{"message":"Exercises.Msg ()","aliases":{},"unions":{"Exercises.Msg":{"args":["msgExercise"],"tags":{"ShowHint":["Basics.Int"],"ShowHintsAll":[],"ShowHintsNone":[],"HideHint":["Basics.Int"],"ShowSolution":["Basics.Int"],"ShowSolutionsAll":[],"ShowSolutionsNone":[],"HideSolution":["Basics.Int"],"MsgTEA":["msgExercise"],"ChangeMenu":["Exercises.MenuContent"],"MenuOver":["Basics.Bool"]}},"Basics.Bool":{"args":[],"tags":{"True":[],"False":[]}},"Basics.Int":{"args":[],"tags":{"Int":[]}},"Exercises.MenuContent":{"args":[],"tags":{"OtherExercises":[],"Help":[],"Contribute":[]}}}}})}});}(this));
+		A2($elm$json$Json$Decode$field, 'index', $elm$json$Json$Decode$string)))({"versions":{"elm":"0.19.1"},"types":{"message":"Exercises.Msg ()","aliases":{},"unions":{"Exercises.Msg":{"args":["msgExercise"],"tags":{"ShowHint":["Basics.Int"],"ShowHintsAll":[],"ShowHintsNone":[],"HideHint":["Basics.Int"],"ShowSolution":["Basics.Int"],"ShowSolutionsAll":[],"ShowSolutionsNone":[],"HideSolution":["Basics.Int"],"MsgTEA":["msgExercise"],"ChangeMenu":["Exercises.MenuContent"],"MenuOver":["Basics.Bool"],"PortLocalStoragePop":["String.String"]}},"Basics.Bool":{"args":[],"tags":{"True":[],"False":[]}},"Basics.Int":{"args":[],"tags":{"Int":[]}},"Exercises.MenuContent":{"args":[],"tags":{"OtherExercises":[],"Help":[],"Contribute":[]}},"String.String":{"args":[],"tags":{"String":[]}}}}})}});}(this));

@@ -55,11 +55,11 @@ import Element.Events as Events
 import Element.Font as Font
 import Element.Input as Input
 import Element.Region as Region
-import Exercises.Markdown
 import Expect
 import FeatherIcons
 import Html
 import Html.Attributes
+import Internal.Markdown
 import Json.Decode
 import Set
 import Svg
@@ -206,7 +206,11 @@ onFail =
 
 {-| -}
 onlyTests :
-    List Test
+    { a
+        | tests : List Test
+        , portLocalStoragePop : (String -> Msg msgExercise) -> Sub (Msg msgExercise)
+        , portLocalStoragePush : String -> Cmd (Msg msgExercise)
+    }
     -> Element ()
     ->
         { init : ( (), Cmd () )
@@ -214,13 +218,17 @@ onlyTests :
         , update : () -> () -> ( (), Cmd () )
         , subscriptions : () -> Sub ()
         , tests : () -> List Test
+        , portLocalStoragePop : (String -> Msg msgExercise) -> Sub (Msg msgExercise)
+        , portLocalStoragePush : String -> Cmd (Msg msgExercise)
         }
-onlyTests tests view_ =
+onlyTests args view_ =
     { init = ( (), Cmd.none )
     , view = \_ -> view_
     , update = \_ _ -> ( (), Cmd.none )
     , subscriptions = \_ -> Sub.none
-    , tests = \_ -> tests
+    , tests = \_ -> args.tests
+    , portLocalStoragePop = args.portLocalStoragePop
+    , portLocalStoragePush = args.portLocalStoragePush
     }
 
 
@@ -231,6 +239,8 @@ type alias TEA modelExercise msgExercise =
     , update : msgExercise -> modelExercise -> ( modelExercise, Cmd msgExercise )
     , subscriptions : modelExercise -> Sub msgExercise
     , tests : modelExercise -> List Test
+    , portLocalStoragePop : (String -> Msg msgExercise) -> Sub (Msg msgExercise)
+    , portLocalStoragePush : String -> Cmd (Msg msgExercise)
     }
 
 
@@ -259,17 +269,28 @@ type alias TEA modelExercise msgExercise =
             ]
 
 -}
-exercise : { tests : List Test } -> Program Flags (Model ()) (Msg ())
-exercise { tests } =
+exercise :
+    { tests : List Test
+    , portLocalStoragePop : (String -> Msg ()) -> Sub (Msg ())
+    , portLocalStoragePush : String -> Cmd (Msg ())
+    }
+    -> Program Flags (Model ()) (Msg ())
+exercise args =
     exerciseWithTea
-        (onlyTests tests none)
+        (onlyTests args none)
 
 
 {-| -}
-exerciseWithView : { tests : List Test, view : Element () } -> Program Flags (Model ()) (Msg ())
+exerciseWithView :
+    { tests : List Test
+    , portLocalStoragePop : (String -> Msg ()) -> Sub (Msg ())
+    , portLocalStoragePush : String -> Cmd (Msg ())
+    , view : Element ()
+    }
+    -> Program Flags (Model ()) (Msg ())
 exerciseWithView args =
     exerciseWithTea
-        (onlyTests args.tests args.view)
+        (onlyTests args args.view)
 
 
 {-| If the exercise require The Elm Architecure and tests need to access the Model, it is possible to use `exerciseWithTea` instead of the simpler `exercise`. It is the analogue of `Browser.element` but without flags.
@@ -313,6 +334,8 @@ exerciseWithTea :
     , update : msgExercise -> modelExercise -> ( modelExercise, Cmd msgExercise )
     , subscriptions : modelExercise -> Sub msgExercise
     , tests : modelExercise -> List Test
+    , portLocalStoragePop : (String -> Msg msgExercise) -> Sub (Msg msgExercise)
+    , portLocalStoragePush : String -> Cmd (Msg msgExercise)
     }
     -> Program Flags (Model modelExercise) (Msg msgExercise)
 exerciseWithTea tea =
@@ -323,6 +346,8 @@ exerciseWithTea tea =
             , update = tea.update
             , subscriptions = tea.subscriptions
             , tests = tea.tests
+            , portLocalStoragePop = tea.portLocalStoragePop
+            , portLocalStoragePush = tea.portLocalStoragePush
             }
     in
     Browser.element
@@ -334,8 +359,8 @@ exerciseWithTea tea =
 
 
 subscriptions : TEA modelExercise msgExercise -> Model modelExercise -> Sub (Msg msgExercise)
-subscriptions _ _ =
-    Sub.none
+subscriptions tea _ =
+    tea.portLocalStoragePop PortLocalStoragePop
 
 
 {-| -}
@@ -370,10 +395,102 @@ type alias Model modelExercise =
     }
 
 
+modelToLocalStorage : Model modelExercise -> LocalStorage
+modelToLocalStorage model =
+    { hints = model.hints
+    , solutions = model.solutions
+    , menuOpen = model.menuOpen
+    , menuContent = model.menuContent
+    }
+
+
+modelFromLocalStorage : Model modelExercise -> LocalStorage -> Model modelExercise
+modelFromLocalStorage model localStorage =
+    { model
+        | hints = localStorage.hints
+        , solutions = localStorage.solutions
+        , menuOpen = localStorage.menuOpen
+        , menuContent = localStorage.menuContent
+    }
+
+
+type alias LocalStorage =
+    { hints : Show
+    , solutions : Show
+    , menuOpen : Bool
+    , menuContent : MenuContent
+    }
+
+
+{-| -}
+type Show
+    = ShowAll
+    | ShowNone
+    | Show (Set.Set Int)
+
+
+codecShow : Codec.Codec Show
+codecShow =
+    Codec.custom
+        (\showAll showNone show value ->
+            case value of
+                ShowAll ->
+                    showAll
+
+                ShowNone ->
+                    showNone
+
+                Show setInt ->
+                    show setInt
+        )
+        |> Codec.variant0 "ShowAll" ShowAll
+        |> Codec.variant0 "ShowNone" ShowNone
+        |> Codec.variant1 "Show" Show (Codec.set Codec.int)
+        |> Codec.buildCustom
+
+
+codecLocalStorage : Codec.Codec LocalStorage
+codecLocalStorage =
+    Codec.object LocalStorage
+        |> Codec.field "hints" .hints codecShow
+        |> Codec.field "solutions" .solutions codecShow
+        |> Codec.field "menuOpen" .menuOpen Codec.bool
+        |> Codec.field "menuContent" .menuContent (Codec.map stringToMenuContent menuContentToString Codec.string)
+        |> Codec.buildObject
+
+
 type MenuContent
     = OtherExercises
     | Help
     | Contribute
+
+
+menuContentToString : MenuContent -> String
+menuContentToString menuContent =
+    case menuContent of
+        OtherExercises ->
+            "OtherExercises"
+
+        Help ->
+            "Help"
+
+        Contribute ->
+            "Contribute"
+
+
+stringToMenuContent : String -> MenuContent
+stringToMenuContent string =
+    if string == menuContentToString OtherExercises then
+        OtherExercises
+
+    else if string == menuContentToString Help then
+        Help
+
+    else if string == menuContentToString Contribute then
+        Contribute
+
+    else
+        Contribute
 
 
 {-| Internal. Exposed to be used in type signatures
@@ -393,6 +510,8 @@ type Msg msgExercise
       --
     | ChangeMenu MenuContent
     | MenuOver Bool
+      --
+    | PortLocalStoragePop String
 
 
 {-| `Flags` are the way to pass details about the exercises to the page.
@@ -453,10 +572,11 @@ type alias Flags =
 -}
 type alias ExerciseData =
     { id : Int
-    , ellieId : String
     , title : String
     , difficulty : Difficulty
     , categories : List String
+    , ellieId : String
+    , reference : String
     , problem : String
     , tests : List String
     , hints : List String
@@ -476,6 +596,36 @@ type Difficulty
 {-| -}
 update : TEA modelExercise msgExercise -> Msg msgExercise -> Model modelExercise -> ( Model modelExercise, Cmd (Msg msgExercise) )
 update tea msg model =
+    ( model, Cmd.none )
+        |> andThen (updateMain tea) msg
+        |> andThen (updateLocalStorage tea) msg
+
+
+updateLocalStorage : TEA modelExercise msgExercise -> Msg msgExercise -> Model modelExercise -> ( Model modelExercise, Cmd (Msg msgExercise) )
+updateLocalStorage tea msg model =
+    ( model
+    , case msg of
+        PortLocalStoragePop _ ->
+            -- This is the only case where we don't "pushLocalStorage"
+            -- to avoid generating an infinite loop
+            Cmd.none
+
+        _ ->
+            -- We save data to the local storage
+            model
+                |> modelToLocalStorage
+                |> localStorageToString
+                |> tea.portLocalStoragePush
+    )
+
+
+localStorageToString : LocalStorage -> String
+localStorageToString model =
+    Codec.encodeToString 4 codecLocalStorage model
+
+
+updateMain : TEA modelExercise msgExercise -> Msg msgExercise -> Model modelExercise -> ( Model modelExercise, Cmd (Msg msgExercise) )
+updateMain tea msg model =
     case msg of
         ShowHint int ->
             ( { model | hints = Show <| Set.insert int <| f model.hints }, Cmd.none )
@@ -518,12 +668,10 @@ update tea msg model =
         MenuOver bool ->
             ( { model | menuOver = bool }, Cmd.none )
 
-
-{-| -}
-type Show
-    = ShowAll
-    | ShowNone
-    | Show (Set.Set Int)
+        PortLocalStoragePop string ->
+            -- decode string
+            -- load into model
+            Debug.todo "xxx"
 
 
 type alias FailureReason =
@@ -625,7 +773,7 @@ viewBody tea model exerciseData =
         ([]
             ++ [ paragraph [ Region.heading 2, Font.size 24, Font.bold ] [ text "Problem" ] ]
             ++ [ column [ paddingLeft, spacing 16, width fill ] <|
-                    Exercises.Markdown.markdown exerciseData.problem
+                    Internal.Markdown.markdown exerciseData.problem
                         ++ [ paragraph [ alpha 0.5 ]
                                 [ text "Diffculty level: "
                                 , el [] <| text <| difficultyToString exerciseData.difficulty
@@ -730,7 +878,7 @@ viewBody tea model exerciseData =
                                                 [ el [ alignTop, moveDown 3 ] <| text "✅"
                                                 , el [ Font.color green, width <| px 50, alignTop, moveDown 3 ] <| text "Passed"
                                                 , paragraph [] <|
-                                                    Exercises.Markdown.markdown <|
+                                                    Internal.Markdown.markdown <|
                                                         "`"
                                                             ++ test
                                                             ++ "`"
@@ -741,7 +889,7 @@ viewBody tea model exerciseData =
                                                 [ el [ alignTop, moveDown 3 ] <| text "❌"
                                                 , el [ Font.color red, width <| px 50, alignTop, moveDown 3 ] <| text "Failed"
                                                 , paragraph [] <|
-                                                    Exercises.Markdown.markdown <|
+                                                    Internal.Markdown.markdown <|
                                                         "`"
                                                             ++ test
                                                             ++ "` "
@@ -919,7 +1067,28 @@ viewSideButtons model =
             ]
             { label =
                 row [ spacing 15 ]
-                    [ FeatherIcons.list
+                    [ FeatherIcons.clock
+                        |> FeatherIcons.toHtml []
+                        |> html
+                        |> el [ centerX ]
+                    , column [ width fill, spacing 4 ]
+                        [ el [ Font.size 12 ] <| text "HISTORY"
+                        ]
+                    ]
+            , onPress = Just <| ChangeMenu OtherExercises
+            }
+        , Input.button
+            [ padding 13
+            , Border.widthEach { bottom = 1, left = 1, right = 0, top = 1 }
+            , Border.roundEach { topLeft = 4, topRight = 0, bottomLeft = 4, bottomRight = 0 }
+            , Border.color <| rgba 0 0 0 0.2
+            , Background.color <| rgba 1 1 1 0.9
+            , width fill
+            ]
+            { label =
+                row [ spacing 15 ]
+                    -- [ FeatherIcons.list
+                    [ FeatherIcons.edit
                         |> FeatherIcons.toHtml []
                         |> html
                         |> el [ centerX ]
@@ -1089,10 +1258,6 @@ helper : List comparable -> Dict.Dict comparable (List c) -> c -> Dict.Dict comp
 helper categories_ acc exerciseData =
     List.foldl
         (\category acc2 ->
-            let
-                _ =
-                    Debug.log "working on" category
-            in
             Dict.update category
                 (\maybeV ->
                     case maybeV of
@@ -1150,18 +1315,14 @@ contentOtherExercises : Model modelExercise -> ( String, List (Element msg) )
 contentOtherExercises model =
     case model.resultIndex of
         Ok index ->
-            let
-                _ =
-                    Debug.log "xxx1" <| categories index
-            in
             ( "Other Exercises"
             , []
-                ++ [ subtitle "Exercises by Category" ]
+                ++ [ viewTitle "Exercises by Category" ]
                 ++ [ index
                         |> categories
                         |> Dict.map
                             (\category excercises ->
-                                subtitle <| "- " ++ category ++ " (" ++ String.fromInt (List.length excercises) ++ ")"
+                                subtitle <| category ++ " (" ++ String.fromInt (List.length excercises) ++ ")"
                             )
                         |> Dict.values
                         |> column []
@@ -1212,6 +1373,17 @@ contentOtherExercises model =
             )
 
 
+viewTitle : String -> Element msg
+viewTitle string =
+    paragraph
+        [ Region.heading 2
+        , Font.size 20
+        , Font.bold
+        , Font.color <| rgba 0 0 0 0.8
+        ]
+        [ text string ]
+
+
 subtitle : String -> Element msg
 subtitle string =
     paragraph [ Region.heading 2, Font.size 20 ] [ text string ]
@@ -1221,7 +1393,7 @@ contentHelp : ( String, List (Element msg) )
 contentHelp =
     ( "Help"
     , []
-        ++ [ subtitle "How does this work?" ]
+        ++ [ viewTitle "How does this work?" ]
         ++ [ column [ paddingLeft, spacing 16, width fill ] <|
                 [ paragraph [] <|
                     [ text "Try solving the problem by writing Elm code in the editor on the left. Then click the "
@@ -1242,17 +1414,14 @@ contentHelp =
                     , text " button that you find at the top and check if your implementation passes all tests. If not, try again!"
                     ]
                 , paragraph [] [ text "You need to write only Elm language, so you can minimize the HTML editor in the left bottom area, to optimize your working space." ]
-                , column [ spacing 16, width fill ] <| Exercises.Markdown.markdown """If you need support, [join the Elm community in Slack](https://elmlang.herokuapp.com/).
+                , column [ spacing 16, width fill ] <| Internal.Markdown.markdown """If you need support, [join the Elm community in Slack](https://elmlang.herokuapp.com/).
 
 There are also a lot of valuable resources to learn Elm on-line. for example:
 
 * [An Introduction to Elm](https://guide.elm-lang.org/) - The official Elm Guide
 * [Elm Packages](https://package.elm-lang.org/) - Documentation of Elm Packages
 * [Elm Cheat Sheet](https://lucamug.github.io/elm-cheat-sheet/) - A condensate list of the most useful Elm concepts
-* [Awesome Elm](https://github.com/sporto/awesome-elm) - A list of Elm resources
-
-If you have some exercise that you would like to add to this list or if you have any other feedback, [learn how you can contribute](https://github.com/lucamug/elm-exercises/blob/master/CONTRIBUTING.md).
-"""
+* [Awesome Elm](https://github.com/sporto/awesome-elm) - A list of Elm resources"""
                 ]
            ]
         ++ [ paragraph [ Font.center, paddingXY 10 30 ] [ text "♡ Happy coding! ♡" ] ]
@@ -1263,9 +1432,12 @@ contentContribute : ( String, List (Element msg) )
 contentContribute =
     ( "Contribute"
     , []
+        ++ [ subtitle "Improve this Exercise" ]
+        ++ [ column [ paddingLeft, spacing 16, width fill ] <| Internal.Markdown.markdown "If you find some mistake or you have some goot hint or a nice solution to add to this exercise, you can [edit it directly](https://github.com/lucamug/elm-exercises/edit/master/exercises/src/E/E001.elm)."
+           ]
         ++ [ column [ paddingLeft, spacing 16, width fill ] <|
-                [ column [ spacing 16, width fill ] <| Exercises.Markdown.markdown """If you have some exercise that you would like to add to this list or if you have any other feedback, [learn how you can contribute](https://github.com/lucamug/elm-exercises/blob/master/CONTRIBUTING.md).
-    """
+                -- https://github.com/lucamug/elm-exercises/edit/master/exercises/src/E/E001.elm
+                [ column [ spacing 16, width fill ] <| Internal.Markdown.markdown """If you have some exercise that you would like to add to this list or if you have any other feedback, [learn how you can contribute](https://github.com/lucamug/elm-exercises/blob/master/CONTRIBUTING.md)."""
                 ]
            ]
     )
@@ -1480,7 +1652,7 @@ accordion { items, hideItem, showItem, itemsContent } =
                                )
                         )
                       <|
-                        Exercises.Markdown.markdown <|
+                        Internal.Markdown.markdown <|
                             solution
                     ]
             )
@@ -1524,12 +1696,13 @@ emptyExerciseData =
     , title = ""
     , difficulty = Undefined
     , categories = []
+    , ellieId = ""
+    , reference = ""
+    , problem = ""
     , tests = []
     , hints = []
-    , problem = ""
     , dummySolution = ""
     , solutions = []
-    , ellieId = ""
     }
 
 
@@ -1538,10 +1711,11 @@ codecExerciseData : Codec.Codec ExerciseData
 codecExerciseData =
     Codec.object ExerciseData
         |> Codec.field "id" .id Codec.int
-        |> Codec.field "ellieId" .ellieId Codec.string
         |> Codec.field "title" .title Codec.string
         |> Codec.field "difficulty" .difficulty (Codec.map stringToDifficulty difficultyToString Codec.string)
         |> Codec.field "categories" .categories (Codec.list Codec.string)
+        |> Codec.field "ellieId" .ellieId Codec.string
+        |> Codec.field "reference" .reference Codec.string
         |> Codec.field "problem" .problem Codec.string
         |> Codec.field "tests" .tests (Codec.list Codec.string)
         |> Codec.field "hints" .hints (Codec.list Codec.string)
@@ -1685,3 +1859,12 @@ green =
 red : Color
 red =
     rgb 0.8 0 0
+
+
+andThen : (msg -> model -> ( model, Cmd a )) -> msg -> ( model, Cmd a ) -> ( model, Cmd a )
+andThen updater msg ( model, cmd ) =
+    let
+        ( modelNew, cmdNew ) =
+            updater msg model
+    in
+    ( modelNew, Cmd.batch [ cmd, cmdNew ] )

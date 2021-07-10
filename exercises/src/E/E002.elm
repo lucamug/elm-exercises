@@ -10,10 +10,11 @@ import Html
 exerciseData : ExerciseData
 exerciseData =
     { id = 2
-    , ellieId = "dFdvdf7wKmQa1"
     , title = "Find the next to last element of a list"
     , difficulty = Easy
     , categories = [ "Lists", "Recursion" ]
+    , ellieId = "dFdvdf7wKmQa1"
+    , reference = "https://johncrane.gitbooks.io/ninety-nine-elm-problems/content/p/p02.html"
     , problem = "Implement the function `penultimate` to find the next to last element of a list."
     , tests =
         [ "penultimate [ 1, 2, 3, 4 ] |> equal (Just 3)"
