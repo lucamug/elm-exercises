@@ -291,6 +291,7 @@ createIndex ind listExerciseData =
                 { id = exerciseData.id
                 , title = exerciseData.title
                 , difficulty = exerciseData.difficulty
+                , categories = exerciseData.categories
                 , ellieId = exerciseData.ellieId
                 }
             )

@@ -1,11 +1,12 @@
-module Exercises exposing
-    ( exercise, exerciseWithView, exerciseWithTea, Flags, Model, Msg
-    , ExerciseData, Difficulty(..)
-    , attrsButton, yourImplementationGoesHere
-    , Test, equal, notEqual, all, lessThan, atMost, greaterThan, atLeast, FloatingPointTolerance, within, notWithin, true, false, ok, err, equalLists, equalDicts, equalSets, pass, fail, onFail
-    , update, viewElement, init, TEA, Index
-    , codecExerciseData, codecIndex
-    )
+module ElmjutsuDumMyM0DuL3 exposing (..)
+-- exposing
+-- ( exercise, exerciseWithView, exerciseWithTea, Flags, Model, Msg
+-- , ExerciseData, Difficulty(..)
+-- , attrsButton, yourImplementationGoesHere
+-- , Test, equal, notEqual, all, lessThan, atMost, greaterThan, atLeast, FloatingPointTolerance, within, notWithin, true, false, ok, err, equalLists, equalDicts, equalSets, pass, fail, onFail
+-- , update, viewElement, init, TEA, Index
+-- , codecExerciseData, codecIndex
+-- )
 
 {-|
 
@@ -879,46 +880,6 @@ viewSideButtons model =
             ]
             { label =
                 row [ spacing 15 ]
-                    [ FeatherIcons.crosshair
-                        |> FeatherIcons.toHtml []
-                        |> html
-                        |> el [ centerX ]
-                    , column [ width fill, spacing 4 ]
-                        [ el [ Font.size 12 ] <| text "HINTS"
-                        ]
-                    ]
-            , onPress = Just <| ChangeMenu OtherExercises
-            }
-        , Input.button
-            [ padding 13
-            , Border.widthEach { bottom = 1, left = 1, right = 0, top = 1 }
-            , Border.roundEach { topLeft = 4, topRight = 0, bottomLeft = 4, bottomRight = 0 }
-            , Border.color <| rgba 0 0 0 0.2
-            , Background.color <| rgba 1 1 1 0.9
-            , width fill
-            ]
-            { label =
-                row [ spacing 15 ]
-                    [ FeatherIcons.list
-                        |> FeatherIcons.toHtml []
-                        |> html
-                        |> el [ centerX ]
-                    , column [ width fill, spacing 4 ]
-                        [ el [ Font.size 12 ] <| text "SOLUTIONS"
-                        ]
-                    ]
-            , onPress = Just <| ChangeMenu OtherExercises
-            }
-        , Input.button
-            [ padding 13
-            , Border.widthEach { bottom = 1, left = 1, right = 0, top = 1 }
-            , Border.roundEach { topLeft = 4, topRight = 0, bottomLeft = 4, bottomRight = 0 }
-            , Border.color <| rgba 0 0 0 0.2
-            , Background.color <| rgba 1 1 1 0.9
-            , width fill
-            ]
-            { label =
-                row [ spacing 15 ]
                     [ FeatherIcons.list
                         |> FeatherIcons.toHtml []
                         |> html
@@ -1108,29 +1069,36 @@ helper categories_ acc exerciseData =
         categories_
 
 
-categories : List Index -> Dict.Dict String (List Index)
+
+-- categories : List Index -> Dict.Dict String Index
+
+
 categories exercises =
     List.foldl
         (\exerciseData acc ->
-            List.foldl
-                (\category acc2 ->
-                    -- let
-                    --     _ =
-                    --         Debug.log "xxx2" ( category, acc2 )
-                    -- in
-                    Dict.update category
-                        (\maybeV ->
-                            case maybeV of
-                                Just v ->
-                                    Just <| exerciseData :: v
+            let
+                _ =
+                    List.foldl
+                        (\category acc2 ->
+                            let
+                                _ =
+                                    Debug.log "xxx2" ( category, acc2 )
+                            in
+                            Dict.update category
+                                (\maybeV ->
+                                    case maybeV of
+                                        Just v ->
+                                            Just <| exerciseData :: v
 
-                                Nothing ->
-                                    Just [ exerciseData ]
+                                        Nothing ->
+                                            Just [ exerciseData ]
+                                )
+                                acc2
                         )
-                        acc2
-                )
-                acc
-                exerciseData.categories
+                        acc
+                        exerciseData.categories
+            in
+            acc
         )
         Dict.empty
         exercises
@@ -1157,16 +1125,16 @@ contentOtherExercises model =
             ( "Other Exercises"
             , []
                 ++ [ subtitle "Exercises by Category" ]
-                ++ [ index
-                        |> categories
-                        |> Dict.map
-                            (\category excercises ->
-                                subtitle <| "- " ++ category ++ " (" ++ String.fromInt (List.length excercises) ++ ")"
-                            )
-                        |> Dict.values
-                        |> column []
-                   ]
-                ++ [ subtitle "Exercises by Difficulty Level" ]
+                -- ++ [ index
+                --         |> categories
+                --         |> Dict.map
+                --             (\category excercises ->
+                --                 subtitle <| "-" ++ category ++ " (" ++ String.fromInt (List.length excercises) ++ ")"
+                --             )
+                --         |> Dict.values
+                --         |> column []
+                --    ]
+                ++ [ subtitle "Exercises by Difficulty" ]
                 ++ [ subtitle "All Exercises" ]
                 ++ [ column [ paddingLeft, spacing 5 ] <|
                         List.map
