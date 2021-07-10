@@ -247,12 +247,9 @@ elmUiRenderer =
     , link =
         \{ title, destination } body ->
             newTabLink
-                [ htmlAttribute (Html.Attributes.style "display" "inline-flex") ]
+                []
                 { url = destination
-                , label =
-                    paragraph
-                        []
-                        body
+                , label = paragraph [] body
                 }
     , hardLineBreak = Html.br [] [] |> html
     , image =

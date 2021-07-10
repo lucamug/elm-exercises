@@ -10785,11 +10785,29 @@ var $elm$core$Basics$never = function (_v0) {
 	}
 };
 var $elm$browser$Browser$element = _Browser_element;
+var $author$project$Exercises$OtherExercises = {$: 'OtherExercises'};
 var $author$project$Exercises$ShowNone = {$: 'ShowNone'};
-var $author$project$Exercises$ExerciseData = F9(
-	function (id, ellieId, title, difficulty, problem, tests, hints, dummySolution, solutions) {
-		return {difficulty: difficulty, dummySolution: dummySolution, ellieId: ellieId, hints: hints, id: id, problem: problem, solutions: solutions, tests: tests, title: title};
-	});
+var $author$project$Exercises$ExerciseData = function (id) {
+	return function (ellieId) {
+		return function (title) {
+			return function (difficulty) {
+				return function (categories) {
+					return function (problem) {
+						return function (tests) {
+							return function (hints) {
+								return function (dummySolution) {
+									return function (solutions) {
+										return {categories: categories, difficulty: difficulty, dummySolution: dummySolution, ellieId: ellieId, hints: hints, id: id, problem: problem, solutions: solutions, tests: tests, title: title};
+									};
+								};
+							};
+						};
+					};
+				};
+			};
+		};
+	};
+};
 var $miniBill$elm_codec$Codec$Codec = function (a) {
 	return {$: 'Codec', a: a};
 };
@@ -10950,33 +10968,40 @@ var $author$project$Exercises$codecExerciseData = $miniBill$elm_codec$Codec$buil
 						$miniBill$elm_codec$Codec$string,
 						A4(
 							$miniBill$elm_codec$Codec$field,
-							'difficulty',
+							'categories',
 							function ($) {
-								return $.difficulty;
+								return $.categories;
 							},
-							A3($miniBill$elm_codec$Codec$map, $author$project$Exercises$stringToDifficulty, $author$project$Exercises$difficultyToString, $miniBill$elm_codec$Codec$string),
+							$miniBill$elm_codec$Codec$list($miniBill$elm_codec$Codec$string),
 							A4(
 								$miniBill$elm_codec$Codec$field,
-								'title',
+								'difficulty',
 								function ($) {
-									return $.title;
+									return $.difficulty;
 								},
-								$miniBill$elm_codec$Codec$string,
+								A3($miniBill$elm_codec$Codec$map, $author$project$Exercises$stringToDifficulty, $author$project$Exercises$difficultyToString, $miniBill$elm_codec$Codec$string),
 								A4(
 									$miniBill$elm_codec$Codec$field,
-									'ellieId',
+									'title',
 									function ($) {
-										return $.ellieId;
+										return $.title;
 									},
 									$miniBill$elm_codec$Codec$string,
 									A4(
 										$miniBill$elm_codec$Codec$field,
-										'id',
+										'ellieId',
 										function ($) {
-											return $.id;
+											return $.ellieId;
 										},
-										$miniBill$elm_codec$Codec$int,
-										$miniBill$elm_codec$Codec$object($author$project$Exercises$ExerciseData)))))))))));
+										$miniBill$elm_codec$Codec$string,
+										A4(
+											$miniBill$elm_codec$Codec$field,
+											'id',
+											function ($) {
+												return $.id;
+											},
+											$miniBill$elm_codec$Codec$int,
+											$miniBill$elm_codec$Codec$object($author$project$Exercises$ExerciseData))))))))))));
 var $author$project$Exercises$Index = F4(
 	function (id, title, difficulty, ellieId) {
 		return {difficulty: difficulty, ellieId: ellieId, id: id, title: title};
@@ -11021,6 +11046,7 @@ var $author$project$Exercises$init = F2(
 			{
 				flags: flags,
 				hints: $author$project$Exercises$ShowNone,
+				menuContent: $author$project$Exercises$OtherExercises,
 				menuOpen: false,
 				menuOver: false,
 				modelExercise: tea.init.a,
@@ -11159,11 +11185,16 @@ var $author$project$Exercises$update = F3(
 						model,
 						{modelExercise: modelExercise}),
 					A2($elm$core$Platform$Cmd$map, $author$project$Exercises$MsgTEA, cmdTEA));
-			case 'ToggleMenu':
-				return _Utils_Tuple2(
+			case 'ChangeMenu':
+				var menuContent = msg.a;
+				return (_Utils_eq(menuContent, model.menuContent) && model.menuOpen) ? _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{menuOpen: !model.menuOpen}),
+						{menuOpen: false}),
+					$elm$core$Platform$Cmd$none) : _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{menuContent: menuContent, menuOpen: true}),
 					$elm$core$Platform$Cmd$none);
 			default:
 				var bool = msg.a;
@@ -11174,7 +11205,9 @@ var $author$project$Exercises$update = F3(
 					$elm$core$Platform$Cmd$none);
 		}
 	});
-var $author$project$Exercises$ToggleMenu = {$: 'ToggleMenu'};
+var $author$project$Exercises$ChangeMenu = function (a) {
+	return {$: 'ChangeMenu', a: a};
+};
 var $mdgriffith$elm_ui$Internal$Model$AlignX = function (a) {
 	return {$: 'AlignX', a: a};
 };
@@ -17368,7 +17401,7 @@ var $mdgriffith$elm_ui$Element$column = F2(
 						attrs))),
 			$mdgriffith$elm_ui$Internal$Model$Unkeyed(children));
 	});
-var $author$project$Exercises$emptyExerciseData = {difficulty: $author$project$Exercises$Undefined, dummySolution: '', ellieId: '', hints: _List_Nil, id: 0, problem: '', solutions: _List_Nil, tests: _List_Nil, title: ''};
+var $author$project$Exercises$emptyExerciseData = {categories: _List_Nil, difficulty: $author$project$Exercises$Undefined, dummySolution: '', ellieId: '', hints: _List_Nil, id: 0, problem: '', solutions: _List_Nil, tests: _List_Nil, title: ''};
 var $mdgriffith$elm_ui$Element$Font$family = function (families) {
 	return A2(
 		$mdgriffith$elm_ui$Internal$Model$StyleClass,
@@ -25205,11 +25238,7 @@ var $author$project$Exercises$Markdown$elmUiRenderer = {
 			var destination = _v1.destination;
 			return A2(
 				$mdgriffith$elm_ui$Element$newTabLink,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$htmlAttribute(
-						A2($elm$html$Html$Attributes$style, 'display', 'inline-flex'))
-					]),
+				_List_Nil,
 				{
 					label: A2($mdgriffith$elm_ui$Element$paragraph, _List_Nil, body),
 					url: destination
@@ -25947,7 +25976,7 @@ var $author$project$Exercises$viewBody = F3(
 							_List_fromArray(
 								[
 									$mdgriffith$elm_ui$Element$Region$heading(2),
-									$mdgriffith$elm_ui$Element$Font$size(20),
+									$mdgriffith$elm_ui$Element$Font$size(24),
 									$mdgriffith$elm_ui$Element$Font$bold
 								]),
 							_List_fromArray(
@@ -26030,7 +26059,7 @@ var $author$project$Exercises$viewBody = F3(
 										_List_fromArray(
 											[
 												$mdgriffith$elm_ui$Element$Region$heading(2),
-												$mdgriffith$elm_ui$Element$Font$size(20),
+												$mdgriffith$elm_ui$Element$Font$size(24),
 												$mdgriffith$elm_ui$Element$Font$bold
 											]),
 										_List_fromArray(
@@ -26337,6 +26366,8 @@ var $author$project$Exercises$viewBody = F3(
 														{hideItem: $author$project$Exercises$HideSolution, items: model.solutions, itemsContent: exerciseData.solutions, showItem: $author$project$Exercises$ShowSolution})
 													])))))))))));
 	});
+var $author$project$Exercises$Contribute = {$: 'Contribute'};
+var $author$project$Exercises$Help = {$: 'Help'};
 var $elm$svg$Svg$Attributes$d = _VirtualDom_attribute('d');
 var $feathericons$elm_feather$FeatherIcons$Icon = function (a) {
 	return {$: 'Icon', a: a};
@@ -26545,7 +26576,8 @@ var $author$project$Exercises$viewFooter = A2(
 											A2($feathericons$elm_feather$FeatherIcons$withSize, 16, $feathericons$elm_feather$FeatherIcons$list)))),
 									$mdgriffith$elm_ui$Element$text('Other Exercises')
 								])),
-						onPress: $elm$core$Maybe$Just($author$project$Exercises$ToggleMenu)
+						onPress: $elm$core$Maybe$Just(
+							$author$project$Exercises$ChangeMenu($author$project$Exercises$OtherExercises))
 					}),
 					A2(
 					$mdgriffith$elm_ui$Element$Input$button,
@@ -26577,7 +26609,8 @@ var $author$project$Exercises$viewFooter = A2(
 											A2($feathericons$elm_feather$FeatherIcons$withSize, 16, $feathericons$elm_feather$FeatherIcons$helpCircle)))),
 									$mdgriffith$elm_ui$Element$text('Help')
 								])),
-						onPress: $elm$core$Maybe$Just($author$project$Exercises$ToggleMenu)
+						onPress: $elm$core$Maybe$Just(
+							$author$project$Exercises$ChangeMenu($author$project$Exercises$Help))
 					}),
 					A2(
 					$mdgriffith$elm_ui$Element$Input$button,
@@ -26609,7 +26642,8 @@ var $author$project$Exercises$viewFooter = A2(
 											A2($feathericons$elm_feather$FeatherIcons$withSize, 16, $feathericons$elm_feather$FeatherIcons$heart)))),
 									$mdgriffith$elm_ui$Element$text('Contribute')
 								])),
-						onPress: $elm$core$Maybe$Just($author$project$Exercises$ToggleMenu)
+						onPress: $elm$core$Maybe$Just(
+							$author$project$Exercises$ChangeMenu($author$project$Exercises$Contribute))
 					})
 				])),
 			A2(
@@ -26849,7 +26883,8 @@ var $author$project$Exercises$viewHeader = F2(
 									])),
 							{
 								label: $mdgriffith$elm_ui$Element$text('☰'),
-								onPress: $elm$core$Maybe$Just($author$project$Exercises$ToggleMenu)
+								onPress: $elm$core$Maybe$Just(
+									$author$project$Exercises$ChangeMenu($author$project$Exercises$OtherExercises))
 							})
 						]))));
 	});
@@ -27070,7 +27105,8 @@ var $author$project$Exercises$viewSideButtons = function (model) {
 										$mdgriffith$elm_ui$Element$text('EXERCISES'))
 									]))
 							])),
-					onPress: $elm$core$Maybe$Just($author$project$Exercises$ToggleMenu)
+					onPress: $elm$core$Maybe$Just(
+						$author$project$Exercises$ChangeMenu($author$project$Exercises$OtherExercises))
 				}),
 				A2(
 				$mdgriffith$elm_ui$Element$Input$button,
@@ -27110,7 +27146,8 @@ var $author$project$Exercises$viewSideButtons = function (model) {
 									]),
 								$mdgriffith$elm_ui$Element$text('HELP'))
 							])),
-					onPress: $elm$core$Maybe$Just($author$project$Exercises$ToggleMenu)
+					onPress: $elm$core$Maybe$Just(
+						$author$project$Exercises$ChangeMenu($author$project$Exercises$Help))
 				}),
 				A2(
 				$mdgriffith$elm_ui$Element$Input$button,
@@ -27150,228 +27187,304 @@ var $author$project$Exercises$viewSideButtons = function (model) {
 									]),
 								$mdgriffith$elm_ui$Element$text('CONTRIBUTE'))
 							])),
-					onPress: $elm$core$Maybe$Just($author$project$Exercises$ToggleMenu)
+					onPress: $elm$core$Maybe$Just(
+						$author$project$Exercises$ChangeMenu($author$project$Exercises$Contribute))
 				})
 			]));
 };
-var $mdgriffith$elm_ui$Element$scrollbarY = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$overflow, $mdgriffith$elm_ui$Internal$Style$classes.scrollbarsY);
-var $author$project$Exercises$viewSideMenu = function (model) {
-	var widthSize = 400;
-	return A2(
-		$mdgriffith$elm_ui$Element$column,
+var $author$project$Exercises$contentContribute = _Utils_Tuple2(
+	'Contribute',
+	_Utils_ap(
+		_List_Nil,
 		_List_fromArray(
 			[
-				$mdgriffith$elm_ui$Element$width(
-				$mdgriffith$elm_ui$Element$px(widthSize)),
-				$mdgriffith$elm_ui$Element$Font$size(16),
-				$mdgriffith$elm_ui$Element$Font$family(
+				A2(
+				$mdgriffith$elm_ui$Element$column,
 				_List_fromArray(
 					[
-						$mdgriffith$elm_ui$Element$Font$typeface('Source Sans Pro'),
-						$mdgriffith$elm_ui$Element$Font$sansSerif
-					])),
-				$mdgriffith$elm_ui$Element$paddingEach(
-				{bottom: 20, left: 20, right: 20, top: 70}),
-				$mdgriffith$elm_ui$Element$spacing(20),
-				$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
-				$mdgriffith$elm_ui$Element$alignRight,
-				$mdgriffith$elm_ui$Element$scrollbarY,
-				$mdgriffith$elm_ui$Element$Background$color(
-				A4($mdgriffith$elm_ui$Element$rgba, 1, 1, 1, 1)),
-				$mdgriffith$elm_ui$Element$htmlAttribute(
-				A2($elm$html$Html$Attributes$style, 'transition', '0.2s')),
-				$mdgriffith$elm_ui$Element$Border$shadow(
-				{
-					blur: 10,
-					color: A4($mdgriffith$elm_ui$Element$rgba, 0, 0, 0, 0.2),
-					offset: _Utils_Tuple2(0, 0),
-					size: 0
-				}),
-				model.menuOpen ? $mdgriffith$elm_ui$Element$moveRight(0) : $mdgriffith$elm_ui$Element$moveRight(widthSize + 10)
-			]),
+						$author$project$Exercises$paddingLeft,
+						$mdgriffith$elm_ui$Element$spacing(16),
+						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+					]),
+				_List_fromArray(
+					[
+						A2(
+						$mdgriffith$elm_ui$Element$column,
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$spacing(16),
+								$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+							]),
+						$author$project$Exercises$Markdown$markdown('If you have some exercise that you would like to add to this list or if you have any other feedback, [learn how you can contribute](https://github.com/lucamug/elm-exercises/blob/master/CONTRIBUTING.md).\n    '))
+					]))
+			])));
+var $author$project$Exercises$contentHelp = _Utils_Tuple2(
+	'Help',
+	_Utils_ap(
+		_List_Nil,
 		_Utils_ap(
-			_List_Nil,
+			_List_fromArray(
+				[
+					A2(
+					$mdgriffith$elm_ui$Element$paragraph,
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$Region$heading(2),
+							$mdgriffith$elm_ui$Element$Font$size(20)
+						]),
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$text('How does this work?')
+						]))
+				]),
 			_Utils_ap(
+				_List_fromArray(
+					[
+						A2(
+						$mdgriffith$elm_ui$Element$column,
+						_List_fromArray(
+							[
+								$author$project$Exercises$paddingLeft,
+								$mdgriffith$elm_ui$Element$spacing(16),
+								$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+							]),
+						_List_fromArray(
+							[
+								A2(
+								$mdgriffith$elm_ui$Element$paragraph,
+								_List_Nil,
+								_List_fromArray(
+									[
+										$mdgriffith$elm_ui$Element$text('Try solving the problem by writing Elm code in the editor on the left. Then click the '),
+										A2(
+										$mdgriffith$elm_ui$Element$row,
+										_List_fromArray(
+											[
+												$mdgriffith$elm_ui$Element$Background$color(
+												A4($mdgriffith$elm_ui$Element$rgba, 0, 0, 0, 0.5)),
+												$mdgriffith$elm_ui$Element$Font$color(
+												A4($mdgriffith$elm_ui$Element$rgba, 1, 1, 1, 0.9)),
+												$mdgriffith$elm_ui$Element$Border$rounded(2),
+												A2($mdgriffith$elm_ui$Element$paddingXY, 5, 2),
+												$mdgriffith$elm_ui$Element$Font$size(14),
+												$mdgriffith$elm_ui$Element$spacing(3),
+												$mdgriffith$elm_ui$Element$Border$color(
+												A4($mdgriffith$elm_ui$Element$rgba, 0, 0, 0, 0.8)),
+												$mdgriffith$elm_ui$Element$Border$width(1)
+											]),
+										_List_fromArray(
+											[
+												A2(
+												$mdgriffith$elm_ui$Element$el,
+												_List_fromArray(
+													[
+														$mdgriffith$elm_ui$Element$Font$size(13)
+													]),
+												$mdgriffith$elm_ui$Element$text('▶')),
+												A2(
+												$mdgriffith$elm_ui$Element$el,
+												_List_fromArray(
+													[
+														$mdgriffith$elm_ui$Element$Font$color(
+														A4($mdgriffith$elm_ui$Element$rgba, 0, 0, 0, 0.2))
+													]),
+												$mdgriffith$elm_ui$Element$text('|')),
+												$mdgriffith$elm_ui$Element$text('COMPILE')
+											])),
+										$mdgriffith$elm_ui$Element$text(' button that you find at the top and check if your implementation passes all tests. If not, try again!')
+									])),
+								A2(
+								$mdgriffith$elm_ui$Element$paragraph,
+								_List_Nil,
+								_List_fromArray(
+									[
+										$mdgriffith$elm_ui$Element$text('You need to write only Elm language, so you can minimize the HTML editor in the left bottom area, to optimize your working space.')
+									])),
+								A2(
+								$mdgriffith$elm_ui$Element$column,
+								_List_fromArray(
+									[
+										$mdgriffith$elm_ui$Element$spacing(16),
+										$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+									]),
+								$author$project$Exercises$Markdown$markdown('If you need support, [join the Elm community in Slack](https://elmlang.herokuapp.com/).\n\nThere are also a lot of valuable resources to learn Elm on-line. for example:\n\n* [An Introduction to Elm](https://guide.elm-lang.org/) - The official Elm Guide\n* [Elm Packages](https://package.elm-lang.org/) - Documentation of Elm Packages\n* [Elm Cheat Sheet](https://lucamug.github.io/elm-cheat-sheet/) - A condensate list of the most useful Elm concepts\n* [Awesome Elm](https://github.com/sporto/awesome-elm) - A list of Elm resources\n\nIf you have some exercise that you would like to add to this list or if you have any other feedback, [learn how you can contribute](https://github.com/lucamug/elm-exercises/blob/master/CONTRIBUTING.md).\n'))
+							]))
+					]),
 				_List_fromArray(
 					[
 						A2(
 						$mdgriffith$elm_ui$Element$paragraph,
 						_List_fromArray(
 							[
-								$mdgriffith$elm_ui$Element$Region$heading(2),
-								$mdgriffith$elm_ui$Element$Font$size(20),
-								$mdgriffith$elm_ui$Element$Font$bold
+								$mdgriffith$elm_ui$Element$Font$center,
+								A2($mdgriffith$elm_ui$Element$paddingXY, 10, 30)
 							]),
 						_List_fromArray(
 							[
-								$mdgriffith$elm_ui$Element$text('Other exercises')
+								$mdgriffith$elm_ui$Element$text('♡ Happy coding! ♡')
 							]))
-					]),
+					])))));
+var $author$project$Exercises$contentOtherExercises = function (model) {
+	return _Utils_Tuple2(
+		'Other Exercises',
+		_Utils_ap(
+			_List_Nil,
+			_List_fromArray(
+				[
+					function () {
+					var _v0 = model.resultIndex;
+					if (_v0.$ === 'Ok') {
+						var index = _v0.a;
+						return A2(
+							$mdgriffith$elm_ui$Element$column,
+							_List_fromArray(
+								[
+									$author$project$Exercises$paddingLeft,
+									$mdgriffith$elm_ui$Element$spacing(5)
+								]),
+							A2(
+								$elm$core$List$map,
+								function (i) {
+									return A2(
+										$mdgriffith$elm_ui$Element$row,
+										_List_fromArray(
+											[
+												$mdgriffith$elm_ui$Element$spacing(10)
+											]),
+										_List_fromArray(
+											[
+												A2(
+												$mdgriffith$elm_ui$Element$el,
+												_List_fromArray(
+													[$mdgriffith$elm_ui$Element$alignTop]),
+												$mdgriffith$elm_ui$Element$text('•')),
+												A2(
+												$mdgriffith$elm_ui$Element$paragraph,
+												_List_Nil,
+												_List_fromArray(
+													[
+														A2(
+														$mdgriffith$elm_ui$Element$newTabLink,
+														_List_fromArray(
+															[$mdgriffith$elm_ui$Element$alignTop]),
+														{
+															label: A2(
+																$mdgriffith$elm_ui$Element$paragraph,
+																_List_Nil,
+																_List_fromArray(
+																	[
+																		$mdgriffith$elm_ui$Element$text(i.title),
+																		$mdgriffith$elm_ui$Element$text(' (#'),
+																		$mdgriffith$elm_ui$Element$text(
+																		$elm$core$String$fromInt(i.id)),
+																		$mdgriffith$elm_ui$Element$text(', '),
+																		$mdgriffith$elm_ui$Element$text(
+																		$author$project$Exercises$difficultyToString(i.difficulty)),
+																		$mdgriffith$elm_ui$Element$text(')')
+																	])),
+															url: 'https://ellie-app.com/' + i.ellieId
+														})
+													]))
+											]));
+								},
+								index));
+					} else {
+						return A2(
+							$mdgriffith$elm_ui$Element$el,
+							_List_fromArray(
+								[$author$project$Exercises$paddingLeft]),
+							$mdgriffith$elm_ui$Element$text('Index not available'));
+					}
+				}()
+				])));
+};
+var $mdgriffith$elm_ui$Element$scrollbarY = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$overflow, $mdgriffith$elm_ui$Internal$Style$classes.scrollbarsY);
+var $author$project$Exercises$viewContent = F2(
+	function (model, _v0) {
+		var title = _v0.a;
+		var content = _v0.b;
+		var widthSize = 400;
+		return A2(
+			$mdgriffith$elm_ui$Element$column,
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$width(
+					$mdgriffith$elm_ui$Element$px(widthSize)),
+					$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
+					$mdgriffith$elm_ui$Element$alignRight,
+					$mdgriffith$elm_ui$Element$scrollbarY,
+					$mdgriffith$elm_ui$Element$htmlAttribute(
+					A2($elm$html$Html$Attributes$style, 'transition', '0.2s')),
+					$mdgriffith$elm_ui$Element$Font$size(16),
+					$mdgriffith$elm_ui$Element$Font$family(
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$Font$typeface('Source Sans Pro'),
+							$mdgriffith$elm_ui$Element$Font$sansSerif
+						])),
+					$mdgriffith$elm_ui$Element$Background$color(
+					A4($mdgriffith$elm_ui$Element$rgba, 1, 1, 1, 1)),
+					$mdgriffith$elm_ui$Element$Border$shadow(
+					{
+						blur: 10,
+						color: A4($mdgriffith$elm_ui$Element$rgba, 0, 0, 0, 0.2),
+						offset: _Utils_Tuple2(0, 0),
+						size: 0
+					}),
+					model.menuOpen ? $mdgriffith$elm_ui$Element$moveRight(0) : $mdgriffith$elm_ui$Element$moveRight(widthSize + 10)
+				]),
+			_Utils_ap(
+				_List_Nil,
 				_Utils_ap(
 					_List_fromArray(
 						[
-							function () {
-							var _v0 = model.resultIndex;
-							if (_v0.$ === 'Ok') {
-								var index = _v0.a;
-								return A2(
-									$mdgriffith$elm_ui$Element$column,
-									_List_fromArray(
-										[
-											$author$project$Exercises$paddingLeft,
-											$mdgriffith$elm_ui$Element$spacing(5)
-										]),
-									A2(
-										$elm$core$List$map,
-										function (i) {
-											return A2(
-												$mdgriffith$elm_ui$Element$row,
-												_List_fromArray(
-													[
-														$mdgriffith$elm_ui$Element$spacing(10)
-													]),
-												_List_fromArray(
-													[
-														A2(
-														$mdgriffith$elm_ui$Element$el,
-														_List_fromArray(
-															[$mdgriffith$elm_ui$Element$alignTop]),
-														$mdgriffith$elm_ui$Element$text('•')),
-														A2(
-														$mdgriffith$elm_ui$Element$paragraph,
-														_List_Nil,
-														_List_fromArray(
-															[
-																A2(
-																$mdgriffith$elm_ui$Element$newTabLink,
-																_List_fromArray(
-																	[$mdgriffith$elm_ui$Element$alignTop]),
-																{
-																	label: A2(
-																		$mdgriffith$elm_ui$Element$paragraph,
-																		_List_Nil,
-																		_List_fromArray(
-																			[
-																				$mdgriffith$elm_ui$Element$text(i.title),
-																				$mdgriffith$elm_ui$Element$text(' (#'),
-																				$mdgriffith$elm_ui$Element$text(
-																				$elm$core$String$fromInt(i.id)),
-																				$mdgriffith$elm_ui$Element$text(', '),
-																				$mdgriffith$elm_ui$Element$text(
-																				$author$project$Exercises$difficultyToString(i.difficulty)),
-																				$mdgriffith$elm_ui$Element$text(')')
-																			])),
-																	url: 'https://ellie-app.com/' + i.ellieId
-																})
-															]))
-													]));
-										},
-										index));
-							} else {
-								return A2(
-									$mdgriffith$elm_ui$Element$el,
-									_List_fromArray(
-										[$author$project$Exercises$paddingLeft]),
-									$mdgriffith$elm_ui$Element$text('Index not available'));
-							}
-						}()
-						]),
-					_Utils_ap(
-						_List_fromArray(
-							[
-								A2(
-								$mdgriffith$elm_ui$Element$paragraph,
-								_List_fromArray(
-									[
-										$mdgriffith$elm_ui$Element$Region$heading(2),
-										$mdgriffith$elm_ui$Element$Font$size(20),
-										$mdgriffith$elm_ui$Element$Font$bold
-									]),
-								_List_fromArray(
-									[
-										$mdgriffith$elm_ui$Element$text('How does this work?')
-									]))
-							]),
-						_Utils_ap(
+							A2(
+							$mdgriffith$elm_ui$Element$paragraph,
 							_List_fromArray(
 								[
-									A2(
-									$mdgriffith$elm_ui$Element$column,
-									_List_fromArray(
-										[
-											$author$project$Exercises$paddingLeft,
-											$mdgriffith$elm_ui$Element$spacing(16),
-											$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
-										]),
-									_List_fromArray(
-										[
-											A2(
-											$mdgriffith$elm_ui$Element$paragraph,
-											_List_Nil,
-											_List_fromArray(
-												[
-													$mdgriffith$elm_ui$Element$text('Try solving the problem by writing Elm code in the editor on the left. Then click the '),
-													A2(
-													$mdgriffith$elm_ui$Element$row,
-													_List_fromArray(
-														[
-															$mdgriffith$elm_ui$Element$Background$color(
-															A4($mdgriffith$elm_ui$Element$rgba, 0, 0, 0, 0.5)),
-															$mdgriffith$elm_ui$Element$Font$color(
-															A4($mdgriffith$elm_ui$Element$rgba, 1, 1, 1, 0.9)),
-															$mdgriffith$elm_ui$Element$Border$rounded(2),
-															A2($mdgriffith$elm_ui$Element$paddingXY, 5, 2),
-															$mdgriffith$elm_ui$Element$Font$size(14),
-															$mdgriffith$elm_ui$Element$spacing(3),
-															$mdgriffith$elm_ui$Element$Border$color(
-															A4($mdgriffith$elm_ui$Element$rgba, 0, 0, 0, 0.8)),
-															$mdgriffith$elm_ui$Element$Border$width(1)
-														]),
-													_List_fromArray(
-														[
-															A2(
-															$mdgriffith$elm_ui$Element$el,
-															_List_fromArray(
-																[
-																	$mdgriffith$elm_ui$Element$Font$size(13)
-																]),
-															$mdgriffith$elm_ui$Element$text('▶')),
-															A2(
-															$mdgriffith$elm_ui$Element$el,
-															_List_fromArray(
-																[
-																	$mdgriffith$elm_ui$Element$Font$color(
-																	A4($mdgriffith$elm_ui$Element$rgba, 0, 0, 0, 0.2))
-																]),
-															$mdgriffith$elm_ui$Element$text('|')),
-															$mdgriffith$elm_ui$Element$text('COMPILE')
-														])),
-													$mdgriffith$elm_ui$Element$text(' button that you find at the top and check if your implementation passes all tests. If not, try again!')
-												])),
-											A2(
-											$mdgriffith$elm_ui$Element$column,
-											_List_fromArray(
-												[
-													$mdgriffith$elm_ui$Element$spacing(16),
-													$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
-												]),
-											$author$project$Exercises$Markdown$markdown('If you need support, [join the Elm community in Slack](https://elmlang.herokuapp.com/).\n\nThere are also a lot of valuable resources to learn Elm on-line. for example:\n\n* [An Introduction to Elm](https://guide.elm-lang.org/) - The official Elm Guide\n* [Elm Packages](https://package.elm-lang.org/) - Documentation of Elm Packages\n* [Elm Cheat Sheet](https://lucamug.github.io/elm-cheat-sheet/) - A condensate list of the most useful Elm concepts\n* [Awesome Elm](https://github.com/sporto/awesome-elm) - A list of Elm resources\n\nIf you have some exercise that you would like to add to this list or if you have any other feedback, [learn how you can contribute](https://github.com/lucamug/elm-exercises/blob/master/CONTRIBUTING.md).\n'))
-										]))
+									$mdgriffith$elm_ui$Element$Region$heading(2),
+									$mdgriffith$elm_ui$Element$Font$size(24),
+									$mdgriffith$elm_ui$Element$Font$bold,
+									$mdgriffith$elm_ui$Element$Background$color(
+									A4($mdgriffith$elm_ui$Element$rgba, 0, 0, 0, 0.1)),
+									$mdgriffith$elm_ui$Element$padding(10),
+									$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+									A2($mdgriffith$elm_ui$Element$paddingXY, 20, 30)
 								]),
 							_List_fromArray(
 								[
-									A2(
-									$mdgriffith$elm_ui$Element$paragraph,
-									_List_fromArray(
-										[
-											$mdgriffith$elm_ui$Element$Font$center,
-											A2($mdgriffith$elm_ui$Element$paddingXY, 10, 30)
-										]),
-									_List_fromArray(
-										[
-											$mdgriffith$elm_ui$Element$text('♡ Happy coding! ♡')
-										]))
-								])))))));
+									$mdgriffith$elm_ui$Element$text(title)
+								]))
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$mdgriffith$elm_ui$Element$column,
+							_List_fromArray(
+								[
+									$mdgriffith$elm_ui$Element$paddingEach(
+									{bottom: 20, left: 20, right: 20, top: 30}),
+									$mdgriffith$elm_ui$Element$spacing(20),
+									$mdgriffith$elm_ui$Element$scrollbarY,
+									$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+									$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill)
+								]),
+							content)
+						]))));
+	});
+var $author$project$Exercises$viewSideMenu = function (model) {
+	var _v0 = model.menuContent;
+	switch (_v0.$) {
+		case 'OtherExercises':
+			return A2(
+				$author$project$Exercises$viewContent,
+				model,
+				$author$project$Exercises$contentOtherExercises(model));
+		case 'Help':
+			return A2($author$project$Exercises$viewContent, model, $author$project$Exercises$contentHelp);
+		default:
+			return A2($author$project$Exercises$viewContent, model, $author$project$Exercises$contentContribute);
+	}
 };
 var $feathericons$elm_feather$FeatherIcons$x = A2(
 	$feathericons$elm_feather$FeatherIcons$makeBuilder,
@@ -27426,7 +27539,8 @@ var $author$project$Exercises$view = F2(
 										A4($mdgriffith$elm_ui$Element$rgba, 0, 0, 0, 0.2)),
 										$mdgriffith$elm_ui$Element$htmlAttribute(
 										A2($elm$html$Html$Attributes$style, 'transition', '0.2s')),
-										$mdgriffith$elm_ui$Element$Events$onClick($author$project$Exercises$ToggleMenu)
+										$mdgriffith$elm_ui$Element$Events$onClick(
+										$author$project$Exercises$ChangeMenu(model.menuContent))
 									]),
 								$mdgriffith$elm_ui$Element$none))
 						]) : _List_fromArray(
@@ -27469,7 +27583,8 @@ var $author$project$Exercises$view = F2(
 													$feathericons$elm_feather$FeatherIcons$toHtml,
 													_List_Nil,
 													A2($feathericons$elm_feather$FeatherIcons$withSize, 32, $feathericons$elm_feather$FeatherIcons$x))),
-											onPress: $elm$core$Maybe$Just($author$project$Exercises$ToggleMenu)
+											onPress: $elm$core$Maybe$Just(
+												$author$project$Exercises$ChangeMenu(model.menuContent))
 										}))
 								]) : _List_Nil)))),
 			A2($author$project$Exercises$viewElement, tea, model));
@@ -27632,4 +27747,4 @@ _Platform_export({'MainSimple':{'init':$author$project$MainSimple$main(
 				},
 				A2($elm$json$Json$Decode$field, 'exerciseData', $elm$json$Json$Decode$string));
 		},
-		A2($elm$json$Json$Decode$field, 'index', $elm$json$Json$Decode$string)))({"versions":{"elm":"0.19.1"},"types":{"message":"Exercises.Msg ()","aliases":{},"unions":{"Exercises.Msg":{"args":["msgExercise"],"tags":{"ShowHint":["Basics.Int"],"ShowHintsAll":[],"ShowHintsNone":[],"HideHint":["Basics.Int"],"ShowSolution":["Basics.Int"],"ShowSolutionsAll":[],"ShowSolutionsNone":[],"HideSolution":["Basics.Int"],"MsgTEA":["msgExercise"],"ToggleMenu":[],"MenuOver":["Basics.Bool"]}},"Basics.Bool":{"args":[],"tags":{"True":[],"False":[]}},"Basics.Int":{"args":[],"tags":{"Int":[]}}}}})}});}(this));
+		A2($elm$json$Json$Decode$field, 'index', $elm$json$Json$Decode$string)))({"versions":{"elm":"0.19.1"},"types":{"message":"Exercises.Msg ()","aliases":{},"unions":{"Exercises.Msg":{"args":["msgExercise"],"tags":{"ShowHint":["Basics.Int"],"ShowHintsAll":[],"ShowHintsNone":[],"HideHint":["Basics.Int"],"ShowSolution":["Basics.Int"],"ShowSolutionsAll":[],"ShowSolutionsNone":[],"HideSolution":["Basics.Int"],"MsgTEA":["msgExercise"],"ChangeMenu":["Exercises.MenuContent"],"MenuOver":["Basics.Bool"]}},"Basics.Bool":{"args":[],"tags":{"True":[],"False":[]}},"Basics.Int":{"args":[],"tags":{"Int":[]}},"Exercises.MenuContent":{"args":[],"tags":{"OtherExercises":[],"Help":[],"Contribute":[]}}}}})}});}(this));

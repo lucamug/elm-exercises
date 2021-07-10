@@ -13,6 +13,7 @@ exerciseData =
     , ellieId = "dFdF4NRQPVSa1"
     , title = "Extract randomly selected elements from a list"
     , difficulty = Hard
+    , categories = [ "Randomness" ]
     , problem = """Extract a given number of randomly selected elements from a list.
 
 ### Example

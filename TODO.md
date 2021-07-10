@@ -1,1 +1,3 @@
 # TODO
+
+Add categories

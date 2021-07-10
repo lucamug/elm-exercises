@@ -12,6 +12,7 @@ exerciseData =
     , ellieId = "dFhBMLPrtWsa1"
     , title = "Returns the last element of a list"
     , difficulty = Easy
+    , categories = [ "Lists", "Recursion" ]
     , problem = "Write a function `last` that returns the last element of a list. An empty list doesn't have a last element, therefore `last` must return a `Maybe`."
     , tests =
         [ "last [ 1, 2, 3, 4 ] |> equal (Just 4)"
