@@ -1,17 +1,13 @@
--- https://johncrane.gitbooks.io/ninety-nine-elm-problems/content/p/p90.html
-
-
-module E.E090 exposing (exerciseData)
+module E090 exposing (exerciseData)
 
 import Exercises exposing (..)
-import Html
 
 
 exerciseData : ExerciseData
 exerciseData =
     { id = 90
     , title = "The \"Eight queens puzzle\""
-    , difficulty = Hard
+    , difficulty = difficulty.hard
     , categories = [ "Puzzles", "Recursion" ]
     , ellieId = "dFdF4NRQPVSa1"
     , reference = "https://johncrane.gitbooks.io/ninety-nine-elm-problems/content/p/p90.html"

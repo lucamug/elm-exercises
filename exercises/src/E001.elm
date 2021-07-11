@@ -1,7 +1,4 @@
--- https://github.com/wearsunscreen/ninety-nine-elm-problems/blob/master/p/p01.md
-
-
-module E.E001 exposing (exerciseData)
+module E001 exposing (exerciseData)
 
 import Exercises exposing (..)
 
@@ -10,7 +7,7 @@ exerciseData : ExerciseData
 exerciseData =
     { id = 1
     , title = "Returns the last element of a list"
-    , difficulty = Easy
+    , difficulty = difficulty.easy
     , categories = [ "Lists", "Recursion" ]
     , ellieId = "dFhBMLPrtWsa1"
     , reference = "https://johncrane.gitbooks.io/ninety-nine-elm-problems/content/p/p01.html"

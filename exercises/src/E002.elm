@@ -1,17 +1,13 @@
--- https://github.com/wearsunscreen/ninety-nine-elm-problems/blob/master/p/p02.md
-
-
-module E.E002 exposing (exerciseData)
+module E002 exposing (exerciseData)
 
 import Exercises exposing (..)
-import Html
 
 
 exerciseData : ExerciseData
 exerciseData =
     { id = 2
     , title = "Find the next to last element of a list"
-    , difficulty = Easy
+    , difficulty = difficulty.easy
     , categories = [ "Lists", "Recursion" ]
     , ellieId = "dFdvdf7wKmQa1"
     , reference = "https://johncrane.gitbooks.io/ninety-nine-elm-problems/content/p/p02.html"

@@ -1,4 +1,4 @@
-module Main exposing
+port module Main exposing
     ( createOutputs
     , main
     )
@@ -176,7 +176,15 @@ onlyTests qty =
     , update = \_ _ -> ( (), Cmd.none )
     , subscriptions = \_ -> Sub.none
     , tests = \_ -> []
+    , portLocalStoragePop = portLocalStoragePop
+    , portLocalStoragePush = portLocalStoragePush
     }
+
+
+port portLocalStoragePop : (String -> msg) -> Sub msg
+
+
+port portLocalStoragePush : String -> Cmd msg
 
 
 textarea : List (Attribute msg) -> String -> Element msg

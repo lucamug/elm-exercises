@@ -1,17 +1,13 @@
--- https://johncrane.gitbooks.io/ninety-nine-elm-problems/content/p/p23.html
-
-
-module E.E023 exposing (exerciseData)
+module E023 exposing (exerciseData)
 
 import Exercises exposing (..)
-import Html
 
 
 exerciseData : ExerciseData
 exerciseData =
     { id = 23
     , title = "Extract randomly selected elements from a list"
-    , difficulty = Hard
+    , difficulty = difficulty.hard
     , categories = [ "Randomness" ]
     , ellieId = "dFdF4NRQPVSa1"
     , reference = "https://johncrane.gitbooks.io/ninety-nine-elm-problems/content/p/p23.html"
