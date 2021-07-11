@@ -32,12 +32,12 @@ type Msg msgExercise
 
 
 type alias Model modelExercise =
-    { resultIndex : Result Codec.Error (List Index)
-    , resultExerciseData : Result Codec.Error Exercises.Data.ExerciseData
+    { index : List Index
+    , exerciseData : Exercises.Data.ExerciseData
+    , localStorage : Dict.Dict Int LocalStorageRecord
     , modelExercise : modelExercise
     , menuOver : Bool
     , failureReasons : List FailureReason
-    , localStorage : LocalStorage
     }
 
 
@@ -122,8 +122,8 @@ type alias Index =
     }
 
 
-type alias LocalStorage =
-    Dict.Dict Int LocalStorageRecord
+type alias LocalStorageAsList =
+    List ( Int, LocalStorageRecord )
 
 
 initLocalStorageRecord : LocalStorageRecord
@@ -174,7 +174,7 @@ toLocalStorage posix tea model exerciseId localStorage =
     Dict.insert exerciseId newLocalStorageRecord localStorage
 
 
-localStorageToString : LocalStorage -> String
+localStorageToString : Dict.Dict Int LocalStorageRecord -> String
 localStorageToString localStorage =
     Debug.todo "TODO"
 

@@ -33,7 +33,7 @@ type alias ExerciseData =
 emptyExerciseData : ExerciseData
 emptyExerciseData =
     { id = 0
-    , title = ""
+    , title = "Error loading exercise data"
     , difficulty = Undefined
     , categories = []
     , ellieId = ""

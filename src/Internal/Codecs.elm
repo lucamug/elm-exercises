@@ -1,6 +1,7 @@
 module Internal.Codecs exposing (..)
 
 import Codec
+import Dict
 import Exercises.Data
 import Internal.Data
 import Time
@@ -82,6 +83,11 @@ codecLocalStorageRecord =
         |> Codec.field "testsTotal" .testsTotal Codec.int
         |> Codec.field "testsPassed" .testsPassed Codec.int
         |> Codec.buildObject
+
+
+codecLocalStorageAsList : Codec.Codec Internal.Data.LocalStorageAsList
+codecLocalStorageAsList =
+    Codec.list (Codec.tuple Codec.int codecLocalStorageRecord)
 
 
 codecPosix : Codec.Codec Time.Posix

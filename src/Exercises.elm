@@ -79,7 +79,11 @@ codecExerciseData =
 
 
 {-| -}
-viewElement : TEA modelExercise msgExercise -> Model modelExercise -> Element (Msg msgExercise)
+viewElement :
+    Internal.Data.TEA modelExercise msgExercise
+    -> Internal.Data.Model modelExercise
+    -> Internal.Data.LocalStorageRecord
+    -> Element (Internal.Data.Msg msgExercise)
 viewElement =
     Internal.Views.viewElement
 
@@ -453,15 +457,33 @@ init tea flags =
         modelExercise =
             Tuple.first tea.init
     in
-    ( { resultIndex = Codec.decodeString (Codec.list Internal.Codecs.codecIndex) flags.index
-      , resultExerciseData = Codec.decodeString Internal.Codecs.codecExerciseData flags.exerciseData
+    ( { index =
+            case Codec.decodeString (Codec.list Internal.Codecs.codecIndex) flags.index of
+                Ok index ->
+                    index
+
+                Err error ->
+                    []
+      , exerciseData =
+            case Codec.decodeString Internal.Codecs.codecExerciseData flags.exerciseData of
+                Ok exerciseData ->
+                    exerciseData
+
+                Err error ->
+                    Exercises.Data.emptyExerciseData
+      , localStorage =
+            case Codec.decodeString Internal.Codecs.codecLocalStorageAsList flags.localStorage of
+                Ok localStorageAsList ->
+                    Dict.fromList localStorageAsList
+
+                Err error ->
+                    Dict.empty
       , modelExercise = modelExercise
       , menuOver = False
       , failureReasons =
             modelExercise
                 |> tea.tests
                 |> List.map Test.Runner.getFailureReason
-      , localStorage = Debug.todo "TODO"
       }
     , Cmd.none
     )
