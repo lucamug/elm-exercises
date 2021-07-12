@@ -2,16 +2,15 @@ module Internal.Codecs exposing (..)
 
 import Codec
 import Dict
-import Exercises.Data
 import Internal.Data
 import Time
 
 
-codecDifficulty : Codec.Codec Exercises.Data.Difficulty
+codecDifficulty : Codec.Codec Internal.Data.Difficulty
 codecDifficulty =
     Codec.map
-        Exercises.Data.stringToDifficulty
-        Exercises.Data.difficultyToString
+        Internal.Data.stringToDifficulty
+        Internal.Data.difficultyToString
         Codec.string
 
 
@@ -26,9 +25,9 @@ codecIndex =
         |> Codec.buildObject
 
 
-codecExerciseData : Codec.Codec Exercises.Data.ExerciseData
+codecExerciseData : Codec.Codec Internal.Data.ExerciseData
 codecExerciseData =
-    Codec.object Exercises.Data.ExerciseData
+    Codec.object Internal.Data.ExerciseData
         |> Codec.field "id" .id Codec.int
         |> Codec.field "title" .title Codec.string
         |> Codec.field "difficulty" .difficulty codecDifficulty

@@ -5,24 +5,8 @@ import Exercises exposing (..)
 
 last : List a -> Maybe a
 last list =
-    case list of
-        [] ->
-            Nothing
-
-        [ a ] ->
-            Just a
-
-        x :: xs ->
-            last xs
-
-
-
---
--- last : List a -> Maybe a
--- last list =
---     -- Your implementation goes here
---     Nothing
---
+    -- Your implementation goes here
+    Nothing
 
 
 tests : List Test

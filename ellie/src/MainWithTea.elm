@@ -1,4 +1,4 @@
-module MainWithTea exposing (..)
+port module MainWithTea exposing (..)
 
 import Element exposing (..)
 import Element.Border as Border
@@ -63,7 +63,15 @@ main =
         , view = view
         , update = update
         , subscriptions = subscriptions
+        , portLocalStoragePop = portLocalStoragePop
+        , portLocalStoragePush = portLocalStoragePush
         }
+
+
+port portLocalStoragePop : (String -> msg) -> Sub msg
+
+
+port portLocalStoragePush : String -> Cmd msg
 
 
 

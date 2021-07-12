@@ -10,7 +10,6 @@ import Element.Events as Events
 import Element.Font as Font
 import Element.Input as Input
 import Element.Region as Region
-import Exercises.Data
 import Expect
 import FeatherIcons
 import Html
@@ -197,9 +196,8 @@ viewFooter =
 viewElement :
     Internal.Data.TEA modelExercise msgExercise
     -> Internal.Data.Model modelExercise
-    -> Internal.Data.LocalStorageRecord
     -> Element (Internal.Data.Msg msgExercise)
-viewElement tea model localStorageRecord =
+viewElement tea model =
     column
         [ spacing 0
         , width fill
@@ -247,7 +245,7 @@ viewElement tea model localStorageRecord =
         ]
         ([]
             ++ [ viewHeader model ]
-            ++ [ viewBody tea model localStorageRecord ]
+            ++ [ viewBody tea model ]
          -- ++ [ viewFooter ]
         )
 
@@ -381,7 +379,7 @@ contentOtherExercises model =
                                             , text " (#"
                                             , text <| String.fromInt i.id
                                             , text ", "
-                                            , text <| Exercises.Data.difficultyToString i.difficulty
+                                            , text <| Internal.Data.difficultyToString i.difficulty
                                             , text ")"
                                             ]
                                     }
@@ -419,172 +417,190 @@ contentContribute =
     )
 
 
+viewMainTitle : String -> Element msg
+viewMainTitle string =
+    paragraph [ Region.heading 2, Font.size 24, Font.bold, moveDown 20 ] [ text string ]
+
+
+viewTests :
+    { c
+        | exerciseData : { b | id : Int, tests : List String }
+        , failureReasons : List (Maybe { a | reason : Test.Runner.Failure.Reason })
+        , index : List Internal.Data.Index
+    }
+    -> Element msg
+viewTests model =
+    column [ spacing 20, width fill ] <|
+        ([]
+            ++ [ let
+                    failed : Int
+                    failed =
+                        model.failureReasons
+                            |> List.filter
+                                (\failureReason ->
+                                    case failureReason of
+                                        Just _ ->
+                                            True
+
+                                        Nothing ->
+                                            False
+                                )
+                            |> List.length
+
+                    total : Int
+                    total =
+                        model.failureReasons
+                            |> List.length
+                 in
+                 case
+                    failed
+                 of
+                    0 ->
+                        column [ spacing 15 ] <|
+                            []
+                                ++ [ paragraph [ Font.color green, Font.size 20 ]
+                                        [ text <|
+                                            "The current implementation passed all tests! 🎉"
+                                        ]
+                                   ]
+                                ++ (let
+                                        maybeNext =
+                                            Tuple.second <| previousAndNext model.exerciseData model.index
+                                    in
+                                    case maybeNext of
+                                        Just next ->
+                                            [ paragraph [ Font.color green, Font.size 20 ]
+                                                [ el [] <|
+                                                    text <|
+                                                        "Check the next exercise: "
+                                                , newTabLink []
+                                                    { url = "https://ellie-app.com/" ++ next.ellieId
+                                                    , label =
+                                                        paragraph []
+                                                            [ el [] <| text <| next.title
+                                                            ]
+                                                    }
+                                                ]
+                                            ]
+
+                                        Nothing ->
+                                            []
+                                   )
+
+                    1 ->
+                        paragraph [ Font.color red ]
+                            [ text <|
+                                "The current implementation failed one test, try again!"
+                            ]
+
+                    x ->
+                        paragraph [ Font.color red ]
+                            [ text <|
+                                "The current implementation failed "
+                                    ++ String.fromInt x
+                                    ++ " tests, try again"
+                            ]
+               ]
+            ++ (let
+                    zipped =
+                        zip model.exerciseData.tests model.failureReasons
+                in
+                List.map
+                    (\( test, failureReason ) ->
+                        case failureReason of
+                            Nothing ->
+                                wrappedRow [ spacing 10 ]
+                                    [ el [ alignTop, moveDown 3 ] <| text "✅"
+                                    , el [ Font.color green, width <| px 50, alignTop, moveDown 3 ] <| text "Passed"
+                                    , paragraph [] <|
+                                        Internal.Markdown.markdown <|
+                                            "`"
+                                                ++ test
+                                                ++ "`"
+                                    ]
+
+                            Just reason ->
+                                wrappedRow [ spacing 10, width fill ]
+                                    [ el [ alignTop, moveDown 3 ] <| text "❌"
+                                    , el [ Font.color red, width <| px 50, alignTop, moveDown 3 ] <| text "Failed"
+                                    , paragraph [] <|
+                                        Internal.Markdown.markdown <|
+                                            "`"
+                                                ++ test
+                                                ++ "` "
+                                                ++ failureReasonToString reason.reason
+                                    ]
+                    )
+                    zipped
+               )
+        )
+
+
 viewBody :
     Internal.Data.TEA modelExercise msgExercise
     -> Internal.Data.Model modelExercise
-    -> Internal.Data.LocalStorageRecord
     -> Element (Internal.Data.Msg msgExercise)
-viewBody tea model localStorageRecord =
-    column [ padding 20, spacing 20, width fill ]
-        ([]
-            ++ [ paragraph [ Region.heading 2, Font.size 24, Font.bold ] [ text "Problem" ] ]
-            ++ [ column [ paddingLeft, spacing 16, width fill ] <|
-                    Internal.Markdown.markdown model.exerciseData.problem
-                        ++ [ paragraph [ alpha 0.5 ]
-                                [ text "Diffculty level: "
-                                , el [] <| text <| Exercises.Data.difficultyToString model.exerciseData.difficulty
-                                ]
-                           ]
-               ]
-            ++ (case tea.maybeView of
-                    Just view_ ->
-                        [ paragraph [ Region.heading 2, Font.size 20, Font.bold ] [ text "Result" ]
-                        , el [ paddingLeft, width fill ] <| map Internal.Data.MsgTEA <| view_ model.modelExercise
+viewBody tea model =
+    row [ spacing 40, paddingEach { top = 20, right = 60, bottom = 20, left = 40 } ]
+        [ column [ spacing 40, width fill, alignTop ]
+            ([]
+                ++ [ viewMainTitle "Problem" ]
+                ++ [ column [ spacing 16, width fill ] <|
+                        Internal.Markdown.markdown model.exerciseData.problem
+                            ++ [ paragraph [ alpha 0.5 ]
+                                    [ text "Diffculty level: "
+                                    , el [] <| text <| Internal.Data.difficultyToString model.exerciseData.difficulty
+                                    ]
+                               ]
+                   ]
+            )
+        , column [ spacing 40, width fill, alignTop ]
+            ([]
+                ++ [ viewMainTitle "Tests" ]
+                ++ [ viewTests model ]
+                ++ (case tea.maybeView of
+                        Just view_ ->
+                            [ viewMainTitle "Result"
+                            , el [ paddingLeft, width fill ] <| map Internal.Data.MsgTEA <| view_ model.modelExercise
+                            ]
+
+                        Nothing ->
+                            []
+                   )
+                ++ [ wrappedRow [ spacing 10 ]
+                        [ paragraph [ Region.heading 2, Font.size 20, Font.bold ] [ text "Hints" ]
+                        , Input.button attrsButton { onPress = Just Internal.Data.ShowHintsAll, label = text "Show All" }
+                        , Input.button attrsButton { onPress = Just Internal.Data.ShowHintsNone, label = text "Hide All" }
                         ]
-
-                    Nothing ->
-                        []
-               )
-            ++ [ paragraph [ Region.heading 2, Font.size 24, Font.bold ] [ text "Tests" ] ]
-            ++ [ column [ paddingLeft, spacing 20, width fill ] <|
-                    ([]
-                        ++ [ let
-                                failed : Int
-                                failed =
-                                    model.failureReasons
-                                        |> List.filter
-                                            (\failureReason ->
-                                                case failureReason of
-                                                    Just _ ->
-                                                        True
-
-                                                    Nothing ->
-                                                        False
-                                            )
-                                        |> List.length
-
-                                total : Int
-                                total =
-                                    model.failureReasons
-                                        |> List.length
-                             in
-                             case
-                                failed
-                             of
-                                0 ->
-                                    column [ spacing 15 ] <|
-                                        []
-                                            ++ [ paragraph [ Font.color green, Font.size 20 ]
-                                                    [ text <|
-                                                        "The current implementation passed all tests! 🎉"
-                                                    ]
-                                               ]
-                                            ++ (let
-                                                    maybeNext =
-                                                        Tuple.second <| previousAndNext model.exerciseData model.index
-                                                in
-                                                case maybeNext of
-                                                    Just next ->
-                                                        [ paragraph [ Font.color green, Font.size 20 ]
-                                                            [ el [] <|
-                                                                text <|
-                                                                    "Check the next exercise: "
-                                                            , newTabLink []
-                                                                { url = "https://ellie-app.com/" ++ next.ellieId
-                                                                , label =
-                                                                    paragraph []
-                                                                        [ el [] <| text <| next.title
-                                                                        ]
-                                                                }
-                                                            ]
-                                                        ]
-
-                                                    Nothing ->
-                                                        []
-                                               )
-
-                                1 ->
-                                    paragraph [ Font.color red ]
-                                        [ text <|
-                                            "The current implementation failed one test, try again!"
-                                        ]
-
-                                x ->
-                                    paragraph [ Font.color red ]
-                                        [ text <|
-                                            "The current implementation failed "
-                                                ++ String.fromInt x
-                                                ++ " tests, try again"
-                                        ]
-                           ]
-                        ++ (let
-                                zipped =
-                                    zip model.exerciseData.tests model.failureReasons
-                            in
-                            List.map
-                                (\( test, failureReason ) ->
-                                    case failureReason of
-                                        Nothing ->
-                                            wrappedRow [ spacing 10 ]
-                                                [ el [ alignTop, moveDown 3 ] <| text "✅"
-                                                , el [ Font.color green, width <| px 50, alignTop, moveDown 3 ] <| text "Passed"
-                                                , paragraph [] <|
-                                                    Internal.Markdown.markdown <|
-                                                        "`"
-                                                            ++ test
-                                                            ++ "`"
-                                                ]
-
-                                        Just reason ->
-                                            wrappedRow [ spacing 10, width fill ]
-                                                [ el [ alignTop, moveDown 3 ] <| text "❌"
-                                                , el [ Font.color red, width <| px 50, alignTop, moveDown 3 ] <| text "Failed"
-                                                , paragraph [] <|
-                                                    Internal.Markdown.markdown <|
-                                                        "`"
-                                                            ++ test
-                                                            ++ "` "
-                                                            ++ failureReasonToString reason.reason
-                                                ]
-                                )
-                                zipped
-                           )
-                    )
-               ]
-            ++ [ wrappedRow [ spacing 10 ]
-                    [ paragraph [ Region.heading 2, Font.size 20, Font.bold ] [ text "Hints" ]
-                    , Input.button attrsButton { onPress = Just Internal.Data.ShowHintsAll, label = text "Show All" }
-                    , Input.button attrsButton { onPress = Just Internal.Data.ShowHintsNone, label = text "Hide All" }
-                    ]
-               ]
-            ++ [ accordion
-                    { items = localStorageRecord.hints
-                    , hideItem = Internal.Data.HideHint
-                    , showItem = Internal.Data.ShowHint
-                    , itemsContent = model.exerciseData.hints
-                    }
-               ]
-            ++ [ wrappedRow [ spacing 10 ]
-                    [ paragraph [ Region.heading 2, Font.size 20, Font.bold ] [ text "Solutions" ]
-                    , Input.button attrsButton { onPress = Just Internal.Data.ShowSolutionsAll, label = text "Show All" }
-                    , Input.button attrsButton { onPress = Just Internal.Data.ShowSolutionsNone, label = text "Hide All" }
-                    ]
-               ]
-            ++ [ accordion
-                    { items = localStorageRecord.solutions
-                    , hideItem = Internal.Data.HideSolution
-                    , showItem = Internal.Data.ShowSolution
-                    , itemsContent = model.exerciseData.solutions
-                    }
-               ]
-        )
+                   ]
+                ++ [ accordion
+                        { items = model.localStorageRecord.hints
+                        , hideItem = Internal.Data.HideHint
+                        , showItem = Internal.Data.ShowHint
+                        , itemsContent = model.exerciseData.hints
+                        }
+                   ]
+                ++ [ wrappedRow [ spacing 10 ]
+                        [ paragraph [ Region.heading 2, Font.size 20, Font.bold ] [ text "Solutions" ]
+                        , Input.button attrsButton { onPress = Just Internal.Data.ShowSolutionsAll, label = text "Show All" }
+                        , Input.button attrsButton { onPress = Just Internal.Data.ShowSolutionsNone, label = text "Hide All" }
+                        ]
+                   ]
+                ++ [ accordion
+                        { items = model.localStorageRecord.solutions
+                        , hideItem = Internal.Data.HideSolution
+                        , showItem = Internal.Data.ShowSolution
+                        , itemsContent = model.exerciseData.solutions
+                        }
+                   ]
+            )
+        ]
 
 
 viewSideButtons :
     Internal.Data.Model modelExercise
-    -> Internal.Data.LocalStorageRecord
     -> Element (Internal.Data.Msg msgExercise)
-viewSideButtons model localStorageRecord =
+viewSideButtons model =
     column
         [ alignRight
         , centerY
@@ -592,7 +608,7 @@ viewSideButtons model localStorageRecord =
         , Events.onMouseEnter <| Internal.Data.MenuOver True
         , Events.onMouseLeave <| Internal.Data.MenuOver False
         , htmlAttribute <| Html.Attributes.style "transition" "0.2s"
-        , if localStorageRecord.menuOpen then
+        , if model.localStorageRecord.menuOpen then
             if model.menuOver then
                 moveRight 0
 
@@ -635,10 +651,9 @@ viewSideButtons model localStorageRecord =
             ]
             { label =
                 row [ spacing 15 ]
-                    [ FeatherIcons.list
-                        |> FeatherIcons.toHtml []
+                    [ svgBulb
                         |> html
-                        |> el [ centerX ]
+                        |> el [ centerX, height <| px 24, width <| px 24 ]
                     , column [ width fill, spacing 4 ]
                         [ el [ Font.size 12 ] <| text "SOLUTIONS"
                         ]
@@ -731,18 +746,10 @@ view :
     -> Internal.Data.Model modelExercise
     -> Html.Html (Internal.Data.Msg msgExercise)
 view tea model =
-    let
-        localStorageRecord : Internal.Data.LocalStorageRecord
-        localStorageRecord =
-            -- This can movie into init for caching it
-            model.localStorage
-                |> Dict.get model.exerciseData.id
-                |> Maybe.withDefault Internal.Data.initLocalStorageRecord
-    in
     layoutWith
         { options = [ focusStyle { borderColor = Nothing, backgroundColor = Nothing, shadow = Nothing } ] }
         ([]
-            ++ (if localStorageRecord.menuOpen then
+            ++ (if model.localStorageRecord.menuOpen then
                     [ inFront <|
                         -- Cover layer
                         el
@@ -750,7 +757,7 @@ view tea model =
                             , height fill
                             , Background.color <| rgba 0 0 0 0.2
                             , htmlAttribute <| Html.Attributes.style "transition" "0.2s"
-                            , Events.onClick <| Internal.Data.ChangeMenu localStorageRecord.menuContent
+                            , Events.onClick <| Internal.Data.ChangeMenu model.localStorageRecord.menuContent
                             ]
                         <|
                             none
@@ -759,9 +766,9 @@ view tea model =
                 else
                     [ inFront <| text "" ]
                )
-            ++ [ inFront <| viewSideMenu model localStorageRecord ]
-            ++ [ inFront <| viewSideButtons model localStorageRecord ]
-            ++ (if localStorageRecord.menuOpen then
+            ++ [ inFront <| viewSideMenu model ]
+            ++ [ inFront <| viewSideButtons model ]
+            ++ (if model.localStorageRecord.menuOpen then
                     [ inFront <|
                         Input.button
                             (attrsButton
@@ -779,7 +786,7 @@ view tea model =
                                     |> FeatherIcons.withSize 32
                                     |> FeatherIcons.toHtml []
                                     |> html
-                            , onPress = Just <| Internal.Data.ChangeMenu localStorageRecord.menuContent
+                            , onPress = Just <| Internal.Data.ChangeMenu model.localStorageRecord.menuContent
                             }
                     ]
 
@@ -787,31 +794,29 @@ view tea model =
                     []
                )
         )
-        (viewElement tea model localStorageRecord)
+        (viewElement tea model)
 
 
 viewSideMenu :
     Internal.Data.Model modelExercise
-    -> Internal.Data.LocalStorageRecord
     -> Element (Internal.Data.Msg msgExercise)
-viewSideMenu model localStorageRecord =
-    case localStorageRecord.menuContent of
+viewSideMenu model =
+    case model.localStorageRecord.menuContent of
         Internal.Data.OtherExercises ->
-            viewContent model localStorageRecord <| contentOtherExercises model
+            viewContent model <| contentOtherExercises model
 
         Internal.Data.Help ->
-            viewContent model localStorageRecord <| contentHelp
+            viewContent model <| contentHelp
 
         Internal.Data.Contribute ->
-            viewContent model localStorageRecord <| contentContribute
+            viewContent model <| contentContribute
 
 
 viewContent :
     Internal.Data.Model modelExercise
-    -> Internal.Data.LocalStorageRecord
     -> ( String, List (Element msg) )
     -> Element msg
-viewContent model localStorageRecord ( title, content ) =
+viewContent model ( title, content ) =
     let
         widthSize : Int
         widthSize =
@@ -827,7 +832,7 @@ viewContent model localStorageRecord ( title, content ) =
         , Font.family [ Font.typeface "Source Sans Pro", Font.sansSerif ]
         , Background.color <| rgba 1 1 1 1
         , Border.shadow { offset = ( 0, 0 ), size = 0, blur = 10, color = rgba 0 0 0 0.2 }
-        , if localStorageRecord.menuOpen then
+        , if model.localStorageRecord.menuOpen then
             moveRight 0
 
           else
@@ -1069,7 +1074,25 @@ difficulties : List Internal.Data.Index -> Dict.Dict String Internal.Data.Index
 difficulties exercises =
     List.foldl
         (\exerciseData acc ->
-            Dict.insert (Exercises.Data.difficultyToString exerciseData.difficulty) exerciseData acc
+            Dict.insert (Internal.Data.difficultyToString exerciseData.difficulty) exerciseData acc
         )
         Dict.empty
         exercises
+
+
+svgBulb2 : Html.Html msg
+svgBulb2 =
+    -- Svg.svg [ SA.xmlns "http://www.w3.org/2000/svg", SA.viewBox "0 0 442 442" ]
+    Svg.svg [ SA.viewBox "0 0 442 442", SA.width "100%", SA.height "100%" ]
+        [ Svg.path [ SA.d "M221 0a149 149 0 00-77 276l4 35c3 16 16 29 32 29h82c16 0 30-13 32-29l5-35A149 149 0 00221 0zm63 261c-2 1-4 4-5 7l-5 40c-1 7-6 12-12 12h-82c-6 0-11-5-12-12l-5-40c-1-3-2-6-5-7a129 129 0 0163-241 129 129 0 0163 241zM273 351H169a10 10 0 100 20h104a10 10 0 100-20zM261 383h-80c-5 0-10 4-10 10a50 50 0 00100 0c0-6-5-10-10-10zm-40 39c-13 0-24-8-28-19h56c-4 11-15 19-28 19z" ] []
+        , Svg.path [ SA.d "M284 155v-1-1-1-1-1a9 9 0 00-2-1v-1a10 10 0 00-5-3 10 10 0 00-2 0h-4l-1 1a9 9 0 00-2 1l-20 16-21-16c-3-3-8-3-12 0l-21 16-20-16a10 10 0 00-1-1h-1a9 9 0 00-1-1h-1-1-1-1a9 9 0 00-2 0 10 10 0 00-5 3v1a11 11 0 00-1 0v2h-1v4a9 9 0 000 2l39 144a10 10 0 1019-5l-31-115 3 2c2 2 4 2 6 2l7-2 20-16 21 16c3 3 8 3 12 0l3-2-31 115a10 10 0 0020 5l38-144a11 11 0 000-2z" ] []
+        ]
+
+
+svgBulb : Html.Html msg
+svgBulb =
+    Svg.svg [ SA.viewBox "0 0 512 512", SA.width "100%", SA.height "100%" ]
+        [ Svg.path [ SA.d "M256 60a15 15 0 000 30c50 0 90 40 90 90a15 15 0 0030 0c0-66-54-120-120-120z" ] []
+        , Svg.path [ SA.d "M217 4a179 179 0 00-96 295c19 22 30 49 30 77v30c0 20 13 37 31 43 6 35 36 63 74 63s68-28 74-63c18-6 31-23 31-43v-30c0-28 11-55 30-78A180 180 0 00217 4zm39 478c-19 0-36-13-42-31h84c-6 18-23 31-42 31zm75-76c0 8-7 15-15 15H196c-8 0-15-7-15-15v-15h150v15zm38-127c-21 24-34 52-37 82H180c-3-30-16-59-36-82a150 150 0 11225 0zM45 180H15a15 15 0 000 30h30a15 15 0 000-30z" ] []
+        , Svg.path [ SA.d "M51 105L30 84a15 15 0 10-21 21l21 21a15 15 0 1021-21zM51 264c-6-6-15-6-21 0L9 285a15 15 0 1021 21l21-21c6-6 6-15 0-21zM497 180h-30a15 15 0 000 30h30a15 15 0 000-30zM503 84c-6-6-15-6-21 0l-21 21a15 15 0 1021 21l21-21c6-6 6-15 0-21zM503 285l-21-21a15 15 0 10-21 21l21 21a15 15 0 0021-21z" ] []
+        ]

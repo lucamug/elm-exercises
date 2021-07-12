@@ -49,7 +49,6 @@ import Browser
 import Codec
 import Dict
 import Element exposing (..)
-import Exercises.Data
 import Expect
 import FeatherIcons
 import Html
@@ -62,8 +61,10 @@ import Json.Decode
 import Set
 import Svg
 import Svg.Attributes as SA
+import Task
 import Test.Runner
 import Test.Runner.Failure
+import Time
 
 
 {-| -}
@@ -73,7 +74,7 @@ codecIndex =
 
 
 {-| -}
-codecExerciseData : Codec.Codec Exercises.Data.ExerciseData
+codecExerciseData : Codec.Codec Internal.Data.ExerciseData
 codecExerciseData =
     Internal.Codecs.codecExerciseData
 
@@ -82,7 +83,6 @@ codecExerciseData =
 viewElement :
     Internal.Data.TEA modelExercise msgExercise
     -> Internal.Data.Model modelExercise
-    -> Internal.Data.LocalStorageRecord
     -> Element (Internal.Data.Msg msgExercise)
 viewElement =
     Internal.Views.viewElement
@@ -96,26 +96,26 @@ attrsButton =
 
 {-| -}
 type alias ExerciseData =
-    Exercises.Data.ExerciseData
+    Internal.Data.ExerciseData
 
 
 {-| -}
 type alias Difficulty =
-    Exercises.Data.Difficulty
+    Internal.Data.Difficulty
 
 
 {-| -}
 difficulty :
-    { easy : Exercises.Data.Difficulty
-    , hard : Exercises.Data.Difficulty
-    , medium : Exercises.Data.Difficulty
-    , undefined : Exercises.Data.Difficulty
+    { easy : Internal.Data.Difficulty
+    , hard : Internal.Data.Difficulty
+    , medium : Internal.Data.Difficulty
+    , undefined : Internal.Data.Difficulty
     }
 difficulty =
-    { easy = Exercises.Data.Easy
-    , medium = Exercises.Data.Medium
-    , hard = Exercises.Data.Hard
-    , undefined = Exercises.Data.Undefined
+    { easy = Internal.Data.Easy
+    , medium = Internal.Data.Medium
+    , hard = Internal.Data.Hard
+    , undefined = Internal.Data.Undefined
     }
 
 
@@ -363,7 +363,7 @@ var app = Elm.Main.init({
 
 -}
 type alias Flags =
-    Exercises.Data.Flags
+    Internal.Data.Flags
 
 
 {-| -}
@@ -423,7 +423,7 @@ exerciseWithTea :
     , portLocalStoragePop : (String -> Msg msgExercise) -> Sub (Msg msgExercise)
     , portLocalStoragePush : String -> Cmd (Msg msgExercise)
     }
-    -> Program Exercises.Data.Flags (Model modelExercise) (Msg msgExercise)
+    -> Program Internal.Data.Flags (Model modelExercise) (Msg msgExercise)
 exerciseWithTea tea =
     let
         tea2 =
@@ -450,42 +450,66 @@ subscriptions tea _ =
 
 
 {-| -}
-init : TEA modelExercise msgExercise -> Exercises.Data.Flags -> ( Model modelExercise, Cmd (Msg msgExercise) )
+init : TEA modelExercise msgExercise -> Internal.Data.Flags -> ( Model modelExercise, Cmd (Msg msgExercise) )
 init tea flags =
     let
         modelExercise : modelExercise
         modelExercise =
             Tuple.first tea.init
-    in
-    ( { index =
-            case Codec.decodeString (Codec.list Internal.Codecs.codecIndex) flags.index of
-                Ok index ->
-                    index
 
-                Err error ->
-                    []
-      , exerciseData =
-            case Codec.decodeString Internal.Codecs.codecExerciseData flags.exerciseData of
-                Ok exerciseData ->
-                    exerciseData
-
-                Err error ->
-                    Exercises.Data.emptyExerciseData
-      , localStorage =
+        localStorage : Dict.Dict Int Internal.Data.LocalStorageRecord
+        localStorage =
             case Codec.decodeString Internal.Codecs.codecLocalStorageAsList flags.localStorage of
                 Ok localStorageAsList ->
                     Dict.fromList localStorageAsList
 
                 Err error ->
+                    let
+                        _ =
+                            Debug.log "xxx" ( Json.Decode.errorToString error, flags.localStorage )
+                    in
                     Dict.empty
-      , modelExercise = modelExercise
-      , menuOver = False
-      , failureReasons =
-            modelExercise
-                |> tea.tests
-                |> List.map Test.Runner.getFailureReason
-      }
-    , Cmd.none
+
+        exerciseData : Internal.Data.ExerciseData
+        exerciseData =
+            case Codec.decodeString Internal.Codecs.codecExerciseData flags.exerciseData of
+                Ok ed ->
+                    ed
+
+                Err error ->
+                    Internal.Data.emptyExerciseData
+
+        localStorageRecord : Internal.Data.LocalStorageRecord
+        localStorageRecord =
+            localStorage
+                |> Dict.get exerciseData.id
+                |> Maybe.withDefault Internal.Data.initLocalStorageRecord
+
+        index : List Internal.Data.Index
+        index =
+            case Codec.decodeString (Codec.list Internal.Codecs.codecIndex) flags.index of
+                Ok i ->
+                    i
+
+                Err error ->
+                    []
+
+        model : Model modelExercise
+        model =
+            { index = index
+            , exerciseData = exerciseData
+            , localStorage = localStorage
+            , localStorageRecord = localStorageRecord
+            , modelExercise = modelExercise
+            , menuOver = False
+            , failureReasons =
+                modelExercise
+                    |> tea.tests
+                    |> List.map Test.Runner.getFailureReason
+            }
+    in
+    ( model
+    , saveLocalStorage tea model
     )
 
 
@@ -506,71 +530,99 @@ update : TEA modelExercise msgExercise -> Msg msgExercise -> Model modelExercise
 update tea msg model =
     ( model, Cmd.none )
         |> andThen (updateMain tea) msg
+        |> andThen (updateLocalStorage tea) msg
 
 
+updateLocalStorage : TEA modelExercise msgExercise -> Msg msgExercise -> Model modelExercise -> ( Model modelExercise, Cmd (Msg msgExercise) )
+updateLocalStorage tea msg model =
+    ( model
+    , case msg of
+        Internal.Data.PortLocalStoragePop _ ->
+            -- This is the only case where we don't "pushLocalStorage"
+            -- to avoid generating an infinite loop
+            Cmd.none
 
--- |> andThen (updateLocalStorage tea) msg
---
---
--- updateLocalStorage : TEA modelExercise msgExercise -> Msg msgExercise -> Model modelExercise -> ( Model modelExercise, Cmd (Msg msgExercise) )
--- updateLocalStorage tea msg model =
---     ( model
---     , case msg of
---         Internal.Data.PortLocalStoragePop _ ->
---             -- This is the only case where we don't "pushLocalStorage"
---             -- to avoid generating an infinite loop
---             Cmd.none
---
---         _ ->
---             -- We save data to the local storage
---             model
---                 |> modelToLocalStorage
---                 |> localStorageToString
---                 |> tea.portLocalStoragePush
---     )
---
---
--- localStorageToString : Internal.Data.LocalStorage -> String
--- localStorageToString model =
---     Codec.encodeToString 4 Internal.Codecs.codecLocalStorage model
---
---
+        Internal.Data.PortLocalStoragePush _ ->
+            -- This is the only case where we don't "pushLocalStorage"
+            -- to avoid generating an infinite loop
+            Cmd.none
+
+        Internal.Data.MenuOver _ ->
+            Cmd.none
+
+        _ ->
+            -- We save data to the local storage
+            saveLocalStorage tea model
+    )
+
+
+saveLocalStorage :
+    Internal.Data.TEA modelExercise msgExercise1
+    -> Internal.Data.Model modelExercise
+    -> Cmd (Internal.Data.Msg msgExercise)
+saveLocalStorage tea model =
+    -- From https://elm.dmy.fr/packages/elm/core/latest/Task#succeed
+    Time.now
+        |> Task.andThen (\posix -> Task.succeed (Internal.Data.toLocalStorage posix tea model))
+        |> Task.andThen (\localStorage_ -> Task.succeed (localStorageToString localStorage_))
+        |> Task.perform Internal.Data.PortLocalStoragePush
+
+
+modelToLocalStorage : Model modelExercise -> Dict.Dict Int Internal.Data.LocalStorageRecord
+modelToLocalStorage model =
+    model.localStorage
+        |> Dict.insert model.exerciseData.id model.localStorageRecord
+
+
+localStorageToString : Dict.Dict Int Internal.Data.LocalStorageRecord -> String
+localStorageToString localStorage =
+    localStorage
+        |> Dict.toList
+        |> Codec.encodeToString 0 Internal.Codecs.codecLocalStorageAsList
 
 
 updateMain : TEA modelExercise msgExercise -> Msg msgExercise -> Model modelExercise -> ( Model modelExercise, Cmd (Msg msgExercise) )
 updateMain tea msg model =
     case msg of
         Internal.Data.ShowHint int ->
-            -- ( { model | hints = Internal.Data.Show <| Set.insert int <| f model.hints }, Cmd.none )
-            ( model, Cmd.none )
-
-        Internal.Data.ShowHintsAll ->
-            -- ( { model | hints = Internal.Data.ShowAll }, Cmd.none )
-            ( model, Cmd.none )
-
-        Internal.Data.ShowHintsNone ->
-            -- ( { model | hints = Internal.Data.ShowNone }, Cmd.none )
-            ( model, Cmd.none )
-
-        Internal.Data.HideHint int ->
-            -- ( { model | hints = Internal.Data.Show <| Set.remove int <| f model.hints }, Cmd.none )
-            ( model, Cmd.none )
+            model.localStorageRecord.hints
+                |> f
+                |> Set.insert int
+                |> Internal.Data.Show
+                |> changeHints model
 
         Internal.Data.ShowSolution int ->
-            -- ( { model | solutions = Internal.Data.Show <| Set.insert int <| f model.solutions }, Cmd.none )
-            ( model, Cmd.none )
+            model.localStorageRecord.solutions
+                |> f
+                |> Set.insert int
+                |> Internal.Data.Show
+                |> changeSolutions model
 
-        Internal.Data.ShowSolutionsAll ->
-            -- ( { model | solutions = Internal.Data.ShowAll }, Cmd.none )
-            ( model, Cmd.none )
-
-        Internal.Data.ShowSolutionsNone ->
-            -- ( { model | solutions = Internal.Data.ShowNone }, Cmd.none )
-            ( model, Cmd.none )
+        Internal.Data.HideHint int ->
+            model.localStorageRecord.hints
+                |> f
+                |> Set.remove int
+                |> Internal.Data.Show
+                |> changeHints model
 
         Internal.Data.HideSolution int ->
-            -- ( { model | solutions = Internal.Data.Show <| Set.remove int <| f model.solutions }, Cmd.none )
-            ( model, Cmd.none )
+            model.localStorageRecord.solutions
+                |> f
+                |> Set.remove int
+                |> Internal.Data.Show
+                |> changeSolutions model
+
+        Internal.Data.ShowHintsAll ->
+            Internal.Data.ShowAll |> changeHints model
+
+        Internal.Data.ShowSolutionsAll ->
+            Internal.Data.ShowAll |> changeSolutions model
+
+        Internal.Data.ShowHintsNone ->
+            Internal.Data.ShowNone |> changeHints model
+
+        Internal.Data.ShowSolutionsNone ->
+            Internal.Data.ShowNone |> changeSolutions model
 
         Internal.Data.MsgTEA msgExercise ->
             let
@@ -588,12 +640,11 @@ updateMain tea msg model =
             )
 
         Internal.Data.ChangeMenu menuContent ->
-            -- if menuContent == model.menuContent && model.menuOpen then
-            --     ( { model | menuOpen = False }, Cmd.none )
-            --
-            -- else
-            --     ( { model | menuOpen = True, menuContent = menuContent }, Cmd.none )
-            ( model, Cmd.none )
+            if menuContent == model.localStorageRecord.menuContent && model.localStorageRecord.menuOpen then
+                changeLocalStorage model (\lsr -> { lsr | menuOpen = False })
+
+            else
+                changeLocalStorage model (\lsr -> { lsr | menuOpen = True, menuContent = menuContent })
 
         Internal.Data.MenuOver bool ->
             ( { model | menuOver = bool }, Cmd.none )
@@ -604,13 +655,72 @@ updateMain tea msg model =
             Debug.todo "xxx"
 
         Internal.Data.PortLocalStoragePush string ->
-            -- decode string
-            -- load into model
+            let
+                _ =
+                    Debug.log "xxx PortLocalStoragePush" string
+            in
             ( model, tea.portLocalStoragePush string )
 
 
 
 -- INTERNALS
+
+
+changeLocalStorage :
+    { a | localStorageRecord : Internal.Data.LocalStorageRecord }
+    -> (Internal.Data.LocalStorageRecord -> Internal.Data.LocalStorageRecord)
+    -> ( { a | localStorageRecord : Internal.Data.LocalStorageRecord }, Cmd msg )
+changeLocalStorage model newLocalStorageRecord =
+    let
+        localStorageRecord : Internal.Data.LocalStorageRecord
+        localStorageRecord =
+            model.localStorageRecord
+    in
+    ( { model
+        | localStorageRecord = newLocalStorageRecord localStorageRecord
+      }
+    , Cmd.none
+    )
+
+
+changeHints :
+    { a | localStorageRecord : Internal.Data.LocalStorageRecord }
+    -> Internal.Data.Show
+    -> ( { a | localStorageRecord : Internal.Data.LocalStorageRecord }, Cmd msg )
+changeHints model newHints =
+    let
+        localStorageRecord : Internal.Data.LocalStorageRecord
+        localStorageRecord =
+            model.localStorageRecord
+    in
+    ( { model
+        | localStorageRecord =
+            { localStorageRecord
+                | hints = newHints
+            }
+      }
+    , Cmd.none
+    )
+
+
+changeSolutions :
+    { a | localStorageRecord : Internal.Data.LocalStorageRecord }
+    -> Internal.Data.Show
+    -> ( { a | localStorageRecord : Internal.Data.LocalStorageRecord }, Cmd msg )
+changeSolutions model newSolutions =
+    let
+        localStorageRecord : Internal.Data.LocalStorageRecord
+        localStorageRecord =
+            model.localStorageRecord
+    in
+    ( { model
+        | localStorageRecord =
+            { localStorageRecord
+                | solutions = newSolutions
+            }
+      }
+    , Cmd.none
+    )
 
 
 f : Internal.Data.Show -> Set.Set Int
