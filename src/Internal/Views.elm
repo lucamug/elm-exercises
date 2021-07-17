@@ -39,7 +39,7 @@ contentHelp =
     ( "Help"
     , []
         ++ [ viewTitle "How does this work?" ]
-        ++ [ column [ paddingLeft, spacing 16, width fill ] <|
+        ++ [ column [ spacing 16, width fill ] <|
                 [ paragraph [] <|
                     [ text "Try solving the problem by writing Elm code in the editor on the left. Then click the "
                     , row
@@ -80,7 +80,10 @@ viewHeader model =
     row
         [ width fill
         , spacing 20
+        , Background.color <| rgb255 53 71 92
+        , Background.color <| rgb255 38 121 165
         , Background.color <| rgb255 18 147 216
+        , Background.color <| rgb255 0 127 196
         , Font.color <| rgb 1 1 1
         , padding 20
         ]
@@ -125,7 +128,7 @@ viewHeader model =
                            ]
                     )
                     { label = text "☰"
-                    , onPress = Just <| Internal.Data.ChangeMenu Internal.Data.OtherExercises
+                    , onPress = Just <| Internal.Data.ChangeMenu Internal.Data.ContentOtherExercises
                     }
                ]
         )
@@ -142,7 +145,7 @@ viewFooter =
             , spacing 20
             ]
             [ Input.button (attrsButton ++ [ padding 10, centerX, Border.width 0 ])
-                { onPress = Just <| Internal.Data.ChangeMenu Internal.Data.OtherExercises
+                { onPress = Just <| Internal.Data.ChangeMenu Internal.Data.ContentOtherExercises
                 , label =
                     row [ spacing 7 ]
                         [ FeatherIcons.list
@@ -154,7 +157,7 @@ viewFooter =
                         ]
                 }
             , Input.button (attrsButton ++ [ padding 10, centerX, Border.width 0 ])
-                { onPress = Just <| Internal.Data.ChangeMenu Internal.Data.Help
+                { onPress = Just <| Internal.Data.ChangeMenu Internal.Data.ContentHelp
                 , label =
                     row [ spacing 7 ]
                         [ FeatherIcons.helpCircle
@@ -166,7 +169,7 @@ viewFooter =
                         ]
                 }
             , Input.button (attrsButton ++ [ padding 10, centerX, Border.width 0 ])
-                { onPress = Just <| Internal.Data.ChangeMenu Internal.Data.Contribute
+                { onPress = Just <| Internal.Data.ChangeMenu Internal.Data.ContentContribute
                 , label =
                     row [ spacing 7 ]
                         [ FeatherIcons.heart
@@ -246,7 +249,7 @@ viewElement tea model =
         ([]
             ++ [ viewHeader model ]
             ++ [ viewBody tea model ]
-         -- ++ [ viewFooter ]
+            ++ [ viewFooter ]
         )
 
 
@@ -258,7 +261,7 @@ accordion :
     }
     -> Element msg
 accordion { items, hideItem, showItem, itemsContent } =
-    column [ paddingLeft, spacing 0, width fill ] <|
+    column [ spacing 0, width fill ] <|
         List.indexedMap
             (\index solution ->
                 column [ width fill, spacing 5 ]
@@ -336,6 +339,88 @@ isOpen show index =
             Set.member index set
 
 
+contentHints :
+    Internal.Data.Model modelExercise
+    -> ( String, List (Element (Internal.Data.Msg msgExercise)) )
+contentHints model =
+    ( "Hints"
+    , []
+        ++ [ wrappedRow [ spacing 10 ]
+                [ Input.button attrsButton { onPress = Just Internal.Data.ShowHintsAll, label = text "Show All" }
+                , Input.button attrsButton { onPress = Just Internal.Data.ShowHintsNone, label = text "Hide All" }
+                ]
+           ]
+        ++ [ accordion
+                { items = model.localStorageRecord.hints
+                , hideItem = Internal.Data.HideHint
+                , showItem = Internal.Data.ShowHint
+                , itemsContent = model.exerciseData.hints
+                }
+           ]
+    )
+
+
+contentSolutions :
+    Internal.Data.Model modelExercise
+    -> ( String, List (Element (Internal.Data.Msg msgExercise)) )
+contentSolutions model =
+    ( "Solutions"
+    , []
+        ++ [ wrappedRow [ spacing 10 ]
+                [ Input.button attrsButton { onPress = Just Internal.Data.ShowSolutionsAll, label = text "Show All" }
+                , Input.button attrsButton { onPress = Just Internal.Data.ShowSolutionsNone, label = text "Hide All" }
+                ]
+           ]
+        ++ [ accordion
+                { items = model.localStorageRecord.solutions
+                , hideItem = Internal.Data.HideSolution
+                , showItem = Internal.Data.ShowSolution
+                , itemsContent = model.exerciseData.solutions
+                }
+           ]
+    )
+
+
+contentHistory : Internal.Data.Model modelExercise -> ( String, List (Element msg) )
+contentHistory model =
+    ( "History"
+    , [ column [ spacing 20 ] <|
+            List.map
+                (\( id, localStorageRecord ) ->
+                    let
+                        maybeExerciseData : Maybe Internal.Data.Index
+                        maybeExerciseData =
+                            model.index
+                                |> List.filter (\e -> e.id == id)
+                                |> List.head
+                                |> Debug.log "yyy"
+                    in
+                    column [ spacing 20 ] <|
+                        []
+                            ++ [ paragraph [] [ text <| Debug.toString localStorageRecord ] ]
+                            ++ (case maybeExerciseData of
+                                    Just index ->
+                                        [ viewExcerciseWithHistory index localStorageRecord ]
+
+                                    Nothing ->
+                                        []
+                               )
+                )
+                (Dict.toList model.localStorage)
+      ]
+    )
+
+
+viewExcerciseWithHistory :
+    Internal.Data.Index
+    -> Internal.Data.LocalStorageRecord
+    -> Element msg
+viewExcerciseWithHistory index localStorageRecord =
+    row []
+        [ paragraph [] [ text index.title ]
+        ]
+
+
 contentOtherExercises : Internal.Data.Model modelExercise -> ( String, List (Element msg) )
 contentOtherExercises model =
     ( "Other Exercises"
@@ -352,7 +437,7 @@ contentOtherExercises model =
            ]
         ++ [ subtitle "Exercises by Difficulty Level" ]
         ++ [ subtitle "All Exercises" ]
-        ++ [ column [ paddingLeft, spacing 5 ] <|
+        ++ [ column [ spacing 5 ] <|
                 List.map
                     (\i ->
                         row [ spacing 10 ]
@@ -407,9 +492,9 @@ contentContribute =
     ( "Contribute"
     , []
         ++ [ subtitle "Improve this Exercise" ]
-        ++ [ column [ paddingLeft, spacing 16, width fill ] <| Internal.Markdown.markdown "If you find some mistake or you have some goot hint or a nice solution to add to this exercise, you can [edit it directly](https://github.com/lucamug/elm-exercises/edit/master/exercises/src/E/E001.elm)."
+        ++ [ column [ spacing 16, width fill ] <| Internal.Markdown.markdown "If you find some mistake or you have some goot hint or a nice solution to add to this exercise, you can [edit it directly](https://github.com/lucamug/elm-exercises/edit/master/exercises/src/E/E001.elm)."
            ]
-        ++ [ column [ paddingLeft, spacing 16, width fill ] <|
+        ++ [ column [ spacing 16, width fill ] <|
                 -- https://github.com/lucamug/elm-exercises/edit/master/exercises/src/E/E001.elm
                 [ column [ spacing 16, width fill ] <| Internal.Markdown.markdown """If you have some exercise that you would like to add to this list or if you have any other feedback, [learn how you can contribute](https://github.com/lucamug/elm-exercises/blob/master/CONTRIBUTING.md)."""
                 ]
@@ -541,60 +626,37 @@ viewBody :
     -> Internal.Data.Model modelExercise
     -> Element (Internal.Data.Msg msgExercise)
 viewBody tea model =
-    row [ spacing 40, paddingEach { top = 20, right = 60, bottom = 20, left = 40 } ]
-        [ column [ spacing 40, width fill, alignTop ]
-            ([]
-                ++ [ viewMainTitle "Problem" ]
-                ++ [ column [ spacing 16, width fill ] <|
-                        Internal.Markdown.markdown model.exerciseData.problem
-                            ++ [ paragraph [ alpha 0.5 ]
-                                    [ text "Diffculty level: "
-                                    , el [] <| text <| Internal.Data.difficultyToString model.exerciseData.difficulty
-                                    ]
+    column [ spacing 40, paddingEach { top = 20, right = 60, bottom = 20, left = 40 }, width fill ] <|
+        []
+            ++ [ wrappedRow [ spacing 40 ]
+                    [ column [ spacing 40, width fill, alignTop, width (fill |> minimum 240) ]
+                        ([]
+                            ++ [ viewMainTitle "Problem" ]
+                            ++ [ column [ spacing 16, width fill ] <|
+                                    Internal.Markdown.markdown model.exerciseData.problem
+                                        ++ [ paragraph [ alpha 0.5 ]
+                                                [ text "Diffculty level: "
+                                                , el [] <| text <| Internal.Data.difficultyToString model.exerciseData.difficulty
+                                                ]
+                                           ]
                                ]
-                   ]
-            )
-        , column [ spacing 40, width fill, alignTop ]
-            ([]
-                ++ [ viewMainTitle "Tests" ]
-                ++ [ viewTests model ]
-                ++ (case tea.maybeView of
-                        Just view_ ->
-                            [ viewMainTitle "Result"
-                            , el [ paddingLeft, width fill ] <| map Internal.Data.MsgTEA <| view_ model.modelExercise
-                            ]
+                        )
+                    , column [ spacing 40, width fill, alignTop, width (fill |> minimum 240) ]
+                        ([]
+                            ++ [ viewMainTitle "Tests" ]
+                            ++ [ viewTests model ]
+                        )
+                    ]
+               ]
+            ++ (case tea.maybeView of
+                    Just view_ ->
+                        [ viewMainTitle "Result"
+                        , el [ width fill ] <| map Internal.Data.MsgTEA <| view_ model.modelExercise
+                        ]
 
-                        Nothing ->
-                            []
-                   )
-                ++ [ wrappedRow [ spacing 10 ]
-                        [ paragraph [ Region.heading 2, Font.size 20, Font.bold ] [ text "Hints" ]
-                        , Input.button attrsButton { onPress = Just Internal.Data.ShowHintsAll, label = text "Show All" }
-                        , Input.button attrsButton { onPress = Just Internal.Data.ShowHintsNone, label = text "Hide All" }
-                        ]
-                   ]
-                ++ [ accordion
-                        { items = model.localStorageRecord.hints
-                        , hideItem = Internal.Data.HideHint
-                        , showItem = Internal.Data.ShowHint
-                        , itemsContent = model.exerciseData.hints
-                        }
-                   ]
-                ++ [ wrappedRow [ spacing 10 ]
-                        [ paragraph [ Region.heading 2, Font.size 20, Font.bold ] [ text "Solutions" ]
-                        , Input.button attrsButton { onPress = Just Internal.Data.ShowSolutionsAll, label = text "Show All" }
-                        , Input.button attrsButton { onPress = Just Internal.Data.ShowSolutionsNone, label = text "Hide All" }
-                        ]
-                   ]
-                ++ [ accordion
-                        { items = model.localStorageRecord.solutions
-                        , hideItem = Internal.Data.HideSolution
-                        , showItem = Internal.Data.ShowSolution
-                        , itemsContent = model.exerciseData.solutions
-                        }
-                   ]
-            )
-        ]
+                    Nothing ->
+                        []
+               )
 
 
 viewSideButtons :
@@ -639,7 +701,7 @@ viewSideButtons model =
                         [ el [ Font.size 12 ] <| text "HINTS"
                         ]
                     ]
-            , onPress = Just <| Internal.Data.ChangeMenu Internal.Data.OtherExercises
+            , onPress = Just <| Internal.Data.ChangeMenu Internal.Data.ContentHints
             }
         , Input.button
             [ padding 13
@@ -658,7 +720,7 @@ viewSideButtons model =
                         [ el [ Font.size 12 ] <| text "SOLUTIONS"
                         ]
                     ]
-            , onPress = Just <| Internal.Data.ChangeMenu Internal.Data.OtherExercises
+            , onPress = Just <| Internal.Data.ChangeMenu Internal.Data.ContentSolutions
             }
         , Input.button
             [ padding 13
@@ -678,7 +740,7 @@ viewSideButtons model =
                         [ el [ Font.size 12 ] <| text "HISTORY"
                         ]
                     ]
-            , onPress = Just <| Internal.Data.ChangeMenu Internal.Data.OtherExercises
+            , onPress = Just <| Internal.Data.ChangeMenu Internal.Data.ContentHistory
             }
         , Input.button
             [ padding 13
@@ -700,7 +762,7 @@ viewSideButtons model =
                         , el [ Font.size 12 ] <| text "EXERCISES"
                         ]
                     ]
-            , onPress = Just <| Internal.Data.ChangeMenu Internal.Data.OtherExercises
+            , onPress = Just <| Internal.Data.ChangeMenu Internal.Data.ContentOtherExercises
             }
         , Input.button
             [ padding 13
@@ -718,7 +780,7 @@ viewSideButtons model =
                         |> el [ centerX ]
                     , el [ Font.size 12 ] <| text "HELP"
                     ]
-            , onPress = Just <| Internal.Data.ChangeMenu Internal.Data.Help
+            , onPress = Just <| Internal.Data.ChangeMenu Internal.Data.ContentHelp
             }
         , Input.button
             [ padding 13
@@ -736,7 +798,7 @@ viewSideButtons model =
                         |> el [ centerX ]
                     , el [ Font.size 12 ] <| text "CONTRIBUTE"
                     ]
-            , onPress = Just <| Internal.Data.ChangeMenu Internal.Data.Contribute
+            , onPress = Just <| Internal.Data.ChangeMenu Internal.Data.ContentContribute
             }
         ]
 
@@ -802,13 +864,22 @@ viewSideMenu :
     -> Element (Internal.Data.Msg msgExercise)
 viewSideMenu model =
     case model.localStorageRecord.menuContent of
-        Internal.Data.OtherExercises ->
+        Internal.Data.ContentHints ->
+            viewContent model <| contentHints model
+
+        Internal.Data.ContentSolutions ->
+            viewContent model <| contentSolutions model
+
+        Internal.Data.ContentHistory ->
+            viewContent model <| contentHistory model
+
+        Internal.Data.ContentOtherExercises ->
             viewContent model <| contentOtherExercises model
 
-        Internal.Data.Help ->
+        Internal.Data.ContentHelp ->
             viewContent model <| contentHelp
 
-        Internal.Data.Contribute ->
+        Internal.Data.ContentContribute ->
             viewContent model <| contentContribute
 
 
@@ -882,11 +953,6 @@ attrsButton =
     , paddingXY 7 5
     , alignTop
     ]
-
-
-paddingLeft : Attribute msg
-paddingLeft =
-    paddingEach { top = 0, right = 0, bottom = 0, left = 20 }
 
 
 green : Color

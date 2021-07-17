@@ -22,7 +22,8 @@
             "feathericons/elm-feather": "1.5.0",
             "mdgriffith/elm-ui": "1.1.7",
             "miniBill/elm-codec": "2.0.0",
-            "rtfeldman/elm-hex": "1.0.0"
+            "rtfeldman/elm-hex": "1.0.0",
+            "ryannhg/date-format": "2.3.0"
         },
         "indirect": {
             "elm/bytes": "1.0.8",

@@ -74,37 +74,58 @@ type alias TEA modelExercise msgExercise =
 
 
 type MenuContent
-    = OtherExercises
-    | Help
-    | Contribute
+    = ContentHints
+    | ContentSolutions
+    | ContentHistory
+    | ContentOtherExercises
+    | ContentHelp
+    | ContentContribute
 
 
 menuContentToString : MenuContent -> String
 menuContentToString menuContent =
     case menuContent of
-        OtherExercises ->
-            "otherExercises"
+        ContentHints ->
+            "ContentHints"
 
-        Help ->
-            "help"
+        ContentSolutions ->
+            "ContentSolutions"
 
-        Contribute ->
-            "contribute"
+        ContentHistory ->
+            "ContentHistory"
+
+        ContentOtherExercises ->
+            "ContentOtherExercises"
+
+        ContentHelp ->
+            "ContentHelp"
+
+        ContentContribute ->
+            "ContentContribute"
 
 
 stringToMenuContent : String -> MenuContent
 stringToMenuContent string =
-    if string == menuContentToString OtherExercises then
-        OtherExercises
+    if string == menuContentToString ContentHints then
+        ContentHints
 
-    else if string == menuContentToString Help then
-        Help
+    else if string == menuContentToString ContentSolutions then
+        ContentSolutions
 
-    else if string == menuContentToString Contribute then
-        Contribute
+    else if string == menuContentToString ContentHistory then
+        ContentHistory
+
+    else if string == menuContentToString ContentOtherExercises then
+        ContentOtherExercises
+
+    else if string == menuContentToString ContentHelp then
+        ContentHelp
+
+    else if string == menuContentToString ContentContribute then
+        ContentContribute
 
     else
-        Contribute
+        ContentContribute
 
 
 type Show
@@ -131,7 +152,7 @@ initLocalStorageRecord =
     { hints = ShowNone
     , solutions = ShowNone
     , menuOpen = False
-    , menuContent = OtherExercises
+    , menuContent = ContentOtherExercises
     , firstSeen = Nothing
     , lastSeen = Time.millisToPosix 0
     , testsTotal = 0

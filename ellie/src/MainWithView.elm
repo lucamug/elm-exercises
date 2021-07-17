@@ -8,14 +8,14 @@ import Exercises exposing (..)
 import List.Extra
 
 
-queens : Int -> List (List Int)
-queens n =
+queens2 : Int -> List (List Int)
+queens2 n =
     -- Your implementation goes here
     []
 
 
-queens2 : Int -> List (List Int)
-queens2 n =
+queens : Int -> List (List Int)
+queens n =
     oneMoreQueen n [] []
         |> Tuple.second
         |> List.map (List.map Tuple.second)
@@ -57,12 +57,12 @@ tests : List Test
 tests =
     -- Your implementation should pass
     -- these tests
-    [ List.length (queens 8) |> equal 92
-    , List.length (queens 7) |> equal 40
-    , List.length (queens 6) |> equal 4
-    , List.length (queens 5) |> equal 10
+    [ List.length (queens 3) |> equal 0
     , List.length (queens 4) |> equal 2
-    , List.length (queens 3) |> equal 0
+    , List.length (queens 5) |> equal 10
+    , List.length (queens 6) |> equal 4
+    , List.length (queens 7) |> equal 40
+    , List.length (queens 8) |> equal 92
     ]
 
 
