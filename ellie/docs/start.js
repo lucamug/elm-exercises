@@ -12,6 +12,7 @@ var app = Elm[Object.keys(Elm)[0]].init({
 if (app && app.ports && app.ports.portLocalStoragePush) {
     app.ports.portLocalStoragePush.subscribe(function(state) {
         localStorage.setItem(lsName, state);
+        hljs.highlightAll();
     });
 }
 if (app && app.ports && app.ports.portLocalStoragePop) {
@@ -19,4 +20,3 @@ if (app && app.ports && app.ports.portLocalStoragePop) {
         app.ports.portLocalStoragePop.send(event.newValue);
     };
 }
-hljs.highlightAll();

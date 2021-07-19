@@ -2,6 +2,8 @@ module Internal.Views exposing (..)
 
 import Browser
 import Codec
+import DateFormat
+import DateFormat.Relative
 import Dict
 import Element exposing (..)
 import Element.Background as Background
@@ -22,6 +24,7 @@ import Svg
 import Svg.Attributes as SA
 import Test.Runner
 import Test.Runner.Failure
+import Time
 
 
 version : String
@@ -34,9 +37,10 @@ subtitle string =
     paragraph [ Region.heading 2, Font.size 20 ] [ text string ]
 
 
-contentHelp : ( String, List (Element msg) )
+contentHelp : ( String, FeatherIcons.Icon, List (Element (Internal.Data.Msg msgExercise)) )
 contentHelp =
     ( "Help"
+    , icons.help
     , []
         ++ [ viewTitle "How does this work?" ]
         ++ [ column [ spacing 16, width fill ] <|
@@ -89,6 +93,25 @@ viewHeader model =
         ]
         ([]
             ++ [ el [ alignTop ] <| html <| logo
+
+               -- , text <|
+               --      DateFormat.format
+               --          [ DateFormat.monthNameAbbreviated
+               --          , DateFormat.text " "
+               --          , DateFormat.dayOfMonthSuffix
+               --          , DateFormat.text ", "
+               --          , DateFormat.yearNumber
+               --          , DateFormat.text " "
+               --          , DateFormat.hourMilitaryFixed
+               --          , DateFormat.text ":"
+               --          , DateFormat.minuteFixed
+               --          , DateFormat.text ":"
+               --          , DateFormat.secondFixed
+               --          , DateFormat.text ":"
+               --          , DateFormat.millisecondFixed
+               --          ]
+               --          Time.utc
+               --          model.posixNow
                , column [ spacing 10, width fill ]
                     ([]
                         ++ [ paragraph [ Font.size 14 ] [ text <| "Elm Exercise #" ++ String.fromInt model.exerciseData.id ] ]
@@ -136,57 +159,29 @@ viewHeader model =
 
 viewFooter : Element (Internal.Data.Msg msgExercise)
 viewFooter =
-    column [ width fill ]
-        [ wrappedRow
-            [ paddingEach { top = 40, right = 0, bottom = 0, left = 0 }
-            , Font.color <| rgba 0 0 0 0.5
-            , Background.color <| rgba 0 0 0 0.05
-            , width fill
-            , spacing 20
-            ]
-            [ Input.button (attrsButton ++ [ padding 10, centerX, Border.width 0 ])
-                { onPress = Just <| Internal.Data.ChangeMenu Internal.Data.ContentOtherExercises
-                , label =
-                    row [ spacing 7 ]
-                        [ FeatherIcons.list
-                            |> FeatherIcons.withSize 16
-                            |> FeatherIcons.toHtml []
-                            |> html
-                            |> el [ centerX ]
-                        , text <| "Other Exercises"
-                        ]
-                }
-            , Input.button (attrsButton ++ [ padding 10, centerX, Border.width 0 ])
-                { onPress = Just <| Internal.Data.ChangeMenu Internal.Data.ContentHelp
-                , label =
-                    row [ spacing 7 ]
-                        [ FeatherIcons.helpCircle
-                            |> FeatherIcons.withSize 16
-                            |> FeatherIcons.toHtml []
-                            |> html
-                            |> el [ centerX ]
-                        , text <| "Help"
-                        ]
-                }
-            , Input.button (attrsButton ++ [ padding 10, centerX, Border.width 0 ])
-                { onPress = Just <| Internal.Data.ChangeMenu Internal.Data.ContentContribute
-                , label =
-                    row [ spacing 7 ]
-                        [ FeatherIcons.heart
-                            |> FeatherIcons.withSize 16
-                            |> FeatherIcons.toHtml []
-                            |> html
-                            |> el [ centerX ]
-                        , text <| "Contribute"
-                        ]
-                }
-            ]
+    column
+        [ width fill
+        , Background.color <| rgba 0 0 0 0.05
+        , Font.color <| rgba 0 0 0 0.5
+        , paddingXY 10 0
+        ]
+        [ el [ centerX ] <|
+            wrappedRow
+                [ paddingEach { top = 40, right = 0, bottom = 0, left = 0 }
+                , Font.color <| rgba 0 0 0 0.5
+                , spacing 15
+                ]
+                [ footerLink Internal.Data.ContentHints icons.hints "Hints"
+                , footerLink Internal.Data.ContentSolutions icons.solutions "Solutions"
+                , footerLink Internal.Data.ContentHistory icons.history "History"
+                , footerLink Internal.Data.ContentOtherExercises icons.otherExercises "Other Exercises"
+                , footerLink Internal.Data.ContentHelp icons.help "Help"
+                , footerLink Internal.Data.ContentContribute icons.contribute "Contribute"
+                ]
         , paragraph
             [ Font.center
-            , paddingXY 10 30
             , Font.size 14
-            , Font.color <| rgba 0 0 0 0.5
-            , Background.color <| rgba 0 0 0 0.05
+            , paddingXY 0 30
             ]
             [ text <| "Made with "
             , newTabLink [] { url = "https://package.elm-lang.org/packages/lucamug/elm-exercises/latest/", label = text "elm-exercises" }
@@ -194,6 +189,44 @@ viewFooter =
             , text version
             ]
         ]
+
+
+icons :
+    { contribute : FeatherIcons.Icon
+    , help : FeatherIcons.Icon
+    , hints : FeatherIcons.Icon
+    , history : FeatherIcons.Icon
+    , otherExercises : FeatherIcons.Icon
+    , solutions : FeatherIcons.Icon
+    }
+icons =
+    { hints = FeatherIcons.crosshair
+    , solutions = FeatherIcons.bookOpen
+    , history = FeatherIcons.calendar
+    , otherExercises = FeatherIcons.list
+    , help = FeatherIcons.helpCircle
+    , contribute = FeatherIcons.heart
+    }
+
+
+footerLink :
+    Internal.Data.MenuContent
+    -> FeatherIcons.Icon
+    -> String
+    -> Element (Internal.Data.Msg msgExercise)
+footerLink content icon string =
+    Input.button (attrsButton ++ [ padding 10, centerX, Border.width 0 ])
+        { onPress = Just <| Internal.Data.ChangeMenu content
+        , label =
+            row [ spacing 7 ]
+                [ icon
+                    |> FeatherIcons.withSize 16
+                    |> FeatherIcons.toHtml []
+                    |> html
+                    |> el [ centerX ]
+                , text <| string
+                ]
+        }
 
 
 viewElement :
@@ -234,6 +267,14 @@ viewElement tea model =
             a.linkInTheHeader:hover {
                 color: rgb(255, 255, 255);
             }
+            
+            .fail {
+                stroke: rgb(204, 0, 0);
+            }
+            
+            .pass { 
+                stroke: rgb(0, 153, 0);
+            }
 
             .hljs {
                 background-color: rgb(250, 250, 250);
@@ -244,6 +285,10 @@ viewElement tea model =
                 padding: 10px;
                 font-family: 'Source Code Pro', monospace;
             }
+
+            .s.r > s:first-of-type.accx { flex-grow: 0 !important; }
+            .s.r > s:last-of-type.accx { flex-grow: 0 !important; }
+            .cx > .wrp { justify-content: center !important; }
             """ ]
         ]
         ([]
@@ -341,9 +386,10 @@ isOpen show index =
 
 contentHints :
     Internal.Data.Model modelExercise
-    -> ( String, List (Element (Internal.Data.Msg msgExercise)) )
+    -> ( String, FeatherIcons.Icon, List (Element (Internal.Data.Msg msgExercise)) )
 contentHints model =
     ( "Hints"
+    , icons.hints
     , []
         ++ [ wrappedRow [ spacing 10 ]
                 [ Input.button attrsButton { onPress = Just Internal.Data.ShowHintsAll, label = text "Show All" }
@@ -362,9 +408,10 @@ contentHints model =
 
 contentSolutions :
     Internal.Data.Model modelExercise
-    -> ( String, List (Element (Internal.Data.Msg msgExercise)) )
+    -> ( String, FeatherIcons.Icon, List (Element (Internal.Data.Msg msgExercise)) )
 contentSolutions model =
     ( "Solutions"
+    , icons.solutions
     , []
         ++ [ wrappedRow [ spacing 10 ]
                 [ Input.button attrsButton { onPress = Just Internal.Data.ShowSolutionsAll, label = text "Show All" }
@@ -381,49 +428,266 @@ contentSolutions model =
     )
 
 
-contentHistory : Internal.Data.Model modelExercise -> ( String, List (Element msg) )
+contentHistory :
+    Internal.Data.Model modelExercise
+    -> ( String, FeatherIcons.Icon, List (Element (Internal.Data.Msg msgExercise)) )
 contentHistory model =
     ( "History"
-    , [ column [ spacing 20 ] <|
-            List.map
-                (\( id, localStorageRecord ) ->
-                    let
-                        maybeExerciseData : Maybe Internal.Data.Index
-                        maybeExerciseData =
-                            model.index
-                                |> List.filter (\e -> e.id == id)
-                                |> List.head
-                                |> Debug.log "yyy"
-                    in
-                    column [ spacing 20 ] <|
-                        []
-                            ++ [ paragraph [] [ text <| Debug.toString localStorageRecord ] ]
-                            ++ (case maybeExerciseData of
-                                    Just index ->
-                                        [ viewExcerciseWithHistory index localStorageRecord ]
+    , icons.history
+    , [ column [ spacing 30 ] <|
+            []
+                ++ [ let
+                        solved : Int
+                        solved =
+                            model.localStorage
+                                |> Dict.toList
+                                |> List.filter
+                                    (\( id, localStorageRecord ) ->
+                                        localStorageRecord.testsPassed == localStorageRecord.testsTotal
+                                    )
+                                |> List.length
 
-                                    Nothing ->
-                                        []
-                               )
-                )
-                (Dict.toList model.localStorage)
+                        total : Int
+                        total =
+                            model.index
+                                |> List.length
+
+                        seen : Int
+                        seen =
+                            model.localStorage
+                                |> Dict.toList
+                                |> List.length
+                     in
+                     paragraph []
+                        [ text <|
+                            "You have seen "
+                                ++ String.fromInt seen
+                                ++ " exercises "
+                                ++ (if solved > 0 then
+                                        ", and solved " ++ String.fromInt solved ++ ", "
+
+                                    else
+                                        ""
+                                   )
+                                ++ "out of a total of "
+                                ++ String.fromInt total
+                                ++ "."
+                        ]
+                   ]
+                ++ List.map
+                    (\( id, localStorageRecord ) ->
+                        let
+                            maybeExerciseData : Maybe Internal.Data.Index
+                            maybeExerciseData =
+                                model.index
+                                    |> List.filter (\e -> e.id == id)
+                                    |> List.head
+                        in
+                        case maybeExerciseData of
+                            Just index ->
+                                viewExcerciseWithHistory model.posixNow model.exerciseData.id index localStorageRecord
+
+                            Nothing ->
+                                none
+                    )
+                    (List.sortBy
+                        (\( id, localStorageRecord ) ->
+                            Time.posixToMillis localStorageRecord.firstSeen
+                        )
+                        (Dict.toList model.localStorage)
+                    )
+                ++ [ paragraph [] [ text "Please note that we don't save the history of your interaction with the Elm Exercises to any external server. We save it to the local storage of your browser. \n\nThe history is only visible to you to keep track of which exercise you have seen and solved." ] ]
+                ++ [ column [ spacing 10 ]
+                        [ paragraph [ Font.color red, Font.bold ] [ text "Dangerous zone" ]
+                        , Input.button
+                            [ padding 10
+                            , Border.rounded 5
+                            , Font.color red
+                            , Border.color red
+                            , Border.width 1
+                            ]
+                            { label = text "Remove the entire history"
+                            , onPress = Just Internal.Data.RemoveHistory
+                            }
+                        ]
+                   ]
       ]
     )
 
 
 viewExcerciseWithHistory :
-    Internal.Data.Index
+    Time.Posix
+    -> Int
+    -> Internal.Data.Index
     -> Internal.Data.LocalStorageRecord
+    -> Element (Internal.Data.Msg msgExercise)
+viewExcerciseWithHistory posix nowId index localStorageRecord =
+    column [ spacing 8 ] <|
+        []
+            ++ [ exerciseLink [ Font.size 20, paddingEach { top = 0, right = 0, bottom = 10, left = 0 } ] index nowId ]
+            ++ [ row [ paddingEach { top = 0, right = 0, bottom = 0, left = 25 }, spacing 10 ]
+                    [ FeatherIcons.eye
+                        |> FeatherIcons.withSize 18
+                        |> FeatherIcons.toHtml []
+                        |> html
+                        |> el []
+                    , paragraph []
+                        [ text "First seen "
+                        , text <| DateFormat.Relative.relativeTime posix localStorageRecord.firstSeen
+                        ]
+                    ]
+               ]
+            -- ++ [ row [ paddingEach { top = 0, right = 0, bottom = 0, left = 25 }, spacing 10 ]
+            --         [ FeatherIcons.eyeOff
+            --             |> FeatherIcons.withSize 18
+            --             |> FeatherIcons.toHtml []
+            --             |> html
+            --             |> el [ alignTop ]
+            --         , paragraph []
+            --             [ text "Last seen "
+            --             , text <| DateFormat.Relative.relativeTime posix localStorageRecord.lastSeen
+            --             ]
+            --         ]
+            --    ]
+            ++ [ row [ paddingEach { top = 0, right = 0, bottom = 0, left = 25 }, spacing 10 ]
+                    [ (case localStorageRecord.solved of
+                        Just _ ->
+                            FeatherIcons.check
+
+                        Nothing ->
+                            FeatherIcons.x
+                      )
+                        |> FeatherIcons.withSize 18
+                        |> (FeatherIcons.withClass <|
+                                case localStorageRecord.solved of
+                                    Just _ ->
+                                        "pass"
+
+                                    Nothing ->
+                                        "fail"
+                           )
+                        |> FeatherIcons.toHtml []
+                        |> html
+                        |> el [ alignTop ]
+                    , case localStorageRecord.solved of
+                        Just solved ->
+                            paragraph [ Font.color green ]
+                                [ text "Solved in "
+                                , text <| DateFormat.Relative.relativeTimeWithOptions relativeTimeOptions localStorageRecord.firstSeen solved
+                                ]
+
+                        Nothing ->
+                            paragraph [ Font.color red ]
+                                [ text <|
+                                    "Not solved yet, only "
+                                        ++ String.fromInt localStorageRecord.testsPassed
+                                        ++ " out of "
+                                        ++ String.fromInt localStorageRecord.testsTotal
+                                        ++ " tests passed (seen for "
+                                        ++ DateFormat.Relative.relativeTimeWithOptions relativeTimeOptions localStorageRecord.firstSeen localStorageRecord.lastSeen
+                                        ++ ")"
+                                ]
+                    ]
+               ]
+            ++ (if nowId == index.id then
+                    []
+
+                else
+                    [ Input.button []
+                        { onPress = Just <| Internal.Data.RemoveFromHistory index.id
+                        , label =
+                            row [ paddingEach { top = 0, right = 0, bottom = 0, left = 25 }, spacing 10 ]
+                                [ FeatherIcons.trash2
+                                    |> FeatherIcons.withSize 18
+                                    |> FeatherIcons.toHtml []
+                                    |> html
+                                    |> el []
+                                , paragraph [ Font.color <| rgb255 18 147 216 ]
+                                    [ text "Remove from history"
+                                    ]
+                                ]
+                        }
+                    ]
+               )
+
+
+exerciseLink :
+    List (Attribute msg)
+    -> Internal.Data.Index
+    -> Int
     -> Element msg
-viewExcerciseWithHistory index localStorageRecord =
-    row []
-        [ paragraph [] [ text index.title ]
-        ]
+exerciseLink attrs index nowId =
+    if index.id == nowId then
+        row ([ spacing 10 ] ++ attrs)
+            [ el [ alignTop ] <| text "•"
+            , paragraph [ Font.bold ]
+                [ text <| index.title
+                , text " (#"
+                , text <| String.fromInt index.id
+                , text ", "
+                , text <| Internal.Data.difficultyToString index.difficulty
+                , text ")"
+                ]
+            ]
+
+    else
+        row ([ spacing 10 ] ++ attrs)
+            [ el [ alignTop ] <| text "•"
+            , paragraph []
+                [ newTabLink [ alignTop ]
+                    { url = "https://ellie-app.com/" ++ index.ellieId
+                    , label =
+                        paragraph []
+                            [ text <| index.title
+                            , text " (#"
+                            , text <| String.fromInt index.id
+                            , text ", "
+                            , text <| Internal.Data.difficultyToString index.difficulty
+                            , text ")"
+                            ]
+                    }
+                ]
+            ]
 
 
-contentOtherExercises : Internal.Data.Model modelExercise -> ( String, List (Element msg) )
+relativeTimeOptions :
+    { inSomeDays : Int -> String
+    , inSomeHours : Int -> String
+    , inSomeMinutes : Int -> String
+    , inSomeMonths : Int -> String
+    , inSomeSeconds : Int -> String
+    , inSomeYears : Int -> String
+    , rightNow : String
+    , someDaysAgo : Int -> String
+    , someHoursAgo : Int -> String
+    , someMinutesAgo : Int -> String
+    , someMonthsAgo : Int -> String
+    , someSecondsAgo : Int -> String
+    , someYearsAgo : Int -> String
+    }
+relativeTimeOptions =
+    { someSecondsAgo = \int -> String.fromInt int ++ " seconds"
+    , someMinutesAgo = \int -> String.fromInt int ++ " minutes"
+    , someHoursAgo = \int -> String.fromInt int ++ " hours"
+    , someDaysAgo = \int -> String.fromInt int ++ " days"
+    , someMonthsAgo = \int -> String.fromInt int ++ " months"
+    , someYearsAgo = \int -> String.fromInt int ++ " years"
+    , rightNow = "0 seconds"
+    , inSomeSeconds = \int -> String.fromInt int ++ " seconds"
+    , inSomeMinutes = \int -> String.fromInt int ++ " minutes"
+    , inSomeHours = \int -> String.fromInt int ++ " hours"
+    , inSomeDays = \int -> String.fromInt int ++ " days"
+    , inSomeMonths = \int -> String.fromInt int ++ " months"
+    , inSomeYears = \int -> String.fromInt int ++ " years"
+    }
+
+
+contentOtherExercises :
+    Internal.Data.Model modelExercise
+    -> ( String, FeatherIcons.Icon, List (Element (Internal.Data.Msg msgExercise)) )
 contentOtherExercises model =
     ( "Other Exercises"
+    , icons.otherExercises
     , []
         ++ [ viewTitle "Exercises by Category" ]
         ++ [ model.index
@@ -443,32 +707,7 @@ contentOtherExercises model =
                         row [ spacing 10 ]
                             [ el [ alignTop ] <| text "•"
                             , paragraph [] <|
-                                -- if i.id == exerciseData.id then
-                                --     [ paragraph []
-                                --         [ el [ Font.bold ] <| text "You are here ☞ "
-                                --         , text <| i.title
-                                --         , text " (#"
-                                --         , text <| String.fromInt i.id
-                                --         , text ", "
-                                --         , text <| difficultyToString i.difficulty
-                                --         , text ")"
-                                --         ]
-                                --     ]
-                                --
-                                -- else
-                                [ newTabLink [ alignTop ]
-                                    { url = "https://ellie-app.com/" ++ i.ellieId
-                                    , label =
-                                        paragraph []
-                                            [ text <| i.title
-                                            , text " (#"
-                                            , text <| String.fromInt i.id
-                                            , text ", "
-                                            , text <| Internal.Data.difficultyToString i.difficulty
-                                            , text ")"
-                                            ]
-                                    }
-                                ]
+                                [ exerciseLink [] i model.exerciseData.id ]
                             ]
                     )
                     model.index
@@ -487,9 +726,10 @@ viewTitle string =
         [ text string ]
 
 
-contentContribute : ( String, List (Element msg) )
+contentContribute : ( String, FeatherIcons.Icon, List (Element (Internal.Data.Msg msgExercise)) )
 contentContribute =
     ( "Contribute"
+    , icons.contribute
     , []
         ++ [ subtitle "Improve this Exercise" ]
         ++ [ column [ spacing 16, width fill ] <| Internal.Markdown.markdown "If you find some mistake or you have some goot hint or a nice solution to add to this exercise, you can [edit it directly](https://github.com/lucamug/elm-exercises/edit/master/exercises/src/E/E001.elm)."
@@ -594,8 +834,15 @@ viewTests model =
                     (\( test, failureReason ) ->
                         case failureReason of
                             Nothing ->
-                                wrappedRow [ spacing 10 ]
-                                    [ el [ alignTop, moveDown 3 ] <| text "✅"
+                                wrappedRow [ spacing 6, width fill ]
+                                    [ FeatherIcons.check
+                                        |> FeatherIcons.withSize 16
+                                        |> FeatherIcons.withClass "pass"
+                                        |> FeatherIcons.toHtml []
+                                        |> html
+                                        |> el [ alignTop, moveDown 4 ]
+
+                                    -- , el [ alignTop, moveDown 3 ] <| text "✅"
                                     , el [ Font.color green, width <| px 50, alignTop, moveDown 3 ] <| text "Passed"
                                     , paragraph [] <|
                                         Internal.Markdown.markdown <|
@@ -605,8 +852,15 @@ viewTests model =
                                     ]
 
                             Just reason ->
-                                wrappedRow [ spacing 10, width fill ]
-                                    [ el [ alignTop, moveDown 3 ] <| text "❌"
+                                wrappedRow [ spacing 6, width fill ]
+                                    [ FeatherIcons.x
+                                        |> FeatherIcons.withSize 16
+                                        |> FeatherIcons.withClass "fail"
+                                        |> FeatherIcons.toHtml []
+                                        |> html
+                                        |> el [ alignTop, moveDown 4 ]
+
+                                    -- [ el [ alignTop, moveDown 3 ] <| text "❌"
                                     , el [ Font.color red, width <| px 50, alignTop, moveDown 3 ] <| text "Failed"
                                     , paragraph [] <|
                                         Internal.Markdown.markdown <|
@@ -659,6 +913,34 @@ viewBody tea model =
                )
 
 
+sideButton :
+    Internal.Data.MenuContent
+    -> FeatherIcons.Icon
+    -> String
+    -> Element (Internal.Data.Msg msgExercise)
+sideButton content icon string =
+    Input.button
+        [ padding 13
+        , Border.widthEach { bottom = 1, left = 1, right = 0, top = 1 }
+        , Border.roundEach { topLeft = 4, topRight = 0, bottomLeft = 4, bottomRight = 0 }
+        , Border.color <| rgba 0 0 0 0.2
+        , Background.color <| rgba 1 1 1 0.9
+        , width <| px 145
+        ]
+        { label =
+            row [ spacing 15 ]
+                [ icon
+                    |> FeatherIcons.toHtml []
+                    |> html
+                    |> el [ centerX ]
+                , paragraph [ width fill, spacing 4 ]
+                    [ el [ Font.size 12 ] <| text <| String.toUpper string
+                    ]
+                ]
+        , onPress = Just <| Internal.Data.ChangeMenu content
+        }
+
+
 viewSideButtons :
     Internal.Data.Model modelExercise
     -> Element (Internal.Data.Msg msgExercise)
@@ -683,123 +965,12 @@ viewSideButtons model =
           else
             moveRight 93
         ]
-        [ Input.button
-            [ padding 13
-            , Border.widthEach { bottom = 1, left = 1, right = 0, top = 1 }
-            , Border.roundEach { topLeft = 4, topRight = 0, bottomLeft = 4, bottomRight = 0 }
-            , Border.color <| rgba 0 0 0 0.2
-            , Background.color <| rgba 1 1 1 0.9
-            , width fill
-            ]
-            { label =
-                row [ spacing 15 ]
-                    [ FeatherIcons.crosshair
-                        |> FeatherIcons.toHtml []
-                        |> html
-                        |> el [ centerX ]
-                    , column [ width fill, spacing 4 ]
-                        [ el [ Font.size 12 ] <| text "HINTS"
-                        ]
-                    ]
-            , onPress = Just <| Internal.Data.ChangeMenu Internal.Data.ContentHints
-            }
-        , Input.button
-            [ padding 13
-            , Border.widthEach { bottom = 1, left = 1, right = 0, top = 1 }
-            , Border.roundEach { topLeft = 4, topRight = 0, bottomLeft = 4, bottomRight = 0 }
-            , Border.color <| rgba 0 0 0 0.2
-            , Background.color <| rgba 1 1 1 0.9
-            , width fill
-            ]
-            { label =
-                row [ spacing 15 ]
-                    [ svgBulb
-                        |> html
-                        |> el [ centerX, height <| px 24, width <| px 24 ]
-                    , column [ width fill, spacing 4 ]
-                        [ el [ Font.size 12 ] <| text "SOLUTIONS"
-                        ]
-                    ]
-            , onPress = Just <| Internal.Data.ChangeMenu Internal.Data.ContentSolutions
-            }
-        , Input.button
-            [ padding 13
-            , Border.widthEach { bottom = 1, left = 1, right = 0, top = 1 }
-            , Border.roundEach { topLeft = 4, topRight = 0, bottomLeft = 4, bottomRight = 0 }
-            , Border.color <| rgba 0 0 0 0.2
-            , Background.color <| rgba 1 1 1 0.9
-            , width fill
-            ]
-            { label =
-                row [ spacing 15 ]
-                    [ FeatherIcons.clock
-                        |> FeatherIcons.toHtml []
-                        |> html
-                        |> el [ centerX ]
-                    , column [ width fill, spacing 4 ]
-                        [ el [ Font.size 12 ] <| text "HISTORY"
-                        ]
-                    ]
-            , onPress = Just <| Internal.Data.ChangeMenu Internal.Data.ContentHistory
-            }
-        , Input.button
-            [ padding 13
-            , Border.widthEach { bottom = 1, left = 1, right = 0, top = 1 }
-            , Border.roundEach { topLeft = 4, topRight = 0, bottomLeft = 4, bottomRight = 0 }
-            , Border.color <| rgba 0 0 0 0.2
-            , Background.color <| rgba 1 1 1 0.9
-            , width fill
-            ]
-            { label =
-                row [ spacing 15 ]
-                    -- [ FeatherIcons.list
-                    [ FeatherIcons.edit
-                        |> FeatherIcons.toHtml []
-                        |> html
-                        |> el [ centerX ]
-                    , column [ width fill, spacing 4 ]
-                        [ el [ Font.size 12 ] <| text "OTHER"
-                        , el [ Font.size 12 ] <| text "EXERCISES"
-                        ]
-                    ]
-            , onPress = Just <| Internal.Data.ChangeMenu Internal.Data.ContentOtherExercises
-            }
-        , Input.button
-            [ padding 13
-            , Border.widthEach { bottom = 1, left = 1, right = 0, top = 1 }
-            , Border.roundEach { topLeft = 4, topRight = 0, bottomLeft = 4, bottomRight = 0 }
-            , Border.color <| rgba 0 0 0 0.2
-            , Background.color <| rgba 1 1 1 0.8
-            , width fill
-            ]
-            { label =
-                row [ spacing 15 ]
-                    [ FeatherIcons.helpCircle
-                        |> FeatherIcons.toHtml []
-                        |> html
-                        |> el [ centerX ]
-                    , el [ Font.size 12 ] <| text "HELP"
-                    ]
-            , onPress = Just <| Internal.Data.ChangeMenu Internal.Data.ContentHelp
-            }
-        , Input.button
-            [ padding 13
-            , Border.widthEach { bottom = 1, left = 1, right = 0, top = 1 }
-            , Border.roundEach { topLeft = 4, topRight = 0, bottomLeft = 4, bottomRight = 0 }
-            , Border.color <| rgba 0 0 0 0.2
-            , Background.color <| rgba 1 1 1 0.8
-            , width fill
-            ]
-            { label =
-                row [ spacing 15 ]
-                    [ FeatherIcons.heart
-                        |> FeatherIcons.toHtml []
-                        |> html
-                        |> el [ centerX ]
-                    , el [ Font.size 12 ] <| text "CONTRIBUTE"
-                    ]
-            , onPress = Just <| Internal.Data.ChangeMenu Internal.Data.ContentContribute
-            }
+        [ sideButton Internal.Data.ContentHints icons.hints "Hints"
+        , sideButton Internal.Data.ContentSolutions icons.solutions "Solutions"
+        , sideButton Internal.Data.ContentHistory icons.history "History"
+        , sideButton Internal.Data.ContentOtherExercises icons.otherExercises "Other Exercises"
+        , sideButton Internal.Data.ContentHelp icons.help "Help"
+        , sideButton Internal.Data.ContentContribute icons.contribute "Contribute"
         ]
 
 
@@ -885,9 +1056,9 @@ viewSideMenu model =
 
 viewContent :
     Internal.Data.Model modelExercise
-    -> ( String, List (Element msg) )
+    -> ( String, FeatherIcons.Icon, List (Element msg) )
     -> Element msg
-viewContent model ( title, content ) =
+viewContent model ( title, icon, content ) =
     let
         widthSize : Int
         widthSize =
@@ -911,19 +1082,26 @@ viewContent model ( title, content ) =
         ]
     <|
         []
-            ++ [ paragraph
-                    [ Region.heading 2
-                    , Font.size 24
-                    , Font.bold
-                    , Background.color <| rgba 0 0 0 0.1
-                    , padding 10
+            ++ [ row
+                    [ Background.color <| rgba 0 0 0 0.1
                     , width fill
                     , paddingXY 20 30
+                    , spacing 10
                     ]
-                    [ text title ]
+                    [ icon
+                        |> FeatherIcons.toHtml []
+                        |> html
+                        |> el []
+                    , paragraph
+                        [ Region.heading 2
+                        , Font.size 24
+                        , Font.bold
+                        ]
+                        [ text title ]
+                    ]
                ]
             ++ [ column
-                    [ paddingEach { top = 30, right = 20, bottom = 20, left = 20 }
+                    [ paddingEach { top = 30, right = 30, bottom = 20, left = 20 }
                     , spacing 20
 
                     -- scrollabar is not working
@@ -1114,10 +1292,6 @@ categories exercises =
         (\exerciseData acc ->
             List.foldl
                 (\category acc2 ->
-                    -- let
-                    --     _ =
-                    --         Debug.log "xxx2" ( category, acc2 )
-                    -- in
                     Dict.update category
                         (\maybeV ->
                             case maybeV of

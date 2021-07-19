@@ -50,20 +50,14 @@ import Codec
 import Dict
 import Element exposing (..)
 import Expect
-import FeatherIcons
 import Html
 import Html.Attributes
 import Internal.Codecs
 import Internal.Data
-import Internal.Markdown
 import Internal.Views
-import Json.Decode
 import Set
-import Svg
-import Svg.Attributes as SA
 import Task
 import Test.Runner
-import Test.Runner.Failure
 import Time
 
 
@@ -463,11 +457,7 @@ init tea flags =
                 Ok localStorageAsList ->
                     Dict.fromList localStorageAsList
 
-                Err error ->
-                    let
-                        _ =
-                            Debug.log "xxx" ( Json.Decode.errorToString error, flags.localStorage )
-                    in
+                Err _ ->
                     Dict.empty
 
         exerciseData : Internal.Data.ExerciseData
@@ -476,7 +466,7 @@ init tea flags =
                 Ok ed ->
                     ed
 
-                Err error ->
+                Err _ ->
                     Internal.Data.emptyExerciseData
 
         localStorageRecord : Internal.Data.LocalStorageRecord
@@ -491,7 +481,7 @@ init tea flags =
                 Ok i ->
                     i
 
-                Err error ->
+                Err _ ->
                     []
 
         model : Model modelExercise
@@ -506,6 +496,9 @@ init tea flags =
                 modelExercise
                     |> tea.tests
                     |> List.map Test.Runner.getFailureReason
+
+            -- The first posix could come from flags if necessary
+            , posixNow = Time.millisToPosix 0
             }
     in
     ( model
@@ -526,24 +519,51 @@ type alias Msg msgExercise =
 
 
 {-| -}
-update : TEA modelExercise msgExercise -> Msg msgExercise -> Model modelExercise -> ( Model modelExercise, Cmd (Msg msgExercise) )
+update :
+    TEA modelExercise msgExercise
+    -> Msg msgExercise
+    -> Model modelExercise
+    -> ( Model modelExercise, Cmd (Msg msgExercise) )
 update tea msg model =
     ( model, Cmd.none )
         |> andThen (updateMain tea) msg
         |> andThen (updateLocalStorage tea) msg
+        |> andThen updatePosix msg
 
 
-updateLocalStorage : TEA modelExercise msgExercise -> Msg msgExercise -> Model modelExercise -> ( Model modelExercise, Cmd (Msg msgExercise) )
+updatePosix :
+    Msg msgExercise
+    -> Model modelExercise
+    -> ( Model modelExercise, Cmd (Msg msgExercise) )
+updatePosix msg model =
+    case msg of
+        Internal.Data.UpdatePosix _ ->
+            ( model, Cmd.none )
+
+        _ ->
+            ( model, Task.perform Internal.Data.UpdatePosix Time.now )
+
+
+updateLocalStorage :
+    TEA modelExercise msgExercise
+    -> Msg msgExercise
+    -> Model modelExercise
+    -> ( Model modelExercise, Cmd (Msg msgExercise) )
 updateLocalStorage tea msg model =
     ( model
     , case msg of
         Internal.Data.PortLocalStoragePop _ ->
-            -- This is the only case where we don't "pushLocalStorage"
+            -- This is a case where we don't "pushLocalStorage"
             -- to avoid generating an infinite loop
             Cmd.none
 
         Internal.Data.PortLocalStoragePush _ ->
-            -- This is the only case where we don't "pushLocalStorage"
+            -- This is a case where we don't "pushLocalStorage"
+            -- to avoid generating an infinite loop
+            Cmd.none
+
+        Internal.Data.UpdatePosix _ ->
+            -- This is a case where we don't "pushLocalStorage"
             -- to avoid generating an infinite loop
             Cmd.none
 
@@ -564,7 +584,6 @@ saveLocalStorage tea model =
     -- From https://elm.dmy.fr/packages/elm/core/latest/Task#succeed
     Time.now
         |> Task.andThen (\posix -> Task.succeed (Internal.Data.toLocalStorage posix tea model))
-        |> Task.andThen (\localStorage_ -> Task.succeed (localStorageToString localStorage_))
         |> Task.perform Internal.Data.PortLocalStoragePush
 
 
@@ -584,6 +603,9 @@ localStorageToString localStorage =
 updateMain : TEA modelExercise msgExercise -> Msg msgExercise -> Model modelExercise -> ( Model modelExercise, Cmd (Msg msgExercise) )
 updateMain tea msg model =
     case msg of
+        Internal.Data.UpdatePosix posix ->
+            ( { model | posixNow = posix }, Cmd.none )
+
         Internal.Data.ShowHint int ->
             model.localStorageRecord.hints
                 |> f
@@ -650,16 +672,39 @@ updateMain tea msg model =
             ( { model | menuOver = bool }, Cmd.none )
 
         Internal.Data.PortLocalStoragePop string ->
-            -- decode string
-            -- load into model
-            Debug.todo "xxx"
-
-        Internal.Data.PortLocalStoragePush string ->
             let
-                _ =
-                    Debug.log "xxx PortLocalStoragePush" string
+                localStorage : Dict.Dict Int Internal.Data.LocalStorageRecord
+                localStorage =
+                    case Codec.decodeString Internal.Codecs.codecLocalStorageAsList string of
+                        Ok localStorageAsList ->
+                            Dict.fromList localStorageAsList
+
+                        Err _ ->
+                            Dict.empty
+
+                localStorageRecord : Internal.Data.LocalStorageRecord
+                localStorageRecord =
+                    localStorage
+                        |> Dict.get model.exerciseData.id
+                        |> Maybe.withDefault Internal.Data.initLocalStorageRecord
             in
-            ( model, tea.portLocalStoragePush string )
+            ( { model
+                | localStorage = localStorage
+                , localStorageRecord = localStorageRecord
+              }
+            , Cmd.none
+            )
+
+        Internal.Data.PortLocalStoragePush localStorage ->
+            ( { model | localStorage = localStorage }
+            , tea.portLocalStoragePush (localStorageToString localStorage)
+            )
+
+        Internal.Data.RemoveFromHistory id ->
+            ( { model | localStorage = Dict.remove id model.localStorage }, Cmd.none )
+
+        Internal.Data.RemoveHistory ->
+            ( { model | localStorage = Dict.empty }, Cmd.none )
 
 
 
@@ -731,25 +776,6 @@ f showSet =
 
         _ ->
             Set.empty
-
-
-helper : List comparable -> Dict.Dict comparable (List c) -> c -> Dict.Dict comparable (List c)
-helper categories_ acc exerciseData =
-    List.foldl
-        (\category acc2 ->
-            Dict.update category
-                (\maybeV ->
-                    case maybeV of
-                        Just v ->
-                            Just <| exerciseData :: v
-
-                        Nothing ->
-                            Just [ exerciseData ]
-                )
-                acc
-        )
-        acc
-        categories_
 
 
 {-| -}

@@ -27,7 +27,12 @@ type Msg msgExercise
     | MenuOver Bool
       --
     | PortLocalStoragePop String
-    | PortLocalStoragePush String
+    | PortLocalStoragePush (Dict.Dict Int LocalStorageRecord)
+      --
+    | UpdatePosix Time.Posix
+      --
+    | RemoveFromHistory Int
+    | RemoveHistory
 
 
 type alias Model modelExercise =
@@ -38,6 +43,7 @@ type alias Model modelExercise =
     , modelExercise : modelExercise
     , menuOver : Bool
     , failureReasons : List FailureReason
+    , posixNow : Time.Posix
     }
 
 
@@ -46,8 +52,9 @@ type alias LocalStorageRecord =
     , solutions : Show
     , menuOpen : Bool
     , menuContent : MenuContent
-    , firstSeen : Maybe Time.Posix
+    , firstSeen : Time.Posix
     , lastSeen : Time.Posix
+    , solved : Maybe Time.Posix
     , testsTotal : Int
     , testsPassed : Int
     }
@@ -153,8 +160,9 @@ initLocalStorageRecord =
     , solutions = ShowNone
     , menuOpen = False
     , menuContent = ContentOtherExercises
-    , firstSeen = Nothing
+    , firstSeen = Time.millisToPosix 0
     , lastSeen = Time.millisToPosix 0
+    , solved = Nothing
     , testsTotal = 0
     , testsPassed = 0
     }
@@ -174,17 +182,6 @@ toLocalStorage posix tea model =
     Dict.insert model.exerciseData.id newLocalStorageRecord model.localStorage
 
 
-localStorageToString : Dict.Dict Int LocalStorageRecord -> String
-localStorageToString localStorage =
-    Debug.todo "TODO"
-
-
-
---
--- port portLocalStoragePush : String -> Cmd msg
---
-
-
 toLocalStorageRecord :
     Time.Posix
     -> TEA modelExercise msgExercise
@@ -192,21 +189,41 @@ toLocalStorageRecord :
     -> LocalStorageRecord
     -> LocalStorageRecord
 toLocalStorageRecord posix tea model localStorageRecord =
-    { localStorageRecord
-        | firstSeen =
-            case localStorageRecord.firstSeen of
-                Nothing ->
-                    Just posix
+    case localStorageRecord.solved of
+        Just _ ->
+            { localStorageRecord | lastSeen = posix }
 
-                Just fs ->
-                    Just fs
-        , lastSeen = posix
-        , testsTotal = List.length (tea.tests model.modelExercise)
-        , testsPassed =
-            model.failureReasons
-                |> List.filter ((==) Nothing)
-                |> List.length
-    }
+        Nothing ->
+            let
+                testsTotal : Int
+                testsTotal =
+                    model.modelExercise
+                        |> tea.tests
+                        |> List.length
+
+                testsPassed : Int
+                testsPassed =
+                    model.failureReasons
+                        |> List.filter ((==) Nothing)
+                        |> List.length
+            in
+            { localStorageRecord
+                | firstSeen =
+                    if localStorageRecord.firstSeen == Time.millisToPosix 0 then
+                        posix
+
+                    else
+                        localStorageRecord.firstSeen
+                , lastSeen = posix
+                , testsTotal = testsTotal
+                , testsPassed = testsPassed
+                , solved =
+                    if testsTotal == testsPassed then
+                        Just posix
+
+                    else
+                        Nothing
+            }
 
 
 {-| This record define an exercise.

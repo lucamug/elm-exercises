@@ -1,7 +1,6 @@
 module Internal.Codecs exposing (..)
 
 import Codec
-import Dict
 import Internal.Data
 import Time
 
@@ -77,8 +76,9 @@ codecLocalStorageRecord =
         |> Codec.field "solutions" .solutions codecShow
         |> Codec.field "menuOpen" .menuOpen Codec.bool
         |> Codec.field "menuContent" .menuContent codecMenuContent
-        |> Codec.field "firstSeen" .firstSeen (Codec.maybe codecPosix)
+        |> Codec.field "firstSeen" .firstSeen codecPosix
         |> Codec.field "lastSeen" .lastSeen codecPosix
+        |> Codec.field "solved" .solved (Codec.maybe codecPosix)
         |> Codec.field "testsTotal" .testsTotal Codec.int
         |> Codec.field "testsPassed" .testsPassed Codec.int
         |> Codec.buildObject
