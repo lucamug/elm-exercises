@@ -1,6 +1,8 @@
 module Internal.Views exposing (..)
 
 import Browser
+import Chart as C
+import Chart.Attributes as CA
 import Codec
 import DateFormat
 import DateFormat.Relative
@@ -19,7 +21,9 @@ import Html.Attributes
 import Internal.Data
 import Internal.Markdown
 import Json.Decode
+import List.Extra
 import Set
+import String.Extra
 import Svg
 import Svg.Attributes as SA
 import Test.Runner
@@ -50,13 +54,13 @@ contentHelp =
                         [ Background.color <| rgba 0 0 0 0.5
                         , Font.color <| rgba 1 1 1 0.9
                         , Border.rounded 2
-                        , paddingXY 5 2
-                        , Font.size 14
+                        , paddingXY 4 1
+                        , Font.size 11
                         , spacing 3
                         , Border.color <| rgba 0 0 0 0.8
                         , Border.width 1
                         ]
-                        [ el [ Font.size 13 ] <| text "▶"
+                        [ el [ Font.size 10 ] <| text "▶"
                         , el [ Font.color <| rgba 0 0 0 0.2 ] <| text "|"
                         , text "COMPILE"
                         ]
@@ -126,10 +130,14 @@ viewHeader model =
                                         [ newTabLink [ htmlAttribute <| Html.Attributes.class "linkInTheHeader" ]
                                             { url = "https://ellie-app.com/" ++ next.ellieId
                                             , label =
-                                                row [ spacing 10 ]
-                                                    [ el [ Font.size 12 ] <| text "▶"
+                                                row [ spacing 5 ]
+                                                    [ FeatherIcons.chevronsRight
+                                                        |> FeatherIcons.withSize 20
+                                                        |> FeatherIcons.toHtml []
+                                                        |> html
+                                                        |> el [ moveDown 1.5, alignTop ]
                                                     , paragraph []
-                                                        [ text " Next exercise: "
+                                                        [ text "Next exercise: "
                                                         , text <| next.title
                                                         ]
                                                     ]
@@ -261,7 +269,8 @@ viewElement tea model =
             }
 
             a.linkInTheHeader:link {
-                color: rgba(255, 255, 255, 0.8);
+                color: rgba(255, 255, 255, 0.5);
+                transition: .2s;
             }
 
             a.linkInTheHeader:hover {
@@ -458,22 +467,162 @@ contentHistory model =
                                 |> Dict.toList
                                 |> List.length
                      in
-                     paragraph []
-                        [ text <|
-                            "You have seen "
-                                ++ String.fromInt seen
-                                ++ " exercises "
-                                ++ (if solved > 0 then
-                                        ", and solved " ++ String.fromInt solved ++ ", "
-
-                                    else
-                                        ""
-                                   )
-                                ++ "out of a total of "
-                                ++ String.fromInt total
-                                ++ "."
+                     C.chart
+                        [ CA.height 200
+                        , CA.width 300
                         ]
+                        [ C.grid []
+
+                        -- , C.xLabels []
+                        , C.yLabels [ CA.withGrid ]
+                        , C.binLabels .label [ CA.moveDown 20 ]
+                        , C.bars
+                            []
+                            [ C.bar .y [ CA.color CA.blue ] ]
+                            [ { y = toFloat solved, label = "Solved" }
+                            , { y = toFloat (seen - solved), label = "Unsolved" }
+                            , { y = toFloat seen, label = "Seen" }
+                            , { y = toFloat (total - seen), label = "Not seen" }
+                            ]
+                        , C.barLabels [ CA.moveUp 10 ]
+                        ]
+                        |> html
+                        |> el
+                            [ width <| px 300
+                            , centerX
+                            , paddingXY 0 20
+                            ]
                    ]
+                -- ++ [ let
+                --         test : List Int
+                --         test =
+                --             model.localStorage
+                --                 |> Dict.toList
+                --                 |> List.foldl
+                --                     (\( id, localStorageRecord ) acc ->
+                --                         case localStorageRecord.solved of
+                --                             Nothing ->
+                --                                 acc
+                --
+                --                             Just solvedPosix ->
+                --                                 (Time.posixToMillis solvedPosix
+                --                                     - Time.posixToMillis localStorageRecord.firstSeen
+                --                                 )
+                --                                     // 1000
+                --                                     :: acc
+                --                     )
+                --                     []
+                --                 |> Debug.log "xxx"
+                --
+                --         minSecs : Int
+                --         minSecs =
+                --             test
+                --                 |> List.minimum
+                --                 |> Maybe.withDefault 0
+                --
+                --         maxSecs : Int
+                --         maxSecs =
+                --             test
+                --                 |> List.maximum
+                --                 |> Maybe.withDefault 10000
+                --
+                --         maxRange : Int
+                --         maxRange =
+                --             maxSecs + minSecs
+                --
+                --         intervals : number
+                --         intervals =
+                --             10
+                --
+                --         rangeInterval : Float
+                --         rangeInterval =
+                --             toFloat maxRange / intervals
+                --
+                --         f : Int -> List number -> List number
+                --         f index acc =
+                --             let
+                --                 iii =
+                --                     500
+                --             in
+                --             if
+                --                 (iii
+                --                     > toFloat index
+                --                     * rangeInterval
+                --                 )
+                --                     && (iii
+                --                             <= toFloat (index + 1)
+                --                             * rangeInterval
+                --                        )
+                --             then
+                --                 iii :: acc
+                --
+                --             else
+                --                 acc
+                --
+                --         tot : List number
+                --         tot =
+                --             List.range 0 intervals
+                --                 |> List.Extra.indexedFoldl
+                --                     (\index item acc ->
+                --                         f index acc
+                --                      -- ( toFloat index * rangeInterval, toFloat (index + 1) * rangeInterval ) :: acc
+                --                     )
+                --                     []
+                --                 |> Debug.log "xxx2"
+                --
+                --         solved : Int
+                --         solved =
+                --             model.localStorage
+                --                 |> Dict.toList
+                --                 |> List.filter
+                --                     (\( id, localStorageRecord ) ->
+                --                         localStorageRecord.testsPassed == localStorageRecord.testsTotal
+                --                     )
+                --                 |> List.length
+                --
+                --         total : Int
+                --         total =
+                --             model.index
+                --                 |> List.length
+                --
+                --         seen : Int
+                --         seen =
+                --             model.localStorage
+                --                 |> Dict.toList
+                --                 |> List.length
+                --      in
+                --      C.chart
+                --         [ CA.height 200
+                --         , CA.width 300
+                --         ]
+                --         [ C.grid []
+                --
+                --         -- , C.xLabels []
+                --         , C.yLabels [ CA.withGrid ]
+                --         , C.binLabels .label [ CA.moveDown 20 ]
+                --         , C.bars
+                --             []
+                --             -- [ C.bar .y [ CA.gradient [ CA.purple, CA.pink ] ]
+                --             -- ]
+                --             [ C.bar .y [ CA.color CA.blue ]
+                --
+                --             -- , C.bar .z [ CA.color CA.green ]
+                --             ]
+                --             [ { y = toFloat solved, label = "Solved" }
+                --             , { y = toFloat (seen - solved), label = "Unsolved" }
+                --             , { y = toFloat seen, label = "Seen" }
+                --             , { y = toFloat (total - seen), label = "Unseen" }
+                --             ]
+                --         , C.barLabels [ CA.moveDown 15, CA.color "white" ]
+                --         ]
+                --         |> html
+                --         |> el
+                --             [ width <| px 300
+                --             , centerX
+                --             , paddingXY 0 20
+                --             ]
+                --    ]
+                ++ [ viewTitle "Seen exercises" ]
                 ++ List.map
                     (\( id, localStorageRecord ) ->
                         let
@@ -496,7 +645,8 @@ contentHistory model =
                         )
                         (Dict.toList model.localStorage)
                     )
-                ++ [ paragraph [] [ text "Please note that we don't save the history of your interaction with the Elm Exercises to any external server. We save it to the local storage of your browser. \n\nThe history is only visible to you to keep track of which exercise you have seen and solved." ] ]
+                ++ [ viewTitle "Privacy note" ]
+                ++ [ paragraph [] [ text "We don't store this data to any external server. We store it to the local storage of your browser. \n\nThe history is only visible to you to keep track of which exercise you have seen and solved." ] ]
                 ++ [ column [ spacing 10 ]
                         [ paragraph [ Font.color red, Font.bold ] [ text "Dangerous zone" ]
                         , Input.button
@@ -522,7 +672,14 @@ viewExcerciseWithHistory :
     -> Internal.Data.LocalStorageRecord
     -> Element (Internal.Data.Msg msgExercise)
 viewExcerciseWithHistory posix nowId index localStorageRecord =
-    column [ spacing 8 ] <|
+    column
+        [ spacing 8
+        , Border.width 1
+        , Border.rounded 5
+        , Border.color <| rgba 0 0 0 0.2
+        , padding 10
+        ]
+    <|
         []
             ++ [ exerciseLink [ Font.size 20, paddingEach { top = 0, right = 0, bottom = 10, left = 0 } ] index nowId ]
             ++ [ row [ paddingEach { top = 0, right = 0, bottom = 0, left = 25 }, spacing 10 ]
@@ -589,26 +746,31 @@ viewExcerciseWithHistory posix nowId index localStorageRecord =
                                 ]
                     ]
                ]
-            ++ (if nowId == index.id then
-                    []
+            ++ [ Input.button []
+                    { onPress = Just <| Internal.Data.RemoveFromHistory index.id
+                    , label =
+                        row [ paddingEach { top = 0, right = 0, bottom = 0, left = 25 }, spacing 10 ]
+                            [ (if nowId == index.id then
+                                FeatherIcons.refreshCw
 
-                else
-                    [ Input.button []
-                        { onPress = Just <| Internal.Data.RemoveFromHistory index.id
-                        , label =
-                            row [ paddingEach { top = 0, right = 0, bottom = 0, left = 25 }, spacing 10 ]
-                                [ FeatherIcons.trash2
-                                    |> FeatherIcons.withSize 18
-                                    |> FeatherIcons.toHtml []
-                                    |> html
-                                    |> el []
-                                , paragraph [ Font.color <| rgb255 18 147 216 ]
-                                    [ text "Remove from history"
-                                    ]
+                               else
+                                FeatherIcons.trash2
+                              )
+                                |> FeatherIcons.withSize 18
+                                |> FeatherIcons.toHtml []
+                                |> html
+                                |> el []
+                            , paragraph [ Font.color <| rgb255 18 147 216 ]
+                                [ text <|
+                                    if nowId == index.id then
+                                        "Reset"
+
+                                    else
+                                        "Remove from history"
                                 ]
-                        }
-                    ]
-               )
+                            ]
+                    }
+               ]
 
 
 exerciseLink :
@@ -619,8 +781,7 @@ exerciseLink :
 exerciseLink attrs index nowId =
     if index.id == nowId then
         row ([ spacing 10 ] ++ attrs)
-            [ el [ alignTop ] <| text "•"
-            , paragraph [ Font.bold ]
+            [ paragraph [ Font.bold ]
                 [ text <| index.title
                 , text " (#"
                 , text <| String.fromInt index.id
@@ -632,8 +793,7 @@ exerciseLink attrs index nowId =
 
     else
         row ([ spacing 10 ] ++ attrs)
-            [ el [ alignTop ] <| text "•"
-            , paragraph []
+            [ paragraph []
                 [ newTabLink [ alignTop ]
                     { url = "https://ellie-app.com/" ++ index.ellieId
                     , label =
@@ -731,9 +891,10 @@ contentContribute =
     ( "Contribute"
     , icons.contribute
     , []
-        ++ [ subtitle "Improve this Exercise" ]
+        ++ [ viewTitle "Improve this exercise" ]
         ++ [ column [ spacing 16, width fill ] <| Internal.Markdown.markdown "If you find some mistake or you have some goot hint or a nice solution to add to this exercise, you can [edit it directly](https://github.com/lucamug/elm-exercises/edit/master/exercises/src/E/E001.elm)."
            ]
+        ++ [ viewTitle "Crate new exercises" ]
         ++ [ column [ spacing 16, width fill ] <|
                 -- https://github.com/lucamug/elm-exercises/edit/master/exercises/src/E/E001.elm
                 [ column [ spacing 16, width fill ] <| Internal.Markdown.markdown """If you have some exercise that you would like to add to this list or if you have any other feedback, [learn how you can contribute](https://github.com/lucamug/elm-exercises/blob/master/CONTRIBUTING.md)."""
@@ -887,12 +1048,26 @@ viewBody tea model =
                         ([]
                             ++ [ viewMainTitle "Problem" ]
                             ++ [ column [ spacing 16, width fill ] <|
-                                    Internal.Markdown.markdown model.exerciseData.problem
+                                    []
+                                        ++ Internal.Markdown.markdown model.exerciseData.problem
                                         ++ [ paragraph [ alpha 0.5 ]
                                                 [ text "Diffculty level: "
-                                                , el [] <| text <| Internal.Data.difficultyToString model.exerciseData.difficulty
+                                                , el [] <| text <| String.Extra.toSentenceCase <| Internal.Data.difficultyToString model.exerciseData.difficulty
                                                 ]
                                            ]
+                                        ++ (if String.isEmpty model.exerciseData.reference then
+                                                []
+
+                                            else
+                                                [ paragraph [ alpha 0.5 ]
+                                                    [ text "Reference: "
+                                                    , newTabLink []
+                                                        { label = text model.exerciseData.reference
+                                                        , url = model.exerciseData.reference
+                                                        }
+                                                    ]
+                                                ]
+                                           )
                                ]
                         )
                     , column [ spacing 40, width fill, alignTop, width (fill |> minimum 240) ]
@@ -926,6 +1101,20 @@ sideButton content icon string =
         , Border.color <| rgba 0 0 0 0.2
         , Background.color <| rgba 1 1 1 0.9
         , width <| px 145
+        , inFront <|
+            el
+                [ width <| px 16
+                , height <| px 16
+                , Background.color <| rgb 0.2 0.6 0.9
+                , Font.color <| rgb 1 1 1
+                , Font.size 12
+                , Border.rounded 16
+                , moveRight 28
+                , moveDown 6
+                ]
+            <|
+                el [ centerX, centerY ] <|
+                    text "4"
         ]
         { label =
             row [ spacing 15 ]

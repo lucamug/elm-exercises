@@ -111,6 +111,7 @@ view model =
                                                     Exercises.init (onlyTests (List.length exerciseData.tests))
                                                         { index = createIndex 0 ListExercises.exercises
                                                         , exerciseData = Codec.encodeToString 0 Exercises.codecExerciseData exerciseData
+                                                        , localStorage = ""
                                                         }
                                                 )
                                 , label = text <| String.fromInt exerciseData.id

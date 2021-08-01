@@ -251,19 +251,19 @@ onlyTests :
         , portLocalStoragePop : (String -> Msg msgExercise) -> Sub (Msg msgExercise)
         , portLocalStoragePush : String -> Cmd (Msg msgExercise)
     }
-    -> Element ()
+    -> Maybe (Element ())
     ->
         { init : ( (), Cmd () )
-        , view : () -> Element ()
+        , view : Maybe (() -> Element ())
         , update : () -> () -> ( (), Cmd () )
         , subscriptions : () -> Sub ()
         , tests : () -> List Test
         , portLocalStoragePop : (String -> Msg msgExercise) -> Sub (Msg msgExercise)
         , portLocalStoragePush : String -> Cmd (Msg msgExercise)
         }
-onlyTests args view_ =
+onlyTests args view =
     { init = ( (), Cmd.none )
-    , view = \_ -> view_
+    , view = Maybe.map (\v -> \_ -> v) view
     , update = \_ _ -> ( (), Cmd.none )
     , subscriptions = \_ -> Sub.none
     , tests = \_ -> args.tests
@@ -310,7 +310,7 @@ exercise :
     -> Program Flags (Model ()) (Msg ())
 exercise args =
     exerciseWithTea
-        (onlyTests args none)
+        (onlyTests args Nothing)
 
 
 {-| `Flags` are used to pass details about the exercises to the page.
@@ -370,7 +370,7 @@ exerciseWithView :
     -> Program Flags (Model ()) (Msg ())
 exerciseWithView args =
     exerciseWithTea
-        (onlyTests args args.view)
+        (onlyTests args (Just args.view))
 
 
 {-| If the exercise require The Elm Architecure and tests need to access the Model, it is possible to use `exerciseWithTea` instead of the simpler `exercise`. It is the analogue of `Browser.element` but without flags.
@@ -410,7 +410,7 @@ exerciseWithView args =
 -}
 exerciseWithTea :
     { init : ( modelExercise, Cmd msgExercise )
-    , view : modelExercise -> Element msgExercise
+    , view : Maybe (modelExercise -> Element msgExercise)
     , update : msgExercise -> modelExercise -> ( modelExercise, Cmd msgExercise )
     , subscriptions : modelExercise -> Sub msgExercise
     , tests : modelExercise -> List Test
@@ -422,7 +422,7 @@ exerciseWithTea tea =
     let
         tea2 =
             { init = tea.init
-            , maybeView = Just tea.view
+            , maybeView = tea.view
             , update = tea.update
             , subscriptions = tea.subscriptions
             , tests = tea.tests
@@ -701,7 +701,28 @@ updateMain tea msg model =
             )
 
         Internal.Data.RemoveFromHistory id ->
-            ( { model | localStorage = Dict.remove id model.localStorage }, Cmd.none )
+            ( { model
+                | localStorage = Dict.remove id model.localStorage
+                , localStorageRecord =
+                    if id == model.exerciseData.id then
+                        let
+                            localStorageRecord =
+                                model.localStorageRecord
+                        in
+                        { localStorageRecord
+                            | firstSeen = Time.millisToPosix 0
+                            , lastSeen = Time.millisToPosix 0
+                            , solved = Nothing
+                            , testsTotal = 0
+                            , testsPassed = 0
+                        }
+                            |> Internal.Data.toLocalStorageRecord model.posixNow tea model
+
+                    else
+                        model.localStorageRecord
+              }
+            , Cmd.none
+            )
 
         Internal.Data.RemoveHistory ->
             ( { model | localStorage = Dict.empty }, Cmd.none )

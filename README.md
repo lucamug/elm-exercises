@@ -23,5 +23,10 @@ To submit a new exercise, you need to
         
         Where the number is the number of the exercise you created
   * Add you excercise in this list: `exercises/src/ListExercises.elm`
+  
+  
+```
+node exercises/worker.js
+```
 
 

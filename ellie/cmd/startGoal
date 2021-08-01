@@ -1,0 +1,4 @@
+#!/bin/bash
+set -eu
+
+npx elm-go src/MainGoal.elm --port=8004 --dir=docs -- --output=docs/elm.js --debug
