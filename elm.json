@@ -22,6 +22,7 @@
         "feathericons/elm-feather": "1.5.0 <= v < 2.0.0",
         "mdgriffith/elm-ui": "1.0.0 <= v < 1.1.8",
         "miniBill/elm-codec": "2.0.0 <= v < 3.0.0",
+        "pablohirafuji/elm-syntax-highlight": "3.4.0 <= v < 4.0.0",
         "ryannhg/date-format": "2.3.0 <= v < 3.0.0",
         "terezka/charts": "17.0.0 <= v < 18.0.0"
     },

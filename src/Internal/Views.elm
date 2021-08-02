@@ -26,6 +26,7 @@ import Set
 import String.Extra
 import Svg
 import Svg.Attributes as SA
+import SyntaxHighlight
 import Test.Runner
 import Test.Runner.Failure
 import Time
@@ -247,6 +248,7 @@ viewElement tea model =
         , width fill
         , Font.size 16
         , Font.family [ Font.typeface "Source Sans Pro", Font.sansSerif ]
+        , inFront <| html <| SyntaxHighlight.useTheme SyntaxHighlight.gitHub
         , inFront <| html <| Html.node "style" [] [ Html.text """
             /* unvisited link */
             a:link {
@@ -285,16 +287,16 @@ viewElement tea model =
                 stroke: rgb(0, 153, 0);
             }
 
-            .hljs {
-                background-color: rgb(250, 250, 250);
-                border: 1px solid rgb(220, 220, 220);
-                border-radius: 6px;
+            .elmsh {
+                background-color: rgba(0,0,0,0);
                 font-size: 14px;
                 line-height: 18px;
-                padding: 10px;
                 font-family: 'Source Code Pro', monospace;
             }
-
+            
+            
+            pre {margin: 0px; padding: 10px}
+            
             .s.r > s:first-of-type.accx { flex-grow: 0 !important; }
             .s.r > s:last-of-type.accx { flex-grow: 0 !important; }
             .cx > .wrp { justify-content: center !important; }
@@ -399,19 +401,42 @@ contentHints :
 contentHints model =
     ( "Hints"
     , icons.hints
-    , []
-        ++ [ wrappedRow [ spacing 10 ]
-                [ Input.button attrsButton { onPress = Just Internal.Data.ShowHintsAll, label = text "Show All" }
-                , Input.button attrsButton { onPress = Just Internal.Data.ShowHintsNone, label = text "Hide All" }
+    , if List.isEmpty model.exerciseData.solutions then
+        [ el
+            [ width fill
+            , height fill
+            , paddingXY 50 0
+            ]
+          <|
+            column
+                [ centerX
+                , centerY
+                , Font.center
+                , spacing 16
+                , width fill
                 ]
-           ]
-        ++ [ accordion
-                { items = model.localStorageRecord.hints
-                , hideItem = Internal.Data.HideHint
-                , showItem = Internal.Data.ShowHint
-                , itemsContent = model.exerciseData.hints
-                }
-           ]
+            <|
+                Internal.Markdown.markdown
+                    ("Sorry, no hints for this exercise yet. If you have a hint, [please add it here](https://github.com/lucamug/elm-exercises/edit/master/exercises/src/E"
+                        ++ String.fromInt model.exerciseData.id
+                        ++ ".elm)."
+                    )
+        ]
+
+      else
+        []
+            ++ [ wrappedRow [ spacing 10 ]
+                    [ Input.button attrsButton { onPress = Just Internal.Data.ShowHintsAll, label = text "Show All" }
+                    , Input.button attrsButton { onPress = Just Internal.Data.ShowHintsNone, label = text "Hide All" }
+                    ]
+               ]
+            ++ [ accordion
+                    { items = model.localStorageRecord.hints
+                    , hideItem = Internal.Data.HideHint
+                    , showItem = Internal.Data.ShowHint
+                    , itemsContent = model.exerciseData.hints
+                    }
+               ]
     )
 
 
@@ -419,21 +444,49 @@ contentSolutions :
     Internal.Data.Model modelExercise
     -> ( String, FeatherIcons.Icon, List (Element (Internal.Data.Msg msgExercise)) )
 contentSolutions model =
+    let
+        qty : Int
+        qty =
+            List.length model.exerciseData.solutions
+    in
     ( "Solutions"
     , icons.solutions
-    , []
-        ++ [ wrappedRow [ spacing 10 ]
-                [ Input.button attrsButton { onPress = Just Internal.Data.ShowSolutionsAll, label = text "Show All" }
-                , Input.button attrsButton { onPress = Just Internal.Data.ShowSolutionsNone, label = text "Hide All" }
+    , if qty > 0 then
+        []
+            ++ [ wrappedRow [ spacing 10 ]
+                    [ Input.button attrsButton { onPress = Just Internal.Data.ShowSolutionsAll, label = text "Show All" }
+                    , Input.button attrsButton { onPress = Just Internal.Data.ShowSolutionsNone, label = text "Hide All" }
+                    ]
+               ]
+            ++ [ accordion
+                    { items = model.localStorageRecord.solutions
+                    , hideItem = Internal.Data.HideSolution
+                    , showItem = Internal.Data.ShowSolution
+                    , itemsContent = model.exerciseData.solutions
+                    }
+               ]
+
+      else
+        [ el
+            [ width fill
+            , height fill
+            , paddingXY 50 0
+            ]
+          <|
+            column
+                [ centerX
+                , centerY
+                , Font.center
+                , spacing 16
+                , width fill
                 ]
-           ]
-        ++ [ accordion
-                { items = model.localStorageRecord.solutions
-                , hideItem = Internal.Data.HideSolution
-                , showItem = Internal.Data.ShowSolution
-                , itemsContent = model.exerciseData.solutions
-                }
-           ]
+            <|
+                Internal.Markdown.markdown
+                    ("Sorry, no solutions for this exercise yet. If you have a solution, [please add it here](https://github.com/lucamug/elm-exercises/edit/master/exercises/src/E"
+                        ++ String.fromInt model.exerciseData.id
+                        ++ ".elm)."
+                    )
+        ]
     )
 
 
@@ -886,13 +939,17 @@ viewTitle string =
         [ text string ]
 
 
-contentContribute : ( String, FeatherIcons.Icon, List (Element (Internal.Data.Msg msgExercise)) )
-contentContribute =
+contentContribute : Int -> ( String, FeatherIcons.Icon, List (Element (Internal.Data.Msg msgExercise)) )
+contentContribute id =
     ( "Contribute"
     , icons.contribute
     , []
         ++ [ viewTitle "Improve this exercise" ]
-        ++ [ column [ spacing 16, width fill ] <| Internal.Markdown.markdown "If you find some mistake or you have some goot hint or a nice solution to add to this exercise, you can [edit it directly](https://github.com/lucamug/elm-exercises/edit/master/exercises/src/E/E001.elm)."
+        ++ [ column [ spacing 16, width fill ] <|
+                Internal.Markdown.markdown <|
+                    "If you find some mistake or you have some goot hint or a nice solution to add to this exercise, you can [edit it directly](https://github.com/lucamug/elm-exercises/edit/master/exercises/src/E"
+                        ++ String.fromInt id
+                        ++ ".elm)."
            ]
         ++ [ viewTitle "Crate new exercises" ]
         ++ [ column [ spacing 16, width fill ] <|
@@ -1092,30 +1149,41 @@ sideButton :
     Internal.Data.MenuContent
     -> FeatherIcons.Icon
     -> String
+    -> Maybe Int
     -> Element (Internal.Data.Msg msgExercise)
-sideButton content icon string =
+sideButton content icon string quantity =
     Input.button
-        [ padding 13
-        , Border.widthEach { bottom = 1, left = 1, right = 0, top = 1 }
-        , Border.roundEach { topLeft = 4, topRight = 0, bottomLeft = 4, bottomRight = 0 }
-        , Border.color <| rgba 0 0 0 0.2
-        , Background.color <| rgba 1 1 1 0.9
-        , width <| px 145
-        , inFront <|
-            el
-                [ width <| px 16
-                , height <| px 16
-                , Background.color <| rgb 0.2 0.6 0.9
-                , Font.color <| rgb 1 1 1
-                , Font.size 12
-                , Border.rounded 16
-                , moveRight 28
-                , moveDown 6
-                ]
-            <|
-                el [ centerX, centerY ] <|
-                    text "4"
-        ]
+        ([]
+            ++ [ padding 13
+               , Border.widthEach { bottom = 1, left = 1, right = 0, top = 1 }
+               , Border.roundEach { topLeft = 4, topRight = 0, bottomLeft = 4, bottomRight = 0 }
+               , Border.color <| rgba 0 0 0 0.2
+               , Background.color <| rgba 1 1 1 0.9
+               , width <| px 145
+               ]
+            ++ (case quantity of
+                    Nothing ->
+                        []
+
+                    Just qty ->
+                        [ inFront <|
+                            el
+                                [ width <| px 16
+                                , height <| px 16
+                                , Background.color <| rgb 0.2 0.6 0.9
+                                , Font.color <| rgb 1 1 1
+                                , Font.size 12
+                                , Border.rounded 16
+                                , moveRight 28
+                                , moveDown 6
+                                ]
+                            <|
+                                el [ centerX, centerY ] <|
+                                    text <|
+                                        String.fromInt qty
+                        ]
+               )
+        )
         { label =
             row [ spacing 15 ]
                 [ icon
@@ -1154,13 +1222,26 @@ viewSideButtons model =
           else
             moveRight 93
         ]
-        [ sideButton Internal.Data.ContentHints icons.hints "Hints"
-        , sideButton Internal.Data.ContentSolutions icons.solutions "Solutions"
-        , sideButton Internal.Data.ContentHistory icons.history "History"
-        , sideButton Internal.Data.ContentOtherExercises icons.otherExercises "Other Exercises"
-        , sideButton Internal.Data.ContentHelp icons.help "Help"
-        , sideButton Internal.Data.ContentContribute icons.contribute "Contribute"
+        [ sideButton Internal.Data.ContentHints icons.hints "Hints" (maybeLength model.exerciseData.hints)
+        , sideButton Internal.Data.ContentSolutions icons.solutions "Solutions" (maybeLength model.exerciseData.solutions)
+        , sideButton Internal.Data.ContentHistory icons.history "History" (maybeLength <| Dict.toList model.localStorage)
+        , sideButton Internal.Data.ContentOtherExercises icons.otherExercises "Other Exercises" Nothing
+        , sideButton Internal.Data.ContentHelp icons.help "Help" Nothing
+        , sideButton Internal.Data.ContentContribute icons.contribute "Contribute" Nothing
         ]
+
+
+maybeLength : List a -> Maybe Int
+maybeLength list =
+    let
+        length =
+            List.length list
+    in
+    if length == 0 then
+        Nothing
+
+    else
+        Just length
 
 
 view :
@@ -1240,7 +1321,7 @@ viewSideMenu model =
             viewContent model <| contentHelp
 
         Internal.Data.ContentContribute ->
-            viewContent model <| contentContribute
+            viewContent model <| contentContribute model.exerciseData.id
 
 
 viewContent :

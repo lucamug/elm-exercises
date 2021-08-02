@@ -13,6 +13,7 @@ import Markdown.Block
 import Markdown.Html
 import Markdown.Parser
 import Markdown.Renderer
+import SyntaxHighlight
 
 
 view : Model -> { title : String, body : List (Html.Html Msg) }
@@ -357,12 +358,24 @@ codeBlock details =
     --         ]
     --     ]
     --     (text details.body)
-    el [ scrollbars, width fill ] <|
-        html <|
-            Html.pre []
-                [ Html.code [ Html.Attributes.class "language-elm" ]
-                    [ Html.text details.body ]
-                ]
+    el [ paddingXY 0 10, width fill ] <|
+        el
+            [ scrollbars
+            , width fill
+            , Border.width 1
+            , Border.color <| rgba 0 0 0 0.2
+            , Border.rounded 5
+            , Background.color <| rgba 0 0 0 0.05
+            , padding 10
+            ]
+        <|
+            html <|
+                (details.body
+                    |> SyntaxHighlight.elm
+                    |> Result.map (SyntaxHighlight.toBlockHtml (Just 1))
+                    |> Result.withDefault
+                        (Html.pre [] [ Html.code [] [ Html.text details.body ] ])
+                )
 
 
 
