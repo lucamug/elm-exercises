@@ -5,16 +5,17 @@ port module Main exposing
 
 import Browser
 import Codec
-import Element exposing (..)
-import Element.Background as Background
-import Element.Border as Border
-import Element.Font as Font
-import Element.Input as Input
-import Element.Region as Region
+import Element.WithContext exposing (..)
+import Element.WithContext.Background as Background
+import Element.WithContext.Border as Border
+import Element.WithContext.Font as Font
+import Element.WithContext.Input as Input
+import Element.WithContext.Region as Region
 import Exercises
 import Html
 import Html.Attributes
 import ListExercises
+import R10.Context exposing (..)
 import R10.Form
 import R10.FormTypes
 import Set
@@ -38,6 +39,7 @@ type alias Model =
 initForm : R10.Form.Form
 initForm =
     { conf =
+        --
         -- { id : Int
         -- , title : String
         -- , difficulty : Difficulty
@@ -50,44 +52,57 @@ initForm =
         -- , hints : List String
         -- , dummySolution : String
         -- , solutions : List String
+        --
         [ R10.Form.entity.field
             { id = "id"
             , idDom = Nothing
             , type_ = R10.FormTypes.TypeText R10.FormTypes.TextPlain
             , label = "ID"
+            , clickableLabel = False
             , helperText = Just "A number to identify the exercise. Number from 1 to 99 are reserved for [blah](https://example.com)"
             , requiredLabel = Just "(Required)"
             , validationSpecs =
                 Just
-                    { showPassedValidationMessages = False
-                    , hidePassedValidationStyle = True
+                    { showAlsoPassedValidation = False
+                    , pretendIsNotValidatedIfValid = True
                     , validation = [ R10.Form.validation.required ]
                     , validationIcon = R10.FormTypes.NoIcon
                     }
+            , minWidth = Nothing
+            , maxWidth = Nothing
+            , autocomplete = Nothing
             }
         , R10.Form.entity.field
             { id = "title"
             , idDom = Nothing
             , type_ = R10.FormTypes.TypeText R10.FormTypes.TextPlain
             , label = "Title"
+            , clickableLabel = False
             , helperText = Just "The title of the exercise"
             , requiredLabel = Just "(Required)"
             , validationSpecs =
                 Just
-                    { showPassedValidationMessages = False
-                    , hidePassedValidationStyle = True
+                    { showAlsoPassedValidation = False
+                    , pretendIsNotValidatedIfValid = True
                     , validation = [ R10.Form.validation.required ]
                     , validationIcon = R10.FormTypes.NoIcon
                     }
+            , minWidth = Nothing
+            , maxWidth = Nothing
+            , autocomplete = Nothing
             }
         , R10.Form.entity.field
             { id = "problem"
             , idDom = Nothing
             , type_ = R10.FormTypes.TypeText R10.FormTypes.TextMultiline
             , label = "Problem"
+            , clickableLabel = False
             , helperText = Nothing
             , requiredLabel = Just "(Required)"
             , validationSpecs = Nothing
+            , minWidth = Nothing
+            , maxWidth = Nothing
+            , autocomplete = Nothing
             }
         ]
     , state = R10.Form.initState
@@ -334,7 +349,7 @@ textarea attrs string =
                 ]
 
 
-viewEllie : a -> Element msg
+viewEllie : a -> ElementC msg
 viewEllie _ =
     textarea [ width fill ] htmlForEllie
 
