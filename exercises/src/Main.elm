@@ -15,6 +15,8 @@ import Exercises
 import Html
 import Html.Attributes
 import ListExercises
+import R10.Form
+import R10.FormTypes
 import Set
 
 
@@ -28,12 +30,77 @@ type Page
 
 
 type alias Model =
-    { page : Page }
+    { page : Page
+    , form : R10.Form.Form
+    }
 
 
-init : a -> ( { page : Page }, Cmd msg )
+initForm : R10.Form.Form
+initForm =
+    { conf =
+        -- { id : Int
+        -- , title : String
+        -- , difficulty : Difficulty
+        -- , categories : List String
+        -- , ellieId : String
+        -- , reference : String
+        -- , problem : String
+        -- , example : String
+        -- , tests : List String
+        -- , hints : List String
+        -- , dummySolution : String
+        -- , solutions : List String
+        [ R10.Form.entity.field
+            { id = "id"
+            , idDom = Nothing
+            , type_ = R10.FormTypes.TypeText R10.FormTypes.TextPlain
+            , label = "ID"
+            , helperText = Just "A number to identify the exercise. Number from 1 to 99 are reserved for [blah](https://example.com)"
+            , requiredLabel = Just "(Required)"
+            , validationSpecs =
+                Just
+                    { showPassedValidationMessages = False
+                    , hidePassedValidationStyle = True
+                    , validation = [ R10.Form.validation.required ]
+                    , validationIcon = R10.FormTypes.NoIcon
+                    }
+            }
+        , R10.Form.entity.field
+            { id = "title"
+            , idDom = Nothing
+            , type_ = R10.FormTypes.TypeText R10.FormTypes.TextPlain
+            , label = "Title"
+            , helperText = Just "The title of the exercise"
+            , requiredLabel = Just "(Required)"
+            , validationSpecs =
+                Just
+                    { showPassedValidationMessages = False
+                    , hidePassedValidationStyle = True
+                    , validation = [ R10.Form.validation.required ]
+                    , validationIcon = R10.FormTypes.NoIcon
+                    }
+            }
+        , R10.Form.entity.field
+            { id = "problem"
+            , idDom = Nothing
+            , type_ = R10.FormTypes.TypeText R10.FormTypes.TextMultiline
+            , label = "Problem"
+            , helperText = Nothing
+            , requiredLabel = Just "(Required)"
+            , validationSpecs = Nothing
+            }
+        ]
+    , state = R10.Form.initState
+    }
+
+
+init : a -> ( Model, Cmd msg )
 init model =
-    ( { page = Top }, Cmd.none )
+    ( { page = Top
+      , form = initForm
+      }
+    , Cmd.none
+    )
 
 
 main : Program () Model Msg
@@ -49,6 +116,23 @@ main =
 update : Msg -> Model -> ( Model, Cmd msg )
 update msg model =
     case msg of
+        MsgForm msgForm ->
+            let
+                form : R10.Form.Form
+                form =
+                    model.form
+
+                newForm : R10.Form.Form
+                newForm =
+                    { form
+                        | state =
+                            form.state
+                                |> R10.Form.update msgForm
+                                |> Tuple.first
+                    }
+            in
+            ( { model | form = newForm }, Cmd.none )
+
         ChangePage page ->
             ( { model | page = page }, Cmd.none )
 
@@ -68,9 +152,10 @@ update msg model =
 type Msg
     = ChangePage Page
     | ExercisesMsg (Exercises.Msg ())
+    | MsgForm R10.Form.Msg
 
 
-view : { a | page : Page } -> Html.Html Msg
+view : Model -> Html.Html Msg
 view model =
     layoutWith
         { options = [ focusStyle { borderColor = Nothing, backgroundColor = Nothing, shadow = Nothing } ] }
@@ -162,21 +247,58 @@ view model =
                         ]
 
                 ViewExercise exerciseData exerciseModel ->
-                    -- let
-                    --         Exercises.viewElement
-                    -- in
-                    map ExercisesMsg <|
-                        el
-                            ([ Border.width 1
-                             , Border.color <| rgba 0 0 0 0.2
-                             , width fill
-                             , Border.shadow { offset = ( 0, 0 ), size = 0, blur = 10, color = rgba 0 0 0 0.2 }
-                             , clip
-                             ]
-                                ++ Exercises.viewElementAttrs exerciseModel
-                            )
-                        <|
-                            Exercises.viewElement (onlyTests (List.length exerciseData.tests)) exerciseModel
+                    row [ spacing 20, width fill ]
+                        [ column [ width fill, alignTop, spacing 20, width <| fillPortion 2 ]
+                            [ column [ width fill, spacing 20 ] <|
+                                R10.Form.view model.form MsgForm
+
+                            --
+                            --
+                            --
+                            --
+                            -- [ column [spacing 10] [ text "id", paragraph [] [text exerciseModel.exerciseData.id ]]
+                            , column [ spacing 10 ] [ text "Title", paragraph [] [ text exerciseModel.exerciseData.title ] ]
+
+                            -- , column [spacing 10] [ text "difficulty", paragraph [] [text exerciseModel.exerciseData.difficulty ]]
+                            -- , column [spacing 10] [ text "categories", paragraph [] [text exerciseModel.exerciseData.categories ]]
+                            , column [ spacing 10 ] [ text "Ellie ID", paragraph [] [ text exerciseModel.exerciseData.ellieId ] ]
+                            , column [ spacing 10 ] [ text "Reference", paragraph [] [ text exerciseModel.exerciseData.reference ] ]
+                            , column [ spacing 10 ] [ text "Problem", paragraph [] [ text exerciseModel.exerciseData.problem ] ]
+                            , column [ spacing 10 ] [ text "Example", paragraph [] [ text exerciseModel.exerciseData.example ] ]
+
+                            -- , column [spacing 10] [ text "tests", paragraph [] [text exerciseModel.exerciseData.tests ]]
+                            -- , column [spacing 10] [ text "hints", paragraph [] [text exerciseModel.exerciseData.hints ]]
+                            , column [ spacing 10 ] [ text "Dummy Solution", paragraph [] [ text exerciseModel.exerciseData.dummySolution ] ]
+
+                            -- , column [spacing 10] [ text "solutions", paragraph [] [text exerciseModel.exerciseData.solutions ]]
+                            --
+                            -- { id : Int
+                            -- , title : String
+                            -- , difficulty : Difficulty
+                            -- , categories : List String
+                            -- , ellieId : String
+                            -- , reference : String
+                            -- , problem : String
+                            -- , example : String
+                            -- , tests : List String
+                            -- , hints : List String
+                            -- , dummySolution : String
+                            -- , solutions : List String
+                            -- text <| Debug.toString <| exerciseModel.exerciseData ]
+                            ]
+                        , map ExercisesMsg <|
+                            el
+                                ([ Border.width 1
+                                 , Border.color <| rgba 0 0 0 0.2
+                                 , width <| fillPortion 3
+                                 , Border.shadow { offset = ( 0, 0 ), size = 0, blur = 10, color = rgba 0 0 0 0.2 }
+                                 , clip
+                                 ]
+                                    ++ Exercises.viewElementAttrs exerciseModel
+                                )
+                            <|
+                                Exercises.viewElement (onlyTests (List.length exerciseData.tests)) exerciseModel
+                        ]
             ]
 
 

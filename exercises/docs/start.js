@@ -1,11 +1,11 @@
 var lsName = "elm-exercises";
-var undefined = "undefined";
+var notDefined = "undefined";
 var ls = localStorage.getItem(lsName);
 var app = Elm[Object.keys(Elm)[0]].init({
     node: document.getElementById("elm"),
     flags: {
-        index: JSON.stringify(typeof index === undefined ? null : index),
-        exerciseData: JSON.stringify(typeof exerciseData === undefined ? null : exerciseData),
+        index: JSON.stringify(typeof index === notDefined ? null : index),
+        exerciseData: JSON.stringify(typeof exerciseData === notDefined ? null : exerciseData),
         localStorage: ls === null ? "[]" : ls,
     }
 });
@@ -19,5 +19,3 @@ if (app && app.ports && app.ports.portLocalStoragePop) {
         app.ports.portLocalStoragePop.send(event.newValue);
     };
 }
-
-// hljs.highlightAll();
