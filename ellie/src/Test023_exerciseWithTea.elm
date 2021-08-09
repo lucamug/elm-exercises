@@ -1,4 +1,4 @@
-port module MainWithTea exposing (..)
+port module Test023_exerciseWithTea exposing (..)
 
 import Element exposing (..)
 import Element.Border as Border
@@ -60,7 +60,7 @@ main =
     exerciseWithTea
         { tests = tests
         , init = init
-        , view = view
+        , view = Just view
         , update = update
         , subscriptions = subscriptions
         , portLocalStoragePop = portLocalStoragePop

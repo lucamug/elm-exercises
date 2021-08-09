@@ -5232,7 +5232,10 @@ function _Url_percentDecode(string)
 	{
 		return $elm$core$Maybe$Nothing;
 	}
-}var $elm$core$List$cons = _List_cons;
+}var $elm$core$Maybe$Just = function (a) {
+	return {$: 'Just', a: a};
+};
+var $elm$core$List$cons = _List_cons;
 var $elm$core$Elm$JsArray$foldr = _JsArray_foldr;
 var $elm$core$Array$foldr = F3(
 	function (func, baseCase, _v0) {
@@ -5335,9 +5338,6 @@ var $elm$json$Json$Decode$OneOf = function (a) {
 };
 var $elm$core$Basics$False = {$: 'False'};
 var $elm$core$Basics$add = _Basics_add;
-var $elm$core$Maybe$Just = function (a) {
-	return {$: 'Just', a: a};
-};
 var $elm$core$Maybe$Nothing = {$: 'Nothing'};
 var $elm$core$String$all = _String_all;
 var $elm$core$Basics$and = _Basics_and;
@@ -10838,11 +10838,13 @@ var $author$project$Internal$Data$ExerciseData = function (id) {
 				return function (ellieId) {
 					return function (reference) {
 						return function (problem) {
-							return function (tests) {
-								return function (hints) {
-									return function (dummySolution) {
-										return function (solutions) {
-											return {categories: categories, difficulty: difficulty, dummySolution: dummySolution, ellieId: ellieId, hints: hints, id: id, problem: problem, reference: reference, solutions: solutions, tests: tests, title: title};
+							return function (example) {
+								return function (tests) {
+									return function (hints) {
+										return function (dummySolution) {
+											return function (solutions) {
+												return {categories: categories, difficulty: difficulty, dummySolution: dummySolution, ellieId: ellieId, example: example, hints: hints, id: id, problem: problem, reference: reference, solutions: solutions, tests: tests, title: title};
+											};
 										};
 									};
 								};
@@ -11008,54 +11010,61 @@ var $author$project$Internal$Codecs$codecExerciseData = $miniBill$elm_codec$Code
 					$miniBill$elm_codec$Codec$list($miniBill$elm_codec$Codec$string),
 					A4(
 						$miniBill$elm_codec$Codec$field,
-						'problem',
+						'example',
 						function ($) {
-							return $.problem;
+							return $.example;
 						},
 						$miniBill$elm_codec$Codec$string,
 						A4(
 							$miniBill$elm_codec$Codec$field,
-							'reference',
+							'problem',
 							function ($) {
-								return $.reference;
+								return $.problem;
 							},
 							$miniBill$elm_codec$Codec$string,
 							A4(
 								$miniBill$elm_codec$Codec$field,
-								'ellieId',
+								'reference',
 								function ($) {
-									return $.ellieId;
+									return $.reference;
 								},
 								$miniBill$elm_codec$Codec$string,
 								A4(
 									$miniBill$elm_codec$Codec$field,
-									'categories',
+									'ellieId',
 									function ($) {
-										return $.categories;
+										return $.ellieId;
 									},
-									$miniBill$elm_codec$Codec$list($miniBill$elm_codec$Codec$string),
+									$miniBill$elm_codec$Codec$string,
 									A4(
 										$miniBill$elm_codec$Codec$field,
-										'difficulty',
+										'categories',
 										function ($) {
-											return $.difficulty;
+											return $.categories;
 										},
-										$author$project$Internal$Codecs$codecDifficulty,
+										$miniBill$elm_codec$Codec$list($miniBill$elm_codec$Codec$string),
 										A4(
 											$miniBill$elm_codec$Codec$field,
-											'title',
+											'difficulty',
 											function ($) {
-												return $.title;
+												return $.difficulty;
 											},
-											$miniBill$elm_codec$Codec$string,
+											$author$project$Internal$Codecs$codecDifficulty,
 											A4(
 												$miniBill$elm_codec$Codec$field,
-												'id',
+												'title',
 												function ($) {
-													return $.id;
+													return $.title;
 												},
-												$miniBill$elm_codec$Codec$int,
-												$miniBill$elm_codec$Codec$object($author$project$Internal$Data$ExerciseData)))))))))))));
+												$miniBill$elm_codec$Codec$string,
+												A4(
+													$miniBill$elm_codec$Codec$field,
+													'id',
+													function ($) {
+														return $.id;
+													},
+													$miniBill$elm_codec$Codec$int,
+													$miniBill$elm_codec$Codec$object($author$project$Internal$Data$ExerciseData))))))))))))));
 var $author$project$Internal$Data$Index = F5(
 	function (id, title, difficulty, categories, ellieId) {
 		return {categories: categories, difficulty: difficulty, ellieId: ellieId, id: id, title: title};
@@ -11419,7 +11428,7 @@ var $miniBill$elm_codec$Codec$decodeString = function (codec) {
 	return $elm$json$Json$Decode$decodeString(
 		$miniBill$elm_codec$Codec$decoder(codec));
 };
-var $author$project$Internal$Data$emptyExerciseData = {categories: _List_Nil, difficulty: $author$project$Internal$Data$Undefined, dummySolution: '', ellieId: '', hints: _List_Nil, id: 0, problem: '', reference: '', solutions: _List_Nil, tests: _List_Nil, title: 'Error loading exercise data'};
+var $author$project$Internal$Data$emptyExerciseData = {categories: _List_Nil, difficulty: $author$project$Internal$Data$Undefined, dummySolution: '', ellieId: '', example: '', hints: _List_Nil, id: 0, problem: '', reference: '', solutions: _List_Nil, tests: _List_Nil, title: 'Error loading exercise data'};
 var $elm_explorations$test$Test$Runner$getFailureReason = function (expectation) {
 	if (expectation.$ === 'Pass') {
 		return $elm$core$Maybe$Nothing;
@@ -25793,14 +25802,14 @@ var $author$project$Internal$Markdown$code = function (snippet) {
 				$mdgriffith$elm_ui$Element$Border$rounded(2),
 				$mdgriffith$elm_ui$Element$Font$size(14),
 				$mdgriffith$elm_ui$Element$Font$color(
-				A3($mdgriffith$elm_ui$Element$rgb255, 181, 137, 0)),
-				A2($mdgriffith$elm_ui$Element$paddingXY, 5, 2),
+				A3($mdgriffith$elm_ui$Element$rgb255, 99, 163, 92)),
 				$mdgriffith$elm_ui$Element$Font$family(
 				_List_fromArray(
 					[
 						$mdgriffith$elm_ui$Element$Font$typeface('Source Code Pro'),
 						$mdgriffith$elm_ui$Element$Font$monospace
-					]))
+					])),
+				A2($mdgriffith$elm_ui$Element$paddingXY, 5, 2)
 			]),
 		$mdgriffith$elm_ui$Element$text(snippet));
 };
@@ -28750,7 +28759,10 @@ var $author$project$Internal$Views$viewBody = F2(
 													_Utils_ap(
 														_List_Nil,
 														_Utils_ap(
-															$author$project$Internal$Markdown$markdown(model.exerciseData.problem),
+															$author$project$Internal$Markdown$markdown(
+																_Utils_ap(
+																	model.exerciseData.problem,
+																	$elm$core$String$isEmpty(model.exerciseData.example) ? '' : ('\n## Examples\n```elm\n' + (model.exerciseData.example + '\n```\n')))),
 															_Utils_ap(
 																_List_fromArray(
 																	[
@@ -33637,517 +33649,6 @@ var $terezka$charts$Chart$Attributes$moveUp = F2(
 			config,
 			{yOff: config.yOff - v});
 	});
-var $author$project$Internal$Data$RemoveFromHistory = function (a) {
-	return {$: 'RemoveFromHistory', a: a};
-};
-var $author$project$Internal$Views$exerciseLink = F3(
-	function (attrs, index, nowId) {
-		return _Utils_eq(index.id, nowId) ? A2(
-			$mdgriffith$elm_ui$Element$row,
-			_Utils_ap(
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$spacing(10)
-					]),
-				attrs),
-			_List_fromArray(
-				[
-					A2(
-					$mdgriffith$elm_ui$Element$paragraph,
-					_List_fromArray(
-						[$mdgriffith$elm_ui$Element$Font$bold]),
-					_List_fromArray(
-						[
-							$mdgriffith$elm_ui$Element$text(index.title),
-							$mdgriffith$elm_ui$Element$text(' (#'),
-							$mdgriffith$elm_ui$Element$text(
-							$elm$core$String$fromInt(index.id)),
-							$mdgriffith$elm_ui$Element$text(', '),
-							$mdgriffith$elm_ui$Element$text(
-							$author$project$Internal$Data$difficultyToString(index.difficulty)),
-							$mdgriffith$elm_ui$Element$text(')')
-						]))
-				])) : A2(
-			$mdgriffith$elm_ui$Element$row,
-			_Utils_ap(
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$spacing(10)
-					]),
-				attrs),
-			_List_fromArray(
-				[
-					A2(
-					$mdgriffith$elm_ui$Element$paragraph,
-					_List_Nil,
-					_List_fromArray(
-						[
-							A2(
-							$mdgriffith$elm_ui$Element$newTabLink,
-							_List_fromArray(
-								[$mdgriffith$elm_ui$Element$alignTop]),
-							{
-								label: A2(
-									$mdgriffith$elm_ui$Element$paragraph,
-									_List_Nil,
-									_List_fromArray(
-										[
-											$mdgriffith$elm_ui$Element$text(index.title),
-											$mdgriffith$elm_ui$Element$text(' (#'),
-											$mdgriffith$elm_ui$Element$text(
-											$elm$core$String$fromInt(index.id)),
-											$mdgriffith$elm_ui$Element$text(', '),
-											$mdgriffith$elm_ui$Element$text(
-											$author$project$Internal$Data$difficultyToString(index.difficulty)),
-											$mdgriffith$elm_ui$Element$text(')')
-										])),
-								url: 'https://ellie-app.com/' + index.ellieId
-							})
-						]))
-				]));
-	});
-var $feathericons$elm_feather$FeatherIcons$eye = A2(
-	$feathericons$elm_feather$FeatherIcons$makeBuilder,
-	'eye',
-	_List_fromArray(
-		[
-			A2(
-			$elm$svg$Svg$path,
-			_List_fromArray(
-				[
-					$elm$svg$Svg$Attributes$d('M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z')
-				]),
-			_List_Nil),
-			A2(
-			$elm$svg$Svg$circle,
-			_List_fromArray(
-				[
-					$elm$svg$Svg$Attributes$cx('12'),
-					$elm$svg$Svg$Attributes$cy('12'),
-					$elm$svg$Svg$Attributes$r('3')
-				]),
-			_List_Nil)
-		]));
-var $feathericons$elm_feather$FeatherIcons$refreshCw = A2(
-	$feathericons$elm_feather$FeatherIcons$makeBuilder,
-	'refresh-cw',
-	_List_fromArray(
-		[
-			A2(
-			$elm$svg$Svg$polyline,
-			_List_fromArray(
-				[
-					$elm$svg$Svg$Attributes$points('23 4 23 10 17 10')
-				]),
-			_List_Nil),
-			A2(
-			$elm$svg$Svg$polyline,
-			_List_fromArray(
-				[
-					$elm$svg$Svg$Attributes$points('1 20 1 14 7 14')
-				]),
-			_List_Nil),
-			A2(
-			$elm$svg$Svg$path,
-			_List_fromArray(
-				[
-					$elm$svg$Svg$Attributes$d('M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15')
-				]),
-			_List_Nil)
-		]));
-var $ryannhg$date_format$DateFormat$Relative$defaultInSomeDays = function (days) {
-	return (days < 2) ? 'tomorrow' : ('in ' + ($elm$core$String$fromInt(days) + ' days'));
-};
-var $ryannhg$date_format$DateFormat$Relative$defaultInSomeHours = function (hours) {
-	return (hours < 2) ? 'in an hour' : ('in ' + ($elm$core$String$fromInt(hours) + ' hours'));
-};
-var $ryannhg$date_format$DateFormat$Relative$defaultInSomeMinutes = function (minutes) {
-	return (minutes < 2) ? 'in a minute' : ('in ' + ($elm$core$String$fromInt(minutes) + ' minutes'));
-};
-var $ryannhg$date_format$DateFormat$Relative$defaultInSomeMonths = function (months) {
-	return (months < 2) ? 'in a month' : ('in ' + ($elm$core$String$fromInt(months) + ' months'));
-};
-var $ryannhg$date_format$DateFormat$Relative$defaultInSomeSeconds = function (seconds) {
-	return (seconds < 30) ? 'in a few seconds' : ('in ' + ($elm$core$String$fromInt(seconds) + ' seconds'));
-};
-var $ryannhg$date_format$DateFormat$Relative$defaultInSomeYears = function (years) {
-	return (years < 2) ? 'in a year' : ('in ' + ($elm$core$String$fromInt(years) + ' years'));
-};
-var $ryannhg$date_format$DateFormat$Relative$defaultRightNow = 'right now';
-var $ryannhg$date_format$DateFormat$Relative$defaultSomeDaysAgo = function (days) {
-	return (days < 2) ? 'yesterday' : ($elm$core$String$fromInt(days) + ' days ago');
-};
-var $ryannhg$date_format$DateFormat$Relative$defaultSomeHoursAgo = function (hours) {
-	return (hours < 2) ? 'an hour ago' : ($elm$core$String$fromInt(hours) + ' hours ago');
-};
-var $ryannhg$date_format$DateFormat$Relative$defaultSomeMinutesAgo = function (minutes) {
-	return (minutes < 2) ? 'a minute ago' : ($elm$core$String$fromInt(minutes) + ' minutes ago');
-};
-var $ryannhg$date_format$DateFormat$Relative$defaultSomeMonthsAgo = function (months) {
-	return (months < 2) ? 'last month' : ($elm$core$String$fromInt(months) + ' months ago');
-};
-var $ryannhg$date_format$DateFormat$Relative$defaultSomeSecondsAgo = function (seconds) {
-	return (seconds < 30) ? 'just now' : ($elm$core$String$fromInt(seconds) + ' seconds ago');
-};
-var $ryannhg$date_format$DateFormat$Relative$defaultSomeYearsAgo = function (years) {
-	return (years < 2) ? 'last year' : ($elm$core$String$fromInt(years) + ' years ago');
-};
-var $ryannhg$date_format$DateFormat$Relative$defaultRelativeOptions = {inSomeDays: $ryannhg$date_format$DateFormat$Relative$defaultInSomeDays, inSomeHours: $ryannhg$date_format$DateFormat$Relative$defaultInSomeHours, inSomeMinutes: $ryannhg$date_format$DateFormat$Relative$defaultInSomeMinutes, inSomeMonths: $ryannhg$date_format$DateFormat$Relative$defaultInSomeMonths, inSomeSeconds: $ryannhg$date_format$DateFormat$Relative$defaultInSomeSeconds, inSomeYears: $ryannhg$date_format$DateFormat$Relative$defaultInSomeYears, rightNow: $ryannhg$date_format$DateFormat$Relative$defaultRightNow, someDaysAgo: $ryannhg$date_format$DateFormat$Relative$defaultSomeDaysAgo, someHoursAgo: $ryannhg$date_format$DateFormat$Relative$defaultSomeHoursAgo, someMinutesAgo: $ryannhg$date_format$DateFormat$Relative$defaultSomeMinutesAgo, someMonthsAgo: $ryannhg$date_format$DateFormat$Relative$defaultSomeMonthsAgo, someSecondsAgo: $ryannhg$date_format$DateFormat$Relative$defaultSomeSecondsAgo, someYearsAgo: $ryannhg$date_format$DateFormat$Relative$defaultSomeYearsAgo};
-var $ryannhg$date_format$DateFormat$Relative$RelativeTimeFunctions = F6(
-	function (seconds, minutes, hours, days, months, years) {
-		return {days: days, hours: hours, minutes: minutes, months: months, seconds: seconds, years: years};
-	});
-var $elm$time$Time$flooredDiv = F2(
-	function (numerator, denominator) {
-		return $elm$core$Basics$floor(numerator / denominator);
-	});
-var $elm$time$Time$toAdjustedMinutesHelp = F3(
-	function (defaultOffset, posixMinutes, eras) {
-		toAdjustedMinutesHelp:
-		while (true) {
-			if (!eras.b) {
-				return posixMinutes + defaultOffset;
-			} else {
-				var era = eras.a;
-				var olderEras = eras.b;
-				if (_Utils_cmp(era.start, posixMinutes) < 0) {
-					return posixMinutes + era.offset;
-				} else {
-					var $temp$defaultOffset = defaultOffset,
-						$temp$posixMinutes = posixMinutes,
-						$temp$eras = olderEras;
-					defaultOffset = $temp$defaultOffset;
-					posixMinutes = $temp$posixMinutes;
-					eras = $temp$eras;
-					continue toAdjustedMinutesHelp;
-				}
-			}
-		}
-	});
-var $elm$time$Time$toAdjustedMinutes = F2(
-	function (_v0, time) {
-		var defaultOffset = _v0.a;
-		var eras = _v0.b;
-		return A3(
-			$elm$time$Time$toAdjustedMinutesHelp,
-			defaultOffset,
-			A2(
-				$elm$time$Time$flooredDiv,
-				$elm$time$Time$posixToMillis(time),
-				60000),
-			eras);
-	});
-var $elm$time$Time$toHour = F2(
-	function (zone, time) {
-		return A2(
-			$elm$core$Basics$modBy,
-			24,
-			A2(
-				$elm$time$Time$flooredDiv,
-				A2($elm$time$Time$toAdjustedMinutes, zone, time),
-				60));
-	});
-var $elm$time$Time$toMinute = F2(
-	function (zone, time) {
-		return A2(
-			$elm$core$Basics$modBy,
-			60,
-			A2($elm$time$Time$toAdjustedMinutes, zone, time));
-	});
-var $elm$time$Time$toSecond = F2(
-	function (_v0, time) {
-		return A2(
-			$elm$core$Basics$modBy,
-			60,
-			A2(
-				$elm$time$Time$flooredDiv,
-				$elm$time$Time$posixToMillis(time),
-				1000));
-	});
-var $ryannhg$date_format$DateFormat$Relative$relativeTimeWithFunctions = F3(
-	function (zone, millis, functions) {
-		var seconds = (millis / 1000) | 0;
-		var posix = $elm$time$Time$millisToPosix(millis);
-		var minutes = (seconds / 60) | 0;
-		var hours = (minutes / 60) | 0;
-		var days = (hours / 24) | 0;
-		return (minutes < 1) ? functions.seconds(
-			A2($elm$time$Time$toSecond, zone, posix)) : ((hours < 1) ? functions.minutes(
-			A2($elm$time$Time$toMinute, zone, posix)) : ((hours < 24) ? functions.hours(
-			A2($elm$time$Time$toHour, zone, posix)) : ((days < 30) ? functions.days(days) : ((days < 365) ? functions.months((days / 30) | 0) : functions.years((days / 365) | 0)))));
-	});
-var $ryannhg$date_format$DateFormat$Relative$toMilliseconds = $elm$time$Time$posixToMillis;
-var $elm$time$Time$utc = A2($elm$time$Time$Zone, 0, _List_Nil);
-var $ryannhg$date_format$DateFormat$Relative$relativeTimeWithOptions = F3(
-	function (options, start, end) {
-		var differenceInMilliseconds = $ryannhg$date_format$DateFormat$Relative$toMilliseconds(end) - $ryannhg$date_format$DateFormat$Relative$toMilliseconds(start);
-		return (!differenceInMilliseconds) ? options.rightNow : A3(
-			$ryannhg$date_format$DateFormat$Relative$relativeTimeWithFunctions,
-			$elm$time$Time$utc,
-			$elm$core$Basics$abs(differenceInMilliseconds),
-			(differenceInMilliseconds < 0) ? A6($ryannhg$date_format$DateFormat$Relative$RelativeTimeFunctions, options.someSecondsAgo, options.someMinutesAgo, options.someHoursAgo, options.someDaysAgo, options.someMonthsAgo, options.someYearsAgo) : A6($ryannhg$date_format$DateFormat$Relative$RelativeTimeFunctions, options.inSomeSeconds, options.inSomeMinutes, options.inSomeHours, options.inSomeDays, options.inSomeMonths, options.inSomeYears));
-	});
-var $ryannhg$date_format$DateFormat$Relative$relativeTime = $ryannhg$date_format$DateFormat$Relative$relativeTimeWithOptions($ryannhg$date_format$DateFormat$Relative$defaultRelativeOptions);
-var $author$project$Internal$Views$relativeTimeOptions = {
-	inSomeDays: function (_int) {
-		return $elm$core$String$fromInt(_int) + ' days';
-	},
-	inSomeHours: function (_int) {
-		return $elm$core$String$fromInt(_int) + ' hours';
-	},
-	inSomeMinutes: function (_int) {
-		return $elm$core$String$fromInt(_int) + ' minutes';
-	},
-	inSomeMonths: function (_int) {
-		return $elm$core$String$fromInt(_int) + ' months';
-	},
-	inSomeSeconds: function (_int) {
-		return $elm$core$String$fromInt(_int) + ' seconds';
-	},
-	inSomeYears: function (_int) {
-		return $elm$core$String$fromInt(_int) + ' years';
-	},
-	rightNow: '0 seconds',
-	someDaysAgo: function (_int) {
-		return $elm$core$String$fromInt(_int) + ' days';
-	},
-	someHoursAgo: function (_int) {
-		return $elm$core$String$fromInt(_int) + ' hours';
-	},
-	someMinutesAgo: function (_int) {
-		return $elm$core$String$fromInt(_int) + ' minutes';
-	},
-	someMonthsAgo: function (_int) {
-		return $elm$core$String$fromInt(_int) + ' months';
-	},
-	someSecondsAgo: function (_int) {
-		return $elm$core$String$fromInt(_int) + ' seconds';
-	},
-	someYearsAgo: function (_int) {
-		return $elm$core$String$fromInt(_int) + ' years';
-	}
-};
-var $feathericons$elm_feather$FeatherIcons$trash2 = A2(
-	$feathericons$elm_feather$FeatherIcons$makeBuilder,
-	'trash-2',
-	_List_fromArray(
-		[
-			A2(
-			$elm$svg$Svg$polyline,
-			_List_fromArray(
-				[
-					$elm$svg$Svg$Attributes$points('3 6 5 6 21 6')
-				]),
-			_List_Nil),
-			A2(
-			$elm$svg$Svg$path,
-			_List_fromArray(
-				[
-					$elm$svg$Svg$Attributes$d('M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2')
-				]),
-			_List_Nil),
-			A2(
-			$elm$svg$Svg$line,
-			_List_fromArray(
-				[
-					$elm$svg$Svg$Attributes$x1('10'),
-					$elm$svg$Svg$Attributes$y1('11'),
-					$elm$svg$Svg$Attributes$x2('10'),
-					$elm$svg$Svg$Attributes$y2('17')
-				]),
-			_List_Nil),
-			A2(
-			$elm$svg$Svg$line,
-			_List_fromArray(
-				[
-					$elm$svg$Svg$Attributes$x1('14'),
-					$elm$svg$Svg$Attributes$y1('11'),
-					$elm$svg$Svg$Attributes$x2('14'),
-					$elm$svg$Svg$Attributes$y2('17')
-				]),
-			_List_Nil)
-		]));
-var $author$project$Internal$Views$viewExcerciseWithHistory = F4(
-	function (posix, nowId, index, localStorageRecord) {
-		return A2(
-			$mdgriffith$elm_ui$Element$column,
-			_List_fromArray(
-				[
-					$mdgriffith$elm_ui$Element$spacing(8),
-					$mdgriffith$elm_ui$Element$Border$width(1),
-					$mdgriffith$elm_ui$Element$Border$rounded(5),
-					$mdgriffith$elm_ui$Element$Border$color(
-					A4($mdgriffith$elm_ui$Element$rgba, 0, 0, 0, 0.2)),
-					$mdgriffith$elm_ui$Element$padding(10)
-				]),
-			_Utils_ap(
-				_List_Nil,
-				_Utils_ap(
-					_List_fromArray(
-						[
-							A3(
-							$author$project$Internal$Views$exerciseLink,
-							_List_fromArray(
-								[
-									$mdgriffith$elm_ui$Element$Font$size(20),
-									$mdgriffith$elm_ui$Element$paddingEach(
-									{bottom: 10, left: 0, right: 0, top: 0})
-								]),
-							index,
-							nowId)
-						]),
-					_Utils_ap(
-						_List_fromArray(
-							[
-								A2(
-								$mdgriffith$elm_ui$Element$row,
-								_List_fromArray(
-									[
-										$mdgriffith$elm_ui$Element$paddingEach(
-										{bottom: 0, left: 25, right: 0, top: 0}),
-										$mdgriffith$elm_ui$Element$spacing(10)
-									]),
-								_List_fromArray(
-									[
-										A2(
-										$mdgriffith$elm_ui$Element$el,
-										_List_Nil,
-										$mdgriffith$elm_ui$Element$html(
-											A2(
-												$feathericons$elm_feather$FeatherIcons$toHtml,
-												_List_Nil,
-												A2($feathericons$elm_feather$FeatherIcons$withSize, 18, $feathericons$elm_feather$FeatherIcons$eye)))),
-										A2(
-										$mdgriffith$elm_ui$Element$paragraph,
-										_List_Nil,
-										_List_fromArray(
-											[
-												$mdgriffith$elm_ui$Element$text('First seen '),
-												$mdgriffith$elm_ui$Element$text(
-												A2($ryannhg$date_format$DateFormat$Relative$relativeTime, posix, localStorageRecord.firstSeen))
-											]))
-									]))
-							]),
-						_Utils_ap(
-							_List_fromArray(
-								[
-									A2(
-									$mdgriffith$elm_ui$Element$row,
-									_List_fromArray(
-										[
-											$mdgriffith$elm_ui$Element$paddingEach(
-											{bottom: 0, left: 25, right: 0, top: 0}),
-											$mdgriffith$elm_ui$Element$spacing(10)
-										]),
-									_List_fromArray(
-										[
-											A2(
-											$mdgriffith$elm_ui$Element$el,
-											_List_fromArray(
-												[$mdgriffith$elm_ui$Element$alignTop]),
-											$mdgriffith$elm_ui$Element$html(
-												A2(
-													$feathericons$elm_feather$FeatherIcons$toHtml,
-													_List_Nil,
-													A3(
-														$elm$core$Basics$apL,
-														$feathericons$elm_feather$FeatherIcons$withClass,
-														function () {
-															var _v1 = localStorageRecord.solved;
-															if (_v1.$ === 'Just') {
-																return 'pass';
-															} else {
-																return 'fail';
-															}
-														}(),
-														A2(
-															$feathericons$elm_feather$FeatherIcons$withSize,
-															18,
-															function () {
-																var _v0 = localStorageRecord.solved;
-																if (_v0.$ === 'Just') {
-																	return $feathericons$elm_feather$FeatherIcons$check;
-																} else {
-																	return $feathericons$elm_feather$FeatherIcons$x;
-																}
-															}()))))),
-											function () {
-											var _v2 = localStorageRecord.solved;
-											if (_v2.$ === 'Just') {
-												var solved = _v2.a;
-												return A2(
-													$mdgriffith$elm_ui$Element$paragraph,
-													_List_fromArray(
-														[
-															$mdgriffith$elm_ui$Element$Font$color($author$project$Internal$Views$green)
-														]),
-													_List_fromArray(
-														[
-															$mdgriffith$elm_ui$Element$text('Solved in '),
-															$mdgriffith$elm_ui$Element$text(
-															A3($ryannhg$date_format$DateFormat$Relative$relativeTimeWithOptions, $author$project$Internal$Views$relativeTimeOptions, localStorageRecord.firstSeen, solved))
-														]));
-											} else {
-												return A2(
-													$mdgriffith$elm_ui$Element$paragraph,
-													_List_fromArray(
-														[
-															$mdgriffith$elm_ui$Element$Font$color($author$project$Internal$Views$red)
-														]),
-													_List_fromArray(
-														[
-															$mdgriffith$elm_ui$Element$text(
-															'Not solved yet, only ' + ($elm$core$String$fromInt(localStorageRecord.testsPassed) + (' out of ' + ($elm$core$String$fromInt(localStorageRecord.testsTotal) + (' tests passed (seen for ' + (A3($ryannhg$date_format$DateFormat$Relative$relativeTimeWithOptions, $author$project$Internal$Views$relativeTimeOptions, localStorageRecord.firstSeen, localStorageRecord.lastSeen) + ')'))))))
-														]));
-											}
-										}()
-										]))
-								]),
-							_List_fromArray(
-								[
-									A2(
-									$mdgriffith$elm_ui$Element$Input$button,
-									_List_Nil,
-									{
-										label: A2(
-											$mdgriffith$elm_ui$Element$row,
-											_List_fromArray(
-												[
-													$mdgriffith$elm_ui$Element$paddingEach(
-													{bottom: 0, left: 25, right: 0, top: 0}),
-													$mdgriffith$elm_ui$Element$spacing(10)
-												]),
-											_List_fromArray(
-												[
-													A2(
-													$mdgriffith$elm_ui$Element$el,
-													_List_Nil,
-													$mdgriffith$elm_ui$Element$html(
-														A2(
-															$feathericons$elm_feather$FeatherIcons$toHtml,
-															_List_Nil,
-															A2(
-																$feathericons$elm_feather$FeatherIcons$withSize,
-																18,
-																_Utils_eq(nowId, index.id) ? $feathericons$elm_feather$FeatherIcons$refreshCw : $feathericons$elm_feather$FeatherIcons$trash2)))),
-													A2(
-													$mdgriffith$elm_ui$Element$paragraph,
-													_List_fromArray(
-														[
-															$mdgriffith$elm_ui$Element$Font$color(
-															A3($mdgriffith$elm_ui$Element$rgb255, 18, 147, 216))
-														]),
-													_List_fromArray(
-														[
-															$mdgriffith$elm_ui$Element$text(
-															_Utils_eq(nowId, index.id) ? 'Reset' : 'Remove from history')
-														]))
-												])),
-										onPress: $elm$core$Maybe$Just(
-											$author$project$Internal$Data$RemoveFromHistory(index.id))
-									})
-								]))))));
-	});
 var $terezka$charts$Chart$Attributes$withGrid = function (config) {
 	return _Utils_update(
 		config,
@@ -34647,6 +34148,56 @@ var $ryannhg$date_format$DateFormat$Language$english = A6(
 		$elm$core$String$left(3)),
 	$ryannhg$date_format$DateFormat$Language$toEnglishAmPm,
 	$ryannhg$date_format$DateFormat$Language$toEnglishSuffix);
+var $elm$time$Time$flooredDiv = F2(
+	function (numerator, denominator) {
+		return $elm$core$Basics$floor(numerator / denominator);
+	});
+var $elm$time$Time$toAdjustedMinutesHelp = F3(
+	function (defaultOffset, posixMinutes, eras) {
+		toAdjustedMinutesHelp:
+		while (true) {
+			if (!eras.b) {
+				return posixMinutes + defaultOffset;
+			} else {
+				var era = eras.a;
+				var olderEras = eras.b;
+				if (_Utils_cmp(era.start, posixMinutes) < 0) {
+					return posixMinutes + era.offset;
+				} else {
+					var $temp$defaultOffset = defaultOffset,
+						$temp$posixMinutes = posixMinutes,
+						$temp$eras = olderEras;
+					defaultOffset = $temp$defaultOffset;
+					posixMinutes = $temp$posixMinutes;
+					eras = $temp$eras;
+					continue toAdjustedMinutesHelp;
+				}
+			}
+		}
+	});
+var $elm$time$Time$toAdjustedMinutes = F2(
+	function (_v0, time) {
+		var defaultOffset = _v0.a;
+		var eras = _v0.b;
+		return A3(
+			$elm$time$Time$toAdjustedMinutesHelp,
+			defaultOffset,
+			A2(
+				$elm$time$Time$flooredDiv,
+				$elm$time$Time$posixToMillis(time),
+				60000),
+			eras);
+	});
+var $elm$time$Time$toHour = F2(
+	function (zone, time) {
+		return A2(
+			$elm$core$Basics$modBy,
+			24,
+			A2(
+				$elm$time$Time$flooredDiv,
+				A2($elm$time$Time$toAdjustedMinutes, zone, time),
+				60));
+	});
 var $ryannhg$date_format$DateFormat$amPm = F3(
 	function (language, zone, posix) {
 		return language.toAmPm(
@@ -34891,9 +34442,26 @@ var $elm$time$Time$toMillis = F2(
 			1000,
 			$elm$time$Time$posixToMillis(time));
 	});
+var $elm$time$Time$toMinute = F2(
+	function (zone, time) {
+		return A2(
+			$elm$core$Basics$modBy,
+			60,
+			A2($elm$time$Time$toAdjustedMinutes, zone, time));
+	});
 var $ryannhg$date_format$DateFormat$toNonMilitary = function (num) {
 	return (!num) ? 12 : ((num <= 12) ? num : (num - 12));
 };
+var $elm$time$Time$toSecond = F2(
+	function (_v0, time) {
+		return A2(
+			$elm$core$Basics$modBy,
+			60,
+			A2(
+				$elm$time$Time$flooredDiv,
+				$elm$time$Time$posixToMillis(time),
+				1000));
+	});
 var $ryannhg$date_format$DateFormat$millisecondsPerYear = $elm$core$Basics$round((((1000 * 60) * 60) * 24) * 365.25);
 var $ryannhg$date_format$DateFormat$firstDayOfYear = F2(
 	function (zone, time) {
@@ -36474,6 +36042,524 @@ var $terezka$charts$Chart$yLabels = function (edits) {
 						A2(toTicks, p, config)));
 			}));
 };
+var $author$project$Internal$Views$chart1 = function (model) {
+	var total = $elm$core$List$length(model.index);
+	var solved = $elm$core$List$length(
+		A2(
+			$elm$core$List$filter,
+			function (_v0) {
+				var id = _v0.a;
+				var localStorageRecord = _v0.b;
+				return _Utils_eq(localStorageRecord.testsPassed, localStorageRecord.testsTotal);
+			},
+			$elm$core$Dict$toList(model.localStorage)));
+	var seen = $elm$core$List$length(
+		$elm$core$Dict$toList(model.localStorage));
+	return A2(
+		$mdgriffith$elm_ui$Element$el,
+		_List_fromArray(
+			[
+				$mdgriffith$elm_ui$Element$width(
+				$mdgriffith$elm_ui$Element$px(300)),
+				$mdgriffith$elm_ui$Element$centerX,
+				A2($mdgriffith$elm_ui$Element$paddingXY, 0, 20)
+			]),
+		$mdgriffith$elm_ui$Element$html(
+			A2(
+				$terezka$charts$Chart$chart,
+				_List_fromArray(
+					[
+						$terezka$charts$Chart$Attributes$height(200),
+						$terezka$charts$Chart$Attributes$width(300)
+					]),
+				_List_fromArray(
+					[
+						$terezka$charts$Chart$grid(_List_Nil),
+						$terezka$charts$Chart$yLabels(
+						_List_fromArray(
+							[$terezka$charts$Chart$Attributes$withGrid])),
+						A2(
+						$terezka$charts$Chart$binLabels,
+						function ($) {
+							return $.label;
+						},
+						_List_fromArray(
+							[
+								$terezka$charts$Chart$Attributes$moveDown(20)
+							])),
+						A3(
+						$terezka$charts$Chart$bars,
+						_List_Nil,
+						_List_fromArray(
+							[
+								A2(
+								$terezka$charts$Chart$bar,
+								function ($) {
+									return $.y;
+								},
+								_List_fromArray(
+									[
+										$terezka$charts$Chart$Attributes$color($terezka$charts$Chart$Attributes$blue)
+									]))
+							]),
+						_List_fromArray(
+							[
+								{label: 'Solved', y: solved},
+								{label: 'Not solved', y: seen - solved},
+								{label: 'Seen', y: seen},
+								{label: 'Not seen', y: total - seen}
+							])),
+						$terezka$charts$Chart$barLabels(
+						_List_fromArray(
+							[
+								$terezka$charts$Chart$Attributes$moveUp(10)
+							]))
+					]))));
+};
+var $author$project$Internal$Data$RemoveFromHistory = function (a) {
+	return {$: 'RemoveFromHistory', a: a};
+};
+var $author$project$Internal$Views$exerciseLink = F3(
+	function (attrs, index, nowId) {
+		return _Utils_eq(index.id, nowId) ? A2(
+			$mdgriffith$elm_ui$Element$row,
+			_Utils_ap(
+				_List_fromArray(
+					[
+						$mdgriffith$elm_ui$Element$spacing(10)
+					]),
+				attrs),
+			_List_fromArray(
+				[
+					A2(
+					$mdgriffith$elm_ui$Element$paragraph,
+					_List_fromArray(
+						[$mdgriffith$elm_ui$Element$Font$bold]),
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$text(index.title),
+							$mdgriffith$elm_ui$Element$text(' (#'),
+							$mdgriffith$elm_ui$Element$text(
+							$elm$core$String$fromInt(index.id)),
+							$mdgriffith$elm_ui$Element$text(', '),
+							$mdgriffith$elm_ui$Element$text(
+							$author$project$Internal$Data$difficultyToString(index.difficulty)),
+							$mdgriffith$elm_ui$Element$text(')')
+						]))
+				])) : A2(
+			$mdgriffith$elm_ui$Element$row,
+			_Utils_ap(
+				_List_fromArray(
+					[
+						$mdgriffith$elm_ui$Element$spacing(10)
+					]),
+				attrs),
+			_List_fromArray(
+				[
+					A2(
+					$mdgriffith$elm_ui$Element$paragraph,
+					_List_Nil,
+					_List_fromArray(
+						[
+							A2(
+							$mdgriffith$elm_ui$Element$newTabLink,
+							_List_fromArray(
+								[$mdgriffith$elm_ui$Element$alignTop]),
+							{
+								label: A2(
+									$mdgriffith$elm_ui$Element$paragraph,
+									_List_Nil,
+									_List_fromArray(
+										[
+											$mdgriffith$elm_ui$Element$text(index.title),
+											$mdgriffith$elm_ui$Element$text(' (#'),
+											$mdgriffith$elm_ui$Element$text(
+											$elm$core$String$fromInt(index.id)),
+											$mdgriffith$elm_ui$Element$text(', '),
+											$mdgriffith$elm_ui$Element$text(
+											$author$project$Internal$Data$difficultyToString(index.difficulty)),
+											$mdgriffith$elm_ui$Element$text(')')
+										])),
+								url: 'https://ellie-app.com/' + index.ellieId
+							})
+						]))
+				]));
+	});
+var $feathericons$elm_feather$FeatherIcons$eye = A2(
+	$feathericons$elm_feather$FeatherIcons$makeBuilder,
+	'eye',
+	_List_fromArray(
+		[
+			A2(
+			$elm$svg$Svg$path,
+			_List_fromArray(
+				[
+					$elm$svg$Svg$Attributes$d('M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z')
+				]),
+			_List_Nil),
+			A2(
+			$elm$svg$Svg$circle,
+			_List_fromArray(
+				[
+					$elm$svg$Svg$Attributes$cx('12'),
+					$elm$svg$Svg$Attributes$cy('12'),
+					$elm$svg$Svg$Attributes$r('3')
+				]),
+			_List_Nil)
+		]));
+var $feathericons$elm_feather$FeatherIcons$refreshCw = A2(
+	$feathericons$elm_feather$FeatherIcons$makeBuilder,
+	'refresh-cw',
+	_List_fromArray(
+		[
+			A2(
+			$elm$svg$Svg$polyline,
+			_List_fromArray(
+				[
+					$elm$svg$Svg$Attributes$points('23 4 23 10 17 10')
+				]),
+			_List_Nil),
+			A2(
+			$elm$svg$Svg$polyline,
+			_List_fromArray(
+				[
+					$elm$svg$Svg$Attributes$points('1 20 1 14 7 14')
+				]),
+			_List_Nil),
+			A2(
+			$elm$svg$Svg$path,
+			_List_fromArray(
+				[
+					$elm$svg$Svg$Attributes$d('M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15')
+				]),
+			_List_Nil)
+		]));
+var $ryannhg$date_format$DateFormat$Relative$defaultInSomeDays = function (days) {
+	return (days < 2) ? 'tomorrow' : ('in ' + ($elm$core$String$fromInt(days) + ' days'));
+};
+var $ryannhg$date_format$DateFormat$Relative$defaultInSomeHours = function (hours) {
+	return (hours < 2) ? 'in an hour' : ('in ' + ($elm$core$String$fromInt(hours) + ' hours'));
+};
+var $ryannhg$date_format$DateFormat$Relative$defaultInSomeMinutes = function (minutes) {
+	return (minutes < 2) ? 'in a minute' : ('in ' + ($elm$core$String$fromInt(minutes) + ' minutes'));
+};
+var $ryannhg$date_format$DateFormat$Relative$defaultInSomeMonths = function (months) {
+	return (months < 2) ? 'in a month' : ('in ' + ($elm$core$String$fromInt(months) + ' months'));
+};
+var $ryannhg$date_format$DateFormat$Relative$defaultInSomeSeconds = function (seconds) {
+	return (seconds < 30) ? 'in a few seconds' : ('in ' + ($elm$core$String$fromInt(seconds) + ' seconds'));
+};
+var $ryannhg$date_format$DateFormat$Relative$defaultInSomeYears = function (years) {
+	return (years < 2) ? 'in a year' : ('in ' + ($elm$core$String$fromInt(years) + ' years'));
+};
+var $ryannhg$date_format$DateFormat$Relative$defaultRightNow = 'right now';
+var $ryannhg$date_format$DateFormat$Relative$defaultSomeDaysAgo = function (days) {
+	return (days < 2) ? 'yesterday' : ($elm$core$String$fromInt(days) + ' days ago');
+};
+var $ryannhg$date_format$DateFormat$Relative$defaultSomeHoursAgo = function (hours) {
+	return (hours < 2) ? 'an hour ago' : ($elm$core$String$fromInt(hours) + ' hours ago');
+};
+var $ryannhg$date_format$DateFormat$Relative$defaultSomeMinutesAgo = function (minutes) {
+	return (minutes < 2) ? 'a minute ago' : ($elm$core$String$fromInt(minutes) + ' minutes ago');
+};
+var $ryannhg$date_format$DateFormat$Relative$defaultSomeMonthsAgo = function (months) {
+	return (months < 2) ? 'last month' : ($elm$core$String$fromInt(months) + ' months ago');
+};
+var $ryannhg$date_format$DateFormat$Relative$defaultSomeSecondsAgo = function (seconds) {
+	return (seconds < 30) ? 'just now' : ($elm$core$String$fromInt(seconds) + ' seconds ago');
+};
+var $ryannhg$date_format$DateFormat$Relative$defaultSomeYearsAgo = function (years) {
+	return (years < 2) ? 'last year' : ($elm$core$String$fromInt(years) + ' years ago');
+};
+var $ryannhg$date_format$DateFormat$Relative$defaultRelativeOptions = {inSomeDays: $ryannhg$date_format$DateFormat$Relative$defaultInSomeDays, inSomeHours: $ryannhg$date_format$DateFormat$Relative$defaultInSomeHours, inSomeMinutes: $ryannhg$date_format$DateFormat$Relative$defaultInSomeMinutes, inSomeMonths: $ryannhg$date_format$DateFormat$Relative$defaultInSomeMonths, inSomeSeconds: $ryannhg$date_format$DateFormat$Relative$defaultInSomeSeconds, inSomeYears: $ryannhg$date_format$DateFormat$Relative$defaultInSomeYears, rightNow: $ryannhg$date_format$DateFormat$Relative$defaultRightNow, someDaysAgo: $ryannhg$date_format$DateFormat$Relative$defaultSomeDaysAgo, someHoursAgo: $ryannhg$date_format$DateFormat$Relative$defaultSomeHoursAgo, someMinutesAgo: $ryannhg$date_format$DateFormat$Relative$defaultSomeMinutesAgo, someMonthsAgo: $ryannhg$date_format$DateFormat$Relative$defaultSomeMonthsAgo, someSecondsAgo: $ryannhg$date_format$DateFormat$Relative$defaultSomeSecondsAgo, someYearsAgo: $ryannhg$date_format$DateFormat$Relative$defaultSomeYearsAgo};
+var $ryannhg$date_format$DateFormat$Relative$RelativeTimeFunctions = F6(
+	function (seconds, minutes, hours, days, months, years) {
+		return {days: days, hours: hours, minutes: minutes, months: months, seconds: seconds, years: years};
+	});
+var $ryannhg$date_format$DateFormat$Relative$relativeTimeWithFunctions = F3(
+	function (zone, millis, functions) {
+		var seconds = (millis / 1000) | 0;
+		var posix = $elm$time$Time$millisToPosix(millis);
+		var minutes = (seconds / 60) | 0;
+		var hours = (minutes / 60) | 0;
+		var days = (hours / 24) | 0;
+		return (minutes < 1) ? functions.seconds(
+			A2($elm$time$Time$toSecond, zone, posix)) : ((hours < 1) ? functions.minutes(
+			A2($elm$time$Time$toMinute, zone, posix)) : ((hours < 24) ? functions.hours(
+			A2($elm$time$Time$toHour, zone, posix)) : ((days < 30) ? functions.days(days) : ((days < 365) ? functions.months((days / 30) | 0) : functions.years((days / 365) | 0)))));
+	});
+var $ryannhg$date_format$DateFormat$Relative$toMilliseconds = $elm$time$Time$posixToMillis;
+var $elm$time$Time$utc = A2($elm$time$Time$Zone, 0, _List_Nil);
+var $ryannhg$date_format$DateFormat$Relative$relativeTimeWithOptions = F3(
+	function (options, start, end) {
+		var differenceInMilliseconds = $ryannhg$date_format$DateFormat$Relative$toMilliseconds(end) - $ryannhg$date_format$DateFormat$Relative$toMilliseconds(start);
+		return (!differenceInMilliseconds) ? options.rightNow : A3(
+			$ryannhg$date_format$DateFormat$Relative$relativeTimeWithFunctions,
+			$elm$time$Time$utc,
+			$elm$core$Basics$abs(differenceInMilliseconds),
+			(differenceInMilliseconds < 0) ? A6($ryannhg$date_format$DateFormat$Relative$RelativeTimeFunctions, options.someSecondsAgo, options.someMinutesAgo, options.someHoursAgo, options.someDaysAgo, options.someMonthsAgo, options.someYearsAgo) : A6($ryannhg$date_format$DateFormat$Relative$RelativeTimeFunctions, options.inSomeSeconds, options.inSomeMinutes, options.inSomeHours, options.inSomeDays, options.inSomeMonths, options.inSomeYears));
+	});
+var $ryannhg$date_format$DateFormat$Relative$relativeTime = $ryannhg$date_format$DateFormat$Relative$relativeTimeWithOptions($ryannhg$date_format$DateFormat$Relative$defaultRelativeOptions);
+var $author$project$Internal$Views$relativeTimeOptions = {
+	inSomeDays: function (_int) {
+		return $elm$core$String$fromInt(_int) + ' days';
+	},
+	inSomeHours: function (_int) {
+		return $elm$core$String$fromInt(_int) + ' hours';
+	},
+	inSomeMinutes: function (_int) {
+		return $elm$core$String$fromInt(_int) + ' minutes';
+	},
+	inSomeMonths: function (_int) {
+		return $elm$core$String$fromInt(_int) + ' months';
+	},
+	inSomeSeconds: function (_int) {
+		return $elm$core$String$fromInt(_int) + ' seconds';
+	},
+	inSomeYears: function (_int) {
+		return $elm$core$String$fromInt(_int) + ' years';
+	},
+	rightNow: '0 seconds',
+	someDaysAgo: function (_int) {
+		return $elm$core$String$fromInt(_int) + ' days';
+	},
+	someHoursAgo: function (_int) {
+		return $elm$core$String$fromInt(_int) + ' hours';
+	},
+	someMinutesAgo: function (_int) {
+		return $elm$core$String$fromInt(_int) + ' minutes';
+	},
+	someMonthsAgo: function (_int) {
+		return $elm$core$String$fromInt(_int) + ' months';
+	},
+	someSecondsAgo: function (_int) {
+		return $elm$core$String$fromInt(_int) + ' seconds';
+	},
+	someYearsAgo: function (_int) {
+		return $elm$core$String$fromInt(_int) + ' years';
+	}
+};
+var $feathericons$elm_feather$FeatherIcons$trash2 = A2(
+	$feathericons$elm_feather$FeatherIcons$makeBuilder,
+	'trash-2',
+	_List_fromArray(
+		[
+			A2(
+			$elm$svg$Svg$polyline,
+			_List_fromArray(
+				[
+					$elm$svg$Svg$Attributes$points('3 6 5 6 21 6')
+				]),
+			_List_Nil),
+			A2(
+			$elm$svg$Svg$path,
+			_List_fromArray(
+				[
+					$elm$svg$Svg$Attributes$d('M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2')
+				]),
+			_List_Nil),
+			A2(
+			$elm$svg$Svg$line,
+			_List_fromArray(
+				[
+					$elm$svg$Svg$Attributes$x1('10'),
+					$elm$svg$Svg$Attributes$y1('11'),
+					$elm$svg$Svg$Attributes$x2('10'),
+					$elm$svg$Svg$Attributes$y2('17')
+				]),
+			_List_Nil),
+			A2(
+			$elm$svg$Svg$line,
+			_List_fromArray(
+				[
+					$elm$svg$Svg$Attributes$x1('14'),
+					$elm$svg$Svg$Attributes$y1('11'),
+					$elm$svg$Svg$Attributes$x2('14'),
+					$elm$svg$Svg$Attributes$y2('17')
+				]),
+			_List_Nil)
+		]));
+var $author$project$Internal$Views$viewExcerciseWithHistory = F4(
+	function (posix, nowId, index, localStorageRecord) {
+		return A2(
+			$mdgriffith$elm_ui$Element$column,
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$spacing(8),
+					$mdgriffith$elm_ui$Element$Border$width(1),
+					$mdgriffith$elm_ui$Element$Border$rounded(5),
+					$mdgriffith$elm_ui$Element$Border$color(
+					A4($mdgriffith$elm_ui$Element$rgba, 0, 0, 0, 0.2)),
+					$mdgriffith$elm_ui$Element$padding(10)
+				]),
+			_Utils_ap(
+				_List_Nil,
+				_Utils_ap(
+					_List_fromArray(
+						[
+							A3(
+							$author$project$Internal$Views$exerciseLink,
+							_List_fromArray(
+								[
+									$mdgriffith$elm_ui$Element$Font$size(20),
+									$mdgriffith$elm_ui$Element$paddingEach(
+									{bottom: 10, left: 0, right: 0, top: 0})
+								]),
+							index,
+							nowId)
+						]),
+					_Utils_ap(
+						_List_fromArray(
+							[
+								A2(
+								$mdgriffith$elm_ui$Element$row,
+								_List_fromArray(
+									[
+										$mdgriffith$elm_ui$Element$paddingEach(
+										{bottom: 0, left: 25, right: 0, top: 0}),
+										$mdgriffith$elm_ui$Element$spacing(10)
+									]),
+								_List_fromArray(
+									[
+										A2(
+										$mdgriffith$elm_ui$Element$el,
+										_List_Nil,
+										$mdgriffith$elm_ui$Element$html(
+											A2(
+												$feathericons$elm_feather$FeatherIcons$toHtml,
+												_List_Nil,
+												A2($feathericons$elm_feather$FeatherIcons$withSize, 18, $feathericons$elm_feather$FeatherIcons$eye)))),
+										A2(
+										$mdgriffith$elm_ui$Element$paragraph,
+										_List_Nil,
+										_List_fromArray(
+											[
+												$mdgriffith$elm_ui$Element$text('First seen '),
+												$mdgriffith$elm_ui$Element$text(
+												A2($ryannhg$date_format$DateFormat$Relative$relativeTime, posix, localStorageRecord.firstSeen))
+											]))
+									]))
+							]),
+						_Utils_ap(
+							_List_fromArray(
+								[
+									A2(
+									$mdgriffith$elm_ui$Element$row,
+									_List_fromArray(
+										[
+											$mdgriffith$elm_ui$Element$paddingEach(
+											{bottom: 0, left: 25, right: 0, top: 0}),
+											$mdgriffith$elm_ui$Element$spacing(10)
+										]),
+									_List_fromArray(
+										[
+											A2(
+											$mdgriffith$elm_ui$Element$el,
+											_List_fromArray(
+												[$mdgriffith$elm_ui$Element$alignTop]),
+											$mdgriffith$elm_ui$Element$html(
+												A2(
+													$feathericons$elm_feather$FeatherIcons$toHtml,
+													_List_Nil,
+													A3(
+														$elm$core$Basics$apL,
+														$feathericons$elm_feather$FeatherIcons$withClass,
+														function () {
+															var _v1 = localStorageRecord.solved;
+															if (_v1.$ === 'Just') {
+																return 'pass';
+															} else {
+																return 'fail';
+															}
+														}(),
+														A2(
+															$feathericons$elm_feather$FeatherIcons$withSize,
+															18,
+															function () {
+																var _v0 = localStorageRecord.solved;
+																if (_v0.$ === 'Just') {
+																	return $feathericons$elm_feather$FeatherIcons$check;
+																} else {
+																	return $feathericons$elm_feather$FeatherIcons$x;
+																}
+															}()))))),
+											function () {
+											var _v2 = localStorageRecord.solved;
+											if (_v2.$ === 'Just') {
+												var solved = _v2.a;
+												return A2(
+													$mdgriffith$elm_ui$Element$paragraph,
+													_List_fromArray(
+														[
+															$mdgriffith$elm_ui$Element$Font$color($author$project$Internal$Views$green)
+														]),
+													_List_fromArray(
+														[
+															$mdgriffith$elm_ui$Element$text('Solved in '),
+															$mdgriffith$elm_ui$Element$text(
+															A3($ryannhg$date_format$DateFormat$Relative$relativeTimeWithOptions, $author$project$Internal$Views$relativeTimeOptions, localStorageRecord.firstSeen, solved))
+														]));
+											} else {
+												return A2(
+													$mdgriffith$elm_ui$Element$paragraph,
+													_List_fromArray(
+														[
+															$mdgriffith$elm_ui$Element$Font$color($author$project$Internal$Views$red)
+														]),
+													_List_fromArray(
+														[
+															$mdgriffith$elm_ui$Element$text(
+															'Not solved yet, only ' + ($elm$core$String$fromInt(localStorageRecord.testsPassed) + (' out of ' + ($elm$core$String$fromInt(localStorageRecord.testsTotal) + (' tests passed (seen for ' + (A3($ryannhg$date_format$DateFormat$Relative$relativeTimeWithOptions, $author$project$Internal$Views$relativeTimeOptions, localStorageRecord.firstSeen, localStorageRecord.lastSeen) + ')'))))))
+														]));
+											}
+										}()
+										]))
+								]),
+							_List_fromArray(
+								[
+									A2(
+									$mdgriffith$elm_ui$Element$Input$button,
+									_List_Nil,
+									{
+										label: A2(
+											$mdgriffith$elm_ui$Element$row,
+											_List_fromArray(
+												[
+													$mdgriffith$elm_ui$Element$paddingEach(
+													{bottom: 0, left: 25, right: 0, top: 0}),
+													$mdgriffith$elm_ui$Element$spacing(10)
+												]),
+											_List_fromArray(
+												[
+													A2(
+													$mdgriffith$elm_ui$Element$el,
+													_List_Nil,
+													$mdgriffith$elm_ui$Element$html(
+														A2(
+															$feathericons$elm_feather$FeatherIcons$toHtml,
+															_List_Nil,
+															A2(
+																$feathericons$elm_feather$FeatherIcons$withSize,
+																18,
+																_Utils_eq(nowId, index.id) ? $feathericons$elm_feather$FeatherIcons$refreshCw : $feathericons$elm_feather$FeatherIcons$trash2)))),
+													A2(
+													$mdgriffith$elm_ui$Element$paragraph,
+													_List_fromArray(
+														[
+															$mdgriffith$elm_ui$Element$Font$color(
+															A3($mdgriffith$elm_ui$Element$rgb255, 18, 147, 216))
+														]),
+													_List_fromArray(
+														[
+															$mdgriffith$elm_ui$Element$text(
+															_Utils_eq(nowId, index.id) ? 'Reset' : 'Remove from history')
+														]))
+												])),
+										onPress: $elm$core$Maybe$Just(
+											$author$project$Internal$Data$RemoveFromHistory(index.id))
+									})
+								]))))));
+	});
 var $author$project$Internal$Views$contentHistory = function (model) {
 	return _Utils_Tuple3(
 		'History',
@@ -36491,80 +36577,7 @@ var $author$project$Internal$Views$contentHistory = function (model) {
 					_Utils_ap(
 						_List_fromArray(
 							[
-								function () {
-								var total = $elm$core$List$length(model.index);
-								var solved = $elm$core$List$length(
-									A2(
-										$elm$core$List$filter,
-										function (_v0) {
-											var id = _v0.a;
-											var localStorageRecord = _v0.b;
-											return _Utils_eq(localStorageRecord.testsPassed, localStorageRecord.testsTotal);
-										},
-										$elm$core$Dict$toList(model.localStorage)));
-								var seen = $elm$core$List$length(
-									$elm$core$Dict$toList(model.localStorage));
-								return A2(
-									$mdgriffith$elm_ui$Element$el,
-									_List_fromArray(
-										[
-											$mdgriffith$elm_ui$Element$width(
-											$mdgriffith$elm_ui$Element$px(300)),
-											$mdgriffith$elm_ui$Element$centerX,
-											A2($mdgriffith$elm_ui$Element$paddingXY, 0, 20)
-										]),
-									$mdgriffith$elm_ui$Element$html(
-										A2(
-											$terezka$charts$Chart$chart,
-											_List_fromArray(
-												[
-													$terezka$charts$Chart$Attributes$height(200),
-													$terezka$charts$Chart$Attributes$width(300)
-												]),
-											_List_fromArray(
-												[
-													$terezka$charts$Chart$grid(_List_Nil),
-													$terezka$charts$Chart$yLabels(
-													_List_fromArray(
-														[$terezka$charts$Chart$Attributes$withGrid])),
-													A2(
-													$terezka$charts$Chart$binLabels,
-													function ($) {
-														return $.label;
-													},
-													_List_fromArray(
-														[
-															$terezka$charts$Chart$Attributes$moveDown(20)
-														])),
-													A3(
-													$terezka$charts$Chart$bars,
-													_List_Nil,
-													_List_fromArray(
-														[
-															A2(
-															$terezka$charts$Chart$bar,
-															function ($) {
-																return $.y;
-															},
-															_List_fromArray(
-																[
-																	$terezka$charts$Chart$Attributes$color($terezka$charts$Chart$Attributes$blue)
-																]))
-														]),
-													_List_fromArray(
-														[
-															{label: 'Solved', y: solved},
-															{label: 'Unsolved', y: seen - solved},
-															{label: 'Seen', y: seen},
-															{label: 'Not seen', y: total - seen}
-														])),
-													$terezka$charts$Chart$barLabels(
-													_List_fromArray(
-														[
-															$terezka$charts$Chart$Attributes$moveUp(10)
-														]))
-												]))));
-							}()
+								$author$project$Internal$Views$chart1(model)
 							]),
 						_Utils_ap(
 							_List_fromArray(
@@ -36574,9 +36587,9 @@ var $author$project$Internal$Views$contentHistory = function (model) {
 							_Utils_ap(
 								A2(
 									$elm$core$List$map,
-									function (_v1) {
-										var id = _v1.a;
-										var localStorageRecord = _v1.b;
+									function (_v0) {
+										var id = _v0.a;
+										var localStorageRecord = _v0.b;
 										var maybeExerciseData = $elm$core$List$head(
 											A2(
 												$elm$core$List$filter,
@@ -36593,9 +36606,9 @@ var $author$project$Internal$Views$contentHistory = function (model) {
 									},
 									A2(
 										$elm$core$List$sortBy,
-										function (_v3) {
-											var id = _v3.a;
-											var localStorageRecord = _v3.b;
+										function (_v2) {
+											var id = _v2.a;
+											var localStorageRecord = _v2.b;
 											return $elm$time$Time$posixToMillis(localStorageRecord.firstSeen);
 										},
 										$elm$core$Dict$toList(model.localStorage))),
@@ -36685,6 +36698,30 @@ var $author$project$Internal$Views$categories = function (exercises) {
 		$elm$core$Dict$empty,
 		exercises);
 };
+var $author$project$Internal$Views$exerciseLink2 = F2(
+	function (model, i) {
+		return A2(
+			$mdgriffith$elm_ui$Element$row,
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$spacing(10)
+				]),
+			_List_fromArray(
+				[
+					A2(
+					$mdgriffith$elm_ui$Element$el,
+					_List_fromArray(
+						[$mdgriffith$elm_ui$Element$alignTop]),
+					$mdgriffith$elm_ui$Element$text('•')),
+					A2(
+					$mdgriffith$elm_ui$Element$paragraph,
+					_List_Nil,
+					_List_fromArray(
+						[
+							A3($author$project$Internal$Views$exerciseLink, _List_Nil, i, model.exerciseData.id)
+						]))
+				]));
+	});
 var $author$project$Internal$Views$subtitle = function (string) {
 	return A2(
 		$mdgriffith$elm_ui$Element$paragraph,
@@ -36714,63 +36751,66 @@ var $author$project$Internal$Views$contentOtherExercises = function (model) {
 						[
 							A2(
 							$mdgriffith$elm_ui$Element$column,
-							_List_Nil,
+							_List_fromArray(
+								[
+									$mdgriffith$elm_ui$Element$spacing(20)
+								]),
 							$elm$core$Dict$values(
 								A2(
 									$elm$core$Dict$map,
 									F2(
 										function (category, excercises) {
-											return $author$project$Internal$Views$subtitle(
-												category + (' (' + ($elm$core$String$fromInt(
-													$elm$core$List$length(excercises)) + ')')));
-										}),
-									$author$project$Internal$Views$categories(model.index))))
-						]),
-					_Utils_ap(
-						_List_fromArray(
-							[
-								$author$project$Internal$Views$subtitle('Exercises by Difficulty Level')
-							]),
-						_Utils_ap(
-							_List_fromArray(
-								[
-									$author$project$Internal$Views$subtitle('All Exercises')
-								]),
-							_List_fromArray(
-								[
-									A2(
-									$mdgriffith$elm_ui$Element$column,
-									_List_fromArray(
-										[
-											$mdgriffith$elm_ui$Element$spacing(5)
-										]),
-									A2(
-										$elm$core$List$map,
-										function (i) {
 											return A2(
-												$mdgriffith$elm_ui$Element$row,
+												$mdgriffith$elm_ui$Element$column,
 												_List_fromArray(
 													[
 														$mdgriffith$elm_ui$Element$spacing(10)
 													]),
 												_List_fromArray(
 													[
+														$author$project$Internal$Views$subtitle(
+														category + (' (' + ($elm$core$String$fromInt(
+															$elm$core$List$length(excercises)) + ')'))),
 														A2(
-														$mdgriffith$elm_ui$Element$el,
-														_List_fromArray(
-															[$mdgriffith$elm_ui$Element$alignTop]),
-														$mdgriffith$elm_ui$Element$text('•')),
-														A2(
-														$mdgriffith$elm_ui$Element$paragraph,
-														_List_Nil,
+														$mdgriffith$elm_ui$Element$column,
 														_List_fromArray(
 															[
-																A3($author$project$Internal$Views$exerciseLink, _List_Nil, i, model.exerciseData.id)
-															]))
+																$mdgriffith$elm_ui$Element$paddingEach(
+																{bottom: 0, left: 10, right: 0, top: 0}),
+																$mdgriffith$elm_ui$Element$spacing(5)
+															]),
+														A2(
+															$elm$core$List$map,
+															function (exercise) {
+																return A2($author$project$Internal$Views$exerciseLink2, model, exercise);
+															},
+															excercises))
 													]));
-										},
-										model.index))
-								])))))));
+										}),
+									$author$project$Internal$Views$categories(model.index))))
+						]),
+					_Utils_ap(
+						_List_fromArray(
+							[
+								$author$project$Internal$Views$viewTitle('All Exercises')
+							]),
+						_List_fromArray(
+							[
+								A2(
+								$mdgriffith$elm_ui$Element$column,
+								_List_fromArray(
+									[
+										$mdgriffith$elm_ui$Element$paddingEach(
+										{bottom: 0, left: 10, right: 0, top: 0}),
+										$mdgriffith$elm_ui$Element$spacing(5)
+									]),
+								A2(
+									$elm$core$List$map,
+									function (i) {
+										return A2($author$project$Internal$Views$exerciseLink2, model, i);
+									},
+									model.index))
+							]))))));
 };
 var $author$project$Internal$Data$HideSolution = function (a) {
 	return {$: 'HideSolution', a: a};
@@ -37049,42 +37089,147 @@ var $author$project$Exercises$exerciseWithTea = function (tea) {
 			view: $author$project$Internal$Views$view(tea2)
 		});
 };
+var $author$project$Test023_exerciseWithTea$NewFace = function (a) {
+	return {$: 'NewFace', a: a};
+};
+var $elm$random$Random$Generate = function (a) {
+	return {$: 'Generate', a: a};
+};
+var $elm$random$Random$Seed = F2(
+	function (a, b) {
+		return {$: 'Seed', a: a, b: b};
+	});
+var $elm$random$Random$next = function (_v0) {
+	var state0 = _v0.a;
+	var incr = _v0.b;
+	return A2($elm$random$Random$Seed, ((state0 * 1664525) + incr) >>> 0, incr);
+};
+var $elm$random$Random$initialSeed = function (x) {
+	var _v0 = $elm$random$Random$next(
+		A2($elm$random$Random$Seed, 0, 1013904223));
+	var state1 = _v0.a;
+	var incr = _v0.b;
+	var state2 = (state1 + x) >>> 0;
+	return $elm$random$Random$next(
+		A2($elm$random$Random$Seed, state2, incr));
+};
+var $elm$random$Random$init = A2(
+	$elm$core$Task$andThen,
+	function (time) {
+		return $elm$core$Task$succeed(
+			$elm$random$Random$initialSeed(
+				$elm$time$Time$posixToMillis(time)));
+	},
+	$elm$time$Time$now);
+var $elm$random$Random$step = F2(
+	function (_v0, seed) {
+		var generator = _v0.a;
+		return generator(seed);
+	});
+var $elm$random$Random$onEffects = F3(
+	function (router, commands, seed) {
+		if (!commands.b) {
+			return $elm$core$Task$succeed(seed);
+		} else {
+			var generator = commands.a.a;
+			var rest = commands.b;
+			var _v1 = A2($elm$random$Random$step, generator, seed);
+			var value = _v1.a;
+			var newSeed = _v1.b;
+			return A2(
+				$elm$core$Task$andThen,
+				function (_v2) {
+					return A3($elm$random$Random$onEffects, router, rest, newSeed);
+				},
+				A2($elm$core$Platform$sendToApp, router, value));
+		}
+	});
+var $elm$random$Random$onSelfMsg = F3(
+	function (_v0, _v1, seed) {
+		return $elm$core$Task$succeed(seed);
+	});
+var $elm$random$Random$Generator = function (a) {
+	return {$: 'Generator', a: a};
+};
+var $elm$random$Random$map = F2(
+	function (func, _v0) {
+		var genA = _v0.a;
+		return $elm$random$Random$Generator(
+			function (seed0) {
+				var _v1 = genA(seed0);
+				var a = _v1.a;
+				var seed1 = _v1.b;
+				return _Utils_Tuple2(
+					func(a),
+					seed1);
+			});
+	});
+var $elm$random$Random$cmdMap = F2(
+	function (func, _v0) {
+		var generator = _v0.a;
+		return $elm$random$Random$Generate(
+			A2($elm$random$Random$map, func, generator));
+	});
+_Platform_effectManagers['Random'] = _Platform_createManager($elm$random$Random$init, $elm$random$Random$onEffects, $elm$random$Random$onSelfMsg, $elm$random$Random$cmdMap);
+var $elm$random$Random$command = _Platform_leaf('Random');
+var $elm$random$Random$generate = F2(
+	function (tagger, generator) {
+		return $elm$random$Random$command(
+			$elm$random$Random$Generate(
+				A2($elm$random$Random$map, tagger, generator)));
+	});
+var $elm$core$Bitwise$xor = _Bitwise_xor;
+var $elm$random$Random$peel = function (_v0) {
+	var state = _v0.a;
+	var word = (state ^ (state >>> ((state >>> 28) + 4))) * 277803737;
+	return ((word >>> 22) ^ word) >>> 0;
+};
+var $elm$random$Random$int = F2(
+	function (a, b) {
+		return $elm$random$Random$Generator(
+			function (seed0) {
+				var _v0 = (_Utils_cmp(a, b) < 0) ? _Utils_Tuple2(a, b) : _Utils_Tuple2(b, a);
+				var lo = _v0.a;
+				var hi = _v0.b;
+				var range = (hi - lo) + 1;
+				if (!((range - 1) & range)) {
+					return _Utils_Tuple2(
+						(((range - 1) & $elm$random$Random$peel(seed0)) >>> 0) + lo,
+						$elm$random$Random$next(seed0));
+				} else {
+					var threshhold = (((-range) >>> 0) % range) >>> 0;
+					var accountForBias = function (seed) {
+						accountForBias:
+						while (true) {
+							var x = $elm$random$Random$peel(seed);
+							var seedN = $elm$random$Random$next(seed);
+							if (_Utils_cmp(x, threshhold) < 0) {
+								var $temp$seed = seedN;
+								seed = $temp$seed;
+								continue accountForBias;
+							} else {
+								return _Utils_Tuple2((x % range) + lo, seedN);
+							}
+						}
+					};
+					return accountForBias(seed0);
+				}
+			});
+	});
+var $elm$random$Random$maxInt = 2147483647;
+var $elm$random$Random$minInt = -2147483648;
+var $author$project$Test023_exerciseWithTea$init = _Utils_Tuple2(
+	{intSeed: 1},
+	A2(
+		$elm$random$Random$generate,
+		$author$project$Test023_exerciseWithTea$NewFace,
+		A2($elm$random$Random$int, $elm$random$Random$minInt, $elm$random$Random$maxInt)));
+var $author$project$Test023_exerciseWithTea$portLocalStoragePop = _Platform_incomingPort('portLocalStoragePop', $elm$json$Json$Decode$string);
+var $author$project$Test023_exerciseWithTea$portLocalStoragePush = _Platform_outgoingPort('portLocalStoragePush', $elm$json$Json$Encode$string);
 var $elm$core$Platform$Sub$batch = _Platform_batch;
 var $elm$core$Platform$Sub$none = $elm$core$Platform$Sub$batch(_List_Nil);
-var $author$project$Exercises$onlyTests = F2(
-	function (args, view) {
-		return {
-			init: _Utils_Tuple2(_Utils_Tuple0, $elm$core$Platform$Cmd$none),
-			portLocalStoragePop: args.portLocalStoragePop,
-			portLocalStoragePush: args.portLocalStoragePush,
-			subscriptions: function (_v0) {
-				return $elm$core$Platform$Sub$none;
-			},
-			tests: function (_v1) {
-				return args.tests;
-			},
-			update: F2(
-				function (_v2, _v3) {
-					return _Utils_Tuple2(_Utils_Tuple0, $elm$core$Platform$Cmd$none);
-				}),
-			view: A2(
-				$elm$core$Maybe$map,
-				function (v) {
-					return function (_v4) {
-						return v;
-					};
-				},
-				view)
-		};
-	});
-var $author$project$Exercises$exercise = function (args) {
-	return $author$project$Exercises$exerciseWithTea(
-		A2($author$project$Exercises$onlyTests, args, $elm$core$Maybe$Nothing));
-};
-var $author$project$MainGoal$portLocalStoragePop = _Platform_incomingPort('portLocalStoragePop', $elm$json$Json$Decode$string);
-var $author$project$MainGoal$portLocalStoragePush = _Platform_outgoingPort('portLocalStoragePush', $elm$json$Json$Encode$string);
-var $author$project$MainGoal$al = function (s) {
-	return s + 'al';
+var $author$project$Test023_exerciseWithTea$subscriptions = function (model) {
+	return $elm$core$Platform$Sub$none;
 };
 var $elm_explorations$test$Test$Runner$Failure$Equality = F2(
 	function (a, b) {
@@ -37140,31 +37285,175 @@ var $elm_explorations$test$Expect$equateWith = F4(
 	});
 var $elm_explorations$test$Expect$equal = A2($elm_explorations$test$Expect$equateWith, 'Expect.equal', $elm$core$Basics$eq);
 var $author$project$Exercises$equal = $elm_explorations$test$Expect$equal;
-var $author$project$MainGoal$g = function (f) {
-	return f('g');
-};
-var $author$project$MainGoal$o = F2(
-	function (s, f) {
-		return f(s + 'o');
+var $elm_explorations$test$Expect$notEqual = A2($elm_explorations$test$Expect$equateWith, 'Expect.notEqual', $elm$core$Basics$neq);
+var $author$project$Exercises$notEqual = $elm_explorations$test$Expect$notEqual;
+var $author$project$Test023_exerciseWithTea$randomSelect = F3(
+	function (seed, n, list) {
+		return _Utils_Tuple2(_List_Nil, seed);
 	});
-var $author$project$MainGoal$tests = _List_fromArray(
-	[
-		A2(
-		$author$project$Exercises$equal,
-		'goooooooal',
-		A8($author$project$MainGoal$g, $author$project$MainGoal$o, $author$project$MainGoal$o, $author$project$MainGoal$o, $author$project$MainGoal$o, $author$project$MainGoal$o, $author$project$MainGoal$o, $author$project$MainGoal$o, $author$project$MainGoal$al)),
-		A2(
-		$author$project$Exercises$equal,
-		'goal',
-		A2($author$project$MainGoal$g, $author$project$MainGoal$o, $author$project$MainGoal$al)),
-		A2(
-		$author$project$Exercises$equal,
-		'gal',
-		$author$project$MainGoal$g($author$project$MainGoal$al))
-	]);
-var $author$project$MainGoal$main = $author$project$Exercises$exercise(
-	{portLocalStoragePop: $author$project$MainGoal$portLocalStoragePop, portLocalStoragePush: $author$project$MainGoal$portLocalStoragePush, tests: $author$project$MainGoal$tests});
-_Platform_export({'MainGoal':{'init':$author$project$MainGoal$main(
+var $elm$core$List$sort = function (xs) {
+	return A2($elm$core$List$sortBy, $elm$core$Basics$identity, xs);
+};
+var $author$project$Test023_exerciseWithTea$tests = function (modelExercise) {
+	var seed = $elm$random$Random$initialSeed(modelExercise.intSeed);
+	var _v0 = A3(
+		$author$project$Test023_exerciseWithTea$randomSelect,
+		seed,
+		3,
+		A2($elm$core$List$range, 1, 1000));
+	var list2 = _v0.a;
+	var seed2 = _v0.b;
+	var _v1 = A3(
+		$author$project$Test023_exerciseWithTea$randomSelect,
+		seed2,
+		3,
+		A2($elm$core$List$range, 1, 1000));
+	var list3 = _v1.a;
+	var seed3 = _v1.b;
+	var _v2 = A3(
+		$author$project$Test023_exerciseWithTea$randomSelect,
+		seed3,
+		9,
+		A2($elm$core$List$range, 1, 9));
+	var list4 = _v2.a;
+	var seed4 = _v2.b;
+	var _v3 = A3(
+		$author$project$Test023_exerciseWithTea$randomSelect,
+		seed4,
+		3,
+		_List_fromArray(
+			['a', 'b']));
+	var list5 = _v3.a;
+	var seed5 = _v3.b;
+	var _v4 = A3(
+		$author$project$Test023_exerciseWithTea$randomSelect,
+		seed5,
+		0,
+		_List_fromArray(
+			[
+				_Utils_chr('a'),
+				_Utils_chr('b')
+			]));
+	var list6 = _v4.a;
+	var seed6 = _v4.b;
+	var _v5 = A3(
+		$author$project$Test023_exerciseWithTea$randomSelect,
+		seed6,
+		-1,
+		_List_fromArray(
+			[
+				_Utils_chr('a'),
+				_Utils_chr('b')
+			]));
+	var list7 = _v5.a;
+	var seed7 = _v5.b;
+	var _v6 = A3($author$project$Test023_exerciseWithTea$randomSelect, seed6, 1, _List_Nil);
+	var list8 = _v6.a;
+	var seed8 = _v6.b;
+	var _v7 = A3(
+		$author$project$Test023_exerciseWithTea$randomSelect,
+		seed,
+		3,
+		A2($elm$core$List$range, 1, 1000));
+	var list1 = _v7.a;
+	var seed1 = _v7.b;
+	return _List_fromArray(
+		[
+			A2(
+			$author$project$Exercises$equal,
+			$elm$core$List$sort(list2),
+			$elm$core$List$sort(list1)),
+			A2($author$project$Exercises$notEqual, list3, list2),
+			A2(
+			$author$project$Exercises$equal,
+			A2($elm$core$List$range, 1, 9),
+			$elm$core$List$sort(list4)),
+			A2(
+			$author$project$Exercises$equal,
+			_List_fromArray(
+				['a', 'b']),
+			$elm$core$List$sort(list5)),
+			A2($author$project$Exercises$equal, _List_Nil, list6),
+			A2($author$project$Exercises$equal, _List_Nil, list7),
+			A2($author$project$Exercises$equal, _List_Nil, list8)
+		]);
+};
+var $author$project$Test023_exerciseWithTea$update = F2(
+	function (msg, model) {
+		if (msg.$ === 'Test') {
+			return _Utils_Tuple2(
+				model,
+				A2(
+					$elm$random$Random$generate,
+					$author$project$Test023_exerciseWithTea$NewFace,
+					A2($elm$random$Random$int, $elm$random$Random$minInt, $elm$random$Random$maxInt)));
+		} else {
+			var newSeed = msg.a;
+			return _Utils_Tuple2(
+				_Utils_update(
+					model,
+					{intSeed: newSeed}),
+				$elm$core$Platform$Cmd$none);
+		}
+	});
+var $author$project$Test023_exerciseWithTea$Test = {$: 'Test'};
+var $author$project$Exercises$attrsButton = $author$project$Internal$Views$attrsButton;
+var $author$project$Test023_exerciseWithTea$view = function (model) {
+	return A2(
+		$mdgriffith$elm_ui$Element$column,
+		_List_fromArray(
+			[
+				$mdgriffith$elm_ui$Element$spacing(10)
+			]),
+		_List_fromArray(
+			[
+				A2(
+				$mdgriffith$elm_ui$Element$paragraph,
+				_List_Nil,
+				_List_fromArray(
+					[
+						$mdgriffith$elm_ui$Element$text(
+						'Seed value: ' + $elm$core$String$fromInt(model.intSeed))
+					])),
+				A2(
+				$mdgriffith$elm_ui$Element$paragraph,
+				_List_Nil,
+				_List_fromArray(
+					[
+						$mdgriffith$elm_ui$Element$text(
+						'Your die roll is ' + A2(
+							$elm$core$Maybe$withDefault,
+							'',
+							A2(
+								$elm$core$Maybe$map,
+								$elm$core$String$fromInt,
+								$elm$core$List$head(
+									A3(
+										$author$project$Test023_exerciseWithTea$randomSelect,
+										$elm$random$Random$initialSeed(model.intSeed),
+										1,
+										A2($elm$core$List$range, 1, 6)).a))))
+					])),
+				A2(
+				$mdgriffith$elm_ui$Element$Input$button,
+				$author$project$Exercises$attrsButton,
+				{
+					label: $mdgriffith$elm_ui$Element$text('Test again'),
+					onPress: $elm$core$Maybe$Just($author$project$Test023_exerciseWithTea$Test)
+				})
+			]));
+};
+var $author$project$Test023_exerciseWithTea$main = $author$project$Exercises$exerciseWithTea(
+	{
+		init: $author$project$Test023_exerciseWithTea$init,
+		portLocalStoragePop: $author$project$Test023_exerciseWithTea$portLocalStoragePop,
+		portLocalStoragePush: $author$project$Test023_exerciseWithTea$portLocalStoragePush,
+		subscriptions: $author$project$Test023_exerciseWithTea$subscriptions,
+		tests: $author$project$Test023_exerciseWithTea$tests,
+		update: $author$project$Test023_exerciseWithTea$update,
+		view: $elm$core$Maybe$Just($author$project$Test023_exerciseWithTea$view)
+	});
+_Platform_export({'Test023_exerciseWithTea':{'init':$author$project$Test023_exerciseWithTea$main(
 	A2(
 		$elm$json$Json$Decode$andThen,
 		function (localStorage) {
@@ -37181,4 +37470,4 @@ _Platform_export({'MainGoal':{'init':$author$project$MainGoal$main(
 				},
 				A2($elm$json$Json$Decode$field, 'index', $elm$json$Json$Decode$string));
 		},
-		A2($elm$json$Json$Decode$field, 'localStorage', $elm$json$Json$Decode$string)))({"versions":{"elm":"0.19.1"},"types":{"message":"Internal.Data.Msg ()","aliases":{"Internal.Data.LocalStorageRecord":{"args":[],"type":"{ hints : Internal.Data.Show, solutions : Internal.Data.Show, menuOpen : Basics.Bool, menuContent : Internal.Data.MenuContent, firstSeen : Time.Posix, lastSeen : Time.Posix, solved : Maybe.Maybe Time.Posix, testsTotal : Basics.Int, testsPassed : Basics.Int }"}},"unions":{"Internal.Data.Msg":{"args":["msgExercise"],"tags":{"ShowHint":["Basics.Int"],"ShowHintsAll":[],"ShowHintsNone":[],"HideHint":["Basics.Int"],"ShowSolution":["Basics.Int"],"ShowSolutionsAll":[],"ShowSolutionsNone":[],"HideSolution":["Basics.Int"],"MsgTEA":["msgExercise"],"ChangeMenu":["Internal.Data.MenuContent"],"MenuOver":["Basics.Bool"],"PortLocalStoragePop":["String.String"],"PortLocalStoragePush":["Dict.Dict Basics.Int Internal.Data.LocalStorageRecord"],"UpdatePosix":["Time.Posix"],"RemoveFromHistory":["Basics.Int"],"RemoveHistory":[]}},"Basics.Bool":{"args":[],"tags":{"True":[],"False":[]}},"Dict.Dict":{"args":["k","v"],"tags":{"RBNode_elm_builtin":["Dict.NColor","k","v","Dict.Dict k v","Dict.Dict k v"],"RBEmpty_elm_builtin":[]}},"Basics.Int":{"args":[],"tags":{"Int":[]}},"Maybe.Maybe":{"args":["a"],"tags":{"Just":["a"],"Nothing":[]}},"Internal.Data.MenuContent":{"args":[],"tags":{"ContentHints":[],"ContentSolutions":[],"ContentHistory":[],"ContentOtherExercises":[],"ContentHelp":[],"ContentContribute":[]}},"Time.Posix":{"args":[],"tags":{"Posix":["Basics.Int"]}},"Internal.Data.Show":{"args":[],"tags":{"ShowAll":[],"ShowNone":[],"Show":["Set.Set Basics.Int"]}},"String.String":{"args":[],"tags":{"String":[]}},"Dict.NColor":{"args":[],"tags":{"Red":[],"Black":[]}},"Set.Set":{"args":["t"],"tags":{"Set_elm_builtin":["Dict.Dict t ()"]}}}}})}});}(this));
+		A2($elm$json$Json$Decode$field, 'localStorage', $elm$json$Json$Decode$string)))({"versions":{"elm":"0.19.1"},"types":{"message":"Internal.Data.Msg Test023_exerciseWithTea.MsgExercise","aliases":{"Internal.Data.LocalStorageRecord":{"args":[],"type":"{ hints : Internal.Data.Show, solutions : Internal.Data.Show, menuOpen : Basics.Bool, menuContent : Internal.Data.MenuContent, firstSeen : Time.Posix, lastSeen : Time.Posix, solved : Maybe.Maybe Time.Posix, testsTotal : Basics.Int, testsPassed : Basics.Int }"}},"unions":{"Internal.Data.Msg":{"args":["msgExercise"],"tags":{"ShowHint":["Basics.Int"],"ShowHintsAll":[],"ShowHintsNone":[],"HideHint":["Basics.Int"],"ShowSolution":["Basics.Int"],"ShowSolutionsAll":[],"ShowSolutionsNone":[],"HideSolution":["Basics.Int"],"MsgTEA":["msgExercise"],"ChangeMenu":["Internal.Data.MenuContent"],"MenuOver":["Basics.Bool"],"PortLocalStoragePop":["String.String"],"PortLocalStoragePush":["Dict.Dict Basics.Int Internal.Data.LocalStorageRecord"],"UpdatePosix":["Time.Posix"],"RemoveFromHistory":["Basics.Int"],"RemoveHistory":[]}},"Test023_exerciseWithTea.MsgExercise":{"args":[],"tags":{"Test":[],"NewFace":["Basics.Int"]}},"Basics.Bool":{"args":[],"tags":{"True":[],"False":[]}},"Dict.Dict":{"args":["k","v"],"tags":{"RBNode_elm_builtin":["Dict.NColor","k","v","Dict.Dict k v","Dict.Dict k v"],"RBEmpty_elm_builtin":[]}},"Basics.Int":{"args":[],"tags":{"Int":[]}},"Maybe.Maybe":{"args":["a"],"tags":{"Just":["a"],"Nothing":[]}},"Internal.Data.MenuContent":{"args":[],"tags":{"ContentHints":[],"ContentSolutions":[],"ContentHistory":[],"ContentOtherExercises":[],"ContentHelp":[],"ContentContribute":[]}},"Time.Posix":{"args":[],"tags":{"Posix":["Basics.Int"]}},"Internal.Data.Show":{"args":[],"tags":{"ShowAll":[],"ShowNone":[],"Show":["Set.Set Basics.Int"]}},"String.String":{"args":[],"tags":{"String":[]}},"Dict.NColor":{"args":[],"tags":{"Red":[],"Black":[]}},"Set.Set":{"args":["t"],"tags":{"Set_elm_builtin":["Dict.Dict t ()"]}}}}})}});}(this));

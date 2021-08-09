@@ -72,9 +72,12 @@ type Msg
 
 view : { a | page : Page } -> Html.Html Msg
 view model =
-    layout [ Font.size 16 ] <|
+    layoutWith
+        { options = [ focusStyle { borderColor = Nothing, backgroundColor = Nothing, shadow = Nothing } ] }
+        [ Font.size 16 ]
+    <|
         column [ padding 20, width fill, spacing 20 ]
-            [ paragraph [ Region.heading 1, Font.size 35 ] [ text "elm-exercises" ]
+            [ paragraph [ Region.heading 1, Font.size 35 ] [ text "Elm Exercises Dashboard" ]
             , row [ spacing 10 ] <|
                 ([]
                     ++ [ Input.button [ Border.width 1, padding 5 ]
@@ -159,12 +162,21 @@ view model =
                         ]
 
                 ViewExercise exerciseData exerciseModel ->
-                    column [ width fill, spacing 10 ]
-                        [ paragraph [] [ text "Note: Syntax highlight is not working in this page." ]
-                        , el [ Border.width 1, padding 10, width fill ] <|
-                            map ExercisesMsg <|
-                                Exercises.viewElement (onlyTests (List.length exerciseData.tests)) exerciseModel
-                        ]
+                    -- let
+                    --         Exercises.viewElement
+                    -- in
+                    map ExercisesMsg <|
+                        el
+                            ([ Border.width 1
+                             , Border.color <| rgba 0 0 0 0.2
+                             , width fill
+                             , Border.shadow { offset = ( 0, 0 ), size = 0, blur = 10, color = rgba 0 0 0 0.2 }
+                             , clip
+                             ]
+                                ++ Exercises.viewElementAttrs exerciseModel
+                            )
+                        <|
+                            Exercises.viewElement (onlyTests (List.length exerciseData.tests)) exerciseModel
             ]
 
 

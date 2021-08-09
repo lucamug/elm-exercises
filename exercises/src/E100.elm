@@ -11,16 +11,10 @@ exerciseData =
     , categories = [ "Puzzles" ]
     , ellieId = ""
     , reference = "https://github.com/carbonfive/functional-programming-weekly-challenge/tree/master/Week002"
-    , problem = """Write three functions, `g`, `o`, and `al`, that can be called like in the example below to produce an appropriately enthusiastic goal announcement.
-
-### Example
-
-```
-g o o o o o o o al == "goooooooal"
+    , problem = """Write three functions, `g`, `o`, and `al`, that can be called like in the example below to produce an appropriately enthusiastic goal announcement."""
+    , example = """g o o o o o o o al == "goooooooal"
 g o al             == "goal"
-g al               == "gal"
-```
-"""
+g al               == "gal\""""
     , tests =
         [ "g o o o o o o o al |> equal \"goooooooal\""
         , "g o al |> equal \"goal\""

@@ -13,15 +13,10 @@ exerciseData =
     , reference = "https://johncrane.gitbooks.io/ninety-nine-elm-problems/content/p/p23.html"
     , problem = """Extract a given number of randomly selected elements from a list.
 
-### Example
-
-```elm
-randomSelect seed 3 ["Al", "Biff", "Cal", "Dee", "Ed", "Flip"] == ["Cal", "Dee", "Al"]
-```
-
 You must use [Elm's Random](https://package.elm-lang.org/packages/elm/random/latest/) to implement `randomSelect`. Use [`Random.step`](https://package.elm-lang.org/packages/elm/random/latest/Random#step) to generate a pseudo-random number. `Random.step` takes a [`Generator`](https://package.elm-lang.org/packages/elm/random/latest/Random#Generator) and a [`Seed`](https://package.elm-lang.org/packages/elm/random/latest/Random#Seed). The seed is passed as a parameter to `randomSelect`. You will need to create a generator such as [`Random.int`](https://package.elm-lang.org/packages/elm/random/latest/Random#int).
 
 `Random.step` will return both a randomly generated value from the generator, and a new seed. You must use the new seed for subsequent random numbers."""
+    , example = """randomSelect seed 3 ["Al", "Biff", "Cal", "Dee", "Ed", "Flip"] == ["Cal", "Dee", "Al"]"""
     , tests =
         [ "List.sort list1 |> equal (List.sort list2)"
         , "list2 |> notEqual list3"

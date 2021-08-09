@@ -6,10 +6,23 @@ NOTE: This package is not ready yet to be used.
 
 =====
 
-A system to create exercises leveraging the [Ellie](https://ellie-app.com/new) platform.
+A system to create Elm exercises leveraging the [Ellie](https://ellie-app.com/new) platform.
 
+It can be used in several way:
 
-## Submit a new Exercise
+1. One-off - You can crate a stand alone exercise that is not connected to any series. See this Ellie for an example.
+2. To create exercises in the "elm-exercises" series.
+3. To create a new series of exercises
+
+It supports three possible implementations:
+
+1. [`exercise`](latest/Exercises#exercise) - This is the simpler version, it only requires a list of tests. Most exercises can be built with this.
+2. [`exerciseWithView`](latest/Exercises#exerciseWithView) - This is an intermediate version where you can also create a `view` to be used as `Result` of the exercise.
+3. [`exerciseWithTea`](latest/Exercises#exerciseWithTea) - Useful in the rear case that you need a complete Elm Architecture for your exercise.
+
+## How to improve an existing exercise
+
+## How to submit a new Exercise
 
 To submit a new exercise, you need to
 

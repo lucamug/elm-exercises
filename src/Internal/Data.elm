@@ -247,6 +247,7 @@ type alias ExerciseData =
     , ellieId : String
     , reference : String
     , problem : String
+    , example : String
     , tests : List String
     , hints : List String
     , dummySolution : String
@@ -263,6 +264,7 @@ emptyExerciseData =
     , ellieId = ""
     , reference = ""
     , problem = ""
+    , example = ""
     , tests = []
     , hints = []
     , dummySolution = ""

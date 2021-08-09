@@ -12,6 +12,7 @@ exerciseData =
     , ellieId = "dFdvdf7wKmQa1"
     , reference = "https://johncrane.gitbooks.io/ninety-nine-elm-problems/content/p/p02.html"
     , problem = "Implement the function `penultimate` to find the next to last element of a list."
+    , example = "penultimate [ 1, 2, 3, 4 ] == Just 3\n\npenultimate [ \"a\" ] == Nothing"
     , tests =
         [ "penultimate [ 1, 2, 3, 4 ] |> equal (Just 3)"
         , "penultimate [ 1, 2 ] |> equal (Just 1)"

@@ -34,6 +34,7 @@ codecExerciseData =
         |> Codec.field "ellieId" .ellieId Codec.string
         |> Codec.field "reference" .reference Codec.string
         |> Codec.field "problem" .problem Codec.string
+        |> Codec.field "example" .example Codec.string
         |> Codec.field "tests" .tests (Codec.list Codec.string)
         |> Codec.field "hints" .hints (Codec.list Codec.string)
         |> Codec.field "dummySolutions" .dummySolution Codec.string

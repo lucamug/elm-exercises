@@ -1,4 +1,4 @@
-port module MainGoal exposing (main)
+port module Test100_exercise exposing (main)
 
 import Exercises exposing (..)
 

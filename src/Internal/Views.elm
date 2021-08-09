@@ -98,25 +98,6 @@ viewHeader model =
         ]
         ([]
             ++ [ el [ alignTop ] <| html <| logo
-
-               -- , text <|
-               --      DateFormat.format
-               --          [ DateFormat.monthNameAbbreviated
-               --          , DateFormat.text " "
-               --          , DateFormat.dayOfMonthSuffix
-               --          , DateFormat.text ", "
-               --          , DateFormat.yearNumber
-               --          , DateFormat.text " "
-               --          , DateFormat.hourMilitaryFixed
-               --          , DateFormat.text ":"
-               --          , DateFormat.minuteFixed
-               --          , DateFormat.text ":"
-               --          , DateFormat.secondFixed
-               --          , DateFormat.text ":"
-               --          , DateFormat.millisecondFixed
-               --          ]
-               --          Time.utc
-               --          model.posixNow
                , column [ spacing 10, width fill ]
                     ([]
                         ++ [ paragraph [ Font.size 14 ] [ text <| "Elm Exercise #" ++ String.fromInt model.exerciseData.id ] ]
@@ -151,18 +132,18 @@ viewHeader model =
                            )
                     )
                ]
-            ++ [ Input.button
-                    (attrsButton
-                        ++ [ alignRight
-                           , Font.size 24
-                           , padding 10
-                           , Border.width 0
-                           ]
-                    )
-                    { label = text "☰"
-                    , onPress = Just <| Internal.Data.ChangeMenu Internal.Data.ContentOtherExercises
-                    }
-               ]
+         -- ++ [ Input.button
+         --         (attrsButton
+         --             ++ [ alignRight
+         --                , Font.size 24
+         --                , padding 10
+         --                , Border.width 0
+         --                ]
+         --         )
+         --         { label = text "☰"
+         --         , onPress = Just <| Internal.Data.ChangeMenu Internal.Data.ContentOtherExercises
+         --         }
+         --    ]
         )
 
 
@@ -490,6 +471,200 @@ contentSolutions model =
     )
 
 
+chart1 :
+    { c
+        | index : List a1
+        , localStorage : Dict.Dict k { b | testsPassed : a, testsTotal : a }
+    }
+    -> Element msg
+chart1 model =
+    let
+        solved : Int
+        solved =
+            model.localStorage
+                |> Dict.toList
+                |> List.filter
+                    (\( id, localStorageRecord ) ->
+                        localStorageRecord.testsPassed == localStorageRecord.testsTotal
+                    )
+                |> List.length
+
+        total : Int
+        total =
+            model.index
+                |> List.length
+
+        seen : Int
+        seen =
+            model.localStorage
+                |> Dict.toList
+                |> List.length
+    in
+    C.chart
+        [ CA.height 200
+        , CA.width 300
+        ]
+        [ C.grid []
+        , C.yLabels [ CA.withGrid ]
+        , C.binLabels .label [ CA.moveDown 20 ]
+        , C.bars
+            []
+            [ C.bar .y [ CA.color CA.blue ] ]
+            [ { y = toFloat solved, label = "Solved" }
+            , { y = toFloat (seen - solved), label = "Not solved" }
+            , { y = toFloat seen, label = "Seen" }
+            , { y = toFloat (total - seen), label = "Not seen" }
+            ]
+        , C.barLabels [ CA.moveUp 10 ]
+        ]
+        |> html
+        |> el
+            [ width <| px 300
+            , centerX
+            , paddingXY 0 20
+            ]
+
+
+chart2 :
+    { c
+        | index : List a1
+        , localStorage :
+            Dict.Dict
+                k
+                { b
+                    | firstSeen : Time.Posix
+                    , solved : Maybe Time.Posix
+                    , testsPassed : a
+                    , testsTotal : a
+                }
+    }
+    -> Element msg
+chart2 model =
+    -- This Chart is not ready yet
+    let
+        test : List Int
+        test =
+            model.localStorage
+                |> Dict.toList
+                |> List.foldl
+                    (\( id, localStorageRecord ) acc ->
+                        case localStorageRecord.solved of
+                            Nothing ->
+                                acc
+
+                            Just solvedPosix ->
+                                (Time.posixToMillis solvedPosix
+                                    - Time.posixToMillis localStorageRecord.firstSeen
+                                )
+                                    // 1000
+                                    :: acc
+                    )
+                    []
+                |> Debug.log "xxx"
+
+        minSecs : Int
+        minSecs =
+            test
+                |> List.minimum
+                |> Maybe.withDefault 0
+
+        maxSecs : Int
+        maxSecs =
+            test
+                |> List.maximum
+                |> Maybe.withDefault 10000
+
+        maxRange : Int
+        maxRange =
+            maxSecs + minSecs
+
+        intervals : number
+        intervals =
+            10
+
+        rangeInterval : Float
+        rangeInterval =
+            toFloat maxRange / intervals
+
+        f : Int -> List number -> List number
+        f index acc =
+            let
+                iii =
+                    500
+            in
+            if
+                (iii
+                    > toFloat index
+                    * rangeInterval
+                )
+                    && (iii
+                            <= toFloat (index + 1)
+                            * rangeInterval
+                       )
+            then
+                iii :: acc
+
+            else
+                acc
+
+        tot : List number
+        tot =
+            List.range 0 intervals
+                |> List.Extra.indexedFoldl
+                    (\index item acc ->
+                        f index acc
+                     -- ( toFloat index * rangeInterval, toFloat (index + 1) * rangeInterval ) :: acc
+                    )
+                    []
+                |> Debug.log "xxx2"
+
+        solved : Int
+        solved =
+            model.localStorage
+                |> Dict.toList
+                |> List.filter
+                    (\( id, localStorageRecord ) ->
+                        localStorageRecord.testsPassed == localStorageRecord.testsTotal
+                    )
+                |> List.length
+
+        total : Int
+        total =
+            model.index
+                |> List.length
+
+        seen : Int
+        seen =
+            model.localStorage
+                |> Dict.toList
+                |> List.length
+    in
+    C.chart
+        [ CA.height 200
+        , CA.width 300
+        ]
+        [ C.grid []
+        , C.yLabels [ CA.withGrid ]
+        , C.binLabels .label [ CA.moveDown 20 ]
+        , C.bars
+            []
+            [ C.bar .y [ CA.color CA.blue ]
+            ]
+            [ { y = toFloat solved, label = "Solved" }
+            , { y = toFloat (seen - solved), label = "Not solved" }
+            , { y = toFloat seen, label = "Seen" }
+            , { y = toFloat (total - seen), label = "Unseen" }
+            ]
+        , C.barLabels [ CA.moveDown 15, CA.color "white" ]
+        ]
+        |> html
+        |> el
+            [ width <| px 300
+            , centerX
+            , paddingXY 0 20
+            ]
+
+
 contentHistory :
     Internal.Data.Model modelExercise
     -> ( String, FeatherIcons.Icon, List (Element (Internal.Data.Msg msgExercise)) )
@@ -498,183 +673,7 @@ contentHistory model =
     , icons.history
     , [ column [ spacing 30 ] <|
             []
-                ++ [ let
-                        solved : Int
-                        solved =
-                            model.localStorage
-                                |> Dict.toList
-                                |> List.filter
-                                    (\( id, localStorageRecord ) ->
-                                        localStorageRecord.testsPassed == localStorageRecord.testsTotal
-                                    )
-                                |> List.length
-
-                        total : Int
-                        total =
-                            model.index
-                                |> List.length
-
-                        seen : Int
-                        seen =
-                            model.localStorage
-                                |> Dict.toList
-                                |> List.length
-                     in
-                     C.chart
-                        [ CA.height 200
-                        , CA.width 300
-                        ]
-                        [ C.grid []
-
-                        -- , C.xLabels []
-                        , C.yLabels [ CA.withGrid ]
-                        , C.binLabels .label [ CA.moveDown 20 ]
-                        , C.bars
-                            []
-                            [ C.bar .y [ CA.color CA.blue ] ]
-                            [ { y = toFloat solved, label = "Solved" }
-                            , { y = toFloat (seen - solved), label = "Unsolved" }
-                            , { y = toFloat seen, label = "Seen" }
-                            , { y = toFloat (total - seen), label = "Not seen" }
-                            ]
-                        , C.barLabels [ CA.moveUp 10 ]
-                        ]
-                        |> html
-                        |> el
-                            [ width <| px 300
-                            , centerX
-                            , paddingXY 0 20
-                            ]
-                   ]
-                -- ++ [ let
-                --         test : List Int
-                --         test =
-                --             model.localStorage
-                --                 |> Dict.toList
-                --                 |> List.foldl
-                --                     (\( id, localStorageRecord ) acc ->
-                --                         case localStorageRecord.solved of
-                --                             Nothing ->
-                --                                 acc
-                --
-                --                             Just solvedPosix ->
-                --                                 (Time.posixToMillis solvedPosix
-                --                                     - Time.posixToMillis localStorageRecord.firstSeen
-                --                                 )
-                --                                     // 1000
-                --                                     :: acc
-                --                     )
-                --                     []
-                --                 |> Debug.log "xxx"
-                --
-                --         minSecs : Int
-                --         minSecs =
-                --             test
-                --                 |> List.minimum
-                --                 |> Maybe.withDefault 0
-                --
-                --         maxSecs : Int
-                --         maxSecs =
-                --             test
-                --                 |> List.maximum
-                --                 |> Maybe.withDefault 10000
-                --
-                --         maxRange : Int
-                --         maxRange =
-                --             maxSecs + minSecs
-                --
-                --         intervals : number
-                --         intervals =
-                --             10
-                --
-                --         rangeInterval : Float
-                --         rangeInterval =
-                --             toFloat maxRange / intervals
-                --
-                --         f : Int -> List number -> List number
-                --         f index acc =
-                --             let
-                --                 iii =
-                --                     500
-                --             in
-                --             if
-                --                 (iii
-                --                     > toFloat index
-                --                     * rangeInterval
-                --                 )
-                --                     && (iii
-                --                             <= toFloat (index + 1)
-                --                             * rangeInterval
-                --                        )
-                --             then
-                --                 iii :: acc
-                --
-                --             else
-                --                 acc
-                --
-                --         tot : List number
-                --         tot =
-                --             List.range 0 intervals
-                --                 |> List.Extra.indexedFoldl
-                --                     (\index item acc ->
-                --                         f index acc
-                --                      -- ( toFloat index * rangeInterval, toFloat (index + 1) * rangeInterval ) :: acc
-                --                     )
-                --                     []
-                --                 |> Debug.log "xxx2"
-                --
-                --         solved : Int
-                --         solved =
-                --             model.localStorage
-                --                 |> Dict.toList
-                --                 |> List.filter
-                --                     (\( id, localStorageRecord ) ->
-                --                         localStorageRecord.testsPassed == localStorageRecord.testsTotal
-                --                     )
-                --                 |> List.length
-                --
-                --         total : Int
-                --         total =
-                --             model.index
-                --                 |> List.length
-                --
-                --         seen : Int
-                --         seen =
-                --             model.localStorage
-                --                 |> Dict.toList
-                --                 |> List.length
-                --      in
-                --      C.chart
-                --         [ CA.height 200
-                --         , CA.width 300
-                --         ]
-                --         [ C.grid []
-                --
-                --         -- , C.xLabels []
-                --         , C.yLabels [ CA.withGrid ]
-                --         , C.binLabels .label [ CA.moveDown 20 ]
-                --         , C.bars
-                --             []
-                --             -- [ C.bar .y [ CA.gradient [ CA.purple, CA.pink ] ]
-                --             -- ]
-                --             [ C.bar .y [ CA.color CA.blue ]
-                --
-                --             -- , C.bar .z [ CA.color CA.green ]
-                --             ]
-                --             [ { y = toFloat solved, label = "Solved" }
-                --             , { y = toFloat (seen - solved), label = "Unsolved" }
-                --             , { y = toFloat seen, label = "Seen" }
-                --             , { y = toFloat (total - seen), label = "Unseen" }
-                --             ]
-                --         , C.barLabels [ CA.moveDown 15, CA.color "white" ]
-                --         ]
-                --         |> html
-                --         |> el
-                --             [ width <| px 300
-                --             , centerX
-                --             , paddingXY 0 20
-                --             ]
-                --    ]
+                ++ [ chart1 model ]
                 ++ [ viewTitle "Seen exercises" ]
                 ++ List.map
                     (\( id, localStorageRecord ) ->
@@ -747,18 +746,6 @@ viewExcerciseWithHistory posix nowId index localStorageRecord =
                         ]
                     ]
                ]
-            -- ++ [ row [ paddingEach { top = 0, right = 0, bottom = 0, left = 25 }, spacing 10 ]
-            --         [ FeatherIcons.eyeOff
-            --             |> FeatherIcons.withSize 18
-            --             |> FeatherIcons.toHtml []
-            --             |> html
-            --             |> el [ alignTop ]
-            --         , paragraph []
-            --             [ text "Last seen "
-            --             , text <| DateFormat.Relative.relativeTime posix localStorageRecord.lastSeen
-            --             ]
-            --         ]
-            --    ]
             ++ [ row [ paddingEach { top = 0, right = 0, bottom = 0, left = 25 }, spacing 10 ]
                     [ (case localStorageRecord.solved of
                         Just _ ->
@@ -826,43 +813,6 @@ viewExcerciseWithHistory posix nowId index localStorageRecord =
                ]
 
 
-exerciseLink :
-    List (Attribute msg)
-    -> Internal.Data.Index
-    -> Int
-    -> Element msg
-exerciseLink attrs index nowId =
-    if index.id == nowId then
-        row ([ spacing 10 ] ++ attrs)
-            [ paragraph [ Font.bold ]
-                [ text <| index.title
-                , text " (#"
-                , text <| String.fromInt index.id
-                , text ", "
-                , text <| Internal.Data.difficultyToString index.difficulty
-                , text ")"
-                ]
-            ]
-
-    else
-        row ([ spacing 10 ] ++ attrs)
-            [ paragraph []
-                [ newTabLink [ alignTop ]
-                    { url = "https://ellie-app.com/" ++ index.ellieId
-                    , label =
-                        paragraph []
-                            [ text <| index.title
-                            , text " (#"
-                            , text <| String.fromInt index.id
-                            , text ", "
-                            , text <| Internal.Data.difficultyToString index.difficulty
-                            , text ")"
-                            ]
-                    }
-                ]
-            ]
-
-
 relativeTimeOptions :
     { inSomeDays : Int -> String
     , inSomeHours : Int -> String
@@ -907,25 +857,70 @@ contentOtherExercises model =
                 |> categories
                 |> Dict.map
                     (\category excercises ->
-                        subtitle <| category ++ " (" ++ String.fromInt (List.length excercises) ++ ")"
-                    )
-                |> Dict.values
-                |> column []
-           ]
-        ++ [ subtitle "Exercises by Difficulty Level" ]
-        ++ [ subtitle "All Exercises" ]
-        ++ [ column [ spacing 5 ] <|
-                List.map
-                    (\i ->
-                        row [ spacing 10 ]
-                            [ el [ alignTop ] <| text "•"
-                            , paragraph [] <|
-                                [ exerciseLink [] i model.exerciseData.id ]
+                        column [ spacing 10 ]
+                            [ subtitle <| category ++ " (" ++ String.fromInt (List.length excercises) ++ ")"
+                            , column
+                                [ paddingEach { top = 0, right = 0, bottom = 0, left = 10 }, spacing 5 ]
+                              <|
+                                List.map (\exercise -> exerciseLink2 model exercise) excercises
                             ]
                     )
+                |> Dict.values
+                |> column [ spacing 20 ]
+           ]
+        ++ [ viewTitle "All Exercises" ]
+        ++ [ column [ paddingEach { top = 0, right = 0, bottom = 0, left = 10 }, spacing 5 ] <|
+                List.map
+                    (\i -> exerciseLink2 model i)
                     model.index
            ]
     )
+
+
+exerciseLink :
+    List (Attribute msg)
+    -> Internal.Data.Index
+    -> Int
+    -> Element msg
+exerciseLink attrs index nowId =
+    if index.id == nowId then
+        row ([ spacing 10 ] ++ attrs)
+            [ paragraph [ Font.bold ]
+                [ text <| index.title
+                , text " (#"
+                , text <| String.fromInt index.id
+                , text ", "
+                , text <| Internal.Data.difficultyToString index.difficulty
+                , text ")"
+                ]
+            ]
+
+    else
+        row ([ spacing 10 ] ++ attrs)
+            [ paragraph []
+                [ newTabLink [ alignTop ]
+                    { url = "https://ellie-app.com/" ++ index.ellieId
+                    , label =
+                        paragraph []
+                            [ text <| index.title
+                            , text " (#"
+                            , text <| String.fromInt index.id
+                            , text ", "
+                            , text <| Internal.Data.difficultyToString index.difficulty
+                            , text ")"
+                            ]
+                    }
+                ]
+            ]
+
+
+exerciseLink2 : { b | exerciseData : { a | id : Int } } -> Internal.Data.Index -> Element msg
+exerciseLink2 model i =
+    row [ spacing 10 ]
+        [ el [ alignTop ] <| text "•"
+        , paragraph [] <|
+            [ exerciseLink [] i model.exerciseData.id ]
+        ]
 
 
 viewTitle : String -> Element msg
@@ -1106,7 +1101,15 @@ viewBody tea model =
                             ++ [ viewMainTitle "Problem" ]
                             ++ [ column [ spacing 16, width fill ] <|
                                     []
-                                        ++ Internal.Markdown.markdown model.exerciseData.problem
+                                        ++ Internal.Markdown.markdown
+                                            (model.exerciseData.problem
+                                                ++ (if String.isEmpty model.exerciseData.example then
+                                                        ""
+
+                                                    else
+                                                        "\n## Examples\n```elm\n" ++ model.exerciseData.example ++ "\n```\n"
+                                                   )
+                                            )
                                         ++ [ paragraph [ alpha 0.5 ]
                                                 [ text "Diffculty level: "
                                                 , el [] <| text <| String.Extra.toSentenceCase <| Internal.Data.difficultyToString model.exerciseData.difficulty
@@ -1244,6 +1247,57 @@ maybeLength list =
         Just length
 
 
+viewElementAttrs :
+    Internal.Data.Model modelExercise
+    -> List (Attribute (Internal.Data.Msg msgExercise))
+viewElementAttrs model =
+    []
+        ++ (if model.localStorageRecord.menuOpen then
+                [ inFront <|
+                    -- Cover layer
+                    el
+                        [ width fill
+                        , height fill
+                        , Background.color <| rgba 0 0 0 0.2
+                        , htmlAttribute <| Html.Attributes.style "transition" "0.2s"
+                        , Events.onClick <| Internal.Data.ChangeMenu model.localStorageRecord.menuContent
+                        ]
+                    <|
+                        none
+                ]
+
+            else
+                [ inFront <| text "" ]
+           )
+        ++ [ inFront <| viewSideMenu model ]
+        ++ [ inFront <| viewSideButtons model ]
+        ++ (if model.localStorageRecord.menuOpen then
+                [ inFront <|
+                    Input.button
+                        (attrsButton
+                            ++ [ alignRight
+                               , Font.size 24
+                               , padding 10
+                               , Border.width 0
+                               , moveLeft 15
+                               , moveDown 17
+                               , mouseOver []
+                               ]
+                        )
+                        { label =
+                            FeatherIcons.x
+                                |> FeatherIcons.withSize 32
+                                |> FeatherIcons.toHtml []
+                                |> html
+                        , onPress = Just <| Internal.Data.ChangeMenu model.localStorageRecord.menuContent
+                        }
+                ]
+
+            else
+                []
+           )
+
+
 view :
     Internal.Data.TEA modelExercise msgExercise
     -> Internal.Data.Model modelExercise
@@ -1251,52 +1305,7 @@ view :
 view tea model =
     layoutWith
         { options = [ focusStyle { borderColor = Nothing, backgroundColor = Nothing, shadow = Nothing } ] }
-        ([]
-            ++ (if model.localStorageRecord.menuOpen then
-                    [ inFront <|
-                        -- Cover layer
-                        el
-                            [ width fill
-                            , height fill
-                            , Background.color <| rgba 0 0 0 0.2
-                            , htmlAttribute <| Html.Attributes.style "transition" "0.2s"
-                            , Events.onClick <| Internal.Data.ChangeMenu model.localStorageRecord.menuContent
-                            ]
-                        <|
-                            none
-                    ]
-
-                else
-                    [ inFront <| text "" ]
-               )
-            ++ [ inFront <| viewSideMenu model ]
-            ++ [ inFront <| viewSideButtons model ]
-            ++ (if model.localStorageRecord.menuOpen then
-                    [ inFront <|
-                        Input.button
-                            (attrsButton
-                                ++ [ alignRight
-                                   , Font.size 24
-                                   , padding 10
-                                   , Border.width 0
-                                   , moveLeft 15
-                                   , moveDown 17
-                                   , mouseOver []
-                                   ]
-                            )
-                            { label =
-                                FeatherIcons.x
-                                    |> FeatherIcons.withSize 32
-                                    |> FeatherIcons.toHtml []
-                                    |> html
-                            , onPress = Just <| Internal.Data.ChangeMenu model.localStorageRecord.menuContent
-                            }
-                    ]
-
-                else
-                    []
-               )
-        )
+        (viewElementAttrs model)
         (viewElement tea model)
 
 
@@ -1413,10 +1422,6 @@ red =
     rgb 0.8 0 0
 
 
-
--- FROM List.Extra
-
-
 zip : List a -> List b -> List ( a, b )
 zip =
     List.map2 Tuple.pair
@@ -1441,19 +1446,11 @@ indexedFoldl func acc list =
     Tuple.second (List.foldl step ( 0, acc ) list)
 
 
-
---
---
---
-
-
 failureReasonToString : Test.Runner.Failure.Reason -> String
 failureReasonToString failureReason =
     case failureReason of
         --
         -- Refer to https://package.elm-lang.org/packages/elm-explorations/test/latest/Test-Runner-Failure#Reason
-        --
-        -- TODO - Refine these messages
         --
         Test.Runner.Failure.Equality expected actual ->
             "because I was given `"
@@ -1592,7 +1589,6 @@ difficulties exercises =
 
 svgBulb2 : Html.Html msg
 svgBulb2 =
-    -- Svg.svg [ SA.xmlns "http://www.w3.org/2000/svg", SA.viewBox "0 0 442 442" ]
     Svg.svg [ SA.viewBox "0 0 442 442", SA.width "100%", SA.height "100%" ]
         [ Svg.path [ SA.d "M221 0a149 149 0 00-77 276l4 35c3 16 16 29 32 29h82c16 0 30-13 32-29l5-35A149 149 0 00221 0zm63 261c-2 1-4 4-5 7l-5 40c-1 7-6 12-12 12h-82c-6 0-11-5-12-12l-5-40c-1-3-2-6-5-7a129 129 0 0163-241 129 129 0 0163 241zM273 351H169a10 10 0 100 20h104a10 10 0 100-20zM261 383h-80c-5 0-10 4-10 10a50 50 0 00100 0c0-6-5-10-10-10zm-40 39c-13 0-24-8-28-19h56c-4 11-15 19-28 19z" ] []
         , Svg.path [ SA.d "M284 155v-1-1-1-1-1a9 9 0 00-2-1v-1a10 10 0 00-5-3 10 10 0 00-2 0h-4l-1 1a9 9 0 00-2 1l-20 16-21-16c-3-3-8-3-12 0l-21 16-20-16a10 10 0 00-1-1h-1a9 9 0 00-1-1h-1-1-1-1a9 9 0 00-2 0 10 10 0 00-5 3v1a11 11 0 00-1 0v2h-1v4a9 9 0 000 2l39 144a10 10 0 1019-5l-31-115 3 2c2 2 4 2 6 2l7-2 20-16 21 16c3 3 8 3 12 0l3-2-31 115a10 10 0 0020 5l38-144a11 11 0 000-2z" ] []

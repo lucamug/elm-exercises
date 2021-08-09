@@ -3,7 +3,7 @@ module Exercises exposing
     , ExerciseData, Difficulty, difficulty
     , attrsButton, yourImplementationGoesHere
     , Test, equal, notEqual, all, lessThan, atMost, greaterThan, atLeast, FloatingPointTolerance, within, notWithin, true, false, ok, err, equalLists, equalDicts, equalSets, pass, fail, onFail
-    , update, viewElement, init, TEA, Index
+    , update, viewElement, viewElementAttrs, init, TEA, Index
     , codecIndex, codecExerciseData
     )
 
@@ -36,7 +36,7 @@ These are the same tests of [elm-explorations/test](https://package.elm-lang.org
 
 # For internal use
 
-@docs update, viewElement, init, TEA, Index
+@docs update, viewElement, viewElementAttrs, init, TEA, Index
 
 
 ## Codecs
@@ -80,6 +80,14 @@ viewElement :
     -> Element (Internal.Data.Msg msgExercise)
 viewElement =
     Internal.Views.viewElement
+
+
+{-| -}
+viewElementAttrs :
+    Internal.Data.Model modelExercise
+    -> List (Attribute (Internal.Data.Msg msgExercise))
+viewElementAttrs =
+    Internal.Views.viewElementAttrs
 
 
 {-| -}
@@ -290,16 +298,27 @@ type alias TEA modelExercise msgExercise =
         -- Your implementation goes here
         Nothing
 
-    main : Program Flags Model Msg
+    tests : List Test
+    tests =
+        -- Your implementation should pass
+        -- these tests
+        [ last [ 1, 2, 3, 4 ] == Just 4
+        , last [ 1 ] == Just 1
+        , last [] == Nothing
+        , last [ 'a', 'b', 'c' ] == Just 'c'
+        ]
+
+    main : Program Flags (Model ()) (Msg ())
     main =
         exercise
-            -- Your implementation should pass
-            -- these tests
-            [ last [ 1, 2, 3, 4 ] == Just 4
-            , last [ 1 ] == Just 1
-            , last [] == Nothing
-            , last [ 'a', 'b', 'c' ] == Just 'c'
-            ]
+            { tests = tests
+            , portLocalStoragePop = portLocalStoragePop
+            , portLocalStoragePush = portLocalStoragePush
+            }
+
+    port portLocalStoragePop : (String -> msg) -> Sub msg
+
+    port portLocalStoragePush : String -> Cmd msg
 
 -}
 exercise :
@@ -585,12 +604,6 @@ saveLocalStorage tea model =
     Time.now
         |> Task.andThen (\posix -> Task.succeed (Internal.Data.toLocalStorage posix tea model))
         |> Task.perform Internal.Data.PortLocalStoragePush
-
-
-modelToLocalStorage : Model modelExercise -> Dict.Dict Int Internal.Data.LocalStorageRecord
-modelToLocalStorage model =
-    model.localStorage
-        |> Dict.insert model.exerciseData.id model.localStorageRecord
 
 
 localStorageToString : Dict.Dict Int Internal.Data.LocalStorageRecord -> String

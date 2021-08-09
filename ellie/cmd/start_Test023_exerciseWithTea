@@ -1,0 +1,4 @@
+#!/bin/bash
+set -eu
+
+npx elm-go src/Test023_exerciseWithTea.elm --port=8004 --dir=docs --start-page=Test023_exerciseWithTea.html -- --output=docs/elm.js --debug

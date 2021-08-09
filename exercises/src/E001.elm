@@ -12,6 +12,7 @@ exerciseData =
     , ellieId = "dFhBMLPrtWsa1"
     , reference = "https://johncrane.gitbooks.io/ninety-nine-elm-problems/content/p/p01.html"
     , problem = "Write a function `last` that returns the last element of a list. An empty list doesn't have a last element, therefore `last` must return a `Maybe`."
+    , example = "last [ 1, 2, 3, 4 ] == Just 4\n\nlast [] == Nothing"
     , tests =
         [ "last [ 1, 2, 3, 4 ] |> equal (Just 4)"
         , "last [ 1 ] |> equal (Just 1)"

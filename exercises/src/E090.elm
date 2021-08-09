@@ -17,6 +17,7 @@ exerciseData =
         
 Represent the positions of the queens as a list of numbers 1..N. Example: [4,2,7,3,6,8,5,1] means that the queen in the first column is in row 4, the queen in the second column is in row 2, etc.
 """
+    , example = ""
     , tests =
         [ "List.length (queens 8) |> equal 92"
         , "List.length (queens 7) |> equal 40"
@@ -30,10 +31,65 @@ Represent the positions of the queens as a list of numbers 1..N. Example: [4,2,7
         ]
     , hints =
         -- Add this: https://stackoverflow.com/questions/19998153/algorithm-of-n-queens
-        []
+        [ """How about this idea? (from [Stack Overflow](https://stackoverflow.com/questions/19998153/algorithm-of-n-queens))
+            
+```            
+try to place first queen
+success
+   try to place second queen
+   success
+      try to place third queen
+      fail
+   try to place second queen in another position
+   success
+      try to place third queen
+      success
+         try to place fourth queen
+```
+""" ]
     , dummySolution = """queens : Int -> List (List Int)
 queens n = 
     -- """ ++ yourImplementationGoesHere ++ """
     []"""
-    , solutions = []
+    , solutions = [ """Solution by [lucamug](https://twitter.com/luca_mug) "inspired by" [rosettacode.org/wiki/N-queens_problem](http://rosettacode.org/wiki/N-queens_problem#Haskell) and [davidpomerenke/elm-problem-solving](https://package.elm-lang.org/packages/davidpomerenke/elm-problem-solving/latest/Problem-Example#queens).
+
+```
+queens : Int -> List (List Int)
+queens n =
+    oneMoreQueen n [] []
+        |> Tuple.second
+        |> List.map (List.map Tuple.second)
+
+
+type alias State =
+    List ( Int, Int )
+
+
+oneMoreQueen : Int -> List State -> State -> ( List State, List State )
+oneMoreQueen boardSize solutions state =
+    let
+        y : Int
+        y =
+            List.length state
+    in
+    if y < boardSize then
+        List.range 0 (boardSize - 1)
+            |> List.filter (\\x -> not (isQueenUnderAttack y x state))
+            |> List.map (\\x -> ( y, x ) :: state)
+            |> List.map (oneMoreQueen boardSize solutions)
+            |> List.unzip
+            |> Tuple.mapBoth List.concat List.concat
+
+    else
+        ( [], state :: solutions )
+
+
+isQueenUnderAttack : Int -> Int -> State -> Bool
+isQueenUnderAttack y x state =
+    List.any
+        (\\( yy, xx ) ->
+            xx == x || yy == y || abs (yy - y) == abs (xx - x)
+        )
+        state
+```""" ]
     }
