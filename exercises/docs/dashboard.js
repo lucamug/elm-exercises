@@ -4624,20 +4624,6 @@ function _Browser_application(impl)
 	var onUrlChange = impl.onUrlChange;
 	var onUrlRequest = impl.onUrlRequest;
 	var key = function() { key.a(onUrlChange(_Browser_getUrl())); };
-key['elm-hot-nav-key'] = true;
-key['elm-hot-nav-key'] = true;
-key['elm-hot-nav-key'] = true;
-key['elm-hot-nav-key'] = true;
-key['elm-hot-nav-key'] = true;
-key['elm-hot-nav-key'] = true;
-key['elm-hot-nav-key'] = true;
-key['elm-hot-nav-key'] = true;
-key['elm-hot-nav-key'] = true;
-key['elm-hot-nav-key'] = true;
-key['elm-hot-nav-key'] = true;
-key['elm-hot-nav-key'] = true;
-key['elm-hot-nav-key'] = true;
-key['elm-hot-nav-key'] = true;
 
 	return _Browser_document({
 		setup: function(sendToApp)
@@ -10942,16 +10928,20 @@ var $author$project$Main$initForm = {
 		[
 			$rakutentech$r10$R10$Form$entity.field(
 			{
+				autocomplete: $elm$core$Maybe$Nothing,
+				clickableLabel: false,
 				helperText: $elm$core$Maybe$Just('A number to identify the exercise. Number from 1 to 99 are reserved for [blah](https://example.com)'),
 				id: 'id',
 				idDom: $elm$core$Maybe$Nothing,
 				label: 'ID',
+				maxWidth: $elm$core$Maybe$Nothing,
+				minWidth: $elm$core$Maybe$Nothing,
 				requiredLabel: $elm$core$Maybe$Just('(Required)'),
 				type_: $rakutentech$r10$R10$FormTypes$TypeText($rakutentech$r10$R10$FormTypes$TextPlain),
 				validationSpecs: $elm$core$Maybe$Just(
 					{
-						hidePassedValidationStyle: true,
-						showPassedValidationMessages: false,
+						pretendIsNotValidatedIfValid: true,
+						showAlsoPassedValidation: false,
 						validation: _List_fromArray(
 							[$rakutentech$r10$R10$Form$validation.required]),
 						validationIcon: $rakutentech$r10$R10$FormTypes$NoIcon
@@ -10959,16 +10949,20 @@ var $author$project$Main$initForm = {
 			}),
 			$rakutentech$r10$R10$Form$entity.field(
 			{
+				autocomplete: $elm$core$Maybe$Nothing,
+				clickableLabel: false,
 				helperText: $elm$core$Maybe$Just('The title of the exercise'),
 				id: 'title',
 				idDom: $elm$core$Maybe$Nothing,
 				label: 'Title',
+				maxWidth: $elm$core$Maybe$Nothing,
+				minWidth: $elm$core$Maybe$Nothing,
 				requiredLabel: $elm$core$Maybe$Just('(Required)'),
 				type_: $rakutentech$r10$R10$FormTypes$TypeText($rakutentech$r10$R10$FormTypes$TextPlain),
 				validationSpecs: $elm$core$Maybe$Just(
 					{
-						hidePassedValidationStyle: true,
-						showPassedValidationMessages: false,
+						pretendIsNotValidatedIfValid: true,
+						showAlsoPassedValidation: false,
 						validation: _List_fromArray(
 							[$rakutentech$r10$R10$Form$validation.required]),
 						validationIcon: $rakutentech$r10$R10$FormTypes$NoIcon
@@ -10976,10 +10970,14 @@ var $author$project$Main$initForm = {
 			}),
 			$rakutentech$r10$R10$Form$entity.field(
 			{
+				autocomplete: $elm$core$Maybe$Nothing,
+				clickableLabel: false,
 				helperText: $elm$core$Maybe$Nothing,
 				id: 'problem',
 				idDom: $elm$core$Maybe$Nothing,
 				label: 'Problem',
+				maxWidth: $elm$core$Maybe$Nothing,
+				minWidth: $elm$core$Maybe$Nothing,
 				requiredLabel: $elm$core$Maybe$Just('(Required)'),
 				type_: $rakutentech$r10$R10$FormTypes$TypeText($rakutentech$r10$R10$FormTypes$TextMultiline),
 				validationSpecs: $elm$core$Maybe$Nothing
@@ -11818,6 +11816,10 @@ var $author$project$Exercises$update = F3(
 					msg,
 					_Utils_Tuple2(model, $elm$core$Platform$Cmd$none))));
 	});
+var $rakutentech$r10$R10$Form$Internal$Msg$OnPhoneMsg = F4(
+	function (a, b, c, d) {
+		return {$: 'OnPhoneMsg', a: a, b: b, c: c, d: d};
+	});
 var $rakutentech$r10$R10$Form$Internal$Msg$OnSingleMsg = F4(
 	function (a, b, c, d) {
 		return {$: 'OnSingleMsg', a: a, b: b, c: c, d: d};
@@ -11830,46 +11832,6 @@ var $rakutentech$r10$R10$Form$Internal$Key$toString = function (_v0) {
 		$rakutentech$r10$R10$Form$Internal$Key$separator,
 		$elm$core$List$reverse(keys));
 };
-var $rakutentech$r10$R10$Form$Internal$Dict$get = function (key) {
-	return $elm$core$Dict$get(
-		$rakutentech$r10$R10$Form$Internal$Key$toString(key));
-};
-var $rakutentech$r10$R10$Form$Internal$Msg$isChangingValues = function (msg) {
-	switch (msg.$) {
-		case 'ChangeValue':
-			return true;
-		case 'AddEntity':
-			return true;
-		case 'RemoveEntity':
-			return true;
-		default:
-			return false;
-	}
-};
-var $rakutentech$r10$R10$Form$Internal$Msg$handleChangesSinceLastSubmissions = F2(
-	function (changesSinceLastSubmissions, msg) {
-		if (msg.$ === 'Submit') {
-			return false;
-		} else {
-			return $rakutentech$r10$R10$Form$Internal$Msg$isChangingValues(msg) ? true : changesSinceLastSubmissions;
-		}
-	});
-var $rakutentech$r10$R10$Form$Internal$FieldState$NotYetValidated = {$: 'NotYetValidated'};
-var $rakutentech$r10$R10$Form$Internal$FieldState$init = {dirty: false, disabled: false, lostFocusOneOrMoreTime: false, scroll: 0, search: '', select: '', showPassword: false, validation: $rakutentech$r10$R10$Form$Internal$FieldState$NotYetValidated, value: ''};
-var $rakutentech$r10$R10$Form$Internal$Update$stateWithDefault = function (maybeFieldState) {
-	return A2($elm$core$Maybe$withDefault, $rakutentech$r10$R10$Form$Internal$FieldState$init, maybeFieldState);
-};
-var $rakutentech$r10$R10$Form$Internal$Update$helperToggleShowPassword = function (maybeFieldState) {
-	var fieldState = $rakutentech$r10$R10$Form$Internal$Update$stateWithDefault(maybeFieldState);
-	return $elm$core$Maybe$Just(
-		_Utils_update(
-			fieldState,
-			{showPassword: !fieldState.showPassword}));
-};
-var $rakutentech$r10$R10$Form$Internal$Dict$insert = function (key) {
-	return $elm$core$Dict$insert(
-		$rakutentech$r10$R10$Form$Internal$Key$toString(key));
-};
 var $rakutentech$r10$R10$Form$Internal$Update$onActivate = F2(
 	function (key, formState) {
 		return _Utils_update(
@@ -11879,6 +11841,11 @@ var $rakutentech$r10$R10$Form$Internal$Update$onActivate = F2(
 					$rakutentech$r10$R10$Form$Internal$Key$toString(key))
 			});
 	});
+var $rakutentech$r10$R10$Form$Internal$FieldState$NotYetValidated = {$: 'NotYetValidated'};
+var $rakutentech$r10$R10$Form$Internal$FieldState$init = {dirty: false, disabled: false, lostFocusOneOrMoreTime: false, scroll: 0, search: '', select: '', showPassword: false, validation: $rakutentech$r10$R10$Form$Internal$FieldState$NotYetValidated, value: ''};
+var $rakutentech$r10$R10$Form$Internal$Update$stateWithDefault = function (maybeFieldState) {
+	return A2($elm$core$Maybe$withDefault, $rakutentech$r10$R10$Form$Internal$FieldState$init, maybeFieldState);
+};
 var $rakutentech$r10$R10$Form$Internal$Update$helperUpdateSearch = F2(
 	function (value, maybeFieldState) {
 		var fieldState = $rakutentech$r10$R10$Form$Internal$Update$stateWithDefault(maybeFieldState);
@@ -11923,8 +11890,104 @@ var $rakutentech$r10$R10$Form$Internal$Update$onChangeSelect = F3(
 					formState.fieldsState)
 			});
 	});
+var $rakutentech$r10$R10$Form$Internal$Update$helperUpdateDirty = function (maybeFieldState) {
+	var fieldState = $rakutentech$r10$R10$Form$Internal$Update$stateWithDefault(maybeFieldState);
+	return $elm$core$Maybe$Just(
+		_Utils_update(
+			fieldState,
+			{dirty: true}));
+};
+var $rakutentech$r10$R10$Form$Internal$Update$helperUpdateValue = F2(
+	function (value, maybeFieldState) {
+		var fieldState = $rakutentech$r10$R10$Form$Internal$Update$stateWithDefault(maybeFieldState);
+		return $elm$core$Maybe$Just(
+			_Utils_update(
+				fieldState,
+				{value: value}));
+	});
+var $rakutentech$r10$R10$Form$Internal$FieldState$Validated = function (a) {
+	return {$: 'Validated', a: a};
+};
+var $rakutentech$r10$R10$Form$Internal$Dict$get = function (key) {
+	return $elm$core$Dict$get(
+		$rakutentech$r10$R10$Form$Internal$Key$toString(key));
+};
+var $elm$core$List$head = function (list) {
+	if (list.b) {
+		var x = list.a;
+		var xs = list.b;
+		return $elm$core$Maybe$Just(x);
+	} else {
+		return $elm$core$Maybe$Nothing;
+	}
+};
+var $rakutentech$r10$R10$Form$Internal$Key$headId = function (_v0) {
+	var list = _v0.a;
+	return A2(
+		$elm$core$Maybe$withDefault,
+		'CANNOT_FIND_THE_HEAD_ID_IN_AN_EMPTY_KEY',
+		$elm$core$List$head(list));
+};
+var $elm$core$Maybe$map = F2(
+	function (f, maybe) {
+		if (maybe.$ === 'Just') {
+			var value = maybe.a;
+			return $elm$core$Maybe$Just(
+				f(value));
+		} else {
+			return $elm$core$Maybe$Nothing;
+		}
+	});
+var $rakutentech$r10$R10$Form$Internal$FieldState$MessageErr = F2(
+	function (a, b) {
+		return {$: 'MessageErr', a: a, b: b};
+	});
+var $rakutentech$r10$R10$Form$Internal$FieldState$MessageOk = F2(
+	function (a, b) {
+		return {$: 'MessageOk', a: a, b: b};
+	});
+var $elm$core$List$any = F2(
+	function (isOkay, list) {
+		any:
+		while (true) {
+			if (!list.b) {
+				return false;
+			} else {
+				var x = list.a;
+				var xs = list.b;
+				if (isOkay(x)) {
+					return true;
+				} else {
+					var $temp$isOkay = isOkay,
+						$temp$list = xs;
+					isOkay = $temp$isOkay;
+					list = $temp$list;
+					continue any;
+				}
+			}
+		}
+	});
+var $elm$core$List$all = F2(
+	function (isOkay, list) {
+		return !A2(
+			$elm$core$List$any,
+			A2($elm$core$Basics$composeL, $elm$core$Basics$not, isOkay),
+			list);
+	});
 var $rakutentech$r10$R10$Form$Internal$Key$Key = function (a) {
 	return {$: 'Key', a: a};
+};
+var $rakutentech$r10$R10$Form$Internal$Key$fromString = function (keyAsString) {
+	return $rakutentech$r10$R10$Form$Internal$Key$Key(
+		$elm$core$List$reverse(
+			A2($elm$core$String$split, $rakutentech$r10$R10$Form$Internal$Key$separator, keyAsString)));
+};
+var $rakutentech$r10$R10$Form$Internal$Validation$isValid = function (outcome) {
+	if (outcome.$ === 'MessageOk') {
+		return true;
+	} else {
+		return false;
+	}
 };
 var $rakutentech$r10$R10$Form$Internal$Key$fromList = function (list) {
 	return $rakutentech$r10$R10$Form$Internal$Key$Key(
@@ -11932,6 +11995,450 @@ var $rakutentech$r10$R10$Form$Internal$Key$fromList = function (list) {
 			$elm$core$List$filter,
 			A2($elm$core$Basics$composeL, $elm$core$Basics$not, $elm$core$String$isEmpty),
 			list));
+};
+var $rakutentech$r10$R10$Form$Internal$Key$replaceLeaf = F2(
+	function (newLeaf, _v0) {
+		var keyList = _v0.a;
+		return $elm$core$List$isEmpty(keyList) ? $rakutentech$r10$R10$Form$Internal$Key$fromList(keyList) : $rakutentech$r10$R10$Form$Internal$Key$fromList(
+			A2(
+				$elm$core$List$cons,
+				newLeaf,
+				A2($elm$core$List$drop, 1, keyList)));
+	});
+var $rakutentech$r10$R10$Form$Internal$Validation$skipValidationIfEmpty = F2(
+	function (value, validationOutcome) {
+		return $elm$core$String$isEmpty(value) ? $elm$core$Maybe$Nothing : $elm$core$Maybe$Just(validationOutcome);
+	});
+var $elm$core$String$trim = _String_trim;
+var $rakutentech$r10$R10$Form$Internal$Translator$validationCodes = {allOf: 'ALL_OF', emailFormatInvalid: 'INVALID_EMAIL_FORMAT', emailFormatValid: 'VALID_EMAIL_FORMAT', empty: 'EMPTY', equalInvalid: 'INVALID_EQUAL', formatInvalid: 'INVALID_FORMAT', formatInvalidCharactersInvalid: 'INVALID_FORMAT_INVALID_CHARACTERS', formatNoNumberInvalid: 'INVALID_FORMAT_NO_NUMBER', formatNoSpecialCharactersInvalid: 'INVALID_FORMAT_NO_SPECIAL_CHARACTERS', formatNoUppercaseInvalid: 'INVALID_FORMAT_NO_UPPERCASE', formatValid: 'VALID_FORMAT', hexColorFormatInvalid: 'INVALID_HEX_COLOR_FORMAT', jsonFormatInvalid: 'INVALID_JSON_FORMAT', lengthTooLargeInvalid: 'INVALID_LENGTH_TOO_LARGE', lengthTooSmallInvalid: 'INVALID_LENGTH_TOO_SMALL', oneOf: 'ONE_OF', required: 'REQUIRED', requiredField: 'REQUIRED_FIELD', somethingWrong: 'SOMETHING_WENT_WRONG_DURING_VALIDATION', valueInvalid: 'INVALID_VALUE'};
+var $rakutentech$r10$R10$Form$Internal$Validation$validateEmpty = function (value) {
+	return $elm$core$String$isEmpty(value) ? A2($rakutentech$r10$R10$Form$Internal$FieldState$MessageOk, $rakutentech$r10$R10$Form$Internal$Translator$validationCodes.empty, _List_Nil) : A2($rakutentech$r10$R10$Form$Internal$FieldState$MessageErr, $rakutentech$r10$R10$Form$Internal$Translator$validationCodes.empty, _List_Nil);
+};
+var $rakutentech$r10$R10$Form$Internal$Validation$validateEqual = F3(
+	function (value, dependantKey, formState) {
+		var dependantValue = A2(
+			$elm$core$Maybe$withDefault,
+			'',
+			A2(
+				$elm$core$Maybe$map,
+				function ($) {
+					return $.value;
+				},
+				A2($elm$core$Dict$get, dependantKey, formState.fieldsState)));
+		return _Utils_eq(value, dependantValue) ? A2($rakutentech$r10$R10$Form$Internal$FieldState$MessageOk, $rakutentech$r10$R10$Form$Internal$Translator$validationCodes.equalInvalid, _List_Nil) : A2($rakutentech$r10$R10$Form$Internal$FieldState$MessageErr, $rakutentech$r10$R10$Form$Internal$Translator$validationCodes.equalInvalid, _List_Nil);
+	});
+var $rakutentech$r10$R10$Form$Internal$Validation$validateMaxLength = F2(
+	function (value, length) {
+		return (_Utils_cmp(
+			$elm$core$String$length(value),
+			length) > 0) ? A2(
+			$rakutentech$r10$R10$Form$Internal$FieldState$MessageErr,
+			$rakutentech$r10$R10$Form$Internal$Translator$validationCodes.lengthTooLargeInvalid,
+			_List_fromArray(
+				[
+					$elm$core$String$fromInt(length)
+				])) : A2(
+			$rakutentech$r10$R10$Form$Internal$FieldState$MessageOk,
+			$rakutentech$r10$R10$Form$Internal$Translator$validationCodes.lengthTooLargeInvalid,
+			_List_fromArray(
+				[
+					$elm$core$String$fromInt(length)
+				]));
+	});
+var $rakutentech$r10$R10$Form$Internal$Validation$validateMinLength = F2(
+	function (value, length) {
+		return (_Utils_cmp(
+			$elm$core$String$length(value),
+			length) < 0) ? A2(
+			$rakutentech$r10$R10$Form$Internal$FieldState$MessageErr,
+			$rakutentech$r10$R10$Form$Internal$Translator$validationCodes.lengthTooSmallInvalid,
+			_List_fromArray(
+				[
+					$elm$core$String$fromInt(length)
+				])) : A2(
+			$rakutentech$r10$R10$Form$Internal$FieldState$MessageOk,
+			$rakutentech$r10$R10$Form$Internal$Translator$validationCodes.lengthTooSmallInvalid,
+			_List_fromArray(
+				[
+					$elm$core$String$fromInt(length)
+				]));
+	});
+var $rakutentech$r10$R10$Form$Internal$Validation$NotValid = {$: 'NotValid'};
+var $rakutentech$r10$R10$Form$Internal$Validation$Valid = {$: 'Valid'};
+var $elm$regex$Regex$Match = F4(
+	function (match, index, number, submatches) {
+		return {index: index, match: match, number: number, submatches: submatches};
+	});
+var $elm$regex$Regex$contains = _Regex_contains;
+var $elm$regex$Regex$fromStringWith = _Regex_fromStringWith;
+var $elm$regex$Regex$fromString = function (string) {
+	return A2(
+		$elm$regex$Regex$fromStringWith,
+		{caseInsensitive: false, multiline: false},
+		string);
+};
+var $elm$regex$Regex$never = _Regex_never;
+var $rakutentech$r10$R10$Form$Internal$Validation$runRegex = F2(
+	function (pattern, value) {
+		var regex = A2(
+			$elm$core$Maybe$withDefault,
+			$elm$regex$Regex$never,
+			$elm$regex$Regex$fromString(pattern));
+		return A2($elm$regex$Regex$contains, regex, value) ? $rakutentech$r10$R10$Form$Internal$Validation$Valid : $rakutentech$r10$R10$Form$Internal$Validation$NotValid;
+	});
+var $rakutentech$r10$R10$Form$Internal$Validation$validateRegex = F2(
+	function (value, regex) {
+		var _v0 = A2($rakutentech$r10$R10$Form$Internal$Validation$runRegex, regex, value);
+		if (_v0.$ === 'Valid') {
+			return A2($rakutentech$r10$R10$Form$Internal$FieldState$MessageOk, $rakutentech$r10$R10$Form$Internal$Translator$validationCodes.formatInvalid, _List_Nil);
+		} else {
+			return A2($rakutentech$r10$R10$Form$Internal$FieldState$MessageErr, $rakutentech$r10$R10$Form$Internal$Translator$validationCodes.formatInvalid, _List_Nil);
+		}
+	});
+var $rakutentech$r10$R10$Form$Internal$Validation$validateRequired = function (value) {
+	return $elm$core$String$isEmpty(value) ? A2($rakutentech$r10$R10$Form$Internal$FieldState$MessageErr, $rakutentech$r10$R10$Form$Internal$Translator$validationCodes.required, _List_Nil) : A2($rakutentech$r10$R10$Form$Internal$FieldState$MessageOk, $rakutentech$r10$R10$Form$Internal$Translator$validationCodes.required, _List_Nil);
+};
+var $rakutentech$r10$R10$Form$Internal$Validation$validateAllOf = F4(
+	function (key, value, formState, validations) {
+		var messages = A2(
+			$elm$core$List$filterMap,
+			$elm$core$Basics$identity,
+			A2(
+				$elm$core$List$map,
+				A4($rakutentech$r10$R10$Form$Internal$Validation$validateValidationSpecs, 'validateAllOf', key, value, formState),
+				validations));
+		return $elm$core$List$isEmpty(messages) ? A2($rakutentech$r10$R10$Form$Internal$FieldState$MessageOk, $rakutentech$r10$R10$Form$Internal$Translator$validationCodes.allOf, _List_Nil) : (A2($elm$core$List$all, $rakutentech$r10$R10$Form$Internal$Validation$isValid, messages) ? A2($rakutentech$r10$R10$Form$Internal$FieldState$MessageOk, $rakutentech$r10$R10$Form$Internal$Translator$validationCodes.allOf, _List_Nil) : A2($rakutentech$r10$R10$Form$Internal$FieldState$MessageErr, $rakutentech$r10$R10$Form$Internal$Translator$validationCodes.allOf, _List_Nil));
+	});
+var $rakutentech$r10$R10$Form$Internal$Validation$validateDependant = F4(
+	function (key, dependantKey, formState, validation) {
+		var newLeafKey = A2($rakutentech$r10$R10$Form$Internal$Key$replaceLeaf, dependantKey, key);
+		var newLeafContextValue = A2(
+			$elm$core$Maybe$map,
+			function (rec) {
+				return _Utils_Tuple2(rec.value, newLeafKey);
+			},
+			A2(
+				$elm$core$Dict$get,
+				$rakutentech$r10$R10$Form$Internal$Key$toString(newLeafKey),
+				formState.fieldsState));
+		var newFullKey = $rakutentech$r10$R10$Form$Internal$Key$fromString(dependantKey);
+		var newFullContextValue = A2(
+			$elm$core$Maybe$map,
+			function (rec) {
+				return _Utils_Tuple2(rec.value, newFullKey);
+			},
+			A2(
+				$elm$core$Dict$get,
+				$rakutentech$r10$R10$Form$Internal$Key$toString(newFullKey),
+				formState.fieldsState));
+		var defaultContextValue = _Utils_Tuple2('', newFullKey);
+		var result = A2(
+			$elm$core$Maybe$withDefault,
+			A2($elm$core$Maybe$withDefault, defaultContextValue, newFullContextValue),
+			newLeafContextValue);
+		return function (_v5) {
+			var newContextValue = _v5.a;
+			var newKey = _v5.b;
+			return A5($rakutentech$r10$R10$Form$Internal$Validation$validateValidationSpecs, 'validateDependant', newKey, newContextValue, formState, validation);
+		}(result);
+	});
+var $rakutentech$r10$R10$Form$Internal$Validation$validateNot = F4(
+	function (key, value, formState, validation) {
+		var outcome = A5($rakutentech$r10$R10$Form$Internal$Validation$validateValidationSpecs, 'validateNot', key, value, formState, validation);
+		if (outcome.$ === 'Just') {
+			if (outcome.a.$ === 'MessageOk') {
+				var _v3 = outcome.a;
+				var a = _v3.a;
+				var b = _v3.b;
+				return $elm$core$Maybe$Just(
+					A2($rakutentech$r10$R10$Form$Internal$FieldState$MessageErr, a, b));
+			} else {
+				var _v4 = outcome.a;
+				var a = _v4.a;
+				var b = _v4.b;
+				return $elm$core$Maybe$Just(
+					A2($rakutentech$r10$R10$Form$Internal$FieldState$MessageOk, a, b));
+			}
+		} else {
+			return $elm$core$Maybe$Nothing;
+		}
+	});
+var $rakutentech$r10$R10$Form$Internal$Validation$validateOneOf = F4(
+	function (key, value, formState, validations) {
+		var messages = A2(
+			$elm$core$List$filterMap,
+			$elm$core$Basics$identity,
+			A2(
+				$elm$core$List$map,
+				A4($rakutentech$r10$R10$Form$Internal$Validation$validateValidationSpecs, 'validateOneOf', key, value, formState),
+				validations));
+		return $elm$core$List$isEmpty(messages) ? A2($rakutentech$r10$R10$Form$Internal$FieldState$MessageOk, $rakutentech$r10$R10$Form$Internal$Translator$validationCodes.oneOf, _List_Nil) : (A2($elm$core$List$any, $rakutentech$r10$R10$Form$Internal$Validation$isValid, messages) ? A2($rakutentech$r10$R10$Form$Internal$FieldState$MessageOk, $rakutentech$r10$R10$Form$Internal$Translator$validationCodes.oneOf, _List_Nil) : A2($rakutentech$r10$R10$Form$Internal$FieldState$MessageErr, $rakutentech$r10$R10$Form$Internal$Translator$validationCodes.oneOf, _List_Nil));
+	});
+var $rakutentech$r10$R10$Form$Internal$Validation$validateValidationSpecs = F5(
+	function (caller, key, value_, formState, validation) {
+		var value = ($rakutentech$r10$R10$Form$Internal$Key$toString(key) === 'email') ? $elm$core$String$trim(value_) : value_;
+		switch (validation.$) {
+			case 'WithMsg':
+				var msg = validation.a;
+				var validation_ = validation.b;
+				return A5($rakutentech$r10$R10$Form$Internal$Validation$validateWithMsg, key, value, msg, formState, validation_);
+			case 'Dependant':
+				var dependantKey = validation.a;
+				var validation_ = validation.b;
+				return A4($rakutentech$r10$R10$Form$Internal$Validation$validateDependant, key, dependantKey, formState, validation_);
+			case 'OneOf':
+				var validations = validation.a;
+				return $elm$core$Maybe$Just(
+					A4($rakutentech$r10$R10$Form$Internal$Validation$validateOneOf, key, value, formState, validations));
+			case 'AllOf':
+				var validations = validation.a;
+				return $elm$core$Maybe$Just(
+					A4($rakutentech$r10$R10$Form$Internal$Validation$validateAllOf, key, value, formState, validations));
+			case 'Required':
+				return $elm$core$Maybe$Just(
+					$rakutentech$r10$R10$Form$Internal$Validation$validateRequired(value));
+			case 'Empty':
+				return $elm$core$Maybe$Just(
+					$rakutentech$r10$R10$Form$Internal$Validation$validateEmpty(value));
+			case 'Regex':
+				var regex = validation.a;
+				return A2(
+					$rakutentech$r10$R10$Form$Internal$Validation$skipValidationIfEmpty,
+					value,
+					A2($rakutentech$r10$R10$Form$Internal$Validation$validateRegex, value, regex));
+			case 'MinLength':
+				var length = validation.a;
+				return A2(
+					$rakutentech$r10$R10$Form$Internal$Validation$skipValidationIfEmpty,
+					value,
+					A2($rakutentech$r10$R10$Form$Internal$Validation$validateMinLength, value, length));
+			case 'MaxLength':
+				var length = validation.a;
+				return A2(
+					$rakutentech$r10$R10$Form$Internal$Validation$skipValidationIfEmpty,
+					value,
+					A2($rakutentech$r10$R10$Form$Internal$Validation$validateMaxLength, value, length));
+			case 'Equal':
+				var dependantKey = validation.a;
+				return A2(
+					$rakutentech$r10$R10$Form$Internal$Validation$skipValidationIfEmpty,
+					value,
+					A3($rakutentech$r10$R10$Form$Internal$Validation$validateEqual, value, dependantKey, formState));
+			case 'Not':
+				var validation_ = validation.a;
+				return A4($rakutentech$r10$R10$Form$Internal$Validation$validateNot, key, value, formState, validation_);
+			default:
+				return $elm$core$Maybe$Nothing;
+		}
+	});
+var $rakutentech$r10$R10$Form$Internal$Validation$validateWithMsg = F5(
+	function (key, value, msg, formState, validation) {
+		var maybeMessage = A5($rakutentech$r10$R10$Form$Internal$Validation$validateValidationSpecs, 'validateWithMsg', key, value, formState, validation);
+		if (maybeMessage.$ === 'Nothing') {
+			return $elm$core$Maybe$Nothing;
+		} else {
+			var message = maybeMessage.a;
+			return $rakutentech$r10$R10$Form$Internal$Validation$isValid(message) ? $elm$core$Maybe$Just(
+				A2($rakutentech$r10$R10$Form$Internal$FieldState$MessageOk, msg.ok, _List_Nil)) : $elm$core$Maybe$Just(
+				A2($rakutentech$r10$R10$Form$Internal$FieldState$MessageErr, msg.err, _List_Nil));
+		}
+	});
+var $rakutentech$r10$R10$Form$Internal$Validation$validate = F5(
+	function (formStateBeforeValidationFixer, key, maybeValidationSpec, formState, fieldState) {
+		var newFormState = formState;
+		var newFieldState = _Utils_update(
+			fieldState,
+			{
+				value: A2(
+					formStateBeforeValidationFixer,
+					$rakutentech$r10$R10$Form$Internal$Key$headId(key),
+					fieldState.value)
+			});
+		var isDisabled = A2(
+			$elm$core$Maybe$withDefault,
+			false,
+			A2(
+				$elm$core$Maybe$map,
+				function ($) {
+					return $.disabled;
+				},
+				A2($rakutentech$r10$R10$Form$Internal$Dict$get, key, newFormState.fieldsState)));
+		var validationSpec = isDisabled ? _List_fromArray(
+			[$rakutentech$r10$R10$Form$Internal$FieldConf$NoValidation]) : A2(
+			$elm$core$Maybe$withDefault,
+			_List_fromArray(
+				[$rakutentech$r10$R10$Form$Internal$FieldConf$NoValidation]),
+			A2(
+				$elm$core$Maybe$map,
+				function ($) {
+					return $.validation;
+				},
+				maybeValidationSpec));
+		var fieldIdAsString = $rakutentech$r10$R10$Form$Internal$Key$headId(key);
+		return _Utils_update(
+			fieldState,
+			{
+				validation: $rakutentech$r10$R10$Form$Internal$FieldState$Validated(
+					A2(
+						$elm$core$List$filterMap,
+						$elm$core$Basics$identity,
+						A2(
+							$elm$core$List$map,
+							A4($rakutentech$r10$R10$Form$Internal$Validation$validateValidationSpecs, 'validate', key, newFieldState.value, newFormState),
+							validationSpec)))
+			});
+	});
+var $rakutentech$r10$R10$Form$Internal$Update$helperValidateCreatingFieldsState = F5(
+	function (formStateBeforeValidationFixer, key, maybeValidationSpec, formState, maybeFieldState) {
+		var fieldState = $rakutentech$r10$R10$Form$Internal$Update$stateWithDefault(maybeFieldState);
+		return $elm$core$Maybe$Just(
+			A5(
+				$rakutentech$r10$R10$Form$Internal$Validation$validate,
+				formStateBeforeValidationFixer,
+				key,
+				maybeValidationSpec,
+				formState,
+				A2($elm$core$Maybe$withDefault, $rakutentech$r10$R10$Form$Internal$FieldState$init, maybeFieldState)));
+	});
+var $rakutentech$r10$R10$Form$Internal$QtySubmitAttempted$toInt = function (_v0) {
+	var _int = _v0.a;
+	return _int;
+};
+var $rakutentech$r10$R10$Form$Internal$Update$shouldValidationBeVisible = F2(
+	function (qtySubmitAttempted, fieldState) {
+		return fieldState.lostFocusOneOrMoreTime || ($rakutentech$r10$R10$Form$Internal$QtySubmitAttempted$toInt(qtySubmitAttempted) > 0);
+	});
+var $rakutentech$r10$R10$Form$Internal$Update$helperValidateOnChangeValue = F6(
+	function (formStateBeforeValidationFixer, key, maybeValidationSpec, qtySubmitAttempted, formState, maybeFieldState) {
+		var fieldState = $rakutentech$r10$R10$Form$Internal$Update$stateWithDefault(maybeFieldState);
+		return A2($rakutentech$r10$R10$Form$Internal$Update$shouldValidationBeVisible, qtySubmitAttempted, fieldState) ? A5($rakutentech$r10$R10$Form$Internal$Update$helperValidateCreatingFieldsState, formStateBeforeValidationFixer, key, maybeValidationSpec, formState, maybeFieldState) : maybeFieldState;
+	});
+var $rakutentech$r10$R10$Form$Internal$Update$onChangeValue = F6(
+	function (formStateBeforeValidationFixer, key, fieldConf, formConf, string, formState) {
+		return _Utils_update(
+			formState,
+			{
+				fieldsState: A3(
+					$rakutentech$r10$R10$Form$Internal$Dict$update,
+					key,
+					A5($rakutentech$r10$R10$Form$Internal$Update$helperValidateOnChangeValue, formStateBeforeValidationFixer, key, fieldConf.validationSpecs, formState.qtySubmitAttempted, formState),
+					A3(
+						$rakutentech$r10$R10$Form$Internal$Dict$update,
+						key,
+						$rakutentech$r10$R10$Form$Internal$Update$helperUpdateDirty,
+						A3(
+							$rakutentech$r10$R10$Form$Internal$Dict$update,
+							key,
+							$rakutentech$r10$R10$Form$Internal$Update$helperUpdateValue(string),
+							formState.fieldsState))),
+				focused: $elm$core$Maybe$Just(
+					$rakutentech$r10$R10$Form$Internal$Key$toString(key))
+			});
+	});
+var $rakutentech$r10$R10$Form$Internal$Update$onDeactivate = function (formState) {
+	return _Utils_update(
+		formState,
+		{active: $elm$core$Maybe$Nothing});
+};
+var $rakutentech$r10$R10$Form$Internal$Update$onGetFocus = F2(
+	function (key, formState) {
+		return _Utils_update(
+			formState,
+			{
+				focused: $elm$core$Maybe$Just(
+					$rakutentech$r10$R10$Form$Internal$Key$toString(key))
+			});
+	});
+var $rakutentech$r10$R10$Form$Internal$Update$helperLostFocus = function (maybeFieldState) {
+	var fieldState = $rakutentech$r10$R10$Form$Internal$Update$stateWithDefault(maybeFieldState);
+	return $elm$core$Maybe$Just(
+		_Utils_update(
+			fieldState,
+			{lostFocusOneOrMoreTime: true}));
+};
+var $rakutentech$r10$R10$Form$Internal$Update$onLoseFocus = F4(
+	function (formStateBeforeValidationFixer, key, fieldConf, formState) {
+		return _Utils_update(
+			formState,
+			{
+				fieldsState: A3(
+					$rakutentech$r10$R10$Form$Internal$Dict$update,
+					key,
+					A4($rakutentech$r10$R10$Form$Internal$Update$helperValidateCreatingFieldsState, formStateBeforeValidationFixer, key, fieldConf.validationSpecs, formState),
+					A3($rakutentech$r10$R10$Form$Internal$Dict$update, key, $rakutentech$r10$R10$Form$Internal$Update$helperLostFocus, formState.fieldsState)),
+				focused: $elm$core$Maybe$Nothing
+			});
+	});
+var $rakutentech$r10$R10$Form$Internal$Update$helperUpdateScroll = F2(
+	function (value, maybeScroll) {
+		var fieldState = $rakutentech$r10$R10$Form$Internal$Update$stateWithDefault(maybeScroll);
+		return $elm$core$Maybe$Just(
+			_Utils_update(
+				fieldState,
+				{scroll: value}));
+	});
+var $rakutentech$r10$R10$Form$Internal$Update$onScroll = F3(
+	function (key, scroll, formState) {
+		return _Utils_update(
+			formState,
+			{
+				fieldsState: A3(
+					$rakutentech$r10$R10$Form$Internal$Dict$update,
+					key,
+					$rakutentech$r10$R10$Form$Internal$Update$helperUpdateScroll(scroll),
+					formState.fieldsState)
+			});
+	});
+var $rakutentech$r10$R10$Form$Internal$Update$copyComponentStateToFormState = function (_v0) {
+	var formStateBeforeValidationFixer = _v0.formStateBeforeValidationFixer;
+	var formState = _v0.formState;
+	var key = _v0.key;
+	var fieldConf = _v0.fieldConf;
+	var formConf = _v0.formConf;
+	var fieldState = _v0.fieldState;
+	var singleModel = _v0.singleModel;
+	var newSingleModel = _v0.newSingleModel;
+	return ((!_Utils_eq(singleModel.opened, newSingleModel.opened)) ? (newSingleModel.opened ? $rakutentech$r10$R10$Form$Internal$Update$onActivate(key) : $rakutentech$r10$R10$Form$Internal$Update$onDeactivate) : $elm$core$Basics$identity)(
+		((!_Utils_eq(singleModel.focused, newSingleModel.focused)) ? (newSingleModel.focused ? $rakutentech$r10$R10$Form$Internal$Update$onGetFocus(key) : A3($rakutentech$r10$R10$Form$Internal$Update$onLoseFocus, formStateBeforeValidationFixer, key, fieldConf)) : $elm$core$Basics$identity)(
+			((!_Utils_eq(fieldState.scroll, newSingleModel.scroll)) ? A2($rakutentech$r10$R10$Form$Internal$Update$onScroll, key, newSingleModel.scroll) : $elm$core$Basics$identity)(
+				((!_Utils_eq(fieldState.select, newSingleModel.select)) ? A2($rakutentech$r10$R10$Form$Internal$Update$onChangeSelect, key, newSingleModel.select) : $elm$core$Basics$identity)(
+					((!_Utils_eq(fieldState.search, newSingleModel.search)) ? A2($rakutentech$r10$R10$Form$Internal$Update$onChangeSearch, key, newSingleModel.search) : $elm$core$Basics$identity)(
+						((!_Utils_eq(fieldState.value, newSingleModel.value)) ? A5($rakutentech$r10$R10$Form$Internal$Update$onChangeValue, formStateBeforeValidationFixer, key, fieldConf, formConf, newSingleModel.value) : $elm$core$Basics$identity)(formState))))));
+};
+var $rakutentech$r10$R10$Form$Internal$Msg$isChangingValues = function (msg) {
+	switch (msg.$) {
+		case 'ChangeValue':
+			return true;
+		case 'AddEntity':
+			return true;
+		case 'RemoveEntity':
+			return true;
+		default:
+			return false;
+	}
+};
+var $rakutentech$r10$R10$Form$Internal$Msg$handleChangesSinceLastSubmissions = F2(
+	function (changesSinceLastSubmissions, msg) {
+		if (msg.$ === 'Submit') {
+			return false;
+		} else {
+			return $rakutentech$r10$R10$Form$Internal$Msg$isChangingValues(msg) ? true : changesSinceLastSubmissions;
+		}
+	});
+var $rakutentech$r10$R10$Form$Internal$Update$helperToggleShowPassword = function (maybeFieldState) {
+	var fieldState = $rakutentech$r10$R10$Form$Internal$Update$stateWithDefault(maybeFieldState);
+	return $elm$core$Maybe$Just(
+		_Utils_update(
+			fieldState,
+			{showPassword: !fieldState.showPassword}));
+};
+var $rakutentech$r10$R10$Form$Internal$Dict$insert = function (key) {
+	return $elm$core$Dict$insert(
+		$rakutentech$r10$R10$Form$Internal$Key$toString(key));
+};
+var $rakutentech$r10$R10$Form$Internal$QtySubmitAttempted$increment = function (qtySubmitAttempted) {
+	return $rakutentech$r10$R10$Form$Internal$QtySubmitAttempted$fromInt(
+		$rakutentech$r10$R10$Form$Internal$QtySubmitAttempted$toInt(qtySubmitAttempted) + 1);
 };
 var $rakutentech$r10$R10$Form$Internal$Key$empty = $rakutentech$r10$R10$Form$Internal$Key$fromList(_List_Nil);
 var $rakutentech$r10$R10$Form$Internal$Key$composeKey = F2(
@@ -12076,491 +12583,8 @@ var $rakutentech$r10$R10$Form$Internal$MakerForValidationKeys$viewEntityMulti = 
 var $rakutentech$r10$R10$Form$Internal$Update$allValidationKeysMaker = function (form) {
 	return A2($rakutentech$r10$R10$Form$Internal$MakerForValidationKeys$maker, $rakutentech$r10$R10$Form$Internal$Key$empty, form);
 };
-var $rakutentech$r10$R10$Form$Internal$Update$helperUpdateDirty = function (maybeFieldState) {
-	var fieldState = $rakutentech$r10$R10$Form$Internal$Update$stateWithDefault(maybeFieldState);
-	return $elm$core$Maybe$Just(
-		_Utils_update(
-			fieldState,
-			{dirty: true}));
-};
-var $rakutentech$r10$R10$Form$Internal$Update$helperUpdateValue = F2(
-	function (value, maybeFieldState) {
-		var fieldState = $rakutentech$r10$R10$Form$Internal$Update$stateWithDefault(maybeFieldState);
-		return $elm$core$Maybe$Just(
-			_Utils_update(
-				fieldState,
-				{value: value}));
-	});
-var $rakutentech$r10$R10$Form$Internal$FieldState$Validated = function (a) {
-	return {$: 'Validated', a: a};
-};
-var $elm$core$Maybe$map = F2(
-	function (f, maybe) {
-		if (maybe.$ === 'Just') {
-			var value = maybe.a;
-			return $elm$core$Maybe$Just(
-				f(value));
-		} else {
-			return $elm$core$Maybe$Nothing;
-		}
-	});
-var $rakutentech$r10$R10$Form$Internal$FieldState$MessageErr = F2(
-	function (a, b) {
-		return {$: 'MessageErr', a: a, b: b};
-	});
-var $rakutentech$r10$R10$Form$Internal$FieldState$MessageOk = F2(
-	function (a, b) {
-		return {$: 'MessageOk', a: a, b: b};
-	});
-var $elm$core$List$any = F2(
-	function (isOkay, list) {
-		any:
-		while (true) {
-			if (!list.b) {
-				return false;
-			} else {
-				var x = list.a;
-				var xs = list.b;
-				if (isOkay(x)) {
-					return true;
-				} else {
-					var $temp$isOkay = isOkay,
-						$temp$list = xs;
-					isOkay = $temp$isOkay;
-					list = $temp$list;
-					continue any;
-				}
-			}
-		}
-	});
-var $elm$core$List$all = F2(
-	function (isOkay, list) {
-		return !A2(
-			$elm$core$List$any,
-			A2($elm$core$Basics$composeL, $elm$core$Basics$not, isOkay),
-			list);
-	});
-var $rakutentech$r10$R10$Form$Internal$Key$fromString = function (keyAsString) {
-	return $rakutentech$r10$R10$Form$Internal$Key$Key(
-		$elm$core$List$reverse(
-			A2($elm$core$String$split, $rakutentech$r10$R10$Form$Internal$Key$separator, keyAsString)));
-};
-var $rakutentech$r10$R10$Form$Internal$Validation$isValid = function (outcome) {
-	if (outcome.$ === 'MessageOk') {
-		return true;
-	} else {
-		return false;
-	}
-};
-var $rakutentech$r10$R10$Form$Internal$Key$replaceLeaf = F2(
-	function (newLeaf, _v0) {
-		var keyList = _v0.a;
-		return $elm$core$List$isEmpty(keyList) ? $rakutentech$r10$R10$Form$Internal$Key$fromList(keyList) : $rakutentech$r10$R10$Form$Internal$Key$fromList(
-			A2(
-				$elm$core$List$cons,
-				newLeaf,
-				A2($elm$core$List$drop, 1, keyList)));
-	});
-var $rakutentech$r10$R10$Form$Internal$Validation$skipValidationIfEmpty = F2(
-	function (value, validationOutcome) {
-		return $elm$core$String$isEmpty(value) ? $elm$core$Maybe$Nothing : $elm$core$Maybe$Just(validationOutcome);
-	});
-var $rakutentech$r10$R10$Form$Internal$Translator$validationCodes = {allOf: 'ALL_OF', emailFormatInvalid: 'INVALID_EMAIL_FORMAT', emailFormatValid: 'VALID_EMAIL_FORMAT', empty: 'EMPTY', equalInvalid: 'INVALID_EQUAL', formatInvalid: 'INVALID_FORMAT', formatInvalidCharactersInvalid: 'INVALID_FORMAT_INVALID_CHARACTERS', formatNoNumberInvalid: 'INVALID_FORMAT_NO_NUMBER', formatNoSpecialCharactersInvalid: 'INVALID_FORMAT_NO_SPECIAL_CHARACTERS', formatNoUppercaseInvalid: 'INVALID_FORMAT_NO_UPPERCASE', formatValid: 'VALID_FORMAT', hexColorFormatInvalid: 'INVALID_HEX_COLOR_FORMAT', jsonFormatInvalid: 'INVALID_JSON_FORMAT', lengthTooLargeInvalid: 'INVALID_LENGTH_TOO_LARGE', lengthTooSmallInvalid: 'INVALID_LENGTH_TOO_SMALL', oneOf: 'ONE_OF', required: 'REQUIRED', requiredField: 'REQUIRED_FIELD', somethingWrong: 'SOMETHING_WENT_WRONG_DURING_VALIDATION', valueInvalid: 'INVALID_VALUE'};
-var $rakutentech$r10$R10$Form$Internal$Validation$validateEmpty = function (value) {
-	return $elm$core$String$isEmpty(value) ? A2($rakutentech$r10$R10$Form$Internal$FieldState$MessageOk, $rakutentech$r10$R10$Form$Internal$Translator$validationCodes.empty, _List_Nil) : A2($rakutentech$r10$R10$Form$Internal$FieldState$MessageErr, $rakutentech$r10$R10$Form$Internal$Translator$validationCodes.empty, _List_Nil);
-};
-var $rakutentech$r10$R10$Form$Internal$Validation$validateEqual = F3(
-	function (value, dependantKey, formState) {
-		var dependantValue = A2(
-			$elm$core$Maybe$withDefault,
-			'',
-			A2(
-				$elm$core$Maybe$map,
-				function ($) {
-					return $.value;
-				},
-				A2($elm$core$Dict$get, dependantKey, formState.fieldsState)));
-		return _Utils_eq(value, dependantValue) ? A2($rakutentech$r10$R10$Form$Internal$FieldState$MessageOk, $rakutentech$r10$R10$Form$Internal$Translator$validationCodes.equalInvalid, _List_Nil) : A2($rakutentech$r10$R10$Form$Internal$FieldState$MessageErr, $rakutentech$r10$R10$Form$Internal$Translator$validationCodes.equalInvalid, _List_Nil);
-	});
-var $rakutentech$r10$R10$Form$Internal$Validation$validateMaxLength = F2(
-	function (value, length) {
-		return (_Utils_cmp(
-			$elm$core$String$length(value),
-			length) > 0) ? A2(
-			$rakutentech$r10$R10$Form$Internal$FieldState$MessageErr,
-			$rakutentech$r10$R10$Form$Internal$Translator$validationCodes.lengthTooLargeInvalid,
-			_List_fromArray(
-				[
-					$elm$core$String$fromInt(length)
-				])) : A2(
-			$rakutentech$r10$R10$Form$Internal$FieldState$MessageOk,
-			$rakutentech$r10$R10$Form$Internal$Translator$validationCodes.lengthTooLargeInvalid,
-			_List_fromArray(
-				[
-					$elm$core$String$fromInt(length)
-				]));
-	});
-var $rakutentech$r10$R10$Form$Internal$Validation$validateMinLength = F2(
-	function (value, length) {
-		return (_Utils_cmp(
-			$elm$core$String$length(value),
-			length) < 0) ? A2(
-			$rakutentech$r10$R10$Form$Internal$FieldState$MessageErr,
-			$rakutentech$r10$R10$Form$Internal$Translator$validationCodes.lengthTooSmallInvalid,
-			_List_fromArray(
-				[
-					$elm$core$String$fromInt(length)
-				])) : A2(
-			$rakutentech$r10$R10$Form$Internal$FieldState$MessageOk,
-			$rakutentech$r10$R10$Form$Internal$Translator$validationCodes.lengthTooSmallInvalid,
-			_List_fromArray(
-				[
-					$elm$core$String$fromInt(length)
-				]));
-	});
-var $rakutentech$r10$R10$Form$Internal$Validation$NotValid = {$: 'NotValid'};
-var $rakutentech$r10$R10$Form$Internal$Validation$Valid = {$: 'Valid'};
-var $elm$regex$Regex$Match = F4(
-	function (match, index, number, submatches) {
-		return {index: index, match: match, number: number, submatches: submatches};
-	});
-var $elm$regex$Regex$contains = _Regex_contains;
-var $elm$regex$Regex$fromStringWith = _Regex_fromStringWith;
-var $elm$regex$Regex$fromString = function (string) {
-	return A2(
-		$elm$regex$Regex$fromStringWith,
-		{caseInsensitive: false, multiline: false},
-		string);
-};
-var $rakutentech$r10$R10$Form$Internal$Validation$runRegex = F2(
-	function (pattern, value) {
-		var _v0 = $elm$regex$Regex$fromString(pattern);
-		if (_v0.$ === 'Just') {
-			var regex = _v0.a;
-			return A2($elm$regex$Regex$contains, regex, value) ? $rakutentech$r10$R10$Form$Internal$Validation$Valid : $rakutentech$r10$R10$Form$Internal$Validation$NotValid;
-		} else {
-			return $rakutentech$r10$R10$Form$Internal$Validation$NotValid;
-		}
-	});
-var $rakutentech$r10$R10$Form$Internal$Validation$validateRegex = F2(
-	function (value, regex) {
-		var _v0 = A2($rakutentech$r10$R10$Form$Internal$Validation$runRegex, regex, value);
-		if (_v0.$ === 'Valid') {
-			return A2($rakutentech$r10$R10$Form$Internal$FieldState$MessageOk, $rakutentech$r10$R10$Form$Internal$Translator$validationCodes.formatInvalid, _List_Nil);
-		} else {
-			return A2($rakutentech$r10$R10$Form$Internal$FieldState$MessageErr, $rakutentech$r10$R10$Form$Internal$Translator$validationCodes.formatInvalid, _List_Nil);
-		}
-	});
-var $rakutentech$r10$R10$Form$Internal$Validation$validateRequired = function (value) {
-	return $elm$core$String$isEmpty(value) ? A2($rakutentech$r10$R10$Form$Internal$FieldState$MessageErr, $rakutentech$r10$R10$Form$Internal$Translator$validationCodes.required, _List_Nil) : A2($rakutentech$r10$R10$Form$Internal$FieldState$MessageOk, $rakutentech$r10$R10$Form$Internal$Translator$validationCodes.required, _List_Nil);
-};
-var $rakutentech$r10$R10$Form$Internal$Validation$validateAllOf = F4(
-	function (key, value, formState, validations) {
-		var messages = A2(
-			$elm$core$List$filterMap,
-			$elm$core$Basics$identity,
-			A2(
-				$elm$core$List$map,
-				A3($rakutentech$r10$R10$Form$Internal$Validation$validateValidationSpecs, key, value, formState),
-				validations));
-		return $elm$core$List$isEmpty(messages) ? A2($rakutentech$r10$R10$Form$Internal$FieldState$MessageOk, $rakutentech$r10$R10$Form$Internal$Translator$validationCodes.allOf, _List_Nil) : (A2($elm$core$List$all, $rakutentech$r10$R10$Form$Internal$Validation$isValid, messages) ? A2($rakutentech$r10$R10$Form$Internal$FieldState$MessageOk, $rakutentech$r10$R10$Form$Internal$Translator$validationCodes.allOf, _List_Nil) : A2($rakutentech$r10$R10$Form$Internal$FieldState$MessageErr, $rakutentech$r10$R10$Form$Internal$Translator$validationCodes.allOf, _List_Nil));
-	});
-var $rakutentech$r10$R10$Form$Internal$Validation$validateDependant = F4(
-	function (key, dependantKey, formState, validation) {
-		var newLeafKey = A2($rakutentech$r10$R10$Form$Internal$Key$replaceLeaf, dependantKey, key);
-		var newLeafContextValue = A2(
-			$elm$core$Maybe$map,
-			function (rec) {
-				return _Utils_Tuple2(rec.value, newLeafKey);
-			},
-			A2(
-				$elm$core$Dict$get,
-				$rakutentech$r10$R10$Form$Internal$Key$toString(newLeafKey),
-				formState.fieldsState));
-		var newFullKey = $rakutentech$r10$R10$Form$Internal$Key$fromString(dependantKey);
-		var newFullContextValue = A2(
-			$elm$core$Maybe$map,
-			function (rec) {
-				return _Utils_Tuple2(rec.value, newFullKey);
-			},
-			A2(
-				$elm$core$Dict$get,
-				$rakutentech$r10$R10$Form$Internal$Key$toString(newFullKey),
-				formState.fieldsState));
-		var defaultContextValue = _Utils_Tuple2('', newFullKey);
-		var result = A2(
-			$elm$core$Maybe$withDefault,
-			A2($elm$core$Maybe$withDefault, defaultContextValue, newFullContextValue),
-			newLeafContextValue);
-		return function (_v5) {
-			var newContextValue = _v5.a;
-			var newKey = _v5.b;
-			return A4($rakutentech$r10$R10$Form$Internal$Validation$validateValidationSpecs, newKey, newContextValue, formState, validation);
-		}(result);
-	});
-var $rakutentech$r10$R10$Form$Internal$Validation$validateNot = F4(
-	function (key, value, formState, validation) {
-		var outcome = A4($rakutentech$r10$R10$Form$Internal$Validation$validateValidationSpecs, key, value, formState, validation);
-		if (outcome.$ === 'Just') {
-			if (outcome.a.$ === 'MessageOk') {
-				var _v3 = outcome.a;
-				var a = _v3.a;
-				var b = _v3.b;
-				return $elm$core$Maybe$Just(
-					A2($rakutentech$r10$R10$Form$Internal$FieldState$MessageErr, a, b));
-			} else {
-				var _v4 = outcome.a;
-				var a = _v4.a;
-				var b = _v4.b;
-				return $elm$core$Maybe$Just(
-					A2($rakutentech$r10$R10$Form$Internal$FieldState$MessageOk, a, b));
-			}
-		} else {
-			return $elm$core$Maybe$Nothing;
-		}
-	});
-var $rakutentech$r10$R10$Form$Internal$Validation$validateOneOf = F4(
-	function (key, value, formState, validations) {
-		var messages = A2(
-			$elm$core$List$filterMap,
-			$elm$core$Basics$identity,
-			A2(
-				$elm$core$List$map,
-				A3($rakutentech$r10$R10$Form$Internal$Validation$validateValidationSpecs, key, value, formState),
-				validations));
-		return $elm$core$List$isEmpty(messages) ? A2($rakutentech$r10$R10$Form$Internal$FieldState$MessageOk, $rakutentech$r10$R10$Form$Internal$Translator$validationCodes.oneOf, _List_Nil) : (A2($elm$core$List$any, $rakutentech$r10$R10$Form$Internal$Validation$isValid, messages) ? A2($rakutentech$r10$R10$Form$Internal$FieldState$MessageOk, $rakutentech$r10$R10$Form$Internal$Translator$validationCodes.oneOf, _List_Nil) : A2($rakutentech$r10$R10$Form$Internal$FieldState$MessageErr, $rakutentech$r10$R10$Form$Internal$Translator$validationCodes.oneOf, _List_Nil));
-	});
-var $rakutentech$r10$R10$Form$Internal$Validation$validateValidationSpecs = F4(
-	function (key, value, formState, validation) {
-		switch (validation.$) {
-			case 'WithMsg':
-				var msg = validation.a;
-				var validation_ = validation.b;
-				return A5($rakutentech$r10$R10$Form$Internal$Validation$validateWithMsg, key, value, msg, formState, validation_);
-			case 'Dependant':
-				var dependantKey = validation.a;
-				var validation_ = validation.b;
-				return A4($rakutentech$r10$R10$Form$Internal$Validation$validateDependant, key, dependantKey, formState, validation_);
-			case 'OneOf':
-				var validations = validation.a;
-				return $elm$core$Maybe$Just(
-					A4($rakutentech$r10$R10$Form$Internal$Validation$validateOneOf, key, value, formState, validations));
-			case 'AllOf':
-				var validations = validation.a;
-				return $elm$core$Maybe$Just(
-					A4($rakutentech$r10$R10$Form$Internal$Validation$validateAllOf, key, value, formState, validations));
-			case 'Required':
-				return $elm$core$Maybe$Just(
-					$rakutentech$r10$R10$Form$Internal$Validation$validateRequired(value));
-			case 'Empty':
-				return $elm$core$Maybe$Just(
-					$rakutentech$r10$R10$Form$Internal$Validation$validateEmpty(value));
-			case 'Regex':
-				var regex = validation.a;
-				return A2(
-					$rakutentech$r10$R10$Form$Internal$Validation$skipValidationIfEmpty,
-					value,
-					A2($rakutentech$r10$R10$Form$Internal$Validation$validateRegex, value, regex));
-			case 'MinLength':
-				var length = validation.a;
-				return A2(
-					$rakutentech$r10$R10$Form$Internal$Validation$skipValidationIfEmpty,
-					value,
-					A2($rakutentech$r10$R10$Form$Internal$Validation$validateMinLength, value, length));
-			case 'MaxLength':
-				var length = validation.a;
-				return A2(
-					$rakutentech$r10$R10$Form$Internal$Validation$skipValidationIfEmpty,
-					value,
-					A2($rakutentech$r10$R10$Form$Internal$Validation$validateMaxLength, value, length));
-			case 'Equal':
-				var dependantKey = validation.a;
-				return A2(
-					$rakutentech$r10$R10$Form$Internal$Validation$skipValidationIfEmpty,
-					value,
-					A3($rakutentech$r10$R10$Form$Internal$Validation$validateEqual, value, dependantKey, formState));
-			case 'Not':
-				var validation_ = validation.a;
-				return A4($rakutentech$r10$R10$Form$Internal$Validation$validateNot, key, value, formState, validation_);
-			default:
-				return $elm$core$Maybe$Nothing;
-		}
-	});
-var $rakutentech$r10$R10$Form$Internal$Validation$validateWithMsg = F5(
-	function (key, value, msg, formState, validation) {
-		var maybeMessage = A4($rakutentech$r10$R10$Form$Internal$Validation$validateValidationSpecs, key, value, formState, validation);
-		if (maybeMessage.$ === 'Nothing') {
-			return $elm$core$Maybe$Nothing;
-		} else {
-			var message = maybeMessage.a;
-			return $rakutentech$r10$R10$Form$Internal$Validation$isValid(message) ? $elm$core$Maybe$Just(
-				A2($rakutentech$r10$R10$Form$Internal$FieldState$MessageOk, msg.ok, _List_Nil)) : $elm$core$Maybe$Just(
-				A2($rakutentech$r10$R10$Form$Internal$FieldState$MessageErr, msg.err, _List_Nil));
-		}
-	});
-var $rakutentech$r10$R10$Form$Internal$Validation$validate = F4(
-	function (key, maybeValidationSpec, formState, state) {
-		var isDisabled = A2(
-			$elm$core$Maybe$withDefault,
-			false,
-			A2(
-				$elm$core$Maybe$map,
-				function ($) {
-					return $.disabled;
-				},
-				A2($rakutentech$r10$R10$Form$Internal$Dict$get, key, formState.fieldsState)));
-		var validationSpec = isDisabled ? _List_fromArray(
-			[$rakutentech$r10$R10$Form$Internal$FieldConf$NoValidation]) : A2(
-			$elm$core$Maybe$withDefault,
-			_List_fromArray(
-				[$rakutentech$r10$R10$Form$Internal$FieldConf$NoValidation]),
-			A2(
-				$elm$core$Maybe$map,
-				function ($) {
-					return $.validation;
-				},
-				maybeValidationSpec));
-		return _Utils_update(
-			state,
-			{
-				validation: $rakutentech$r10$R10$Form$Internal$FieldState$Validated(
-					A2(
-						$elm$core$List$filterMap,
-						$elm$core$Basics$identity,
-						A2(
-							$elm$core$List$map,
-							A3($rakutentech$r10$R10$Form$Internal$Validation$validateValidationSpecs, key, state.value, formState),
-							validationSpec)))
-			});
-	});
-var $rakutentech$r10$R10$Form$Internal$Update$helperValidateCreatingFieldsState = F4(
-	function (key, maybeValidationSpec, formState, maybeFieldState) {
-		var fieldState = $rakutentech$r10$R10$Form$Internal$Update$stateWithDefault(maybeFieldState);
-		return $elm$core$Maybe$Just(
-			A4($rakutentech$r10$R10$Form$Internal$Validation$validate, key, maybeValidationSpec, formState, fieldState));
-	});
-var $rakutentech$r10$R10$Form$Internal$QtySubmitAttempted$toInt = function (_v0) {
-	var _int = _v0.a;
-	return _int;
-};
-var $rakutentech$r10$R10$Form$Internal$Update$helperValidateOnChangeValue = F5(
-	function (key, maybeValidationSpec, qtySubmitAttempted, formState, maybeFieldState) {
-		var fieldState = $rakutentech$r10$R10$Form$Internal$Update$stateWithDefault(maybeFieldState);
-		return (fieldState.lostFocusOneOrMoreTime || ($rakutentech$r10$R10$Form$Internal$QtySubmitAttempted$toInt(qtySubmitAttempted) > 0)) ? A4($rakutentech$r10$R10$Form$Internal$Update$helperValidateCreatingFieldsState, key, maybeValidationSpec, formState, maybeFieldState) : maybeFieldState;
-	});
-var $rakutentech$r10$R10$Form$Internal$Update$helperValidateWithoutCreatingFieldsState = F4(
-	function (maybeValidationSpec, formState, key, maybeFieldState) {
-		return A2(
-			$elm$core$Maybe$map,
-			A3($rakutentech$r10$R10$Form$Internal$Validation$validate, key, maybeValidationSpec, formState),
-			maybeFieldState);
-	});
-var $rakutentech$r10$R10$Form$Internal$Update$runOnlyExistingValidations = F3(
-	function (allKeys, formState, fieldsState) {
-		return A3(
-			$elm$core$List$foldl,
-			F2(
-				function (_v0, acc) {
-					var key = _v0.a;
-					var fieldConf = _v0.b;
-					return A3(
-						$rakutentech$r10$R10$Form$Internal$Dict$update,
-						key,
-						A3($rakutentech$r10$R10$Form$Internal$Update$helperValidateWithoutCreatingFieldsState, fieldConf, formState, key),
-						acc);
-				}),
-			fieldsState,
-			allKeys);
-	});
-var $rakutentech$r10$R10$Form$Internal$Update$onChangeValue = F5(
-	function (key, fieldConf, formConf, string, formState) {
-		var newState = _Utils_update(
-			formState,
-			{
-				fieldsState: A3(
-					$rakutentech$r10$R10$Form$Internal$Dict$update,
-					key,
-					A4($rakutentech$r10$R10$Form$Internal$Update$helperValidateOnChangeValue, key, fieldConf.validationSpecs, formState.qtySubmitAttempted, formState),
-					A3(
-						$rakutentech$r10$R10$Form$Internal$Dict$update,
-						key,
-						$rakutentech$r10$R10$Form$Internal$Update$helperUpdateDirty,
-						A3(
-							$rakutentech$r10$R10$Form$Internal$Dict$update,
-							key,
-							$rakutentech$r10$R10$Form$Internal$Update$helperUpdateValue(string),
-							formState.fieldsState))),
-				focused: $elm$core$Maybe$Just(
-					$rakutentech$r10$R10$Form$Internal$Key$toString(key))
-			});
-		var allKeys = $rakutentech$r10$R10$Form$Internal$Update$allValidationKeysMaker(
-			{conf: formConf, state: newState});
-		return _Utils_update(
-			newState,
-			{
-				fieldsState: A3($rakutentech$r10$R10$Form$Internal$Update$runOnlyExistingValidations, allKeys, newState, newState.fieldsState)
-			});
-	});
-var $rakutentech$r10$R10$Form$Internal$Update$onDeactivate = function (formState) {
-	return _Utils_update(
-		formState,
-		{active: $elm$core$Maybe$Nothing});
-};
-var $rakutentech$r10$R10$Form$Internal$Update$onGetFocus = F2(
-	function (key, formState) {
-		return _Utils_update(
-			formState,
-			{
-				focused: $elm$core$Maybe$Just(
-					$rakutentech$r10$R10$Form$Internal$Key$toString(key))
-			});
-	});
-var $rakutentech$r10$R10$Form$Internal$Update$helperLostFocus = function (maybeFieldState) {
-	var fieldState = $rakutentech$r10$R10$Form$Internal$Update$stateWithDefault(maybeFieldState);
-	return $elm$core$Maybe$Just(
-		_Utils_update(
-			fieldState,
-			{lostFocusOneOrMoreTime: true}));
-};
-var $rakutentech$r10$R10$Form$Internal$Update$onLoseFocus = F3(
-	function (key, fieldConf, formState) {
-		return _Utils_update(
-			formState,
-			{
-				fieldsState: A3(
-					$rakutentech$r10$R10$Form$Internal$Dict$update,
-					key,
-					A3($rakutentech$r10$R10$Form$Internal$Update$helperValidateCreatingFieldsState, key, fieldConf.validationSpecs, formState),
-					A3($rakutentech$r10$R10$Form$Internal$Dict$update, key, $rakutentech$r10$R10$Form$Internal$Update$helperLostFocus, formState.fieldsState)),
-				focused: $elm$core$Maybe$Nothing
-			});
-	});
-var $rakutentech$r10$R10$Form$Internal$Update$helperUpdateScroll = F2(
-	function (value, maybeScroll) {
-		var fieldState = $rakutentech$r10$R10$Form$Internal$Update$stateWithDefault(maybeScroll);
-		return $elm$core$Maybe$Just(
-			_Utils_update(
-				fieldState,
-				{scroll: value}));
-	});
-var $rakutentech$r10$R10$Form$Internal$Update$onScroll = F3(
-	function (key, scroll, formState) {
-		return _Utils_update(
-			formState,
-			{
-				fieldsState: A3(
-					$rakutentech$r10$R10$Form$Internal$Dict$update,
-					key,
-					$rakutentech$r10$R10$Form$Internal$Update$helperUpdateScroll(scroll),
-					formState.fieldsState)
-			});
-	});
-var $rakutentech$r10$R10$Form$Internal$QtySubmitAttempted$increment = function (qtySubmitAttempted) {
-	return $rakutentech$r10$R10$Form$Internal$QtySubmitAttempted$fromInt(
-		$rakutentech$r10$R10$Form$Internal$QtySubmitAttempted$toInt(qtySubmitAttempted) + 1);
-};
-var $rakutentech$r10$R10$Form$Internal$Update$runAllValidations = F3(
-	function (allKeys, formState, fieldsState) {
+var $rakutentech$r10$R10$Form$Internal$Update$runAllValidations = F4(
+	function (formStateBeforeValidationFixer, allKeys, formState, fieldsState) {
 		return A3(
 			$elm$core$List$foldl,
 			F2(
@@ -12570,28 +12594,39 @@ var $rakutentech$r10$R10$Form$Internal$Update$runAllValidations = F3(
 					return A3(
 						$rakutentech$r10$R10$Form$Internal$Dict$update,
 						key,
-						A3($rakutentech$r10$R10$Form$Internal$Update$helperValidateCreatingFieldsState, key, validationSpec, formState),
+						A4($rakutentech$r10$R10$Form$Internal$Update$helperValidateCreatingFieldsState, formStateBeforeValidationFixer, key, validationSpec, formState),
 						acc);
 				}),
 			fieldsState,
 			allKeys);
 	});
-var $rakutentech$r10$R10$Form$Internal$Update$validateEntireForm = function (form) {
-	var state = form.state;
-	var allKeys = $rakutentech$r10$R10$Form$Internal$Update$allValidationKeysMaker(form);
-	var newFieldsState = A3($rakutentech$r10$R10$Form$Internal$Update$runAllValidations, allKeys, form.state, form.state.fieldsState);
-	return _Utils_update(
-		state,
-		{fieldsState: newFieldsState});
-};
-var $rakutentech$r10$R10$Form$Internal$Update$submit = function (form) {
-	var newQtySubmitAttempted = $rakutentech$r10$R10$Form$Internal$QtySubmitAttempted$increment(form.state.qtySubmitAttempted);
-	var newFieldsState = $rakutentech$r10$R10$Form$Internal$Update$validateEntireForm(form);
-	return _Utils_update(
-		newFieldsState,
-		{qtySubmitAttempted: newQtySubmitAttempted});
-};
-var $rakutentech$r10$R10$FormComponents$Internal$Single$Common$NoOp = {$: 'NoOp'};
+var $rakutentech$r10$R10$Form$Internal$Update$validateEntireForm = F2(
+	function (formStateBeforeValidationFixer, form) {
+		var state = form.state;
+		var allKeys = $rakutentech$r10$R10$Form$Internal$Update$allValidationKeysMaker(form);
+		var newFieldsState = A4($rakutentech$r10$R10$Form$Internal$Update$runAllValidations, formStateBeforeValidationFixer, allKeys, form.state, form.state.fieldsState);
+		return _Utils_update(
+			state,
+			{fieldsState: newFieldsState});
+	});
+var $rakutentech$r10$R10$Form$Internal$Update$submit = F2(
+	function (formStateBeforeValidationFixer, form) {
+		var newQtySubmitAttempted = $rakutentech$r10$R10$Form$Internal$QtySubmitAttempted$increment(form.state.qtySubmitAttempted);
+		var newFieldsState = A2($rakutentech$r10$R10$Form$Internal$Update$validateEntireForm, formStateBeforeValidationFixer, form);
+		return _Utils_update(
+			newFieldsState,
+			{qtySubmitAttempted: newQtySubmitAttempted});
+	});
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$Common$NoOp = {$: 'NoOp'};
+var $elm$core$Maybe$andThen = F2(
+	function (callback, maybeValue) {
+		if (maybeValue.$ === 'Just') {
+			var value = maybeValue.a;
+			return callback(value);
+		} else {
+			return $elm$core$Maybe$Nothing;
+		}
+	});
 var $elm$core$Task$onError = _Scheduler_onError;
 var $elm$core$Task$attempt = F2(
 	function (resultToMessage, task) {
@@ -12611,26 +12646,1309 @@ var $elm$core$Task$attempt = F2(
 							$elm$core$Result$Ok),
 						task))));
 	});
-var $rakutentech$r10$R10$FormComponents$Internal$Single$Common$dropdownContentId = function (key) {
-	return 'single-dropdown-content-' + key;
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$Common$dropdownContentId = function (key) {
+	return 'dropdown-content-' + key;
 };
-var $elm$core$Maybe$andThen = F2(
-	function (callback, maybeValue) {
-		if (maybeValue.$ === 'Just') {
-			var value = maybeValue.a;
-			return callback(value);
-		} else {
+var $rakutentech$r10$R10$Country$Afghanistan = {$: 'Afghanistan'};
+var $rakutentech$r10$R10$Country$Albania = {$: 'Albania'};
+var $rakutentech$r10$R10$Country$Algeria = {$: 'Algeria'};
+var $rakutentech$r10$R10$Country$AmericanSamoa = {$: 'AmericanSamoa'};
+var $rakutentech$r10$R10$Country$Andorra = {$: 'Andorra'};
+var $rakutentech$r10$R10$Country$Angola = {$: 'Angola'};
+var $rakutentech$r10$R10$Country$Anguilla = {$: 'Anguilla'};
+var $rakutentech$r10$R10$Country$Antarctica = {$: 'Antarctica'};
+var $rakutentech$r10$R10$Country$AntiguaandBarbuda = {$: 'AntiguaandBarbuda'};
+var $rakutentech$r10$R10$Country$Argentina = {$: 'Argentina'};
+var $rakutentech$r10$R10$Country$Armenia = {$: 'Armenia'};
+var $rakutentech$r10$R10$Country$Aruba = {$: 'Aruba'};
+var $rakutentech$r10$R10$Country$Australia = {$: 'Australia'};
+var $rakutentech$r10$R10$Country$Austria = {$: 'Austria'};
+var $rakutentech$r10$R10$Country$Azerbaijan = {$: 'Azerbaijan'};
+var $rakutentech$r10$R10$Country$Bahamas = {$: 'Bahamas'};
+var $rakutentech$r10$R10$Country$Bahrain = {$: 'Bahrain'};
+var $rakutentech$r10$R10$Country$Bangladesh = {$: 'Bangladesh'};
+var $rakutentech$r10$R10$Country$Barbados = {$: 'Barbados'};
+var $rakutentech$r10$R10$Country$Belarus = {$: 'Belarus'};
+var $rakutentech$r10$R10$Country$Belgium = {$: 'Belgium'};
+var $rakutentech$r10$R10$Country$Belize = {$: 'Belize'};
+var $rakutentech$r10$R10$Country$Benin = {$: 'Benin'};
+var $rakutentech$r10$R10$Country$Bermuda = {$: 'Bermuda'};
+var $rakutentech$r10$R10$Country$Bhutan = {$: 'Bhutan'};
+var $rakutentech$r10$R10$Country$Bolivia = {$: 'Bolivia'};
+var $rakutentech$r10$R10$Country$BosniaandHerzegovina = {$: 'BosniaandHerzegovina'};
+var $rakutentech$r10$R10$Country$Botswana = {$: 'Botswana'};
+var $rakutentech$r10$R10$Country$Brazil = {$: 'Brazil'};
+var $rakutentech$r10$R10$Country$BritishIndianOceanTerritory = {$: 'BritishIndianOceanTerritory'};
+var $rakutentech$r10$R10$Country$BritishVirginIslands = {$: 'BritishVirginIslands'};
+var $rakutentech$r10$R10$Country$Brunei = {$: 'Brunei'};
+var $rakutentech$r10$R10$Country$Bulgaria = {$: 'Bulgaria'};
+var $rakutentech$r10$R10$Country$BurkinaFaso = {$: 'BurkinaFaso'};
+var $rakutentech$r10$R10$Country$Burundi = {$: 'Burundi'};
+var $rakutentech$r10$R10$Country$Cambodia = {$: 'Cambodia'};
+var $rakutentech$r10$R10$Country$Cameroon = {$: 'Cameroon'};
+var $rakutentech$r10$R10$Country$CapeVerde = {$: 'CapeVerde'};
+var $rakutentech$r10$R10$Country$CaymanIslands = {$: 'CaymanIslands'};
+var $rakutentech$r10$R10$Country$CentralAfricanRepublic = {$: 'CentralAfricanRepublic'};
+var $rakutentech$r10$R10$Country$Chad = {$: 'Chad'};
+var $rakutentech$r10$R10$Country$Chile = {$: 'Chile'};
+var $rakutentech$r10$R10$Country$China = {$: 'China'};
+var $rakutentech$r10$R10$Country$ChristmasIsland = {$: 'ChristmasIsland'};
+var $rakutentech$r10$R10$Country$CocosIslands = {$: 'CocosIslands'};
+var $rakutentech$r10$R10$Country$Colombia = {$: 'Colombia'};
+var $rakutentech$r10$R10$Country$Comoros = {$: 'Comoros'};
+var $rakutentech$r10$R10$Country$CookIslands = {$: 'CookIslands'};
+var $rakutentech$r10$R10$Country$CostaRica = {$: 'CostaRica'};
+var $rakutentech$r10$R10$Country$Croatia = {$: 'Croatia'};
+var $rakutentech$r10$R10$Country$Cuba = {$: 'Cuba'};
+var $rakutentech$r10$R10$Country$Curacao = {$: 'Curacao'};
+var $rakutentech$r10$R10$Country$Cyprus = {$: 'Cyprus'};
+var $rakutentech$r10$R10$Country$CzechRepublic = {$: 'CzechRepublic'};
+var $rakutentech$r10$R10$Country$DemocraticRepublicoftheCongo = {$: 'DemocraticRepublicoftheCongo'};
+var $rakutentech$r10$R10$Country$Denmark = {$: 'Denmark'};
+var $rakutentech$r10$R10$Country$Djibouti = {$: 'Djibouti'};
+var $rakutentech$r10$R10$Country$Dominica = {$: 'Dominica'};
+var $rakutentech$r10$R10$Country$DominicanRepublic = {$: 'DominicanRepublic'};
+var $rakutentech$r10$R10$Country$EastTimor = {$: 'EastTimor'};
+var $rakutentech$r10$R10$Country$Ecuador = {$: 'Ecuador'};
+var $rakutentech$r10$R10$Country$Egypt = {$: 'Egypt'};
+var $rakutentech$r10$R10$Country$ElSalvador = {$: 'ElSalvador'};
+var $rakutentech$r10$R10$Country$EquatorialGuinea = {$: 'EquatorialGuinea'};
+var $rakutentech$r10$R10$Country$Eritrea = {$: 'Eritrea'};
+var $rakutentech$r10$R10$Country$Estonia = {$: 'Estonia'};
+var $rakutentech$r10$R10$Country$Ethiopia = {$: 'Ethiopia'};
+var $rakutentech$r10$R10$Country$FalklandIslands = {$: 'FalklandIslands'};
+var $rakutentech$r10$R10$Country$FaroeIslands = {$: 'FaroeIslands'};
+var $rakutentech$r10$R10$Country$Fiji = {$: 'Fiji'};
+var $rakutentech$r10$R10$Country$Finland = {$: 'Finland'};
+var $rakutentech$r10$R10$Country$France = {$: 'France'};
+var $rakutentech$r10$R10$Country$FrenchPolynesia = {$: 'FrenchPolynesia'};
+var $rakutentech$r10$R10$Country$Gabon = {$: 'Gabon'};
+var $rakutentech$r10$R10$Country$Gambia = {$: 'Gambia'};
+var $rakutentech$r10$R10$Country$Georgia = {$: 'Georgia'};
+var $rakutentech$r10$R10$Country$Germany = {$: 'Germany'};
+var $rakutentech$r10$R10$Country$Ghana = {$: 'Ghana'};
+var $rakutentech$r10$R10$Country$Gibraltar = {$: 'Gibraltar'};
+var $rakutentech$r10$R10$Country$Greece = {$: 'Greece'};
+var $rakutentech$r10$R10$Country$Greenland = {$: 'Greenland'};
+var $rakutentech$r10$R10$Country$Grenada = {$: 'Grenada'};
+var $rakutentech$r10$R10$Country$Guam = {$: 'Guam'};
+var $rakutentech$r10$R10$Country$Guatemala = {$: 'Guatemala'};
+var $rakutentech$r10$R10$Country$Guernsey = {$: 'Guernsey'};
+var $rakutentech$r10$R10$Country$Guinea = {$: 'Guinea'};
+var $rakutentech$r10$R10$Country$GuineaBissau = {$: 'GuineaBissau'};
+var $rakutentech$r10$R10$Country$Guyana = {$: 'Guyana'};
+var $rakutentech$r10$R10$Country$Haiti = {$: 'Haiti'};
+var $rakutentech$r10$R10$Country$Honduras = {$: 'Honduras'};
+var $rakutentech$r10$R10$Country$HongKong = {$: 'HongKong'};
+var $rakutentech$r10$R10$Country$Hungary = {$: 'Hungary'};
+var $rakutentech$r10$R10$Country$Iceland = {$: 'Iceland'};
+var $rakutentech$r10$R10$Country$India = {$: 'India'};
+var $rakutentech$r10$R10$Country$Indonesia = {$: 'Indonesia'};
+var $rakutentech$r10$R10$Country$Iran = {$: 'Iran'};
+var $rakutentech$r10$R10$Country$Iraq = {$: 'Iraq'};
+var $rakutentech$r10$R10$Country$Ireland = {$: 'Ireland'};
+var $rakutentech$r10$R10$Country$IsleofMan = {$: 'IsleofMan'};
+var $rakutentech$r10$R10$Country$Israel = {$: 'Israel'};
+var $rakutentech$r10$R10$Country$Italy = {$: 'Italy'};
+var $rakutentech$r10$R10$Country$IvoryCoast = {$: 'IvoryCoast'};
+var $rakutentech$r10$R10$Country$Jamaica = {$: 'Jamaica'};
+var $rakutentech$r10$R10$Country$Japan = {$: 'Japan'};
+var $rakutentech$r10$R10$Country$Jersey = {$: 'Jersey'};
+var $rakutentech$r10$R10$Country$Jordan = {$: 'Jordan'};
+var $rakutentech$r10$R10$Country$Kenya = {$: 'Kenya'};
+var $rakutentech$r10$R10$Country$Kiribati = {$: 'Kiribati'};
+var $rakutentech$r10$R10$Country$Kosovo = {$: 'Kosovo'};
+var $rakutentech$r10$R10$Country$Kuwait = {$: 'Kuwait'};
+var $rakutentech$r10$R10$Country$Kyrgyzstan = {$: 'Kyrgyzstan'};
+var $rakutentech$r10$R10$Country$Laos = {$: 'Laos'};
+var $rakutentech$r10$R10$Country$Latvia = {$: 'Latvia'};
+var $rakutentech$r10$R10$Country$Lebanon = {$: 'Lebanon'};
+var $rakutentech$r10$R10$Country$Lesotho = {$: 'Lesotho'};
+var $rakutentech$r10$R10$Country$Liberia = {$: 'Liberia'};
+var $rakutentech$r10$R10$Country$Libya = {$: 'Libya'};
+var $rakutentech$r10$R10$Country$Liechtenstein = {$: 'Liechtenstein'};
+var $rakutentech$r10$R10$Country$Lithuania = {$: 'Lithuania'};
+var $rakutentech$r10$R10$Country$Luxembourg = {$: 'Luxembourg'};
+var $rakutentech$r10$R10$Country$Macau = {$: 'Macau'};
+var $rakutentech$r10$R10$Country$Macedonia = {$: 'Macedonia'};
+var $rakutentech$r10$R10$Country$Madagascar = {$: 'Madagascar'};
+var $rakutentech$r10$R10$Country$Malawi = {$: 'Malawi'};
+var $rakutentech$r10$R10$Country$Malaysia = {$: 'Malaysia'};
+var $rakutentech$r10$R10$Country$Maldives = {$: 'Maldives'};
+var $rakutentech$r10$R10$Country$Mali = {$: 'Mali'};
+var $rakutentech$r10$R10$Country$Malta = {$: 'Malta'};
+var $rakutentech$r10$R10$Country$MarshallIslands = {$: 'MarshallIslands'};
+var $rakutentech$r10$R10$Country$Mauritania = {$: 'Mauritania'};
+var $rakutentech$r10$R10$Country$Mauritius = {$: 'Mauritius'};
+var $rakutentech$r10$R10$Country$Mayotte = {$: 'Mayotte'};
+var $rakutentech$r10$R10$Country$Mexico = {$: 'Mexico'};
+var $rakutentech$r10$R10$Country$Micronesia = {$: 'Micronesia'};
+var $rakutentech$r10$R10$Country$Moldova = {$: 'Moldova'};
+var $rakutentech$r10$R10$Country$Monaco = {$: 'Monaco'};
+var $rakutentech$r10$R10$Country$Mongolia = {$: 'Mongolia'};
+var $rakutentech$r10$R10$Country$Montenegro = {$: 'Montenegro'};
+var $rakutentech$r10$R10$Country$Montserrat = {$: 'Montserrat'};
+var $rakutentech$r10$R10$Country$Morocco = {$: 'Morocco'};
+var $rakutentech$r10$R10$Country$Mozambique = {$: 'Mozambique'};
+var $rakutentech$r10$R10$Country$Myanmar = {$: 'Myanmar'};
+var $rakutentech$r10$R10$Country$Namibia = {$: 'Namibia'};
+var $rakutentech$r10$R10$Country$Nauru = {$: 'Nauru'};
+var $rakutentech$r10$R10$Country$Nepal = {$: 'Nepal'};
+var $rakutentech$r10$R10$Country$Netherlands = {$: 'Netherlands'};
+var $rakutentech$r10$R10$Country$NewCaledonia = {$: 'NewCaledonia'};
+var $rakutentech$r10$R10$Country$NewZealand = {$: 'NewZealand'};
+var $rakutentech$r10$R10$Country$Nicaragua = {$: 'Nicaragua'};
+var $rakutentech$r10$R10$Country$Niger = {$: 'Niger'};
+var $rakutentech$r10$R10$Country$Nigeria = {$: 'Nigeria'};
+var $rakutentech$r10$R10$Country$Niue = {$: 'Niue'};
+var $rakutentech$r10$R10$Country$NorthKorea = {$: 'NorthKorea'};
+var $rakutentech$r10$R10$Country$NorthernMarianaIslands = {$: 'NorthernMarianaIslands'};
+var $rakutentech$r10$R10$Country$Norway = {$: 'Norway'};
+var $rakutentech$r10$R10$Country$Oman = {$: 'Oman'};
+var $rakutentech$r10$R10$Country$Pakistan = {$: 'Pakistan'};
+var $rakutentech$r10$R10$Country$Palau = {$: 'Palau'};
+var $rakutentech$r10$R10$Country$Palestine = {$: 'Palestine'};
+var $rakutentech$r10$R10$Country$Panama = {$: 'Panama'};
+var $rakutentech$r10$R10$Country$PapuaNewGuinea = {$: 'PapuaNewGuinea'};
+var $rakutentech$r10$R10$Country$Paraguay = {$: 'Paraguay'};
+var $rakutentech$r10$R10$Country$Peru = {$: 'Peru'};
+var $rakutentech$r10$R10$Country$Philippines = {$: 'Philippines'};
+var $rakutentech$r10$R10$Country$Poland = {$: 'Poland'};
+var $rakutentech$r10$R10$Country$Portugal = {$: 'Portugal'};
+var $rakutentech$r10$R10$Country$PuertoRico = {$: 'PuertoRico'};
+var $rakutentech$r10$R10$Country$Qatar = {$: 'Qatar'};
+var $rakutentech$r10$R10$Country$RepublicoftheCongo = {$: 'RepublicoftheCongo'};
+var $rakutentech$r10$R10$Country$Reunion = {$: 'Reunion'};
+var $rakutentech$r10$R10$Country$Romania = {$: 'Romania'};
+var $rakutentech$r10$R10$Country$Russia = {$: 'Russia'};
+var $rakutentech$r10$R10$Country$Rwanda = {$: 'Rwanda'};
+var $rakutentech$r10$R10$Country$SaintHelena = {$: 'SaintHelena'};
+var $rakutentech$r10$R10$Country$SaintKittsandNevis = {$: 'SaintKittsandNevis'};
+var $rakutentech$r10$R10$Country$SaintLucia = {$: 'SaintLucia'};
+var $rakutentech$r10$R10$Country$SaintPierreandMiquelon = {$: 'SaintPierreandMiquelon'};
+var $rakutentech$r10$R10$Country$SaintVincentandTheGrenadines = {$: 'SaintVincentandTheGrenadines'};
+var $rakutentech$r10$R10$Country$Samoa = {$: 'Samoa'};
+var $rakutentech$r10$R10$Country$SanMarino = {$: 'SanMarino'};
+var $rakutentech$r10$R10$Country$SaoTomeandPrincipe = {$: 'SaoTomeandPrincipe'};
+var $rakutentech$r10$R10$Country$SaudiArabia = {$: 'SaudiArabia'};
+var $rakutentech$r10$R10$Country$Senegal = {$: 'Senegal'};
+var $rakutentech$r10$R10$Country$Serbia = {$: 'Serbia'};
+var $rakutentech$r10$R10$Country$Seychelles = {$: 'Seychelles'};
+var $rakutentech$r10$R10$Country$SierraLeone = {$: 'SierraLeone'};
+var $rakutentech$r10$R10$Country$Singapore = {$: 'Singapore'};
+var $rakutentech$r10$R10$Country$SintMaarten = {$: 'SintMaarten'};
+var $rakutentech$r10$R10$Country$Slovakia = {$: 'Slovakia'};
+var $rakutentech$r10$R10$Country$Slovenia = {$: 'Slovenia'};
+var $rakutentech$r10$R10$Country$SolomonIslands = {$: 'SolomonIslands'};
+var $rakutentech$r10$R10$Country$Somalia = {$: 'Somalia'};
+var $rakutentech$r10$R10$Country$SouthAfrica = {$: 'SouthAfrica'};
+var $rakutentech$r10$R10$Country$SouthKorea = {$: 'SouthKorea'};
+var $rakutentech$r10$R10$Country$SouthSudan = {$: 'SouthSudan'};
+var $rakutentech$r10$R10$Country$Spain = {$: 'Spain'};
+var $rakutentech$r10$R10$Country$SriLanka = {$: 'SriLanka'};
+var $rakutentech$r10$R10$Country$Sudan = {$: 'Sudan'};
+var $rakutentech$r10$R10$Country$Suriname = {$: 'Suriname'};
+var $rakutentech$r10$R10$Country$SvalbardandJanMayen = {$: 'SvalbardandJanMayen'};
+var $rakutentech$r10$R10$Country$Swaziland = {$: 'Swaziland'};
+var $rakutentech$r10$R10$Country$Sweden = {$: 'Sweden'};
+var $rakutentech$r10$R10$Country$Switzerland = {$: 'Switzerland'};
+var $rakutentech$r10$R10$Country$Syria = {$: 'Syria'};
+var $rakutentech$r10$R10$Country$Taiwan = {$: 'Taiwan'};
+var $rakutentech$r10$R10$Country$Tajikistan = {$: 'Tajikistan'};
+var $rakutentech$r10$R10$Country$Tanzania = {$: 'Tanzania'};
+var $rakutentech$r10$R10$Country$Thailand = {$: 'Thailand'};
+var $rakutentech$r10$R10$Country$Togo = {$: 'Togo'};
+var $rakutentech$r10$R10$Country$Tokelau = {$: 'Tokelau'};
+var $rakutentech$r10$R10$Country$Tonga = {$: 'Tonga'};
+var $rakutentech$r10$R10$Country$TrinidadandTobago = {$: 'TrinidadandTobago'};
+var $rakutentech$r10$R10$Country$Tunisia = {$: 'Tunisia'};
+var $rakutentech$r10$R10$Country$Turkey = {$: 'Turkey'};
+var $rakutentech$r10$R10$Country$Turkmenistan = {$: 'Turkmenistan'};
+var $rakutentech$r10$R10$Country$TurksandCaicosIslands = {$: 'TurksandCaicosIslands'};
+var $rakutentech$r10$R10$Country$Tuvalu = {$: 'Tuvalu'};
+var $rakutentech$r10$R10$Country$USVirginIslands = {$: 'USVirginIslands'};
+var $rakutentech$r10$R10$Country$Uganda = {$: 'Uganda'};
+var $rakutentech$r10$R10$Country$Ukraine = {$: 'Ukraine'};
+var $rakutentech$r10$R10$Country$UnitedArabEmirates = {$: 'UnitedArabEmirates'};
+var $rakutentech$r10$R10$Country$UnitedKingdom = {$: 'UnitedKingdom'};
+var $rakutentech$r10$R10$Country$UnitedStates = {$: 'UnitedStates'};
+var $rakutentech$r10$R10$Country$Uruguay = {$: 'Uruguay'};
+var $rakutentech$r10$R10$Country$Uzbekistan = {$: 'Uzbekistan'};
+var $rakutentech$r10$R10$Country$Vanuatu = {$: 'Vanuatu'};
+var $rakutentech$r10$R10$Country$Vatican = {$: 'Vatican'};
+var $rakutentech$r10$R10$Country$Venezuela = {$: 'Venezuela'};
+var $rakutentech$r10$R10$Country$Vietnam = {$: 'Vietnam'};
+var $rakutentech$r10$R10$Country$WallisandFutuna = {$: 'WallisandFutuna'};
+var $rakutentech$r10$R10$Country$Yemen = {$: 'Yemen'};
+var $rakutentech$r10$R10$Country$Zambia = {$: 'Zambia'};
+var $rakutentech$r10$R10$Country$Zimbabwe = {$: 'Zimbabwe'};
+var $rakutentech$r10$R10$Country$fromCountryTelCode = function (code) {
+	switch (code) {
+		case '+93':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Afghanistan);
+		case '+355':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Albania);
+		case '+213':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Algeria);
+		case '+1684':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$AmericanSamoa);
+		case '+376':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Andorra);
+		case '+244':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Angola);
+		case '+1264':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Anguilla);
+		case '+672':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Antarctica);
+		case '+1268':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$AntiguaandBarbuda);
+		case '+54':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Argentina);
+		case '+374':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Armenia);
+		case '+297':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Aruba);
+		case '+61':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Australia);
+		case '+43':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Austria);
+		case '+994':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Azerbaijan);
+		case '+1242':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Bahamas);
+		case '+973':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Bahrain);
+		case '+880':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Bangladesh);
+		case '+1246':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Barbados);
+		case '+375':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Belarus);
+		case '+32':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Belgium);
+		case '+501':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Belize);
+		case '+229':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Benin);
+		case '+1441':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Bermuda);
+		case '+975':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Bhutan);
+		case '+591':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Bolivia);
+		case '+387':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$BosniaandHerzegovina);
+		case '+267':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Botswana);
+		case '+55':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Brazil);
+		case '+246':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$BritishIndianOceanTerritory);
+		case '+1284':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$BritishVirginIslands);
+		case '+673':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Brunei);
+		case '+359':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Bulgaria);
+		case '+226':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$BurkinaFaso);
+		case '+257':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Burundi);
+		case '+855':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Cambodia);
+		case '+237':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Cameroon);
+		case '+238':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$CapeVerde);
+		case '+1345':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$CaymanIslands);
+		case '+236':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$CentralAfricanRepublic);
+		case '+235':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Chad);
+		case '+56':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Chile);
+		case '+86':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$China);
+		case '+6189164':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$ChristmasIsland);
+		case '+6189162':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$CocosIslands);
+		case '+57':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Colombia);
+		case '+269':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Comoros);
+		case '+682':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$CookIslands);
+		case '+506':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$CostaRica);
+		case '+385':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Croatia);
+		case '+53':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Cuba);
+		case '+599':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Curacao);
+		case '+357':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Cyprus);
+		case '+420':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$CzechRepublic);
+		case '+243':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$DemocraticRepublicoftheCongo);
+		case '+45':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Denmark);
+		case '+253':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Djibouti);
+		case '+1767':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Dominica);
+		case '+1809':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$DominicanRepublic);
+		case '+1829':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$DominicanRepublic);
+		case '+1849':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$DominicanRepublic);
+		case '+670':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$EastTimor);
+		case '+593':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Ecuador);
+		case '+20':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Egypt);
+		case '+503':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$ElSalvador);
+		case '+240':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$EquatorialGuinea);
+		case '+291':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Eritrea);
+		case '+372':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Estonia);
+		case '+251':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Ethiopia);
+		case '+500':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$FalklandIslands);
+		case '+298':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$FaroeIslands);
+		case '+679':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Fiji);
+		case '+358':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Finland);
+		case '+33':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$France);
+		case '+689':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$FrenchPolynesia);
+		case '+241':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Gabon);
+		case '+220':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Gambia);
+		case '+995':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Georgia);
+		case '+49':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Germany);
+		case '+233':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Ghana);
+		case '+350':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Gibraltar);
+		case '+30':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Greece);
+		case '+299':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Greenland);
+		case '+1473':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Grenada);
+		case '+1671':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Guam);
+		case '+502':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Guatemala);
+		case '+441481':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Guernsey);
+		case '+224':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Guinea);
+		case '+245':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$GuineaBissau);
+		case '+592':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Guyana);
+		case '+509':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Haiti);
+		case '+504':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Honduras);
+		case '+852':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$HongKong);
+		case '+36':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Hungary);
+		case '+354':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Iceland);
+		case '+91':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$India);
+		case '+62':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Indonesia);
+		case '+98':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Iran);
+		case '+964':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Iraq);
+		case '+353':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Ireland);
+		case '+441624':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$IsleofMan);
+		case '+972':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Israel);
+		case '+39':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Italy);
+		case '+225':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$IvoryCoast);
+		case '+1876':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Jamaica);
+		case '+81':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Japan);
+		case '+441534':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Jersey);
+		case '+962':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Jordan);
+		case '+254':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Kenya);
+		case '+686':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Kiribati);
+		case '+383':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Kosovo);
+		case '+965':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Kuwait);
+		case '+996':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Kyrgyzstan);
+		case '+856':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Laos);
+		case '+371':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Latvia);
+		case '+961':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Lebanon);
+		case '+266':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Lesotho);
+		case '+231':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Liberia);
+		case '+218':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Libya);
+		case '+423':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Liechtenstein);
+		case '+370':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Lithuania);
+		case '+352':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Luxembourg);
+		case '+853':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Macau);
+		case '+389':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Macedonia);
+		case '+261':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Madagascar);
+		case '+265':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Malawi);
+		case '+60':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Malaysia);
+		case '+960':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Maldives);
+		case '+223':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Mali);
+		case '+356':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Malta);
+		case '+692':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$MarshallIslands);
+		case '+222':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Mauritania);
+		case '+230':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Mauritius);
+		case '+262269':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Mayotte);
+		case '+262639':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Mayotte);
+		case '+52':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Mexico);
+		case '+691':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Micronesia);
+		case '+373':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Moldova);
+		case '+377':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Monaco);
+		case '+976':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Mongolia);
+		case '+382':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Montenegro);
+		case '+1664':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Montserrat);
+		case '+212':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Morocco);
+		case '+258':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Mozambique);
+		case '+95':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Myanmar);
+		case '+264':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Namibia);
+		case '+674':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Nauru);
+		case '+977':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Nepal);
+		case '+31':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Netherlands);
+		case '+687':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$NewCaledonia);
+		case '+64':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$NewZealand);
+		case '+505':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Nicaragua);
+		case '+227':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Niger);
+		case '+234':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Nigeria);
+		case '+683':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Niue);
+		case '+850':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$NorthKorea);
+		case '+1670':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$NorthernMarianaIslands);
+		case '+47':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Norway);
+		case '+968':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Oman);
+		case '+92':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Pakistan);
+		case '+680':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Palau);
+		case '+970':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Palestine);
+		case '+507':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Panama);
+		case '+675':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$PapuaNewGuinea);
+		case '+595':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Paraguay);
+		case '+51':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Peru);
+		case '+63':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Philippines);
+		case '+48':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Poland);
+		case '+351':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Portugal);
+		case '+1787':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$PuertoRico);
+		case '+1939':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$PuertoRico);
+		case '+974':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Qatar);
+		case '+242':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$RepublicoftheCongo);
+		case '+262':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Reunion);
+		case '+40':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Romania);
+		case '+7':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Russia);
+		case '+250':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Rwanda);
+		case '+290':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$SaintHelena);
+		case '+1869':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$SaintKittsandNevis);
+		case '+1758':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$SaintLucia);
+		case '+508':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$SaintPierreandMiquelon);
+		case '+1784':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$SaintVincentandTheGrenadines);
+		case '+685':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Samoa);
+		case '+378':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$SanMarino);
+		case '+239':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$SaoTomeandPrincipe);
+		case '+966':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$SaudiArabia);
+		case '+221':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Senegal);
+		case '+381':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Serbia);
+		case '+248':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Seychelles);
+		case '+232':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$SierraLeone);
+		case '+65':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Singapore);
+		case '+1721':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$SintMaarten);
+		case '+421':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Slovakia);
+		case '+386':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Slovenia);
+		case '+677':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$SolomonIslands);
+		case '+252':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Somalia);
+		case '+27':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$SouthAfrica);
+		case '+82':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$SouthKorea);
+		case '+211':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$SouthSudan);
+		case '+34':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Spain);
+		case '+94':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$SriLanka);
+		case '+249':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Sudan);
+		case '+597':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Suriname);
+		case '+4779':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$SvalbardandJanMayen);
+		case '+268':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Swaziland);
+		case '+46':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Sweden);
+		case '+41':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Switzerland);
+		case '+963':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Syria);
+		case '+886':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Taiwan);
+		case '+992':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Tajikistan);
+		case '+255':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Tanzania);
+		case '+66':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Thailand);
+		case '+228':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Togo);
+		case '+690':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Tokelau);
+		case '+676':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Tonga);
+		case '+1868':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$TrinidadandTobago);
+		case '+216':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Tunisia);
+		case '+90':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Turkey);
+		case '+993':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Turkmenistan);
+		case '+1649':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$TurksandCaicosIslands);
+		case '+688':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Tuvalu);
+		case '+1340':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$USVirginIslands);
+		case '+256':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Uganda);
+		case '+380':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Ukraine);
+		case '+971':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$UnitedArabEmirates);
+		case '+44':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$UnitedKingdom);
+		case '+1':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$UnitedStates);
+		case '+598':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Uruguay);
+		case '+998':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Uzbekistan);
+		case '+678':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Vanuatu);
+		case '+379':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Vatican);
+		case '+58':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Venezuela);
+		case '+84':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Vietnam);
+		case '+681':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$WallisandFutuna);
+		case '+967':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Yemen);
+		case '+260':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Zambia);
+		case '+263':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Zimbabwe);
+		default:
 			return $elm$core$Maybe$Nothing;
+	}
+};
+var $elm$core$String$replace = F3(
+	function (before, after, string) {
+		return A2(
+			$elm$core$String$join,
+			after,
+			A2($elm$core$String$split, before, string));
+	});
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$Update$extractCountry = function (untrimmedString) {
+	var str = A3($elm$core$String$replace, ' ', '', untrimmedString);
+	return A2($elm$core$String$startsWith, '+', str) ? $elm$core$List$head(
+		A2(
+			$elm$core$List$filterMap,
+			$elm$core$Basics$identity,
+			A2(
+				$elm$core$List$map,
+				$rakutentech$r10$R10$Country$fromCountryTelCode,
+				A2(
+					$elm$core$List$map,
+					function (i) {
+						return A2($elm$core$String$left, i, str);
+					},
+					$elm$core$List$reverse(
+						A2($elm$core$List$range, 2, 7)))))) : $elm$core$Maybe$Nothing;
+};
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$Common$dropdownSearchBoxId = function (key) {
+	return 'dropdown-search-' + key;
+};
+var $elm$browser$Browser$Dom$focus = _Browser_call('focus');
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$Update$focusSearchBoxCmd = F2(
+	function (key, _v0) {
+		var model = _v0.a;
+		var cmd = _v0.b;
+		return _Utils_Tuple2(
+			model,
+			$elm$core$Platform$Cmd$batch(
+				_List_fromArray(
+					[
+						cmd,
+						A2(
+						$elm$core$Task$attempt,
+						$elm$core$Basics$always($rakutentech$r10$R10$FormComponents$Internal$Phone$Common$NoOp),
+						$elm$browser$Browser$Dom$focus(
+							$rakutentech$r10$R10$FormComponents$Internal$Phone$Common$dropdownSearchBoxId(key)))
+					])));
+	});
+var $rakutentech$r10$R10$Country$Canada = {$: 'Canada'};
+var $rakutentech$r10$R10$Country$Kazakhstan = {$: 'Kazakhstan'};
+var $rakutentech$r10$R10$Country$Pitcairn = {$: 'Pitcairn'};
+var $rakutentech$r10$R10$Country$SaintBarthelemy = {$: 'SaintBarthelemy'};
+var $rakutentech$r10$R10$Country$SaintMartin = {$: 'SaintMartin'};
+var $rakutentech$r10$R10$Country$WesternSahara = {$: 'WesternSahara'};
+var $rakutentech$r10$R10$Country$fromString = function (str) {
+	switch (str) {
+		case 'Afghanistan':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Afghanistan);
+		case 'Albania':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Albania);
+		case 'Algeria':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Algeria);
+		case 'American Samoa':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$AmericanSamoa);
+		case 'Andorra':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Andorra);
+		case 'Angola':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Angola);
+		case 'Anguilla':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Anguilla);
+		case 'Antarctica':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Antarctica);
+		case 'Antigua and Barbuda':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$AntiguaandBarbuda);
+		case 'Argentina':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Argentina);
+		case 'Armenia':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Armenia);
+		case 'Aruba':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Aruba);
+		case 'Australia':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Australia);
+		case 'Austria':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Austria);
+		case 'Azerbaijan':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Azerbaijan);
+		case 'Bahamas':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Bahamas);
+		case 'Bahrain':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Bahrain);
+		case 'Bangladesh':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Bangladesh);
+		case 'Barbados':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Barbados);
+		case 'Belarus':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Belarus);
+		case 'Belgium':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Belgium);
+		case 'Belize':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Belize);
+		case 'Benin':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Benin);
+		case 'Bermuda':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Bermuda);
+		case 'Bhutan':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Bhutan);
+		case 'Bolivia':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Bolivia);
+		case 'Bosnia and Herzegovina':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$BosniaandHerzegovina);
+		case 'Botswana':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Botswana);
+		case 'Brazil':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Brazil);
+		case 'British Indian Ocean Territory':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$BritishIndianOceanTerritory);
+		case 'British Virgin Islands':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$BritishVirginIslands);
+		case 'Brunei':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Brunei);
+		case 'Bulgaria':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Bulgaria);
+		case 'Burkina Faso':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$BurkinaFaso);
+		case 'Burundi':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Burundi);
+		case 'Cambodia':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Cambodia);
+		case 'Cameroon':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Cameroon);
+		case 'Canada':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Canada);
+		case 'Cape Verde':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$CapeVerde);
+		case 'Cayman Islands':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$CaymanIslands);
+		case 'Central African Republic':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$CentralAfricanRepublic);
+		case 'Chad':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Chad);
+		case 'Chile':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Chile);
+		case 'China':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$China);
+		case 'Christmas Island':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$ChristmasIsland);
+		case 'Cocos Islands':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$CocosIslands);
+		case 'Colombia':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Colombia);
+		case 'Comoros':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Comoros);
+		case 'Cook Islands':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$CookIslands);
+		case 'Costa Rica':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$CostaRica);
+		case 'Croatia':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Croatia);
+		case 'Cuba':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Cuba);
+		case 'Curacao':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Curacao);
+		case 'Cyprus':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Cyprus);
+		case 'Czech Republic':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$CzechRepublic);
+		case 'Democratic Republic of the Congo':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$DemocraticRepublicoftheCongo);
+		case 'Denmark':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Denmark);
+		case 'Djibouti':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Djibouti);
+		case 'Dominica':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Dominica);
+		case 'Dominican Republic':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$DominicanRepublic);
+		case 'East Timor':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$EastTimor);
+		case 'Ecuador':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Ecuador);
+		case 'Egypt':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Egypt);
+		case 'El Salvador':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$ElSalvador);
+		case 'Equatorial Guinea':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$EquatorialGuinea);
+		case 'Eritrea':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Eritrea);
+		case 'Estonia':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Estonia);
+		case 'Ethiopia':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Ethiopia);
+		case 'Falkland Islands':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$FalklandIslands);
+		case 'Faroe Islands':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$FaroeIslands);
+		case 'Fiji':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Fiji);
+		case 'Finland':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Finland);
+		case 'France':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$France);
+		case 'French Polynesia':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$FrenchPolynesia);
+		case 'Gabon':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Gabon);
+		case 'Gambia':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Gambia);
+		case 'Georgia':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Georgia);
+		case 'Germany':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Germany);
+		case 'Ghana':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Ghana);
+		case 'Gibraltar':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Gibraltar);
+		case 'Greece':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Greece);
+		case 'Greenland':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Greenland);
+		case 'Grenada':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Grenada);
+		case 'Guam':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Guam);
+		case 'Guatemala':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Guatemala);
+		case 'Guernsey':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Guernsey);
+		case 'Guinea':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Guinea);
+		case 'Guinea-Bissau':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$GuineaBissau);
+		case 'Guyana':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Guyana);
+		case 'Haiti':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Haiti);
+		case 'Honduras':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Honduras);
+		case 'Hong Kong':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$HongKong);
+		case 'Hungary':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Hungary);
+		case 'Iceland':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Iceland);
+		case 'India':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$India);
+		case 'Indonesia':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Indonesia);
+		case 'Iran':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Iran);
+		case 'Iraq':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Iraq);
+		case 'Ireland':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Ireland);
+		case 'Isle of Man':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$IsleofMan);
+		case 'Israel':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Israel);
+		case 'Italy':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Italy);
+		case 'Ivory Coast':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$IvoryCoast);
+		case 'Jamaica':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Jamaica);
+		case 'Japan':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Japan);
+		case 'Jersey':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Jersey);
+		case 'Jordan':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Jordan);
+		case 'Kazakhstan':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Kazakhstan);
+		case 'Kenya':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Kenya);
+		case 'Kiribati':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Kiribati);
+		case 'Kosovo':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Kosovo);
+		case 'Kuwait':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Kuwait);
+		case 'Kyrgyzstan':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Kyrgyzstan);
+		case 'Laos':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Laos);
+		case 'Latvia':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Latvia);
+		case 'Lebanon':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Lebanon);
+		case 'Lesotho':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Lesotho);
+		case 'Liberia':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Liberia);
+		case 'Libya':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Libya);
+		case 'Liechtenstein':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Liechtenstein);
+		case 'Lithuania':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Lithuania);
+		case 'Luxembourg':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Luxembourg);
+		case 'Macau':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Macau);
+		case 'Macedonia':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Macedonia);
+		case 'Madagascar':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Madagascar);
+		case 'Malawi':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Malawi);
+		case 'Malaysia':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Malaysia);
+		case 'Maldives':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Maldives);
+		case 'Mali':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Mali);
+		case 'Malta':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Malta);
+		case 'Marshall Islands':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$MarshallIslands);
+		case 'Mauritania':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Mauritania);
+		case 'Mauritius':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Mauritius);
+		case 'Mayotte':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Mayotte);
+		case 'Mexico':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Mexico);
+		case 'Micronesia':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Micronesia);
+		case 'Moldova':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Moldova);
+		case 'Monaco':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Monaco);
+		case 'Mongolia':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Mongolia);
+		case 'Montenegro':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Montenegro);
+		case 'Montserrat':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Montserrat);
+		case 'Morocco':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Morocco);
+		case 'Mozambique':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Mozambique);
+		case 'Myanmar':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Myanmar);
+		case 'Namibia':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Namibia);
+		case 'Nauru':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Nauru);
+		case 'Nepal':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Nepal);
+		case 'Netherlands':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Netherlands);
+		case 'New Caledonia':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$NewCaledonia);
+		case 'New Zealand':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$NewZealand);
+		case 'Nicaragua':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Nicaragua);
+		case 'Niger':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Niger);
+		case 'Nigeria':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Nigeria);
+		case 'Niue':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Niue);
+		case 'North Korea':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$NorthKorea);
+		case 'Northern Mariana Islands':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$NorthernMarianaIslands);
+		case 'Norway':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Norway);
+		case 'Oman':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Oman);
+		case 'Pakistan':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Pakistan);
+		case 'Palau':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Palau);
+		case 'Palestine':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Palestine);
+		case 'Panama':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Panama);
+		case 'Papua New Guinea':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$PapuaNewGuinea);
+		case 'Paraguay':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Paraguay);
+		case 'Peru':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Peru);
+		case 'Philippines':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Philippines);
+		case 'Pitcairn':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Pitcairn);
+		case 'Poland':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Poland);
+		case 'Portugal':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Portugal);
+		case 'Puerto Rico':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$PuertoRico);
+		case 'Qatar':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Qatar);
+		case 'Republic of the Congo':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$RepublicoftheCongo);
+		case 'Reunion':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Reunion);
+		case 'Romania':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Romania);
+		case 'Russia':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Russia);
+		case 'Rwanda':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Rwanda);
+		case 'Saint Barthelemy':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$SaintBarthelemy);
+		case 'Saint Helena':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$SaintHelena);
+		case 'Saint Kitts and Nevis':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$SaintKittsandNevis);
+		case 'Saint Lucia':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$SaintLucia);
+		case 'Saint Martin':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$SaintMartin);
+		case 'Saint Pierre and Miquelon':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$SaintPierreandMiquelon);
+		case 'Saint Vincent and The Grenadines':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$SaintVincentandTheGrenadines);
+		case 'Samoa':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Samoa);
+		case 'San Marino':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$SanMarino);
+		case 'Sao Tome and Principe':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$SaoTomeandPrincipe);
+		case 'Saudi Arabia':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$SaudiArabia);
+		case 'Senegal':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Senegal);
+		case 'Serbia':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Serbia);
+		case 'Seychelles':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Seychelles);
+		case 'Sierra Leone':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$SierraLeone);
+		case 'Singapore':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Singapore);
+		case 'Sint Maarten':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$SintMaarten);
+		case 'Slovakia':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Slovakia);
+		case 'Slovenia':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Slovenia);
+		case 'Solomon Islands':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$SolomonIslands);
+		case 'Somalia':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Somalia);
+		case 'South Africa':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$SouthAfrica);
+		case 'South Korea':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$SouthKorea);
+		case 'South Sudan':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$SouthSudan);
+		case 'Spain':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Spain);
+		case 'Sri Lanka':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$SriLanka);
+		case 'Sudan':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Sudan);
+		case 'Suriname':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Suriname);
+		case 'Svalbard and Jan Mayen':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$SvalbardandJanMayen);
+		case 'Swaziland':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Swaziland);
+		case 'Sweden':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Sweden);
+		case 'Switzerland':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Switzerland);
+		case 'Syria':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Syria);
+		case 'Taiwan':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Taiwan);
+		case 'Tajikistan':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Tajikistan);
+		case 'Tanzania':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Tanzania);
+		case 'Thailand':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Thailand);
+		case 'Togo':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Togo);
+		case 'Tokelau':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Tokelau);
+		case 'Tonga':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Tonga);
+		case 'Trinidad and Tobago':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$TrinidadandTobago);
+		case 'Tunisia':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Tunisia);
+		case 'Turkey':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Turkey);
+		case 'Turkmenistan':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Turkmenistan);
+		case 'Turks and Caicos Islands':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$TurksandCaicosIslands);
+		case 'Tuvalu':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Tuvalu);
+		case 'U.S. Virgin Islands':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$USVirginIslands);
+		case 'Uganda':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Uganda);
+		case 'Ukraine':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Ukraine);
+		case 'United Arab Emirates':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$UnitedArabEmirates);
+		case 'United Kingdom':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$UnitedKingdom);
+		case 'United States':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$UnitedStates);
+		case 'Uruguay':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Uruguay);
+		case 'Uzbekistan':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Uzbekistan);
+		case 'Vanuatu':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Vanuatu);
+		case 'Vatican':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Vatican);
+		case 'Venezuela':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Venezuela);
+		case 'Vietnam':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Vietnam);
+		case 'Wallis and Futuna':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$WallisandFutuna);
+		case 'Western Sahara':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$WesternSahara);
+		case 'Yemen':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Yemen);
+		case 'Zambia':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Zambia);
+		case 'Zimbabwe':
+			return $elm$core$Maybe$Just($rakutentech$r10$R10$Country$Zimbabwe);
+		default:
+			return $elm$core$Maybe$Nothing;
+	}
+};
+var $elm_community$string_extra$String$Extra$regexFromString = A2(
+	$elm$core$Basics$composeR,
+	$elm$regex$Regex$fromString,
+	$elm$core$Maybe$withDefault($elm$regex$Regex$never));
+var $elm$regex$Regex$replace = _Regex_replaceAtMost(_Regex_infinity);
+var $elm_community$string_extra$String$Extra$clean = function (string) {
+	return $elm$core$String$trim(
+		A3(
+			$elm$regex$Regex$replace,
+			$elm_community$string_extra$String$Extra$regexFromString('\\s\\s+'),
+			$elm$core$Basics$always(' '),
+			string));
+};
+var $elm$core$String$dropRight = F2(
+	function (n, string) {
+		return (n < 1) ? string : A3($elm$core$String$slice, 0, -n, string);
+	});
+var $rakutentech$r10$R10$Country$generatePrefixes = F2(
+	function (listPrefixes, telephone) {
+		generatePrefixes:
+		while (true) {
+			if ($elm$core$String$length(telephone) <= 1) {
+				return listPrefixes;
+			} else {
+				var $temp$listPrefixes = A2($elm$core$List$cons, telephone, listPrefixes),
+					$temp$telephone = A2($elm$core$String$dropRight, 1, telephone);
+				listPrefixes = $temp$listPrefixes;
+				telephone = $temp$telephone;
+				continue generatePrefixes;
+			}
 		}
 	});
-var $elm$core$List$head = function (list) {
-	if (list.b) {
-		var x = list.a;
-		var xs = list.b;
-		return $elm$core$Maybe$Just(x);
-	} else {
-		return $elm$core$Maybe$Nothing;
-	}
+var $rakutentech$r10$R10$Country$fromTelephoneAsString = function (telephone) {
+	return A3(
+		$elm$core$List$foldl,
+		F2(
+			function (string, acc) {
+				if (acc.$ === 'Just') {
+					return acc;
+				} else {
+					return $rakutentech$r10$R10$Country$fromCountryTelCode(string);
+				}
+			}),
+		$elm$core$Maybe$Nothing,
+		$elm$core$List$reverse(
+			A2(
+				$rakutentech$r10$R10$Country$generatePrefixes,
+				_List_Nil,
+				A2(
+					$elm$core$String$left,
+					8,
+					$elm_community$string_extra$String$Extra$clean(telephone)))));
 };
 var $elm_community$list_extra$List$Extra$getAt = F2(
 	function (idx, xs) {
@@ -12661,6 +13979,1320 @@ var $elm_community$list_extra$List$Extra$findIndexHelp = F3(
 		}
 	});
 var $elm_community$list_extra$List$Extra$findIndex = $elm_community$list_extra$List$Extra$findIndexHelp(0);
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$Update$getOptionIndex = F2(
+	function (fieldOptions, value) {
+		return A2(
+			$elm_community$list_extra$List$Extra$findIndex,
+			function (country) {
+				return _Utils_eq(country, value);
+			},
+			fieldOptions);
+	});
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$Update$dropdownHingeHeight = 10;
+var $elm$core$Basics$min = F2(
+	function (x, y) {
+		return (_Utils_cmp(x, y) < 0) ? x : y;
+	});
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$Update$getDropdownHeight = F2(
+	function (args, optionsCount) {
+		var displayCount = A2(
+			$elm$core$Basics$max,
+			1,
+			A2($elm$core$Basics$min, args.maxDisplayCount, optionsCount));
+		var bottomHingeHeight = (_Utils_eq(displayCount, optionsCount) || (!optionsCount)) ? $rakutentech$r10$R10$FormComponents$Internal$Phone$Update$dropdownHingeHeight : 0;
+		var dropdownHeight = ((args.selectOptionHeight * displayCount) + $rakutentech$r10$R10$FormComponents$Internal$Phone$Update$dropdownHingeHeight) + bottomHingeHeight;
+		return dropdownHeight;
+	});
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$Update$getOptionY = F4(
+	function (scroll, args, optionIndex, optionsCount) {
+		if (_Utils_eq(optionIndex, -1)) {
+			return scroll;
+		} else {
+			if (!optionIndex) {
+				return 0.0;
+			} else {
+				var maxViewport = {
+					bottom: scroll + A2($rakutentech$r10$R10$FormComponents$Internal$Phone$Update$getDropdownHeight, args, optionsCount),
+					top: scroll
+				};
+				var bottomHingeHeight = _Utils_eq(optionIndex, optionsCount - 1) ? $rakutentech$r10$R10$FormComponents$Internal$Phone$Update$dropdownHingeHeight : 0;
+				var optionY = ((optionIndex * args.selectOptionHeight) + $rakutentech$r10$R10$FormComponents$Internal$Phone$Update$dropdownHingeHeight) + bottomHingeHeight;
+				return (_Utils_cmp(optionY, maxViewport.bottom) > -1) ? (optionY - (A2($rakutentech$r10$R10$FormComponents$Internal$Phone$Update$getDropdownHeight, args, optionsCount) - args.selectOptionHeight)) : ((_Utils_cmp(optionY, maxViewport.top) < 1) ? optionY : scroll);
+			}
+		}
+	});
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$Update$inboundIndex = F2(
+	function (maxIdx, idx) {
+		return ((idx < 0) || (_Utils_cmp(idx, maxIdx) > 0)) ? $elm$core$Maybe$Nothing : $elm$core$Maybe$Just(idx);
+	});
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$Update$getNewSelectAndY_ = F5(
+	function (step, defaultIndex, defaultCountry, model, args) {
+		var maybeCountryValue = $rakutentech$r10$R10$Country$fromTelephoneAsString(model.value);
+		var currentSelect = function () {
+			var _v0 = $rakutentech$r10$R10$Country$fromString(model.select);
+			if (_v0.$ === 'Nothing') {
+				return maybeCountryValue;
+			} else {
+				var country = _v0.a;
+				return $elm$core$Maybe$Just(country);
+			}
+		}();
+		var currentIndex = A2(
+			$elm$core$Maybe$andThen,
+			$rakutentech$r10$R10$FormComponents$Internal$Phone$Update$getOptionIndex(args.filteredFieldOption),
+			currentSelect);
+		var newIndex = A2(
+			$elm$core$Maybe$withDefault,
+			defaultIndex,
+			A2(
+				$elm$core$Maybe$andThen,
+				$rakutentech$r10$R10$FormComponents$Internal$Phone$Update$inboundIndex(
+					$elm$core$List$length(args.filteredFieldOption) - 1),
+				A2(
+					$elm$core$Maybe$map,
+					function (index) {
+						return index + step;
+					},
+					currentIndex)));
+		var newSelect = A2(
+			$elm$core$Maybe$withDefault,
+			defaultCountry,
+			A2($elm_community$list_extra$List$Extra$getAt, newIndex, args.filteredFieldOption));
+		var newY = A4(
+			$rakutentech$r10$R10$FormComponents$Internal$Phone$Update$getOptionY,
+			model.scroll,
+			args,
+			newIndex,
+			$elm$core$List$length(args.filteredFieldOption));
+		return _Utils_Tuple2(newSelect, newY);
+	});
+var $rakutentech$r10$R10$Country$listHead = $rakutentech$r10$R10$Country$Afghanistan;
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$Update$getNextNewSelectAndY = F2(
+	function (model, args) {
+		return A5($rakutentech$r10$R10$FormComponents$Internal$Phone$Update$getNewSelectAndY_, 1, 0, $rakutentech$r10$R10$Country$listHead, model, args);
+	});
+var $rakutentech$r10$R10$Country$listTail = $rakutentech$r10$R10$Country$Zimbabwe;
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$Update$getPrevNewSelectAndY = F2(
+	function (model, args) {
+		return A5(
+			$rakutentech$r10$R10$FormComponents$Internal$Phone$Update$getNewSelectAndY_,
+			-1,
+			$elm$core$List$length(args.filteredFieldOption) - 1,
+			$rakutentech$r10$R10$Country$listTail,
+			model,
+			args);
+	});
+var $elm$core$List$member = F2(
+	function (x, xs) {
+		return A2(
+			$elm$core$List$any,
+			function (a) {
+				return _Utils_eq(a, x);
+			},
+			xs);
+	});
+var $elm$browser$Browser$Dom$setViewportOf = _Browser_setViewportOf;
+var $rakutentech$r10$R10$Country$toString = function (country) {
+	switch (country.$) {
+		case 'Afghanistan':
+			return 'Afghanistan';
+		case 'Albania':
+			return 'Albania';
+		case 'Algeria':
+			return 'Algeria';
+		case 'AmericanSamoa':
+			return 'American Samoa';
+		case 'Andorra':
+			return 'Andorra';
+		case 'Angola':
+			return 'Angola';
+		case 'Anguilla':
+			return 'Anguilla';
+		case 'Antarctica':
+			return 'Antarctica';
+		case 'AntiguaandBarbuda':
+			return 'Antigua and Barbuda';
+		case 'Argentina':
+			return 'Argentina';
+		case 'Armenia':
+			return 'Armenia';
+		case 'Aruba':
+			return 'Aruba';
+		case 'Australia':
+			return 'Australia';
+		case 'Austria':
+			return 'Austria';
+		case 'Azerbaijan':
+			return 'Azerbaijan';
+		case 'Bahamas':
+			return 'Bahamas';
+		case 'Bahrain':
+			return 'Bahrain';
+		case 'Bangladesh':
+			return 'Bangladesh';
+		case 'Barbados':
+			return 'Barbados';
+		case 'Belarus':
+			return 'Belarus';
+		case 'Belgium':
+			return 'Belgium';
+		case 'Belize':
+			return 'Belize';
+		case 'Benin':
+			return 'Benin';
+		case 'Bermuda':
+			return 'Bermuda';
+		case 'Bhutan':
+			return 'Bhutan';
+		case 'Bolivia':
+			return 'Bolivia';
+		case 'BosniaandHerzegovina':
+			return 'Bosnia and Herzegovina';
+		case 'Botswana':
+			return 'Botswana';
+		case 'Brazil':
+			return 'Brazil';
+		case 'BritishIndianOceanTerritory':
+			return 'British Indian Ocean Territory';
+		case 'BritishVirginIslands':
+			return 'British Virgin Islands';
+		case 'Brunei':
+			return 'Brunei';
+		case 'Bulgaria':
+			return 'Bulgaria';
+		case 'BurkinaFaso':
+			return 'Burkina Faso';
+		case 'Burundi':
+			return 'Burundi';
+		case 'Cambodia':
+			return 'Cambodia';
+		case 'Cameroon':
+			return 'Cameroon';
+		case 'Canada':
+			return 'Canada';
+		case 'CapeVerde':
+			return 'Cape Verde';
+		case 'CaymanIslands':
+			return 'Cayman Islands';
+		case 'CentralAfricanRepublic':
+			return 'Central African Republic';
+		case 'Chad':
+			return 'Chad';
+		case 'Chile':
+			return 'Chile';
+		case 'China':
+			return 'China';
+		case 'ChristmasIsland':
+			return 'Christmas Island';
+		case 'CocosIslands':
+			return 'Cocos Islands';
+		case 'Colombia':
+			return 'Colombia';
+		case 'Comoros':
+			return 'Comoros';
+		case 'CookIslands':
+			return 'Cook Islands';
+		case 'CostaRica':
+			return 'Costa Rica';
+		case 'Croatia':
+			return 'Croatia';
+		case 'Cuba':
+			return 'Cuba';
+		case 'Curacao':
+			return 'Curacao';
+		case 'Cyprus':
+			return 'Cyprus';
+		case 'CzechRepublic':
+			return 'Czech Republic';
+		case 'DemocraticRepublicoftheCongo':
+			return 'Democratic Republic of the Congo';
+		case 'Denmark':
+			return 'Denmark';
+		case 'Djibouti':
+			return 'Djibouti';
+		case 'Dominica':
+			return 'Dominica';
+		case 'DominicanRepublic':
+			return 'Dominican Republic';
+		case 'EastTimor':
+			return 'East Timor';
+		case 'Ecuador':
+			return 'Ecuador';
+		case 'Egypt':
+			return 'Egypt';
+		case 'ElSalvador':
+			return 'El Salvador';
+		case 'EquatorialGuinea':
+			return 'Equatorial Guinea';
+		case 'Eritrea':
+			return 'Eritrea';
+		case 'Estonia':
+			return 'Estonia';
+		case 'Ethiopia':
+			return 'Ethiopia';
+		case 'FalklandIslands':
+			return 'Falkland Islands';
+		case 'FaroeIslands':
+			return 'Faroe Islands';
+		case 'Fiji':
+			return 'Fiji';
+		case 'Finland':
+			return 'Finland';
+		case 'France':
+			return 'France';
+		case 'FrenchPolynesia':
+			return 'French Polynesia';
+		case 'Gabon':
+			return 'Gabon';
+		case 'Gambia':
+			return 'Gambia';
+		case 'Georgia':
+			return 'Georgia';
+		case 'Germany':
+			return 'Germany';
+		case 'Ghana':
+			return 'Ghana';
+		case 'Gibraltar':
+			return 'Gibraltar';
+		case 'Greece':
+			return 'Greece';
+		case 'Greenland':
+			return 'Greenland';
+		case 'Grenada':
+			return 'Grenada';
+		case 'Guam':
+			return 'Guam';
+		case 'Guatemala':
+			return 'Guatemala';
+		case 'Guernsey':
+			return 'Guernsey';
+		case 'Guinea':
+			return 'Guinea';
+		case 'GuineaBissau':
+			return 'Guinea-Bissau';
+		case 'Guyana':
+			return 'Guyana';
+		case 'Haiti':
+			return 'Haiti';
+		case 'Honduras':
+			return 'Honduras';
+		case 'HongKong':
+			return 'Hong Kong';
+		case 'Hungary':
+			return 'Hungary';
+		case 'Iceland':
+			return 'Iceland';
+		case 'India':
+			return 'India';
+		case 'Indonesia':
+			return 'Indonesia';
+		case 'Iran':
+			return 'Iran';
+		case 'Iraq':
+			return 'Iraq';
+		case 'Ireland':
+			return 'Ireland';
+		case 'IsleofMan':
+			return 'Isle of Man';
+		case 'Israel':
+			return 'Israel';
+		case 'Italy':
+			return 'Italy';
+		case 'IvoryCoast':
+			return 'Ivory Coast';
+		case 'Jamaica':
+			return 'Jamaica';
+		case 'Japan':
+			return 'Japan';
+		case 'Jersey':
+			return 'Jersey';
+		case 'Jordan':
+			return 'Jordan';
+		case 'Kazakhstan':
+			return 'Kazakhstan';
+		case 'Kenya':
+			return 'Kenya';
+		case 'Kiribati':
+			return 'Kiribati';
+		case 'Kosovo':
+			return 'Kosovo';
+		case 'Kuwait':
+			return 'Kuwait';
+		case 'Kyrgyzstan':
+			return 'Kyrgyzstan';
+		case 'Laos':
+			return 'Laos';
+		case 'Latvia':
+			return 'Latvia';
+		case 'Lebanon':
+			return 'Lebanon';
+		case 'Lesotho':
+			return 'Lesotho';
+		case 'Liberia':
+			return 'Liberia';
+		case 'Libya':
+			return 'Libya';
+		case 'Liechtenstein':
+			return 'Liechtenstein';
+		case 'Lithuania':
+			return 'Lithuania';
+		case 'Luxembourg':
+			return 'Luxembourg';
+		case 'Macau':
+			return 'Macau';
+		case 'Macedonia':
+			return 'Macedonia';
+		case 'Madagascar':
+			return 'Madagascar';
+		case 'Malawi':
+			return 'Malawi';
+		case 'Malaysia':
+			return 'Malaysia';
+		case 'Maldives':
+			return 'Maldives';
+		case 'Mali':
+			return 'Mali';
+		case 'Malta':
+			return 'Malta';
+		case 'MarshallIslands':
+			return 'Marshall Islands';
+		case 'Mauritania':
+			return 'Mauritania';
+		case 'Mauritius':
+			return 'Mauritius';
+		case 'Mayotte':
+			return 'Mayotte';
+		case 'Mexico':
+			return 'Mexico';
+		case 'Micronesia':
+			return 'Micronesia';
+		case 'Moldova':
+			return 'Moldova';
+		case 'Monaco':
+			return 'Monaco';
+		case 'Mongolia':
+			return 'Mongolia';
+		case 'Montenegro':
+			return 'Montenegro';
+		case 'Montserrat':
+			return 'Montserrat';
+		case 'Morocco':
+			return 'Morocco';
+		case 'Mozambique':
+			return 'Mozambique';
+		case 'Myanmar':
+			return 'Myanmar';
+		case 'Namibia':
+			return 'Namibia';
+		case 'Nauru':
+			return 'Nauru';
+		case 'Nepal':
+			return 'Nepal';
+		case 'Netherlands':
+			return 'Netherlands';
+		case 'NewCaledonia':
+			return 'New Caledonia';
+		case 'NewZealand':
+			return 'New Zealand';
+		case 'Nicaragua':
+			return 'Nicaragua';
+		case 'Niger':
+			return 'Niger';
+		case 'Nigeria':
+			return 'Nigeria';
+		case 'Niue':
+			return 'Niue';
+		case 'NorthKorea':
+			return 'North Korea';
+		case 'NorthernMarianaIslands':
+			return 'Northern Mariana Islands';
+		case 'Norway':
+			return 'Norway';
+		case 'Oman':
+			return 'Oman';
+		case 'Pakistan':
+			return 'Pakistan';
+		case 'Palau':
+			return 'Palau';
+		case 'Palestine':
+			return 'Palestine';
+		case 'Panama':
+			return 'Panama';
+		case 'PapuaNewGuinea':
+			return 'Papua New Guinea';
+		case 'Paraguay':
+			return 'Paraguay';
+		case 'Peru':
+			return 'Peru';
+		case 'Philippines':
+			return 'Philippines';
+		case 'Pitcairn':
+			return 'Pitcairn';
+		case 'Poland':
+			return 'Poland';
+		case 'Portugal':
+			return 'Portugal';
+		case 'PuertoRico':
+			return 'Puerto Rico';
+		case 'Qatar':
+			return 'Qatar';
+		case 'RepublicoftheCongo':
+			return 'Republic of the Congo';
+		case 'Reunion':
+			return 'Reunion';
+		case 'Romania':
+			return 'Romania';
+		case 'Russia':
+			return 'Russia';
+		case 'Rwanda':
+			return 'Rwanda';
+		case 'SaintBarthelemy':
+			return 'Saint Barthelemy';
+		case 'SaintHelena':
+			return 'Saint Helena';
+		case 'SaintKittsandNevis':
+			return 'Saint Kitts and Nevis';
+		case 'SaintLucia':
+			return 'Saint Lucia';
+		case 'SaintMartin':
+			return 'Saint Martin';
+		case 'SaintPierreandMiquelon':
+			return 'Saint Pierre and Miquelon';
+		case 'SaintVincentandTheGrenadines':
+			return 'Saint Vincent and The Grenadines';
+		case 'Samoa':
+			return 'Samoa';
+		case 'SanMarino':
+			return 'San Marino';
+		case 'SaoTomeandPrincipe':
+			return 'Sao Tome and Principe';
+		case 'SaudiArabia':
+			return 'Saudi Arabia';
+		case 'Senegal':
+			return 'Senegal';
+		case 'Serbia':
+			return 'Serbia';
+		case 'Seychelles':
+			return 'Seychelles';
+		case 'SierraLeone':
+			return 'Sierra Leone';
+		case 'Singapore':
+			return 'Singapore';
+		case 'SintMaarten':
+			return 'Sint Maarten';
+		case 'Slovakia':
+			return 'Slovakia';
+		case 'Slovenia':
+			return 'Slovenia';
+		case 'SolomonIslands':
+			return 'Solomon Islands';
+		case 'Somalia':
+			return 'Somalia';
+		case 'SouthAfrica':
+			return 'South Africa';
+		case 'SouthKorea':
+			return 'South Korea';
+		case 'SouthSudan':
+			return 'South Sudan';
+		case 'Spain':
+			return 'Spain';
+		case 'SriLanka':
+			return 'Sri Lanka';
+		case 'Sudan':
+			return 'Sudan';
+		case 'Suriname':
+			return 'Suriname';
+		case 'SvalbardandJanMayen':
+			return 'Svalbard and Jan Mayen';
+		case 'Swaziland':
+			return 'Swaziland';
+		case 'Sweden':
+			return 'Sweden';
+		case 'Switzerland':
+			return 'Switzerland';
+		case 'Syria':
+			return 'Syria';
+		case 'Taiwan':
+			return 'Taiwan';
+		case 'Tajikistan':
+			return 'Tajikistan';
+		case 'Tanzania':
+			return 'Tanzania';
+		case 'Thailand':
+			return 'Thailand';
+		case 'Togo':
+			return 'Togo';
+		case 'Tokelau':
+			return 'Tokelau';
+		case 'Tonga':
+			return 'Tonga';
+		case 'TrinidadandTobago':
+			return 'Trinidad and Tobago';
+		case 'Tunisia':
+			return 'Tunisia';
+		case 'Turkey':
+			return 'Turkey';
+		case 'Turkmenistan':
+			return 'Turkmenistan';
+		case 'TurksandCaicosIslands':
+			return 'Turks and Caicos Islands';
+		case 'Tuvalu':
+			return 'Tuvalu';
+		case 'USVirginIslands':
+			return 'U.S. Virgin Islands';
+		case 'Uganda':
+			return 'Uganda';
+		case 'Ukraine':
+			return 'Ukraine';
+		case 'UnitedArabEmirates':
+			return 'United Arab Emirates';
+		case 'UnitedKingdom':
+			return 'United Kingdom';
+		case 'UnitedStates':
+			return 'United States';
+		case 'Uruguay':
+			return 'Uruguay';
+		case 'Uzbekistan':
+			return 'Uzbekistan';
+		case 'Vanuatu':
+			return 'Vanuatu';
+		case 'Vatican':
+			return 'Vatican';
+		case 'Venezuela':
+			return 'Venezuela';
+		case 'Vietnam':
+			return 'Vietnam';
+		case 'WallisandFutuna':
+			return 'Wallis and Futuna';
+		case 'WesternSahara':
+			return 'Western Sahara';
+		case 'Yemen':
+			return 'Yemen';
+		case 'Zambia':
+			return 'Zambia';
+		default:
+			return 'Zimbabwe';
+	}
+};
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$Update$onArrowHelper = F4(
+	function (model, key, country, _float) {
+		return _Utils_Tuple2(
+			_Utils_update(
+				model,
+				{
+					scroll: _float,
+					select: $rakutentech$r10$R10$Country$toString(country)
+				}),
+			A2(
+				$elm$core$Task$attempt,
+				$elm$core$Basics$always($rakutentech$r10$R10$FormComponents$Internal$Phone$Common$NoOp),
+				A3(
+					$elm$browser$Browser$Dom$setViewportOf,
+					$rakutentech$r10$R10$FormComponents$Internal$Phone$Common$dropdownContentId(key),
+					0,
+					_float)));
+	});
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$Update$onOpenHelper = F3(
+	function (model, key, _float) {
+		return _Utils_Tuple2(
+			_Utils_update(
+				model,
+				{opened: true, scroll: _float}),
+			A2(
+				$elm$core$Task$attempt,
+				$elm$core$Basics$always($rakutentech$r10$R10$FormComponents$Internal$Phone$Common$NoOp),
+				A3(
+					$elm$browser$Browser$Dom$setViewportOf,
+					$rakutentech$r10$R10$FormComponents$Internal$Phone$Common$dropdownContentId(key),
+					0,
+					_float)));
+	});
+var $rakutentech$r10$R10$Country$toCountryTelCode = function (country) {
+	switch (country.$) {
+		case 'Afghanistan':
+			return '+93';
+		case 'Albania':
+			return '+355';
+		case 'Algeria':
+			return '+213';
+		case 'AmericanSamoa':
+			return '+1684';
+		case 'Andorra':
+			return '+376';
+		case 'Angola':
+			return '+244';
+		case 'Anguilla':
+			return '+1264';
+		case 'Antarctica':
+			return '+672';
+		case 'AntiguaandBarbuda':
+			return '+1268';
+		case 'Argentina':
+			return '+54';
+		case 'Armenia':
+			return '+374';
+		case 'Aruba':
+			return '+297';
+		case 'Australia':
+			return '+61';
+		case 'Austria':
+			return '+43';
+		case 'Azerbaijan':
+			return '+994';
+		case 'Bahamas':
+			return '+1242';
+		case 'Bahrain':
+			return '+973';
+		case 'Bangladesh':
+			return '+880';
+		case 'Barbados':
+			return '+1246';
+		case 'Belarus':
+			return '+375';
+		case 'Belgium':
+			return '+32';
+		case 'Belize':
+			return '+501';
+		case 'Benin':
+			return '+229';
+		case 'Bermuda':
+			return '+1441';
+		case 'Bhutan':
+			return '+975';
+		case 'Bolivia':
+			return '+591';
+		case 'BosniaandHerzegovina':
+			return '+387';
+		case 'Botswana':
+			return '+267';
+		case 'Brazil':
+			return '+55';
+		case 'BritishIndianOceanTerritory':
+			return '+246';
+		case 'BritishVirginIslands':
+			return '+1284';
+		case 'Brunei':
+			return '+673';
+		case 'Bulgaria':
+			return '+359';
+		case 'BurkinaFaso':
+			return '+226';
+		case 'Burundi':
+			return '+257';
+		case 'Cambodia':
+			return '+855';
+		case 'Cameroon':
+			return '+237';
+		case 'Canada':
+			return '+1';
+		case 'CapeVerde':
+			return '+238';
+		case 'CaymanIslands':
+			return '+1345';
+		case 'CentralAfricanRepublic':
+			return '+236';
+		case 'Chad':
+			return '+235';
+		case 'Chile':
+			return '+56';
+		case 'China':
+			return '+86';
+		case 'ChristmasIsland':
+			return '+6189164';
+		case 'CocosIslands':
+			return '+6189162';
+		case 'Colombia':
+			return '+57';
+		case 'Comoros':
+			return '+269';
+		case 'CookIslands':
+			return '+682';
+		case 'CostaRica':
+			return '+506';
+		case 'Croatia':
+			return '+385';
+		case 'Cuba':
+			return '+53';
+		case 'Curacao':
+			return '+599';
+		case 'Cyprus':
+			return '+357';
+		case 'CzechRepublic':
+			return '+420';
+		case 'DemocraticRepublicoftheCongo':
+			return '+243';
+		case 'Denmark':
+			return '+45';
+		case 'Djibouti':
+			return '+253';
+		case 'Dominica':
+			return '+1767';
+		case 'DominicanRepublic':
+			return '+1809';
+		case 'EastTimor':
+			return '+670';
+		case 'Ecuador':
+			return '+593';
+		case 'Egypt':
+			return '+20';
+		case 'ElSalvador':
+			return '+503';
+		case 'EquatorialGuinea':
+			return '+240';
+		case 'Eritrea':
+			return '+291';
+		case 'Estonia':
+			return '+372';
+		case 'Ethiopia':
+			return '+251';
+		case 'FalklandIslands':
+			return '+500';
+		case 'FaroeIslands':
+			return '+298';
+		case 'Fiji':
+			return '+679';
+		case 'Finland':
+			return '+358';
+		case 'France':
+			return '+33';
+		case 'FrenchPolynesia':
+			return '+689';
+		case 'Gabon':
+			return '+241';
+		case 'Gambia':
+			return '+220';
+		case 'Georgia':
+			return '+995';
+		case 'Germany':
+			return '+49';
+		case 'Ghana':
+			return '+233';
+		case 'Gibraltar':
+			return '+350';
+		case 'Greece':
+			return '+30';
+		case 'Greenland':
+			return '+299';
+		case 'Grenada':
+			return '+1473';
+		case 'Guam':
+			return '+1671';
+		case 'Guatemala':
+			return '+502';
+		case 'Guernsey':
+			return '+441481';
+		case 'Guinea':
+			return '+224';
+		case 'GuineaBissau':
+			return '+245';
+		case 'Guyana':
+			return '+592';
+		case 'Haiti':
+			return '+509';
+		case 'Honduras':
+			return '+504';
+		case 'HongKong':
+			return '+852';
+		case 'Hungary':
+			return '+36';
+		case 'Iceland':
+			return '+354';
+		case 'India':
+			return '+91';
+		case 'Indonesia':
+			return '+62';
+		case 'Iran':
+			return '+98';
+		case 'Iraq':
+			return '+964';
+		case 'Ireland':
+			return '+353';
+		case 'IsleofMan':
+			return '+441624';
+		case 'Israel':
+			return '+972';
+		case 'Italy':
+			return '+39';
+		case 'IvoryCoast':
+			return '+225';
+		case 'Jamaica':
+			return '+1876';
+		case 'Japan':
+			return '+81';
+		case 'Jersey':
+			return '+441534';
+		case 'Jordan':
+			return '+962';
+		case 'Kazakhstan':
+			return '+7';
+		case 'Kenya':
+			return '+254';
+		case 'Kiribati':
+			return '+686';
+		case 'Kosovo':
+			return '+383';
+		case 'Kuwait':
+			return '+965';
+		case 'Kyrgyzstan':
+			return '+996';
+		case 'Laos':
+			return '+856';
+		case 'Latvia':
+			return '+371';
+		case 'Lebanon':
+			return '+961';
+		case 'Lesotho':
+			return '+266';
+		case 'Liberia':
+			return '+231';
+		case 'Libya':
+			return '+218';
+		case 'Liechtenstein':
+			return '+423';
+		case 'Lithuania':
+			return '+370';
+		case 'Luxembourg':
+			return '+352';
+		case 'Macau':
+			return '+853';
+		case 'Macedonia':
+			return '+389';
+		case 'Madagascar':
+			return '+261';
+		case 'Malawi':
+			return '+265';
+		case 'Malaysia':
+			return '+60';
+		case 'Maldives':
+			return '+960';
+		case 'Mali':
+			return '+223';
+		case 'Malta':
+			return '+356';
+		case 'MarshallIslands':
+			return '+692';
+		case 'Mauritania':
+			return '+222';
+		case 'Mauritius':
+			return '+230';
+		case 'Mayotte':
+			return '+262';
+		case 'Mexico':
+			return '+52';
+		case 'Micronesia':
+			return '+691';
+		case 'Moldova':
+			return '+373';
+		case 'Monaco':
+			return '+377';
+		case 'Mongolia':
+			return '+976';
+		case 'Montenegro':
+			return '+382';
+		case 'Montserrat':
+			return '+1664';
+		case 'Morocco':
+			return '+212';
+		case 'Mozambique':
+			return '+258';
+		case 'Myanmar':
+			return '+95';
+		case 'Namibia':
+			return '+264';
+		case 'Nauru':
+			return '+674';
+		case 'Nepal':
+			return '+977';
+		case 'Netherlands':
+			return '+31';
+		case 'NewCaledonia':
+			return '+687';
+		case 'NewZealand':
+			return '+64';
+		case 'Nicaragua':
+			return '+505';
+		case 'Niger':
+			return '+227';
+		case 'Nigeria':
+			return '+234';
+		case 'Niue':
+			return '+683';
+		case 'NorthKorea':
+			return '+850';
+		case 'NorthernMarianaIslands':
+			return '+1670';
+		case 'Norway':
+			return '+47';
+		case 'Oman':
+			return '+968';
+		case 'Pakistan':
+			return '+92';
+		case 'Palau':
+			return '+680';
+		case 'Palestine':
+			return '+970';
+		case 'Panama':
+			return '+507';
+		case 'PapuaNewGuinea':
+			return '+675';
+		case 'Paraguay':
+			return '+595';
+		case 'Peru':
+			return '+51';
+		case 'Philippines':
+			return '+63';
+		case 'Pitcairn':
+			return '+64';
+		case 'Poland':
+			return '+48';
+		case 'Portugal':
+			return '+351';
+		case 'PuertoRico':
+			return '+1787';
+		case 'Qatar':
+			return '+974';
+		case 'RepublicoftheCongo':
+			return '+242';
+		case 'Reunion':
+			return '+262';
+		case 'Romania':
+			return '+40';
+		case 'Russia':
+			return '+7';
+		case 'Rwanda':
+			return '+250';
+		case 'SaintBarthelemy':
+			return '+590';
+		case 'SaintHelena':
+			return '+290';
+		case 'SaintKittsandNevis':
+			return '+1869';
+		case 'SaintLucia':
+			return '+1758';
+		case 'SaintMartin':
+			return '+590';
+		case 'SaintPierreandMiquelon':
+			return '+508';
+		case 'SaintVincentandTheGrenadines':
+			return '+1784';
+		case 'Samoa':
+			return '+685';
+		case 'SanMarino':
+			return '+378';
+		case 'SaoTomeandPrincipe':
+			return '+239';
+		case 'SaudiArabia':
+			return '+966';
+		case 'Senegal':
+			return '+221';
+		case 'Serbia':
+			return '+381';
+		case 'Seychelles':
+			return '+248';
+		case 'SierraLeone':
+			return '+232';
+		case 'Singapore':
+			return '+65';
+		case 'SintMaarten':
+			return '+1721';
+		case 'Slovakia':
+			return '+421';
+		case 'Slovenia':
+			return '+386';
+		case 'SolomonIslands':
+			return '+677';
+		case 'Somalia':
+			return '+252';
+		case 'SouthAfrica':
+			return '+27';
+		case 'SouthKorea':
+			return '+82';
+		case 'SouthSudan':
+			return '+211';
+		case 'Spain':
+			return '+34';
+		case 'SriLanka':
+			return '+94';
+		case 'Sudan':
+			return '+249';
+		case 'Suriname':
+			return '+597';
+		case 'SvalbardandJanMayen':
+			return '+47';
+		case 'Swaziland':
+			return '+268';
+		case 'Sweden':
+			return '+46';
+		case 'Switzerland':
+			return '+41';
+		case 'Syria':
+			return '+963';
+		case 'Taiwan':
+			return '+886';
+		case 'Tajikistan':
+			return '+992';
+		case 'Tanzania':
+			return '+255';
+		case 'Thailand':
+			return '+66';
+		case 'Togo':
+			return '+228';
+		case 'Tokelau':
+			return '+690';
+		case 'Tonga':
+			return '+676';
+		case 'TrinidadandTobago':
+			return '+1868';
+		case 'Tunisia':
+			return '+216';
+		case 'Turkey':
+			return '+90';
+		case 'Turkmenistan':
+			return '+993';
+		case 'TurksandCaicosIslands':
+			return '+1649';
+		case 'Tuvalu':
+			return '+688';
+		case 'USVirginIslands':
+			return '+1340';
+		case 'Uganda':
+			return '+256';
+		case 'Ukraine':
+			return '+380';
+		case 'UnitedArabEmirates':
+			return '+971';
+		case 'UnitedKingdom':
+			return '+44';
+		case 'UnitedStates':
+			return '+1';
+		case 'Uruguay':
+			return '+598';
+		case 'Uzbekistan':
+			return '+998';
+		case 'Vanuatu':
+			return '+678';
+		case 'Vatican':
+			return '+379';
+		case 'Venezuela':
+			return '+58';
+		case 'Vietnam':
+			return '+84';
+		case 'WallisandFutuna':
+			return '+681';
+		case 'WesternSahara':
+			return '+212';
+		case 'Yemen':
+			return '+967';
+		case 'Zambia':
+			return '+260';
+		default:
+			return '+263';
+	}
+};
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$Update$update = F2(
+	function (msg, model) {
+		switch (msg.$) {
+			case 'NoOp':
+				return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+			case 'OnFocus':
+				var value = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{focused: true, value: value}),
+					$elm$core$Platform$Cmd$none);
+			case 'OnLoseFocus':
+				var value = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{focused: false, opened: false, search: '', select: '', value: value}),
+					$elm$core$Platform$Cmd$none);
+			case 'OnScroll':
+				var scroll = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{scroll: scroll}),
+					$elm$core$Platform$Cmd$none);
+			case 'OnEsc':
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{opened: false, search: ''}),
+					$elm$core$Platform$Cmd$none);
+			case 'OnValueChange':
+				var key = msg.a;
+				var args = msg.b;
+				var newValue_ = msg.c;
+				var maybeCountryValue = $rakutentech$r10$R10$Country$fromTelephoneAsString(model.value);
+				var newValue = function (v) {
+					return _Utils_ap(v, newValue_);
+				}(
+					A2(
+						$elm$core$Maybe$withDefault,
+						'',
+						A2($elm$core$Maybe$map, $rakutentech$r10$R10$Country$toCountryTelCode, maybeCountryValue)));
+				var hasCurrentCountryCode = function () {
+					if (maybeCountryValue.$ === 'Just') {
+						var countryValue = maybeCountryValue.a;
+						return A2(
+							$elm$core$String$startsWith,
+							$rakutentech$r10$R10$Country$toCountryTelCode(countryValue),
+							A3($elm$core$String$replace, ' ', '', newValue));
+					} else {
+						return false;
+					}
+				}();
+				var newCountryValue = function () {
+					if (hasCurrentCountryCode) {
+						return maybeCountryValue;
+					} else {
+						var codeFromVal = $rakutentech$r10$R10$FormComponents$Internal$Phone$Update$extractCountry(newValue);
+						return (!_Utils_eq(codeFromVal, $elm$core$Maybe$Nothing)) ? codeFromVal : maybeCountryValue;
+					}
+				}();
+				var newY = _Utils_eq(newCountryValue, maybeCountryValue) ? model.scroll : A2(
+					$elm$core$Maybe$withDefault,
+					model.scroll,
+					A2(
+						$elm$core$Maybe$map,
+						function (newIndex) {
+							return A4(
+								$rakutentech$r10$R10$FormComponents$Internal$Phone$Update$getOptionY,
+								model.scroll,
+								args,
+								newIndex,
+								$elm$core$List$length(args.filteredFieldOption));
+						},
+						A2(
+							$elm$core$Maybe$andThen,
+							$rakutentech$r10$R10$FormComponents$Internal$Phone$Update$getOptionIndex(args.filteredFieldOption),
+							newCountryValue)));
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{scroll: newY, value: newValue}),
+					A2(
+						$elm$core$Task$attempt,
+						$elm$core$Basics$always($rakutentech$r10$R10$FormComponents$Internal$Phone$Common$NoOp),
+						A3(
+							$elm$browser$Browser$Dom$setViewportOf,
+							$rakutentech$r10$R10$FormComponents$Internal$Phone$Common$dropdownContentId(key),
+							0,
+							newY)));
+			case 'OnSearch':
+				var args = msg.a;
+				var newSearch = msg.b;
+				var isSelectInsideCountryOptions = A2(
+					$elm$core$Maybe$withDefault,
+					false,
+					A2(
+						$elm$core$Maybe$map,
+						function (s) {
+							return A2($elm$core$List$member, s, args.filteredFieldOption);
+						},
+						$rakutentech$r10$R10$Country$fromString(model.select)));
+				var newSelect = isSelectInsideCountryOptions ? $rakutentech$r10$R10$Country$fromString(model.select) : $elm$core$List$head(args.filteredFieldOption);
+				var maybeNewIndex = A2(
+					$elm$core$Maybe$andThen,
+					$rakutentech$r10$R10$FormComponents$Internal$Phone$Update$getOptionIndex(args.filteredFieldOption),
+					newSelect);
+				var newY = A2(
+					$elm$core$Maybe$withDefault,
+					model.scroll,
+					A2(
+						$elm$core$Maybe$map,
+						function (newIndex) {
+							return A4(
+								$rakutentech$r10$R10$FormComponents$Internal$Phone$Update$getOptionY,
+								model.scroll,
+								args,
+								newIndex,
+								$elm$core$List$length(args.filteredFieldOption));
+						},
+						maybeNewIndex));
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{
+							scroll: newY,
+							search: newSearch,
+							select: A2(
+								$elm$core$Maybe$withDefault,
+								'',
+								A2($elm$core$Maybe$map, $rakutentech$r10$R10$Country$toString, newSelect))
+						}),
+					$elm$core$Platform$Cmd$batch(
+						_List_fromArray(
+							[
+								A2(
+								$elm$core$Task$attempt,
+								$elm$core$Basics$always($rakutentech$r10$R10$FormComponents$Internal$Phone$Common$NoOp),
+								A3(
+									$elm$browser$Browser$Dom$setViewportOf,
+									$rakutentech$r10$R10$FormComponents$Internal$Phone$Common$dropdownContentId(args.key),
+									0,
+									newY))
+							])));
+			case 'OnOptionSelect':
+				var newCountry = msg.a;
+				var newCode = $rakutentech$r10$R10$Country$toCountryTelCode(newCountry);
+				var maybeCountryValue = $rakutentech$r10$R10$Country$fromTelephoneAsString(model.value);
+				var newValue = function () {
+					if (maybeCountryValue.$ === 'Just') {
+						var oldCountry = maybeCountryValue.a;
+						var oldCode = $rakutentech$r10$R10$Country$toCountryTelCode(oldCountry);
+						return A3(
+							$elm$core$String$replace,
+							'  ',
+							' ',
+							A3(
+								$elm$core$String$replace,
+								oldCode,
+								newCode,
+								A3($elm$core$String$replace, ' ', '', model.value)));
+					} else {
+						return _Utils_ap(newCode + ' ', model.value);
+					}
+				}();
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{opened: false, search: '', select: '', value: newValue}),
+					$elm$core$Platform$Cmd$none);
+			case 'OnInputClick':
+				var args = msg.a;
+				return model.opened ? _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{opened: false, scroll: args.selectedY}),
+					$elm$core$Platform$Cmd$none) : A2(
+					$rakutentech$r10$R10$FormComponents$Internal$Phone$Update$focusSearchBoxCmd,
+					args.key,
+					A3($rakutentech$r10$R10$FormComponents$Internal$Phone$Update$onOpenHelper, model, args.key, args.selectedY));
+			case 'OnArrowUp':
+				var args = msg.a;
+				return model.opened ? function (_v3) {
+					var newValue = _v3.a;
+					var newY = _v3.b;
+					return A4($rakutentech$r10$R10$FormComponents$Internal$Phone$Update$onArrowHelper, model, args.key, newValue, newY);
+				}(
+					A2($rakutentech$r10$R10$FormComponents$Internal$Phone$Update$getPrevNewSelectAndY, model, args)) : A3($rakutentech$r10$R10$FormComponents$Internal$Phone$Update$onOpenHelper, model, args.key, model.scroll);
+			default:
+				var args = msg.a;
+				return model.opened ? function (_v4) {
+					var newValue = _v4.a;
+					var newY = _v4.b;
+					return A4($rakutentech$r10$R10$FormComponents$Internal$Phone$Update$onArrowHelper, model, args.key, newValue, newY);
+				}(
+					A2($rakutentech$r10$R10$FormComponents$Internal$Phone$Update$getNextNewSelectAndY, model, args)) : A3($rakutentech$r10$R10$FormComponents$Internal$Phone$Update$onOpenHelper, model, args.key, model.scroll);
+		}
+	});
+var $rakutentech$r10$R10$FormComponents$Internal$Single$Common$NoOp = {$: 'NoOp'};
+var $rakutentech$r10$R10$FormComponents$Internal$Single$Common$dropdownContentId = function (key) {
+	return 'single-dropdown-content-' + key;
+};
 var $rakutentech$r10$R10$FormComponents$Internal$Single$Update$getOptionIndex = F2(
 	function (filteredOptions, value) {
 		return A2(
@@ -12674,10 +15306,6 @@ var $rakutentech$r10$R10$FormComponents$Internal$Single$Update$getOptionIndex = 
 			filteredOptions);
 	});
 var $rakutentech$r10$R10$FormComponents$Internal$Single$Update$dropdownHingeHeight = 10;
-var $elm$core$Basics$min = F2(
-	function (x, y) {
-		return (_Utils_cmp(x, y) < 0) ? x : y;
-	});
 var $rakutentech$r10$R10$FormComponents$Internal$Single$Update$getDropdownHeight = F2(
 	function (args, optionsCount) {
 		var displayCount = A2(
@@ -12756,7 +15384,6 @@ var $rakutentech$r10$R10$FormComponents$Internal$Single$Update$getPrevNewSelectA
 			model,
 			args);
 	});
-var $elm$browser$Browser$Dom$setViewportOf = _Browser_setViewportOf;
 var $rakutentech$r10$R10$FormComponents$Internal$Single$Update$onArrowHelper = F4(
 	function (key, model, value, _float) {
 		return _Utils_Tuple2(
@@ -12772,7 +15399,6 @@ var $rakutentech$r10$R10$FormComponents$Internal$Single$Update$onArrowHelper = F
 					0,
 					_float)));
 	});
-var $elm$browser$Browser$Dom$focus = _Browser_call('focus');
 var $rakutentech$r10$R10$FormComponents$Internal$Single$Common$singleSearchBoxId = function (key) {
 	return 'single-dropdown-search-' + key;
 };
@@ -12805,6 +15431,33 @@ var $rakutentech$r10$R10$FormComponents$Internal$Single$Update$update = F2(
 		switch (msg.$) {
 			case 'NoOp':
 				return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+			case 'OnFocus':
+				var value = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{focused: true, value: value}),
+					$elm$core$Platform$Cmd$none);
+			case 'OnLoseFocus':
+				var value = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{focused: false, opened: false, search: '', select: '', value: value}),
+					$elm$core$Platform$Cmd$none);
+			case 'OnScroll':
+				var scroll = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{scroll: scroll}),
+					$elm$core$Platform$Cmd$none);
+			case 'OnEsc':
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{opened: false, search: ''}),
+					$elm$core$Platform$Cmd$none);
 			case 'OnSearch':
 				var args = msg.a;
 				var newSearch = msg.b;
@@ -12864,13 +15517,6 @@ var $rakutentech$r10$R10$FormComponents$Internal$Single$Update$update = F2(
 						model,
 						{opened: false, search: '', select: '', value: value}),
 					$elm$core$Platform$Cmd$none);
-			case 'OnScroll':
-				var scroll = msg.a;
-				return _Utils_Tuple2(
-					_Utils_update(
-						model,
-						{scroll: scroll}),
-					$elm$core$Platform$Cmd$none);
 			case 'OnInputClick':
 				var args = msg.a;
 				return model.opened ? _Utils_Tuple2(
@@ -12878,20 +15524,6 @@ var $rakutentech$r10$R10$FormComponents$Internal$Single$Update$update = F2(
 						model,
 						{opened: false, scroll: args.selectedY}),
 					$elm$core$Platform$Cmd$none) : A3($rakutentech$r10$R10$FormComponents$Internal$Single$Update$onOpenHelper, args.key, model, args.selectedY);
-			case 'OnLoseFocus':
-				var value = msg.a;
-				return _Utils_Tuple2(
-					_Utils_update(
-						model,
-						{focused: false, opened: false, search: '', select: '', value: value}),
-					$elm$core$Platform$Cmd$none);
-			case 'OnFocus':
-				var value = msg.a;
-				return _Utils_Tuple2(
-					_Utils_update(
-						model,
-						{focused: true, value: value}),
-					$elm$core$Platform$Cmd$none);
 			case 'OnArrowUp':
 				var args = msg.a;
 				return model.opened ? function (_v1) {
@@ -12908,22 +15540,16 @@ var $rakutentech$r10$R10$FormComponents$Internal$Single$Update$update = F2(
 					return A4($rakutentech$r10$R10$FormComponents$Internal$Single$Update$onArrowHelper, args.key, model, newValue, newY);
 				}(
 					A2($rakutentech$r10$R10$FormComponents$Internal$Single$Update$getNextNewSelectAndY, model, args)) : A3($rakutentech$r10$R10$FormComponents$Internal$Single$Update$onOpenHelper, args.key, model, model.scroll);
-			case 'OnDelBackspace':
+			default:
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
 						{value: ''}),
 					$elm$core$Platform$Cmd$none);
-			default:
-				return _Utils_Tuple2(
-					_Utils_update(
-						model,
-						{opened: false, search: ''}),
-					$elm$core$Platform$Cmd$none);
 		}
 	});
-var $rakutentech$r10$R10$Form$Internal$Update$update = F2(
-	function (msg, formStateBeforeHandleChangesSinceLastSubmissions) {
+var $rakutentech$r10$R10$Form$Internal$Update$update = F3(
+	function (formStateBeforeValidationFixer, msg, formStateBeforeHandleChangesSinceLastSubmissions) {
 		var formState = _Utils_update(
 			formStateBeforeHandleChangesSinceLastSubmissions,
 			{
@@ -12935,7 +15561,9 @@ var $rakutentech$r10$R10$Form$Internal$Update$update = F2(
 			case 'Submit':
 				var formConf = msg.a;
 				return _Utils_Tuple2(
-					$rakutentech$r10$R10$Form$Internal$Update$submit(
+					A2(
+						$rakutentech$r10$R10$Form$Internal$Update$submit,
+						formStateBeforeValidationFixer,
 						{conf: formConf, state: formState}),
 					$elm$core$Platform$Cmd$none);
 			case 'GetFocus':
@@ -12947,7 +15575,7 @@ var $rakutentech$r10$R10$Form$Internal$Update$update = F2(
 				var key = msg.a;
 				var fieldConf = msg.b;
 				return _Utils_Tuple2(
-					A3($rakutentech$r10$R10$Form$Internal$Update$onLoseFocus, key, fieldConf, formState),
+					A4($rakutentech$r10$R10$Form$Internal$Update$onLoseFocus, formStateBeforeValidationFixer, key, fieldConf, formState),
 					$elm$core$Platform$Cmd$none);
 			case 'TogglePasswordShow':
 				var key = msg.a;
@@ -12999,9 +15627,9 @@ var $rakutentech$r10$R10$Form$Internal$Update$update = F2(
 				var formConf = msg.c;
 				var string = msg.d;
 				return _Utils_Tuple2(
-					A5($rakutentech$r10$R10$Form$Internal$Update$onChangeValue, key, fieldConf, formConf, string, formState),
+					A6($rakutentech$r10$R10$Form$Internal$Update$onChangeValue, formStateBeforeValidationFixer, key, fieldConf, formConf, string, formState),
 					$elm$core$Platform$Cmd$none);
-			default:
+			case 'OnSingleMsg':
 				var key = msg.a;
 				var fieldConf = msg.b;
 				var formConf = msg.c;
@@ -13025,17 +15653,45 @@ var $rakutentech$r10$R10$Form$Internal$Update$update = F2(
 				var _v1 = A2($rakutentech$r10$R10$FormComponents$Internal$Single$Update$update, singleMsg, singleModel);
 				var newSingleModel = _v1.a;
 				var singleCmd = _v1.b;
-				var newFormState = ((!_Utils_eq(singleModel.opened, newSingleModel.opened)) ? (newSingleModel.opened ? $rakutentech$r10$R10$Form$Internal$Update$onActivate(key) : $rakutentech$r10$R10$Form$Internal$Update$onDeactivate) : $elm$core$Basics$identity)(
-					((!_Utils_eq(singleModel.focused, newSingleModel.focused)) ? (newSingleModel.focused ? $rakutentech$r10$R10$Form$Internal$Update$onGetFocus(key) : A2($rakutentech$r10$R10$Form$Internal$Update$onLoseFocus, key, fieldConf)) : $elm$core$Basics$identity)(
-						((!_Utils_eq(fieldState.scroll, newSingleModel.scroll)) ? A2($rakutentech$r10$R10$Form$Internal$Update$onScroll, key, newSingleModel.scroll) : $elm$core$Basics$identity)(
-							((!_Utils_eq(fieldState.select, newSingleModel.select)) ? A2($rakutentech$r10$R10$Form$Internal$Update$onChangeSelect, key, newSingleModel.select) : $elm$core$Basics$identity)(
-								((!_Utils_eq(fieldState.search, newSingleModel.search)) ? A2($rakutentech$r10$R10$Form$Internal$Update$onChangeSearch, key, newSingleModel.search) : $elm$core$Basics$identity)(
-									((!_Utils_eq(fieldState.value, newSingleModel.value)) ? A4($rakutentech$r10$R10$Form$Internal$Update$onChangeValue, key, fieldConf, formConf, newSingleModel.value) : $elm$core$Basics$identity)(formState))))));
+				var newFormState = $rakutentech$r10$R10$Form$Internal$Update$copyComponentStateToFormState(
+					{fieldConf: fieldConf, fieldState: fieldState, formConf: formConf, formState: formState, formStateBeforeValidationFixer: formStateBeforeValidationFixer, key: key, newSingleModel: newSingleModel, singleModel: singleModel});
 				return _Utils_Tuple2(
 					newFormState,
 					A2(
 						$elm$core$Platform$Cmd$map,
 						A3($rakutentech$r10$R10$Form$Internal$Msg$OnSingleMsg, key, fieldConf, formConf),
+						singleCmd));
+			default:
+				var key = msg.a;
+				var fieldConf = msg.b;
+				var formConf = msg.c;
+				var phoneMsg = msg.d;
+				var fieldState = $rakutentech$r10$R10$Form$Internal$Update$stateWithDefault(
+					A2($rakutentech$r10$R10$Form$Internal$Dict$get, key, formState.fieldsState));
+				var singleModel = {
+					focused: _Utils_eq(
+						formState.focused,
+						$elm$core$Maybe$Just(
+							$rakutentech$r10$R10$Form$Internal$Key$toString(key))),
+					opened: _Utils_eq(
+						formState.active,
+						$elm$core$Maybe$Just(
+							$rakutentech$r10$R10$Form$Internal$Key$toString(key))),
+					scroll: fieldState.scroll,
+					search: fieldState.search,
+					select: fieldState.select,
+					value: fieldState.value
+				};
+				var _v2 = A2($rakutentech$r10$R10$FormComponents$Internal$Phone$Update$update, phoneMsg, singleModel);
+				var newSingleModel = _v2.a;
+				var singleCmd = _v2.b;
+				var newFormState = $rakutentech$r10$R10$Form$Internal$Update$copyComponentStateToFormState(
+					{fieldConf: fieldConf, fieldState: fieldState, formConf: formConf, formState: formState, formStateBeforeValidationFixer: formStateBeforeValidationFixer, key: key, newSingleModel: newSingleModel, singleModel: singleModel});
+				return _Utils_Tuple2(
+					newFormState,
+					A2(
+						$elm$core$Platform$Cmd$map,
+						A3($rakutentech$r10$R10$Form$Internal$Msg$OnPhoneMsg, key, fieldConf, formConf),
 						singleCmd));
 		}
 	});
@@ -13049,7 +15705,14 @@ var $author$project$Main$update = F2(
 				var newForm = _Utils_update(
 					form,
 					{
-						state: A2($rakutentech$r10$R10$Form$update, msgForm, form.state).a
+						state: A3(
+							$rakutentech$r10$R10$Form$update,
+							F2(
+								function (_v1, s) {
+									return s;
+								}),
+							msgForm,
+							form.state).a
 					});
 				return _Utils_Tuple2(
 					_Utils_update(
@@ -13065,18 +15728,18 @@ var $author$project$Main$update = F2(
 					$elm$core$Platform$Cmd$none);
 			default:
 				var exerciseMsg = msg.a;
-				var _v1 = model.page;
-				if (_v1.$ === 'ViewExercise') {
-					var exerciseData = _v1.a;
-					var exerciseModel = _v1.b;
-					var _v2 = A3(
+				var _v2 = model.page;
+				if (_v2.$ === 'ViewExercise') {
+					var exerciseData = _v2.a;
+					var exerciseModel = _v2.b;
+					var _v3 = A3(
 						$author$project$Exercises$update,
 						$author$project$Main$onlyTests(
 							$elm$core$List$length(exerciseData.tests)),
 						exerciseMsg,
 						exerciseModel);
-					var newModel = _v2.a;
-					var cmd = _v2.b;
+					var newModel = _v3.a;
+					var cmd = _v3.b;
 					return _Utils_Tuple2(
 						_Utils_update(
 							model,
@@ -13111,6 +15774,16 @@ var $mdgriffith$elm_ui$Internal$Model$AlignY = function (a) {
 };
 var $mdgriffith$elm_ui$Internal$Model$Top = {$: 'Top'};
 var $mdgriffith$elm_ui$Element$alignTop = $mdgriffith$elm_ui$Internal$Model$AlignY($mdgriffith$elm_ui$Internal$Model$Top);
+var $lucamug$elm_ui_with_context$Element$WithContext$Internal$Attribute = function (a) {
+	return {$: 'Attribute', a: a};
+};
+var $lucamug$elm_ui_with_context$Element$WithContext$attribute = function (elem) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$Internal$Attribute(
+		function (_v0) {
+			return elem;
+		});
+};
+var $lucamug$elm_ui_with_context$Element$WithContext$alignTop = $lucamug$elm_ui_with_context$Element$WithContext$attribute($mdgriffith$elm_ui$Element$alignTop);
 var $mdgriffith$elm_ui$Internal$Model$Attr = function (a) {
 	return {$: 'Attr', a: a};
 };
@@ -18524,8 +21197,49 @@ var $mdgriffith$elm_ui$Element$Input$button = F2(
 				_List_fromArray(
 					[label])));
 	});
+var $lucamug$elm_ui_with_context$Element$WithContext$Internal$run = F2(
+	function (context, _v0) {
+		var f = _v0.a;
+		return f(context);
+	});
+var $lucamug$elm_ui_with_context$Element$WithContext$Internal$Element = function (a) {
+	return {$: 'Element', a: a};
+};
+var $lucamug$elm_ui_with_context$Element$WithContext$Internal$attributes = F2(
+	function (context, attrs) {
+		return A2(
+			$elm$core$List$map,
+			function (_v0) {
+				var f = _v0.a;
+				return f(context);
+			},
+			attrs);
+	});
+var $lucamug$elm_ui_with_context$Element$WithContext$Internal$wrapAttrs = F4(
+	function (ctor, f, attrs, child) {
+		return $lucamug$elm_ui_with_context$Element$WithContext$Internal$Element(
+			function (context) {
+				return A2(
+					ctor,
+					A2($lucamug$elm_ui_with_context$Element$WithContext$Internal$attributes, context, attrs),
+					A2(f, context, child));
+			});
+	});
+var $lucamug$elm_ui_with_context$Element$WithContext$Input$button = A2(
+	$lucamug$elm_ui_with_context$Element$WithContext$Internal$wrapAttrs,
+	$mdgriffith$elm_ui$Element$Input$button,
+	F2(
+		function (context, _v0) {
+			var onPress = _v0.onPress;
+			var label = _v0.label;
+			return {
+				label: A2($lucamug$elm_ui_with_context$Element$WithContext$Internal$run, context, label),
+				onPress: onPress
+			};
+		}));
 var $mdgriffith$elm_ui$Internal$Flag$overflow = $mdgriffith$elm_ui$Internal$Flag$flag(20);
 var $mdgriffith$elm_ui$Element$clip = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$overflow, $mdgriffith$elm_ui$Internal$Style$classes.clip);
+var $lucamug$elm_ui_with_context$Element$WithContext$clip = $lucamug$elm_ui_with_context$Element$WithContext$attribute($mdgriffith$elm_ui$Element$clip);
 var $author$project$Internal$Data$ExerciseData = function (id) {
 	return function (title) {
 		return function (difficulty) {
@@ -18664,6 +21378,12 @@ var $author$project$Internal$Codecs$codecExerciseData = $miniBill$elm_codec$Code
 													$miniBill$elm_codec$Codec$int,
 													$miniBill$elm_codec$Codec$object($author$project$Internal$Data$ExerciseData))))))))))))));
 var $author$project$Exercises$codecExerciseData = $author$project$Internal$Codecs$codecExerciseData;
+var $lucamug$elm_ui_with_context$Element$WithContext$Internal$attr = function (a) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$Internal$Attribute(
+		function (_v0) {
+			return a;
+		});
+};
 var $mdgriffith$elm_ui$Internal$Model$Colored = F3(
 	function (a, b, c) {
 		return {$: 'Colored', a: a, b: b, c: c};
@@ -18690,6 +21410,10 @@ var $mdgriffith$elm_ui$Element$Border$color = function (clr) {
 			'border-color',
 			clr));
 };
+var $lucamug$elm_ui_with_context$Element$WithContext$Border$color = function (clr) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$Internal$attr(
+		$mdgriffith$elm_ui$Element$Border$color(clr));
+};
 var $mdgriffith$elm_ui$Internal$Model$AsColumn = {$: 'AsColumn'};
 var $mdgriffith$elm_ui$Internal$Model$asColumn = $mdgriffith$elm_ui$Internal$Model$AsColumn;
 var $mdgriffith$elm_ui$Element$column = F2(
@@ -18710,6 +21434,20 @@ var $mdgriffith$elm_ui$Element$column = F2(
 						attrs))),
 			$mdgriffith$elm_ui$Internal$Model$Unkeyed(children));
 	});
+var $lucamug$elm_ui_with_context$Element$WithContext$Internal$wrapContainer = F3(
+	function (container, attrs, children) {
+		return $lucamug$elm_ui_with_context$Element$WithContext$Internal$Element(
+			function (context) {
+				return A2(
+					container,
+					A2($lucamug$elm_ui_with_context$Element$WithContext$Internal$attributes, context, attrs),
+					A2(
+						$elm$core$List$map,
+						$lucamug$elm_ui_with_context$Element$WithContext$Internal$run(context),
+						children));
+			});
+	});
+var $lucamug$elm_ui_with_context$Element$WithContext$column = $lucamug$elm_ui_with_context$Element$WithContext$Internal$wrapContainer($mdgriffith$elm_ui$Element$column);
 var $author$project$Main$createExerciseJsonp = F2(
 	function (ind, exerciseData) {
 		return 'exerciseData = ' + A3($miniBill$elm_codec$Codec$encodeToString, ind, $author$project$Exercises$codecExerciseData, exerciseData);
@@ -18862,6 +21600,188 @@ var $mdgriffith$elm_ui$Element$el = F2(
 				_List_fromArray(
 					[child])));
 	});
+var $lucamug$elm_ui_with_context$Element$WithContext$el = A2($lucamug$elm_ui_with_context$Element$WithContext$Internal$wrapAttrs, $mdgriffith$elm_ui$Element$el, $lucamug$elm_ui_with_context$Element$WithContext$Internal$run);
+var $lucamug$elm_ui_with_context$Element$WithContext$element = function (elem) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$Internal$Element(
+		function (_v0) {
+			return elem;
+		});
+};
+var $rakutentech$r10$R10$Color$Internal$Primary$CrimsonRed = {$: 'CrimsonRed'};
+var $rakutentech$r10$R10$Language$EN_US = {$: 'EN_US'};
+var $rakutentech$r10$R10$Mode$Light = {$: 'Light'};
+var $rakutentech$r10$R10$CountryCode$Others = function (a) {
+	return {$: 'Others', a: a};
+};
+var $rakutentech$r10$R10$CountryCode$default = $rakutentech$r10$R10$CountryCode$Others('tw');
+var $rakutentech$r10$R10$Context$emptyModel = {
+	flags: {callCenterUrl: '', clientName: '', contactUsLanguageSupport: $elm$core$Dict$empty, cookiePolicyLink: '', countryCode: $rakutentech$r10$R10$CountryCode$default, debugger_formStyleAsString: '', debugger_transitionSpeed: 1, disableInternationalPrefixPhoneChange: false, displayPromoArea: false, emailDomainList: _List_Nil, externalError: $elm$core$Maybe$Nothing, isInternetExplorer: false, isOntouchendInDocument: false, loginLink: '', mode: $rakutentech$r10$R10$Mode$Light, notifyText: $elm$core$Maybe$Nothing, platform: '', primaryColor: $rakutentech$r10$R10$Color$Internal$Primary$CrimsonRed, privacyPolicyLink: '', referenceClientName: '', referenceExternalServiceName: '', registrationLink: '', seenAnnouncement: $elm$core$Maybe$Nothing, termsAndConditionsLink: '', urlStartOver: '', userAgent: ''},
+	language: $rakutentech$r10$R10$Language$EN_US,
+	url: {fragment: $elm$core$Maybe$Nothing, host: '', path: '', port_: $elm$core$Maybe$Nothing, protocol: $elm$url$Url$Https, query: $elm$core$Maybe$Nothing},
+	windowSize: {width: 800}
+};
+var $rakutentech$r10$R10$Device$Android = {$: 'Android'};
+var $rakutentech$r10$R10$Device$Chrome = {$: 'Chrome'};
+var $rakutentech$r10$R10$Device$Firefox = {$: 'Firefox'};
+var $rakutentech$r10$R10$Device$IE = {$: 'IE'};
+var $rakutentech$r10$R10$Device$IOS = {$: 'IOS'};
+var $rakutentech$r10$R10$Device$Opera = {$: 'Opera'};
+var $rakutentech$r10$R10$Device$Other = {$: 'Other'};
+var $rakutentech$r10$R10$Device$Safari = {$: 'Safari'};
+var $rakutentech$r10$R10$Device$Unknown = {$: 'Unknown'};
+var $rakutentech$r10$R10$Device$WindowsPhone = {$: 'WindowsPhone'};
+var $rakutentech$r10$R10$Device$constructor = F3(
+	function (userAgent, platform, isOntouchendInDocument) {
+		var osRegex = function (string) {
+			return A2(
+				$elm$core$Maybe$withDefault,
+				$elm$regex$Regex$never,
+				A2(
+					$elm$regex$Regex$fromStringWith,
+					{caseInsensitive: true, multiline: false},
+					string));
+		};
+		var ieRegex = A2(
+			$elm$core$Maybe$withDefault,
+			$elm$regex$Regex$never,
+			$elm$regex$Regex$fromString('Trident.*rv:11\\.'));
+		var iOSPlatformList = _List_fromArray(
+			['iPad Simulator', 'iPhone Simulator', 'iPod Simulator', 'iPad', 'iPhone', 'iPod']);
+		var os = A2(
+			$elm$regex$Regex$contains,
+			osRegex('windows phone'),
+			userAgent) ? $rakutentech$r10$R10$Device$WindowsPhone : (A2(
+			$elm$regex$Regex$contains,
+			osRegex('android'),
+			userAgent) ? $rakutentech$r10$R10$Device$Android : ((A2(
+			$elm$core$List$any,
+			$elm$core$Basics$eq(platform),
+			iOSPlatformList) || (A2($elm$core$String$contains, 'Mac', userAgent) && isOntouchendInDocument)) ? $rakutentech$r10$R10$Device$IOS : $rakutentech$r10$R10$Device$Other));
+		var browser = (A2($elm$core$String$contains, 'Opera', userAgent) || A2($elm$core$String$contains, 'OPR', userAgent)) ? $rakutentech$r10$R10$Device$Opera : (A2($elm$core$String$contains, 'Chrome', userAgent) ? $rakutentech$r10$R10$Device$Chrome : (A2($elm$core$String$contains, 'Safari', userAgent) ? $rakutentech$r10$R10$Device$Safari : (A2($elm$core$String$contains, 'Firefox', userAgent) ? $rakutentech$r10$R10$Device$Firefox : ((A2($elm$core$String$contains, 'MSIE ', userAgent) || A2($elm$regex$Regex$contains, ieRegex, userAgent)) ? $rakutentech$r10$R10$Device$IE : $rakutentech$r10$R10$Device$Unknown))));
+		return _Utils_Tuple2(os, browser);
+	});
+var $rakutentech$r10$R10$When$Do = {$: 'Do'};
+var $rakutentech$r10$R10$When$do = $rakutentech$r10$R10$When$Do;
+var $rakutentech$r10$R10$Theme$fromFlags = function (flags) {
+	return {mode: flags.mode, primaryColor: flags.primaryColor};
+};
+var $rakutentech$r10$R10$Context$isSmallScreen = function (model) {
+	return model.windowSize.width < 350;
+};
+var $rakutentech$r10$R10$CountryCode$JP = {$: 'JP'};
+var $rakutentech$r10$R10$Language$toString = function (language) {
+	switch (language.$) {
+		case 'Key':
+			return 'key';
+		case 'Lollipop':
+			return 'lollipop';
+		case 'EN_US':
+			return 'en-US';
+		case 'JA_JP':
+			return 'ja-JP';
+		case 'ZH_TW':
+			return 'zh-TW';
+		case 'ZH_CN':
+			return 'zh-CN';
+		case 'ES_ES':
+			return 'es-ES';
+		case 'FR_FR':
+			return 'fr-FR';
+		case 'DE_DE':
+			return 'de-DE';
+		case 'IT_IT':
+			return 'it-IT';
+		default:
+			return 'uk-UA';
+	}
+};
+var $rakutentech$r10$R10$Context$matchCallCenterValue = function (model) {
+	var specialContactUrlForLanguage = A2(
+		$elm$core$Maybe$withDefault,
+		model.flags.callCenterUrl,
+		A2(
+			$elm$core$Dict$get,
+			$rakutentech$r10$R10$Language$toString(model.language),
+			model.flags.contactUsLanguageSupport));
+	return _Utils_eq(model.flags.countryCode, $rakutentech$r10$R10$CountryCode$JP) ? specialContactUrlForLanguage : model.flags.callCenterUrl;
+};
+var $rakutentech$r10$R10$When$Otherwise = {$: 'Otherwise'};
+var $rakutentech$r10$R10$When$otherwise = $rakutentech$r10$R10$When$Otherwise;
+var $rakutentech$r10$R10$When$when = F5(
+	function (a, _v0, b, _v1, c) {
+		return a ? b : c;
+	});
+var $rakutentech$r10$R10$Context$fromModel = function (model) {
+	return {
+		callCenterUrl: $rakutentech$r10$R10$Context$matchCallCenterValue(model),
+		clientName: model.flags.clientName,
+		contactUsLanguageSupport: model.flags.contactUsLanguageSupport,
+		cookiePolicyLink: model.flags.cookiePolicyLink,
+		countryCode: model.flags.countryCode,
+		currentUrl: model.url,
+		debugger_formStyleAsString: model.flags.debugger_formStyleAsString,
+		debugger_transitionSpeed: model.flags.debugger_transitionSpeed,
+		defaultWidgetWidth: 500,
+		disableInternationalPrefixPhoneChange: model.flags.disableInternationalPrefixPhoneChange,
+		displayPromoArea: model.flags.displayPromoArea,
+		emailDomainList: model.flags.emailDomainList,
+		externalError: model.flags.externalError,
+		inputFieldWithLargePattern_fontSize: A5(
+			$rakutentech$r10$R10$When$when,
+			$rakutentech$r10$R10$Context$isSmallScreen(model),
+			$rakutentech$r10$R10$When$do,
+			35,
+			$rakutentech$r10$R10$When$otherwise,
+			40),
+		inputFieldWithLargePattern_height: A5(
+			$rakutentech$r10$R10$When$when,
+			$rakutentech$r10$R10$Context$isSmallScreen(model),
+			$rakutentech$r10$R10$When$do,
+			70,
+			$rakutentech$r10$R10$When$otherwise,
+			80),
+		inputFieldWithLargePattern_letterSpacing: A5(
+			$rakutentech$r10$R10$When$when,
+			$rakutentech$r10$R10$Context$isSmallScreen(model),
+			$rakutentech$r10$R10$When$do,
+			5,
+			$rakutentech$r10$R10$When$otherwise,
+			10),
+		inputFieldWithLargePattern_width: A5(
+			$rakutentech$r10$R10$When$when,
+			$rakutentech$r10$R10$Context$isSmallScreen(model),
+			$rakutentech$r10$R10$When$do,
+			200,
+			$rakutentech$r10$R10$When$otherwise,
+			240),
+		language: model.language,
+		mainPadding: A5(
+			$rakutentech$r10$R10$When$when,
+			$rakutentech$r10$R10$Context$isSmallScreen(model),
+			$rakutentech$r10$R10$When$do,
+			10,
+			$rakutentech$r10$R10$When$otherwise,
+			30),
+		notifyText: A2($elm$core$Maybe$withDefault, '', model.flags.notifyText),
+		privacyPolicyLink: model.flags.privacyPolicyLink,
+		referenceClientName: (model.flags.referenceClientName === 'n/a (referenceClientName)') ? '' : model.flags.referenceClientName,
+		referenceExternalServiceName: (model.flags.referenceExternalServiceName === 'n/a (referenceExternalServiceName)') ? '' : model.flags.referenceExternalServiceName,
+		seenAnnouncement: model.flags.seenAnnouncement,
+		specialWidgetWidth: 775,
+		termsAndConditionsLink: model.flags.termsAndConditionsLink,
+		theme: $rakutentech$r10$R10$Theme$fromFlags(model.flags),
+		urlStartOver: model.flags.urlStartOver,
+		userAgent: A3($rakutentech$r10$R10$Device$constructor, model.flags.userAgent, model.flags.platform, model.flags.isOntouchendInDocument),
+		verticalSpacingBetweenItems: A5(
+			$rakutentech$r10$R10$When$when,
+			$rakutentech$r10$R10$Context$isSmallScreen(model),
+			$rakutentech$r10$R10$When$do,
+			20,
+			$rakutentech$r10$R10$When$otherwise,
+			25)
+	};
+};
+var $rakutentech$r10$R10$Context$empty = $rakutentech$r10$R10$Context$fromModel($rakutentech$r10$R10$Context$emptyModel);
 var $author$project$Exercises$difficulty = {easy: $author$project$Internal$Data$Easy, hard: $author$project$Internal$Data$Hard, medium: $author$project$Internal$Data$Medium, _undefined: $author$project$Internal$Data$Undefined};
 var $author$project$Exercises$yourImplementationGoesHere = 'Your implementation goes here';
 var $author$project$E001$exerciseData = {
@@ -18960,15 +21880,28 @@ var $mdgriffith$elm_ui$Internal$Model$Fill = function (a) {
 	return {$: 'Fill', a: a};
 };
 var $mdgriffith$elm_ui$Element$fill = $mdgriffith$elm_ui$Internal$Model$Fill(1);
+var $lucamug$elm_ui_with_context$Element$WithContext$fill = $mdgriffith$elm_ui$Element$fill;
 var $mdgriffith$elm_ui$Element$fillPortion = $mdgriffith$elm_ui$Internal$Model$Fill;
+var $lucamug$elm_ui_with_context$Element$WithContext$fillPortion = $mdgriffith$elm_ui$Element$fillPortion;
 var $mdgriffith$elm_ui$Internal$Model$FocusStyleOption = function (a) {
 	return {$: 'FocusStyleOption', a: a};
 };
 var $mdgriffith$elm_ui$Element$focusStyle = $mdgriffith$elm_ui$Internal$Model$FocusStyleOption;
+var $lucamug$elm_ui_with_context$Element$WithContext$focusStyle = $mdgriffith$elm_ui$Element$focusStyle;
+var $lucamug$elm_ui_with_context$Element$WithContext$Internal$attribute = function (a) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$Internal$Attribute(
+		function (_v0) {
+			return a;
+		});
+};
 var $mdgriffith$elm_ui$Internal$Model$Heading = function (a) {
 	return {$: 'Heading', a: a};
 };
 var $mdgriffith$elm_ui$Element$Region$heading = A2($elm$core$Basics$composeL, $mdgriffith$elm_ui$Internal$Model$Describe, $mdgriffith$elm_ui$Internal$Model$Heading);
+var $lucamug$elm_ui_with_context$Element$WithContext$Region$heading = function (level) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$Internal$attribute(
+		$mdgriffith$elm_ui$Element$Region$heading(level));
+};
 var $author$project$Internal$Data$emptyExerciseData = {categories: _List_Nil, difficulty: $author$project$Internal$Data$Undefined, dummySolution: '', ellieId: '', example: '', hints: _List_Nil, id: 0, problem: '', reference: '', solutions: _List_Nil, tests: _List_Nil, title: 'Error loading exercise data'};
 var $author$project$Exercises$init = F2(
 	function (tea, flags) {
@@ -19284,6 +22217,15 @@ var $mdgriffith$elm_ui$Element$layoutWith = F3(
 				_Utils_ap($mdgriffith$elm_ui$Internal$Model$rootStyle, attrs)),
 			child);
 	});
+var $lucamug$elm_ui_with_context$Element$WithContext$layoutWith = F4(
+	function (context, options, attrs, _v0) {
+		var f = _v0.a;
+		return A3(
+			$mdgriffith$elm_ui$Element$layoutWith,
+			options,
+			A2($lucamug$elm_ui_with_context$Element$WithContext$Internal$attributes, context, attrs),
+			f(context));
+	});
 var $mdgriffith$elm_ui$Internal$Model$Empty = {$: 'Empty'};
 var $mdgriffith$elm_ui$Internal$Model$Text = function (a) {
 	return {$: 'Text', a: a};
@@ -19319,6 +22261,15 @@ var $mdgriffith$elm_ui$Internal$Model$map = F2(
 		}
 	});
 var $mdgriffith$elm_ui$Element$map = $mdgriffith$elm_ui$Internal$Model$map;
+var $lucamug$elm_ui_with_context$Element$WithContext$map = F2(
+	function (f, _v0) {
+		var g = _v0.a;
+		return $lucamug$elm_ui_with_context$Element$WithContext$Internal$Element(
+			A2(
+				$elm$core$Basics$composeR,
+				g,
+				$mdgriffith$elm_ui$Element$map(f)));
+	});
 var $mdgriffith$elm_ui$Internal$Model$PaddingStyle = F5(
 	function (a, b, c, d, e) {
 		return {$: 'PaddingStyle', a: a, b: b, c: c, d: d, e: e};
@@ -19336,6 +22287,10 @@ var $mdgriffith$elm_ui$Element$padding = function (x) {
 			f,
 			f,
 			f));
+};
+var $lucamug$elm_ui_with_context$Element$WithContext$padding = function (x) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$attribute(
+		$mdgriffith$elm_ui$Element$padding(x));
 };
 var $mdgriffith$elm_ui$Internal$Model$Paragraph = {$: 'Paragraph'};
 var $mdgriffith$elm_ui$Internal$Model$SpacingStyle = F3(
@@ -19375,7 +22330,9 @@ var $mdgriffith$elm_ui$Element$paragraph = F2(
 						attrs))),
 			$mdgriffith$elm_ui$Internal$Model$Unkeyed(children));
 	});
+var $lucamug$elm_ui_with_context$Element$WithContext$paragraph = $lucamug$elm_ui_with_context$Element$WithContext$Internal$wrapContainer($mdgriffith$elm_ui$Element$paragraph);
 var $mdgriffith$elm_ui$Element$rgba = $mdgriffith$elm_ui$Internal$Model$Rgba;
+var $lucamug$elm_ui_with_context$Element$WithContext$rgba = $mdgriffith$elm_ui$Element$rgba;
 var $mdgriffith$elm_ui$Internal$Model$AsRow = {$: 'AsRow'};
 var $mdgriffith$elm_ui$Internal$Model$asRow = $mdgriffith$elm_ui$Internal$Model$AsRow;
 var $mdgriffith$elm_ui$Element$row = F2(
@@ -19396,6 +22353,7 @@ var $mdgriffith$elm_ui$Element$row = F2(
 						attrs))),
 			$mdgriffith$elm_ui$Internal$Model$Unkeyed(children));
 	});
+var $lucamug$elm_ui_with_context$Element$WithContext$row = $lucamug$elm_ui_with_context$Element$WithContext$Internal$wrapContainer($mdgriffith$elm_ui$Element$row);
 var $mdgriffith$elm_ui$Internal$Model$boxShadowClass = function (shadow) {
 	return $elm$core$String$concat(
 		_List_fromArray(
@@ -19420,24 +22378,44 @@ var $mdgriffith$elm_ui$Element$Border$shadow = function (almostShade) {
 			'box-shadow',
 			$mdgriffith$elm_ui$Internal$Model$formatBoxShadow(shade)));
 };
+var $lucamug$elm_ui_with_context$Element$WithContext$Border$shadow = function (almostShade) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$Internal$attr(
+		$mdgriffith$elm_ui$Element$Border$shadow(almostShade));
+};
 var $mdgriffith$elm_ui$Element$Font$size = function (i) {
 	return A2(
 		$mdgriffith$elm_ui$Internal$Model$StyleClass,
 		$mdgriffith$elm_ui$Internal$Flag$fontSize,
 		$mdgriffith$elm_ui$Internal$Model$FontSize(i));
 };
+var $lucamug$elm_ui_with_context$Element$WithContext$Font$size = function (i) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$Internal$attr(
+		$mdgriffith$elm_ui$Element$Font$size(i));
+};
+var $lucamug$elm_ui_with_context$Element$WithContext$spacing = function (x) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$attribute(
+		$mdgriffith$elm_ui$Element$spacing(x));
+};
 var $mdgriffith$elm_ui$Element$text = function (content) {
 	return $mdgriffith$elm_ui$Internal$Model$Text(content);
 };
+var $lucamug$elm_ui_with_context$Element$WithContext$text = function (content) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$element(
+		$mdgriffith$elm_ui$Element$text(content));
+};
 var $mdgriffith$elm_ui$Internal$Model$unstyled = A2($elm$core$Basics$composeL, $mdgriffith$elm_ui$Internal$Model$Unstyled, $elm$core$Basics$always);
 var $mdgriffith$elm_ui$Element$html = $mdgriffith$elm_ui$Internal$Model$unstyled;
+var $lucamug$elm_ui_with_context$Element$WithContext$html = function (child) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$element(
+		$mdgriffith$elm_ui$Element$html(child));
+};
 var $elm$html$Html$textarea = _VirtualDom_node('textarea');
 var $author$project$Main$textarea = F2(
 	function (attrs, string) {
 		return A2(
-			$mdgriffith$elm_ui$Element$el,
+			$lucamug$elm_ui_with_context$Element$WithContext$el,
 			attrs,
-			$mdgriffith$elm_ui$Element$html(
+			$lucamug$elm_ui_with_context$Element$WithContext$html(
 				A2(
 					$elm$html$Html$textarea,
 					_List_fromArray(
@@ -19451,8 +22429,8 @@ var $author$project$Main$textarea = F2(
 						]))));
 	});
 var $rakutentech$r10$R10$FormComponents$Internal$Style$Filled = {$: 'Filled'};
-var $rakutentech$r10$R10$FormComponents$Internal$Style$Outlined = {$: 'Outlined'};
-var $rakutentech$r10$R10$Form$style = {filled: $rakutentech$r10$R10$FormComponents$Internal$Style$Filled, outlined: $rakutentech$r10$R10$FormComponents$Internal$Style$Outlined};
+var $rakutentech$r10$R10$FormComponents$Internal$Style$default = $rakutentech$r10$R10$FormComponents$Internal$Style$Filled;
+var $rakutentech$r10$R10$Form$defaultStyle = $rakutentech$r10$R10$FormComponents$Internal$Style$default;
 var $rakutentech$r10$R10$Form$Internal$Translator$translator = F2(
 	function (_v0, validationCode) {
 		return A2(
@@ -19504,15 +22482,177 @@ var $avh4$elm_color$Color$rgb255 = F3(
 			1.0);
 	});
 var $rakutentech$r10$R10$FormComponents$Internal$UI$Palette$black = A3($avh4$elm_color$Color$rgb255, 0, 0, 0);
+var $rakutentech$r10$R10$FormComponents$Internal$UI$Palette$gray = A3($avh4$elm_color$Color$rgb255, 130, 130, 130);
 var $rakutentech$r10$R10$FormComponents$Internal$UI$Palette$grayLightest = A3($avh4$elm_color$Color$rgb255, 247, 247, 247);
 var $rakutentech$r10$R10$FormComponents$Internal$UI$Palette$pink = A3($avh4$elm_color$Color$rgb255, 255, 51, 102);
 var $rakutentech$r10$R10$FormComponents$Internal$UI$Palette$pinkVariant = A3($avh4$elm_color$Color$rgb255, 255, 111, 147);
 var $rakutentech$r10$R10$FormComponents$Internal$UI$Palette$success = A3($avh4$elm_color$Color$rgb255, 6, 153, 7);
 var $rakutentech$r10$R10$FormComponents$Internal$UI$Palette$warning = A3($avh4$elm_color$Color$rgb255, 255, 145, 0);
 var $rakutentech$r10$R10$FormComponents$Internal$UI$Palette$white = A3($avh4$elm_color$Color$rgb255, 255, 255, 255);
-var $rakutentech$r10$R10$FormComponents$Internal$UI$Palette$light = {background: $rakutentech$r10$R10$FormComponents$Internal$UI$Palette$grayLightest, error: $rakutentech$r10$R10$FormComponents$Internal$UI$Palette$warning, onPrimary: $rakutentech$r10$R10$FormComponents$Internal$UI$Palette$white, onSurface: $rakutentech$r10$R10$FormComponents$Internal$UI$Palette$black, primary: $rakutentech$r10$R10$FormComponents$Internal$UI$Palette$pink, primaryVariant: $rakutentech$r10$R10$FormComponents$Internal$UI$Palette$pinkVariant, success: $rakutentech$r10$R10$FormComponents$Internal$UI$Palette$success, surface: $rakutentech$r10$R10$FormComponents$Internal$UI$Palette$white};
+var $rakutentech$r10$R10$FormComponents$Internal$UI$Palette$light = {background: $rakutentech$r10$R10$FormComponents$Internal$UI$Palette$grayLightest, border: $rakutentech$r10$R10$FormComponents$Internal$UI$Palette$gray, error: $rakutentech$r10$R10$FormComponents$Internal$UI$Palette$warning, onPrimary: $rakutentech$r10$R10$FormComponents$Internal$UI$Palette$white, onSurface: $rakutentech$r10$R10$FormComponents$Internal$UI$Palette$black, primary: $rakutentech$r10$R10$FormComponents$Internal$UI$Palette$pink, primaryVariant: $rakutentech$r10$R10$FormComponents$Internal$UI$Palette$pinkVariant, success: $rakutentech$r10$R10$FormComponents$Internal$UI$Palette$success, surface: $rakutentech$r10$R10$FormComponents$Internal$UI$Palette$white};
 var $rakutentech$r10$R10$Form$Internal$Msg$RemoveEntity = function (a) {
 	return {$: 'RemoveEntity', a: a};
+};
+var $rakutentech$r10$R10$FormComponents$Internal$Validations$PretendIsNotYetValidated = {$: 'PretendIsNotYetValidated'};
+var $rakutentech$r10$R10$FormComponents$Internal$Validations$Validated = function (a) {
+	return {$: 'Validated', a: a};
+};
+var $rakutentech$r10$R10$FormComponents$Internal$Validations$MessageErr = function (a) {
+	return {$: 'MessageErr', a: a};
+};
+var $rakutentech$r10$R10$FormComponents$Internal$Validations$MessageOk = function (a) {
+	return {$: 'MessageOk', a: a};
+};
+var $elm$core$Tuple$pair = F2(
+	function (a, b) {
+		return _Utils_Tuple2(a, b);
+	});
+var $rakutentech$r10$R10$Form$Internal$ValidationCode$regexBracket = function (index) {
+	return A2(
+		$elm$core$Maybe$withDefault,
+		$elm$regex$Regex$never,
+		A2(
+			$elm$regex$Regex$fromStringWith,
+			{caseInsensitive: true, multiline: true},
+			'\\{' + ($elm$core$String$fromInt(index) + '\\}')));
+};
+var $rakutentech$r10$R10$Form$Internal$ValidationCode$replacer = F2(
+	function (_v0, acc) {
+		var index = _v0.a;
+		var value = _v0.b;
+		return A3(
+			$elm$regex$Regex$replace,
+			$rakutentech$r10$R10$Form$Internal$ValidationCode$regexBracket(index),
+			function (_v1) {
+				return value;
+			},
+			acc);
+	});
+var $rakutentech$r10$R10$Form$Internal$ValidationCode$replaceBrackets = F2(
+	function (values, target) {
+		return A3(
+			$elm$core$List$foldl,
+			$rakutentech$r10$R10$Form$Internal$ValidationCode$replacer,
+			target,
+			A2($elm$core$List$indexedMap, $elm$core$Tuple$pair, values));
+	});
+var $rakutentech$r10$R10$Form$Internal$ValidationCode$fromValidationCodeToMessageWithReplacedValues = F3(
+	function (validationCode, bracketsArgs, translator_) {
+		var translated = translator_(validationCode);
+		return $elm$core$List$isEmpty(bracketsArgs) ? translated : A2($rakutentech$r10$R10$Form$Internal$ValidationCode$replaceBrackets, bracketsArgs, translated);
+	});
+var $rakutentech$r10$R10$Form$Internal$Converter$fromValidationOutcomeToValidationMessage = F2(
+	function (validationOutcome, translator) {
+		if (validationOutcome.$ === 'MessageOk') {
+			var validationCode = validationOutcome.a;
+			var validationPayload = validationOutcome.b;
+			return $rakutentech$r10$R10$FormComponents$Internal$Validations$MessageOk(
+				A3($rakutentech$r10$R10$Form$Internal$ValidationCode$fromValidationCodeToMessageWithReplacedValues, validationCode, validationPayload, translator));
+		} else {
+			var validationCode = validationOutcome.a;
+			var validationPayload = validationOutcome.b;
+			return $rakutentech$r10$R10$FormComponents$Internal$Validations$MessageErr(
+				A3($rakutentech$r10$R10$Form$Internal$ValidationCode$fromValidationCodeToMessageWithReplacedValues, validationCode, validationPayload, translator));
+		}
+	});
+var $rakutentech$r10$R10$Form$Internal$Converter$fromFieldStateValidationToComponentValidation = F3(
+	function (maybeValidationSpecs, validation, translator) {
+		if (validation.$ === 'NotYetValidated') {
+			return $rakutentech$r10$R10$FormComponents$Internal$Validations$PretendIsNotYetValidated;
+		} else {
+			var listValidationOutcome_ = validation.a;
+			var showAlsoPassedValidation = A2(
+				$elm$core$Maybe$withDefault,
+				false,
+				A2(
+					$elm$core$Maybe$map,
+					function ($) {
+						return $.showAlsoPassedValidation;
+					},
+					maybeValidationSpecs));
+			var pretendIsNotValidatedIfValid = A2(
+				$elm$core$Maybe$withDefault,
+				false,
+				A2(
+					$elm$core$Maybe$map,
+					function ($) {
+						return $.pretendIsNotValidatedIfValid;
+					},
+					maybeValidationSpecs));
+			var listAllButTwoOkMessages = A2(
+				$elm$core$List$filter,
+				function (validationOutcome) {
+					if (validationOutcome.$ === 'MessageOk') {
+						var validationCode = validationOutcome.a;
+						switch (validationCode) {
+							case 'INVALID_LENGTH_TOO_LARGE':
+								return false;
+							case 'REQUIRED':
+								return false;
+							default:
+								return true;
+						}
+					} else {
+						return true;
+					}
+				},
+				listValidationOutcome_);
+			var listOnlyErrors = A2(
+				$elm$core$List$filter,
+				function (validationOutcome) {
+					if (validationOutcome.$ === 'MessageOk') {
+						return false;
+					} else {
+						return true;
+					}
+				},
+				listAllButTwoOkMessages);
+			return showAlsoPassedValidation ? $rakutentech$r10$R10$FormComponents$Internal$Validations$Validated(
+				A2(
+					$elm$core$List$map,
+					function (err) {
+						return A2($rakutentech$r10$R10$Form$Internal$Converter$fromValidationOutcomeToValidationMessage, err, translator);
+					},
+					listAllButTwoOkMessages)) : ((pretendIsNotValidatedIfValid && (!$elm$core$List$length(listOnlyErrors))) ? $rakutentech$r10$R10$FormComponents$Internal$Validations$PretendIsNotYetValidated : $rakutentech$r10$R10$FormComponents$Internal$Validations$Validated(
+				A2(
+					$elm$core$List$map,
+					function (err) {
+						return A2($rakutentech$r10$R10$Form$Internal$Converter$fromValidationOutcomeToValidationMessage, err, translator);
+					},
+					listOnlyErrors)));
+		}
+	});
+var $rakutentech$r10$R10$Form$Internal$FieldConf$initValidationSpecs = {
+	pretendIsNotValidatedIfValid: false,
+	showAlsoPassedValidation: false,
+	validation: _List_fromArray(
+		[$rakutentech$r10$R10$Form$Internal$FieldConf$NoValidation]),
+	validationIcon: $rakutentech$r10$R10$FormTypes$NoIcon
+};
+var $rakutentech$r10$R10$Form$Internal$FieldConf$init = {
+	autocomplete: $elm$core$Maybe$Nothing,
+	clickableLabel: true,
+	helperText: $elm$core$Maybe$Nothing,
+	id: '',
+	idDom: $elm$core$Maybe$Nothing,
+	label: '',
+	maxWidth: $elm$core$Maybe$Nothing,
+	minWidth: $elm$core$Maybe$Nothing,
+	requiredLabel: $elm$core$Maybe$Nothing,
+	type_: $rakutentech$r10$R10$FormTypes$TypeText($rakutentech$r10$R10$FormTypes$TextPlain),
+	validationSpecs: $elm$core$Maybe$Just($rakutentech$r10$R10$Form$Internal$FieldConf$initValidationSpecs)
+};
+var $rakutentech$r10$R10$Form$Internal$MakerForView$getFieldConfig = function (entity) {
+	if (entity.$ === 'EntityField') {
+		var fieldConf = entity.a;
+		return fieldConf;
+	} else {
+		return $rakutentech$r10$R10$Form$Internal$FieldConf$init;
+	}
+};
+var $lucamug$elm_ui_with_context$Element$WithContext$height = function (l) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$attribute(
+		$mdgriffith$elm_ui$Element$height(l));
 };
 var $mdgriffith$elm_ui$Internal$Model$Transparency = F2(
 	function (a, b) {
@@ -19535,25 +22675,204 @@ var $mdgriffith$elm_ui$Element$alpha = function (o) {
 			'transparency-' + $mdgriffith$elm_ui$Internal$Model$floatClass(transparency),
 			transparency));
 };
-var $mdgriffith$elm_ui$Internal$Model$Behind = {$: 'Behind'};
-var $mdgriffith$elm_ui$Internal$Model$Nearby = F2(
-	function (a, b) {
-		return {$: 'Nearby', a: a, b: b};
+var $lucamug$elm_ui_with_context$Element$WithContext$attr = function (elem) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$Internal$Attribute(
+		function (_v0) {
+			return elem;
+		});
+};
+var $lucamug$elm_ui_with_context$Element$WithContext$alpha = function (o) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$attr(
+		$mdgriffith$elm_ui$Element$alpha(o));
+};
+var $mdgriffith$elm_ui$Element$clipY = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$overflow, $mdgriffith$elm_ui$Internal$Style$classes.clipY);
+var $lucamug$elm_ui_with_context$Element$WithContext$clipY = $lucamug$elm_ui_with_context$Element$WithContext$attribute($mdgriffith$elm_ui$Element$clipY);
+var $rakutentech$r10$R10$FormComponents$Internal$UI$genericSpacing = 8;
+var $mdgriffith$elm_ui$Element$htmlAttribute = $mdgriffith$elm_ui$Internal$Model$Attr;
+var $lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute = function (child) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$attribute(
+		$mdgriffith$elm_ui$Element$htmlAttribute(child));
+};
+var $mdgriffith$elm_ui$Element$none = $mdgriffith$elm_ui$Internal$Model$Empty;
+var $lucamug$elm_ui_with_context$Element$WithContext$none = $lucamug$elm_ui_with_context$Element$WithContext$element($mdgriffith$elm_ui$Element$none);
+var $mdgriffith$elm_ui$Internal$Model$paddingName = F4(
+	function (top, right, bottom, left) {
+		return 'pad-' + ($elm$core$String$fromInt(top) + ('-' + ($elm$core$String$fromInt(right) + ('-' + ($elm$core$String$fromInt(bottom) + ('-' + $elm$core$String$fromInt(left)))))));
 	});
-var $mdgriffith$elm_ui$Element$createNearby = F2(
-	function (loc, element) {
-		if (element.$ === 'Empty') {
-			return $mdgriffith$elm_ui$Internal$Model$NoAttribute;
+var $mdgriffith$elm_ui$Element$paddingEach = function (_v0) {
+	var top = _v0.top;
+	var right = _v0.right;
+	var bottom = _v0.bottom;
+	var left = _v0.left;
+	if (_Utils_eq(top, right) && (_Utils_eq(top, bottom) && _Utils_eq(top, left))) {
+		var topFloat = top;
+		return A2(
+			$mdgriffith$elm_ui$Internal$Model$StyleClass,
+			$mdgriffith$elm_ui$Internal$Flag$padding,
+			A5(
+				$mdgriffith$elm_ui$Internal$Model$PaddingStyle,
+				'p-' + $elm$core$String$fromInt(top),
+				topFloat,
+				topFloat,
+				topFloat,
+				topFloat));
+	} else {
+		return A2(
+			$mdgriffith$elm_ui$Internal$Model$StyleClass,
+			$mdgriffith$elm_ui$Internal$Flag$padding,
+			A5(
+				$mdgriffith$elm_ui$Internal$Model$PaddingStyle,
+				A4($mdgriffith$elm_ui$Internal$Model$paddingName, top, right, bottom, left),
+				top,
+				right,
+				bottom,
+				left));
+	}
+};
+var $lucamug$elm_ui_with_context$Element$WithContext$paddingEach = function (paddings) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$attribute(
+		$mdgriffith$elm_ui$Element$paddingEach(paddings));
+};
+var $elm$core$String$endsWith = _String_endsWith;
+var $elm$core$String$toFloat = _String_toFloat;
+var $rakutentech$r10$R10$Transition$parseSubUnit = F2(
+	function (ratio, subUnit) {
+		if (A2($elm$core$String$endsWith, 'ms', subUnit)) {
+			var _v0 = $elm$core$String$toFloat(
+				'0' + A2($elm$core$String$dropRight, 2, subUnit));
+			if (_v0.$ === 'Just') {
+				var value = _v0.a;
+				return $elm$core$String$fromFloat(value * ratio) + 'ms';
+			} else {
+				return subUnit;
+			}
 		} else {
-			return A2($mdgriffith$elm_ui$Internal$Model$Nearby, loc, element);
+			if (A2($elm$core$String$endsWith, 's', subUnit)) {
+				var _v1 = $elm$core$String$toFloat(
+					'0' + A2($elm$core$String$dropRight, 1, subUnit));
+				if (_v1.$ === 'Just') {
+					var value = _v1.a;
+					return $elm$core$String$fromFloat(value * ratio) + 's';
+				} else {
+					return subUnit;
+				}
+			} else {
+				return subUnit;
+			}
 		}
 	});
-var $mdgriffith$elm_ui$Element$behindContent = function (element) {
-	return A2($mdgriffith$elm_ui$Element$createNearby, $mdgriffith$elm_ui$Internal$Model$Behind, element);
+var $rakutentech$r10$R10$Transition$parseUnit = F2(
+	function (ratio, unit) {
+		return A2(
+			$elm$core$String$join,
+			' ',
+			A2(
+				$elm$core$List$map,
+				$rakutentech$r10$R10$Transition$parseSubUnit(ratio),
+				A2($elm$core$String$split, ' ', unit)));
+	});
+var $rakutentech$r10$R10$Transition$parseCharacteristics = F2(
+	function (ratio, characteristics) {
+		return A2(
+			$elm$core$String$join,
+			',',
+			A2(
+				$elm$core$List$map,
+				$rakutentech$r10$R10$Transition$parseUnit(ratio),
+				A2(
+					$elm$core$String$split,
+					',',
+					$elm_community$string_extra$String$Extra$clean(characteristics))));
+	});
+var $lucamug$elm_ui_with_context$Element$WithContext$Internal$runAttr = F2(
+	function (context, _v0) {
+		var f = _v0.a;
+		return f(context);
+	});
+var $lucamug$elm_ui_with_context$Element$WithContext$withContextAttribute = function (f) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$Internal$Attribute(
+		function (context) {
+			return A2(
+				$lucamug$elm_ui_with_context$Element$WithContext$Internal$runAttr,
+				context,
+				f(context));
+		});
+};
+var $rakutentech$r10$R10$Transition$transition = function (characteristics) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$withContextAttribute(
+		function (c) {
+			return $lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+				A2(
+					$elm$html$Html$Attributes$style,
+					'transition',
+					A2($rakutentech$r10$R10$Transition$parseCharacteristics, c.debugger_transitionSpeed, characteristics)));
+		});
+};
+var $rakutentech$r10$R10$FormComponents$Internal$Validations$animatedList = function (elements) {
+	var transition = $rakutentech$r10$R10$Transition$transition('all 0.15s ease-in, opacity 0.15s 0.2s ease-in');
+	var wrappedLine = A2(
+		$lucamug$elm_ui_with_context$Element$WithContext$el,
+		_List_fromArray(
+			[
+				$lucamug$elm_ui_with_context$Element$WithContext$padding(0),
+				$lucamug$elm_ui_with_context$Element$WithContext$alpha(0),
+				$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+				A2($elm$html$Html$Attributes$style, 'min-height', '0px')),
+				$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+				A2($elm$html$Html$Attributes$style, 'max-height', '0px')),
+				$lucamug$elm_ui_with_context$Element$WithContext$Font$size(0),
+				transition
+			]),
+		$lucamug$elm_ui_with_context$Element$WithContext$none);
+	var expandedLine = $lucamug$elm_ui_with_context$Element$WithContext$el(
+		_List_fromArray(
+			[
+				$lucamug$elm_ui_with_context$Element$WithContext$paddingEach(
+				{bottom: 0, left: 0, right: 0, top: 6}),
+				$lucamug$elm_ui_with_context$Element$WithContext$Font$size(14),
+				$lucamug$elm_ui_with_context$Element$WithContext$alpha(1),
+				$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+				A2($elm$html$Html$Attributes$style, 'min-height', '24px')),
+				$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+				A2($elm$html$Html$Attributes$style, 'max-height', '64px')),
+				transition,
+				$lucamug$elm_ui_with_context$Element$WithContext$clipY
+			]));
+	return A2(
+		$lucamug$elm_ui_with_context$Element$WithContext$column,
+		_Utils_ap(
+			_List_fromArray(
+				[$lucamug$elm_ui_with_context$Element$WithContext$alignTop, transition]),
+			($elm$core$List$length(elements) > 0) ? _List_fromArray(
+				[
+					$lucamug$elm_ui_with_context$Element$WithContext$paddingEach(
+					{bottom: 0, left: 0, right: 0, top: $rakutentech$r10$R10$FormComponents$Internal$UI$genericSpacing})
+				]) : _List_fromArray(
+				[
+					$lucamug$elm_ui_with_context$Element$WithContext$padding(0)
+				])),
+		_Utils_ap(
+			A2($elm$core$List$map, expandedLine, elements),
+			A2($elm$core$List$repeat, 5, wrappedLine)));
+};
+var $mdgriffith$elm_ui$Element$Font$color = function (fontColor) {
+	return A2(
+		$mdgriffith$elm_ui$Internal$Model$StyleClass,
+		$mdgriffith$elm_ui$Internal$Flag$fontColor,
+		A3(
+			$mdgriffith$elm_ui$Internal$Model$Colored,
+			'fc-' + $mdgriffith$elm_ui$Internal$Model$formatColorClass(fontColor),
+			'color',
+			fontColor));
+};
+var $lucamug$elm_ui_with_context$Element$WithContext$Font$color = function (fontColor) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$Internal$attr(
+		$mdgriffith$elm_ui$Element$Font$color(fontColor));
 };
 var $mdgriffith$elm_ui$Element$fromRgb = function (clr) {
 	return A4($mdgriffith$elm_ui$Internal$Model$Rgba, clr.red, clr.green, clr.blue, clr.alpha);
 };
+var $lucamug$elm_ui_with_context$Element$WithContext$fromRgb = $mdgriffith$elm_ui$Element$fromRgb;
 var $avh4$elm_color$Color$toRgba = function (_v0) {
 	var r = _v0.a;
 	var g = _v0.b;
@@ -19561,88 +22880,31 @@ var $avh4$elm_color$Color$toRgba = function (_v0) {
 	var a = _v0.d;
 	return {alpha: a, blue: b, green: g, red: r};
 };
-var $rakutentech$r10$R10$FormComponents$Internal$UI$Color$fromPaletteColor = A2($elm$core$Basics$composeR, $avh4$elm_color$Color$toRgba, $mdgriffith$elm_ui$Element$fromRgb);
-var $avh4$elm_color$Color$fromRgba = function (components) {
-	return A4($avh4$elm_color$Color$RgbaSpace, components.red, components.green, components.blue, components.alpha);
-};
-var $rakutentech$r10$R10$FormComponents$Internal$UI$Palette$withOpacity = function (opacity) {
+var $rakutentech$r10$R10$FormComponents$Internal$UI$Color$fromPaletteColor = A2($elm$core$Basics$composeR, $avh4$elm_color$Color$toRgba, $lucamug$elm_ui_with_context$Element$WithContext$fromRgb);
+var $rakutentech$r10$R10$FormComponents$Internal$UI$Color$error = A2(
+	$elm$core$Basics$composeR,
+	function ($) {
+		return $.error;
+	},
+	$rakutentech$r10$R10$FormComponents$Internal$UI$Color$fromPaletteColor);
+var $rakutentech$r10$R10$FormComponents$Internal$UI$Color$success = A2(
+	$elm$core$Basics$composeR,
+	function ($) {
+		return $.success;
+	},
+	$rakutentech$r10$R10$FormComponents$Internal$UI$Color$fromPaletteColor);
+var $mdgriffith$elm_ui$Internal$Flag$fontWeight = $mdgriffith$elm_ui$Internal$Flag$flag(13);
+var $mdgriffith$elm_ui$Element$Font$bold = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$fontWeight, $mdgriffith$elm_ui$Internal$Style$classes.bold);
+var $lucamug$elm_ui_with_context$Element$WithContext$Font$bold = $lucamug$elm_ui_with_context$Element$WithContext$Internal$attribute($mdgriffith$elm_ui$Element$Font$bold);
+var $rakutentech$r10$R10$SimpleMarkdown$elementBoldGenerator = function (string) {
 	return A2(
-		$elm$core$Basics$composeR,
-		$avh4$elm_color$Color$toRgba,
-		A2(
-			$elm$core$Basics$composeR,
-			function (rgba) {
-				return _Utils_update(
-					rgba,
-					{alpha: opacity});
-			},
-			$avh4$elm_color$Color$fromRgba));
+		$lucamug$elm_ui_with_context$Element$WithContext$el,
+		_List_fromArray(
+			[$lucamug$elm_ui_with_context$Element$WithContext$Font$bold]),
+		$lucamug$elm_ui_with_context$Element$WithContext$text(string));
 };
-var $rakutentech$r10$R10$FormComponents$Internal$UI$Color$onSurfaceA = F2(
-	function (alpha, palette) {
-		return $rakutentech$r10$R10$FormComponents$Internal$UI$Color$fromPaletteColor(
-			A2($rakutentech$r10$R10$FormComponents$Internal$UI$Palette$withOpacity, alpha, palette.onSurface));
-	});
-var $rakutentech$r10$R10$FormComponents$Internal$UI$Color$container = $rakutentech$r10$R10$FormComponents$Internal$UI$Color$onSurfaceA(0.54);
-var $mdgriffith$elm_ui$Internal$Flag$borderRound = $mdgriffith$elm_ui$Internal$Flag$flag(17);
-var $mdgriffith$elm_ui$Element$Border$rounded = function (radius) {
-	return A2(
-		$mdgriffith$elm_ui$Internal$Model$StyleClass,
-		$mdgriffith$elm_ui$Internal$Flag$borderRound,
-		A3(
-			$mdgriffith$elm_ui$Internal$Model$Single,
-			'br-' + $elm$core$String$fromInt(radius),
-			'border-radius',
-			$elm$core$String$fromInt(radius) + 'px'));
-};
-var $mdgriffith$elm_ui$Internal$Model$BorderWidth = F5(
-	function (a, b, c, d, e) {
-		return {$: 'BorderWidth', a: a, b: b, c: c, d: d, e: e};
-	});
-var $mdgriffith$elm_ui$Element$Border$width = function (v) {
-	return A2(
-		$mdgriffith$elm_ui$Internal$Model$StyleClass,
-		$mdgriffith$elm_ui$Internal$Flag$borderWidth,
-		A5(
-			$mdgriffith$elm_ui$Internal$Model$BorderWidth,
-			'b-' + $elm$core$String$fromInt(v),
-			v,
-			v,
-			v,
-			v));
-};
-var $rakutentech$r10$R10$FormComponents$Internal$UI$borderEntityWithBorder = function (palette) {
-	return _List_fromArray(
-		[
-			$mdgriffith$elm_ui$Element$Border$width(1),
-			$mdgriffith$elm_ui$Element$Border$color(
-			$rakutentech$r10$R10$FormComponents$Internal$UI$Color$container(palette)),
-			$mdgriffith$elm_ui$Element$Border$rounded(5)
-		]);
-};
-var $mdgriffith$elm_ui$Internal$Model$AlignX = function (a) {
-	return {$: 'AlignX', a: a};
-};
-var $mdgriffith$elm_ui$Internal$Model$CenterX = {$: 'CenterX'};
-var $mdgriffith$elm_ui$Element$centerX = $mdgriffith$elm_ui$Internal$Model$AlignX($mdgriffith$elm_ui$Internal$Model$CenterX);
-var $mdgriffith$elm_ui$Internal$Model$CenterY = {$: 'CenterY'};
-var $mdgriffith$elm_ui$Element$centerY = $mdgriffith$elm_ui$Internal$Model$AlignY($mdgriffith$elm_ui$Internal$Model$CenterY);
-var $mdgriffith$elm_ui$Element$Background$color = function (clr) {
-	return A2(
-		$mdgriffith$elm_ui$Internal$Model$StyleClass,
-		$mdgriffith$elm_ui$Internal$Flag$bgColor,
-		A3(
-			$mdgriffith$elm_ui$Internal$Model$Colored,
-			'bg-' + $mdgriffith$elm_ui$Internal$Model$formatColorClass(clr),
-			'background-color',
-			clr));
-};
-var $rakutentech$r10$R10$FormComponents$Internal$UI$Color$containerA = function (alpha) {
-	return $rakutentech$r10$R10$FormComponents$Internal$UI$Color$onSurfaceA(0.54 * alpha);
-};
-var $elm$core$Basics$pi = _Basics_pi;
-var $elm$core$Basics$degrees = function (angleInDegrees) {
-	return (angleInDegrees * $elm$core$Basics$pi) / 180;
+var $rakutentech$r10$R10$SimpleMarkdown$elementLabelGenerator = function (string) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$text(string);
 };
 var $mdgriffith$elm_ui$Internal$Model$Focus = {$: 'Focus'};
 var $mdgriffith$elm_ui$Internal$Model$PseudoSelector = F2(
@@ -19650,6 +22912,13 @@ var $mdgriffith$elm_ui$Internal$Model$PseudoSelector = F2(
 		return {$: 'PseudoSelector', a: a, b: b};
 	});
 var $mdgriffith$elm_ui$Internal$Flag$focus = $mdgriffith$elm_ui$Internal$Flag$flag(31);
+var $mdgriffith$elm_ui$Internal$Model$AlignX = function (a) {
+	return {$: 'AlignX', a: a};
+};
+var $mdgriffith$elm_ui$Internal$Model$Nearby = F2(
+	function (a, b) {
+		return {$: 'Nearby', a: a, b: b};
+	});
 var $mdgriffith$elm_ui$Internal$Model$TransformComponent = F2(
 	function (a, b) {
 		return {$: 'TransformComponent', a: a, b: b};
@@ -19746,341 +23015,397 @@ var $mdgriffith$elm_ui$Element$focused = function (decs) {
 			$mdgriffith$elm_ui$Internal$Model$Focus,
 			$mdgriffith$elm_ui$Internal$Model$unwrapDecorations(decs)));
 };
-var $rakutentech$r10$R10$Form$Internal$Conf$getId = function (entity) {
-	switch (entity.$) {
-		case 'EntityNormal':
-			var entityId = entity.a;
-			return entityId;
-		case 'EntityWrappable':
-			var entityId = entity.a;
-			return entityId;
-		case 'EntityWithBorder':
-			var entityId = entity.a;
-			return entityId;
-		case 'EntityWithTabs':
-			var entityId = entity.a;
-			return entityId;
-		case 'EntityMulti':
-			var entityId = entity.a;
-			return entityId;
-		case 'EntityField':
-			var fieldConf = entity.a;
-			return fieldConf.id;
-		case 'EntityTitle':
-			var titleConf = entity.b;
-			return titleConf.title;
-		default:
-			var titleConf = entity.b;
-			return titleConf.title;
-	}
+var $lucamug$elm_ui_with_context$Element$WithContext$focused = function (decs) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$Internal$Attribute(
+		function (context) {
+			return $mdgriffith$elm_ui$Element$focused(
+				A2(
+					$elm$core$List$map,
+					function (_v0) {
+						var f = _v0.a;
+						return f(context);
+					},
+					decs));
+		});
 };
-var $rakutentech$r10$R10$Form$Internal$Key$composeMultiKeys = F2(
-	function (key, quantity) {
-		return A2(
-			$elm$core$List$indexedMap,
-			F2(
-				function (index, _v0) {
-					return A2(
-						$rakutentech$r10$R10$Form$Internal$Key$composeKey,
-						key,
-						$elm$core$String$fromInt(index));
-				}),
-			A2($elm$core$List$repeat, quantity, _Utils_Tuple0));
-	});
-var $rakutentech$r10$R10$Form$Internal$Helpers$getMultiActiveKeys = F2(
-	function (key, formState) {
-		var quantity = A2(
-			$elm$core$Maybe$withDefault,
-			1,
-			A2($rakutentech$r10$R10$Form$Internal$Dict$get, key, formState.multiplicableQuantities));
-		var notRemoved = function (newKey) {
-			return !A2(
-				$elm$core$Set$member,
-				$rakutentech$r10$R10$Form$Internal$Key$toString(newKey),
-				formState.removed);
-		};
-		return A2(
-			$elm$core$List$filter,
-			notRemoved,
-			A2($rakutentech$r10$R10$Form$Internal$Key$composeMultiKeys, key, quantity));
-	});
-var $mdgriffith$elm_ui$Element$htmlAttribute = $mdgriffith$elm_ui$Internal$Model$Attr;
-var $mdgriffith$elm_ui$Internal$Model$InFront = {$: 'InFront'};
-var $mdgriffith$elm_ui$Element$inFront = function (element) {
-	return A2($mdgriffith$elm_ui$Element$createNearby, $mdgriffith$elm_ui$Internal$Model$InFront, element);
-};
-var $rakutentech$r10$R10$FormComponents$Internal$UI$Color$label = $rakutentech$r10$R10$FormComponents$Internal$UI$Color$onSurfaceA(1);
-var $rakutentech$r10$R10$FormComponents$Internal$UI$Color$labelA = function (alpha) {
-	return $rakutentech$r10$R10$FormComponents$Internal$UI$Color$onSurfaceA(1 * alpha);
-};
-var $mdgriffith$elm_ui$Internal$Model$Max = F2(
-	function (a, b) {
-		return {$: 'Max', a: a, b: b};
-	});
-var $mdgriffith$elm_ui$Element$maximum = F2(
-	function (i, l) {
-		return A2($mdgriffith$elm_ui$Internal$Model$Max, i, l);
-	});
-var $mdgriffith$elm_ui$Internal$Model$Hover = {$: 'Hover'};
-var $mdgriffith$elm_ui$Internal$Flag$hover = $mdgriffith$elm_ui$Internal$Flag$flag(33);
-var $mdgriffith$elm_ui$Element$mouseOver = function (decs) {
+var $mdgriffith$elm_ui$Element$Border$innerShadow = function (almostShade) {
+	var shade = {blur: almostShade.blur, color: almostShade.color, inset: true, offset: almostShade.offset, size: almostShade.size};
 	return A2(
 		$mdgriffith$elm_ui$Internal$Model$StyleClass,
-		$mdgriffith$elm_ui$Internal$Flag$hover,
-		A2(
-			$mdgriffith$elm_ui$Internal$Model$PseudoSelector,
-			$mdgriffith$elm_ui$Internal$Model$Hover,
-			$mdgriffith$elm_ui$Internal$Model$unwrapDecorations(decs)));
+		$mdgriffith$elm_ui$Internal$Flag$shadows,
+		A3(
+			$mdgriffith$elm_ui$Internal$Model$Single,
+			$mdgriffith$elm_ui$Internal$Model$boxShadowClass(shade),
+			'box-shadow',
+			$mdgriffith$elm_ui$Internal$Model$formatBoxShadow(shade)));
 };
-var $mdgriffith$elm_ui$Internal$Model$MoveX = function (a) {
-	return {$: 'MoveX', a: a};
+var $lucamug$elm_ui_with_context$Element$WithContext$Border$innerShadow = function (almostShade) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$Internal$attr(
+		$mdgriffith$elm_ui$Element$Border$innerShadow(almostShade));
 };
-var $mdgriffith$elm_ui$Internal$Flag$moveX = $mdgriffith$elm_ui$Internal$Flag$flag(25);
-var $mdgriffith$elm_ui$Element$moveLeft = function (x) {
+var $elm$html$Html$Attributes$rel = _VirtualDom_attribute('rel');
+var $elm$html$Html$Attributes$target = $elm$html$Html$Attributes$stringProperty('target');
+var $mdgriffith$elm_ui$Element$newTabLink = F2(
+	function (attrs, _v0) {
+		var url = _v0.url;
+		var label = _v0.label;
+		return A4(
+			$mdgriffith$elm_ui$Internal$Model$element,
+			$mdgriffith$elm_ui$Internal$Model$asEl,
+			$mdgriffith$elm_ui$Internal$Model$NodeName('a'),
+			A2(
+				$elm$core$List$cons,
+				$mdgriffith$elm_ui$Internal$Model$Attr(
+					$elm$html$Html$Attributes$href(url)),
+				A2(
+					$elm$core$List$cons,
+					$mdgriffith$elm_ui$Internal$Model$Attr(
+						$elm$html$Html$Attributes$rel('noopener noreferrer')),
+					A2(
+						$elm$core$List$cons,
+						$mdgriffith$elm_ui$Internal$Model$Attr(
+							$elm$html$Html$Attributes$target('_blank')),
+						A2(
+							$elm$core$List$cons,
+							$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$shrink),
+							A2(
+								$elm$core$List$cons,
+								$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$shrink),
+								A2(
+									$elm$core$List$cons,
+									$mdgriffith$elm_ui$Internal$Model$htmlClass($mdgriffith$elm_ui$Internal$Style$classes.contentCenterX + (' ' + ($mdgriffith$elm_ui$Internal$Style$classes.contentCenterY + (' ' + $mdgriffith$elm_ui$Internal$Style$classes.link)))),
+									attrs)))))),
+			$mdgriffith$elm_ui$Internal$Model$Unkeyed(
+				_List_fromArray(
+					[label])));
+	});
+var $lucamug$elm_ui_with_context$Element$WithContext$newTabLink = A2(
+	$lucamug$elm_ui_with_context$Element$WithContext$Internal$wrapAttrs,
+	$mdgriffith$elm_ui$Element$newTabLink,
+	F2(
+		function (context, _v0) {
+			var url = _v0.url;
+			var label = _v0.label;
+			return {
+				label: A2($lucamug$elm_ui_with_context$Element$WithContext$Internal$run, context, label),
+				url: url
+			};
+		}));
+var $mdgriffith$elm_ui$Element$rgb = F3(
+	function (r, g, b) {
+		return A4($mdgriffith$elm_ui$Internal$Model$Rgba, r, g, b, 1);
+	});
+var $lucamug$elm_ui_with_context$Element$WithContext$rgb = $mdgriffith$elm_ui$Element$rgb;
+var $mdgriffith$elm_ui$Internal$Flag$borderRound = $mdgriffith$elm_ui$Internal$Flag$flag(17);
+var $mdgriffith$elm_ui$Element$Border$rounded = function (radius) {
 	return A2(
-		$mdgriffith$elm_ui$Internal$Model$TransformComponent,
-		$mdgriffith$elm_ui$Internal$Flag$moveX,
-		$mdgriffith$elm_ui$Internal$Model$MoveX(-x));
+		$mdgriffith$elm_ui$Internal$Model$StyleClass,
+		$mdgriffith$elm_ui$Internal$Flag$borderRound,
+		A3(
+			$mdgriffith$elm_ui$Internal$Model$Single,
+			'br-' + $elm$core$String$fromInt(radius),
+			'border-radius',
+			$elm$core$String$fromInt(radius) + 'px'));
 };
-var $mdgriffith$elm_ui$Element$none = $mdgriffith$elm_ui$Internal$Model$Empty;
-var $rakutentech$r10$R10$Form$Internal$MakerForView$normalizeKey = F2(
-	function (args, entity) {
-		switch (entity.$) {
-			case 'EntityWrappable':
-				var entityId = entity.a;
-				return _Utils_update(
-					args,
-					{
-						key: A2($rakutentech$r10$R10$Form$Internal$Key$composeKey, args.key, entityId)
-					});
-			case 'EntityWithBorder':
-				var entityId = entity.a;
-				return _Utils_update(
-					args,
-					{
-						key: A2($rakutentech$r10$R10$Form$Internal$Key$composeKey, args.key, entityId)
-					});
-			case 'EntityNormal':
-				var entityId = entity.a;
-				return _Utils_update(
-					args,
-					{
-						key: A2($rakutentech$r10$R10$Form$Internal$Key$composeKey, args.key, entityId)
-					});
-			case 'EntityWithTabs':
-				var entityId = entity.a;
-				return _Utils_update(
-					args,
-					{
-						key: A2($rakutentech$r10$R10$Form$Internal$Key$composeKey, args.key, entityId)
-					});
-			case 'EntityMulti':
-				var entityId = entity.a;
-				return _Utils_update(
-					args,
-					{
-						key: A2($rakutentech$r10$R10$Form$Internal$Key$composeKey, args.key, entityId)
-					});
-			case 'EntityField':
-				var fieldConf = entity.a;
-				return _Utils_update(
-					args,
-					{
-						key: A2($rakutentech$r10$R10$Form$Internal$Key$composeKey, args.key, fieldConf.id)
-					});
-			case 'EntityTitle':
-				return args;
-			default:
-				return args;
-		}
-	});
-var $mdgriffith$elm_ui$Element$paddingXY = F2(
-	function (x, y) {
-		if (_Utils_eq(x, y)) {
-			var f = x;
-			return A2(
-				$mdgriffith$elm_ui$Internal$Model$StyleClass,
-				$mdgriffith$elm_ui$Internal$Flag$padding,
-				A5(
-					$mdgriffith$elm_ui$Internal$Model$PaddingStyle,
-					'p-' + $elm$core$String$fromInt(x),
-					f,
-					f,
-					f,
-					f));
-		} else {
-			var yFloat = y;
-			var xFloat = x;
-			return A2(
-				$mdgriffith$elm_ui$Internal$Model$StyleClass,
-				$mdgriffith$elm_ui$Internal$Flag$padding,
-				A5(
-					$mdgriffith$elm_ui$Internal$Model$PaddingStyle,
-					'p-' + ($elm$core$String$fromInt(x) + ('-' + $elm$core$String$fromInt(y))),
-					yFloat,
-					xFloat,
-					yFloat,
-					xFloat));
-		}
-	});
-var $rakutentech$r10$R10$Form$Internal$MakerForView$paddingGeneric = A2($mdgriffith$elm_ui$Element$paddingXY, 20, 25);
-var $mdgriffith$elm_ui$Internal$Model$Px = function (a) {
-	return {$: 'Px', a: a};
+var $lucamug$elm_ui_with_context$Element$WithContext$Border$rounded = function (radius) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$Internal$attribute(
+		$mdgriffith$elm_ui$Element$Border$rounded(radius));
 };
-var $mdgriffith$elm_ui$Element$px = $mdgriffith$elm_ui$Internal$Model$Px;
-var $mdgriffith$elm_ui$Internal$Model$Rotate = F2(
-	function (a, b) {
-		return {$: 'Rotate', a: a, b: b};
-	});
-var $mdgriffith$elm_ui$Internal$Flag$rotate = $mdgriffith$elm_ui$Internal$Flag$flag(24);
-var $mdgriffith$elm_ui$Element$rotate = function (angle) {
-	return A2(
-		$mdgriffith$elm_ui$Internal$Model$TransformComponent,
-		$mdgriffith$elm_ui$Internal$Flag$rotate,
-		A2(
-			$mdgriffith$elm_ui$Internal$Model$Rotate,
-			_Utils_Tuple3(0, 0, 1),
-			angle));
-};
-var $mdgriffith$elm_ui$Element$scrollbars = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$overflow, $mdgriffith$elm_ui$Internal$Style$classes.scrollbars);
-var $elm$core$List$singleton = function (value) {
-	return _List_fromArray(
-		[value]);
-};
-var $mdgriffith$elm_ui$Element$spacingXY = F2(
-	function (x, y) {
+var $rakutentech$r10$R10$SimpleMarkdown$elementLinkGeneratorAdvanced = F3(
+	function (attrs, linkLabel, url) {
 		return A2(
-			$mdgriffith$elm_ui$Internal$Model$StyleClass,
-			$mdgriffith$elm_ui$Internal$Flag$spacing,
-			A3(
-				$mdgriffith$elm_ui$Internal$Model$SpacingStyle,
-				A2($mdgriffith$elm_ui$Internal$Model$spacingName, x, y),
-				x,
-				y));
+			$lucamug$elm_ui_with_context$Element$WithContext$newTabLink,
+			_Utils_ap(
+				_List_fromArray(
+					[
+						$lucamug$elm_ui_with_context$Element$WithContext$Border$rounded(4),
+						$lucamug$elm_ui_with_context$Element$WithContext$focused(
+						_List_fromArray(
+							[
+								$lucamug$elm_ui_with_context$Element$WithContext$Border$innerShadow(
+								{
+									blur: 1,
+									color: A3($lucamug$elm_ui_with_context$Element$WithContext$rgb, 0.7, 0.7, 0.7),
+									offset: _Utils_Tuple2(0, 0),
+									size: 1
+								})
+							])),
+						$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+						$elm$html$Html$Attributes$tabindex(0))
+					]),
+				attrs.link),
+			{
+				label: $rakutentech$r10$R10$SimpleMarkdown$elementLabelGenerator(linkLabel),
+				url: url
+			});
 	});
-var $rakutentech$r10$R10$Form$Internal$MakerForView$spacingGeneric = A2($mdgriffith$elm_ui$Element$spacingXY, 15, 25);
-var $rakutentech$r10$R10$FormComponents$Internal$UI$Color$surface = A2(
-	$elm$core$Basics$composeR,
-	function ($) {
-		return $.surface;
-	},
-	$rakutentech$r10$R10$FormComponents$Internal$UI$Color$fromPaletteColor);
-var $rakutentech$r10$R10$Form$Internal$MakerForView$isActive = F2(
-	function (key, active) {
-		if (active.$ === 'Just') {
-			var active_x = active.a;
-			return _Utils_eq(
-				active_x,
-				$rakutentech$r10$R10$Form$Internal$Key$toString(key));
+var $rakutentech$r10$R10$SimpleMarkdown$elementTextGenerator = function (string) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$text(string);
+};
+var $rakutentech$r10$R10$SimpleMarkdown$MarkDownText = function (a) {
+	return {$: 'MarkDownText', a: a};
+};
+var $elm$regex$Regex$find = _Regex_findAtMost(_Regex_infinity);
+var $rakutentech$r10$R10$SimpleMarkdown$MarkDownBold = function (a) {
+	return {$: 'MarkDownBold', a: a};
+};
+var $rakutentech$r10$R10$SimpleMarkdown$markDownParseBoldData = function (data) {
+	var text1 = A2(
+		$elm$core$Maybe$withDefault,
+		'',
+		$elm$core$List$head(data));
+	return $rakutentech$r10$R10$SimpleMarkdown$MarkDownBold(text1);
+};
+var $rakutentech$r10$R10$SimpleMarkdown$regexForBold = $elm$regex$Regex$fromString('\\*\\*([^*]*)\\*\\*');
+var $elm$regex$Regex$split = _Regex_splitAtMost(_Regex_infinity);
+var $rakutentech$r10$R10$SimpleMarkdown$parseTextForBold = function (text) {
+	var _v0 = function () {
+		var _v1 = $rakutentech$r10$R10$SimpleMarkdown$regexForBold;
+		if (_v1.$ === 'Just') {
+			var regex = _v1.a;
+			return _Utils_Tuple2(
+				A2($elm$regex$Regex$find, regex, text),
+				A2($elm$regex$Regex$split, regex, text));
 		} else {
-			return false;
+			return _Utils_Tuple2(_List_Nil, _List_Nil);
 		}
-	});
-var $rakutentech$r10$R10$Form$Internal$MakerForView$isFocused = F2(
-	function (key, focused) {
-		if (focused.$ === 'Just') {
-			var focused_x = focused.a;
-			return _Utils_eq(
-				focused_x,
-				$rakutentech$r10$R10$Form$Internal$Key$toString(key));
-		} else {
-			return false;
-		}
-	});
-var $rakutentech$r10$R10$Form$Internal$Msg$ChangeValue = F4(
-	function (a, b, c, d) {
-		return {$: 'ChangeValue', a: a, b: b, c: c, d: d};
-	});
-var $rakutentech$r10$R10$Form$Internal$Msg$GetFocus = function (a) {
-	return {$: 'GetFocus', a: a};
-};
-var $rakutentech$r10$R10$Form$Internal$Msg$LoseFocus = F2(
-	function (a, b) {
-		return {$: 'LoseFocus', a: a, b: b};
-	});
-var $rakutentech$r10$R10$Form$Internal$Helpers$boolToString = function (bool) {
-	return bool ? 'True' : 'False';
-};
-var $rakutentech$r10$R10$Form$Internal$MakerForView$isFieldStateValidationValid = function (validation) {
-	switch (validation.$) {
-		case 'NotYetValidated2':
-			return $elm$core$Maybe$Nothing;
-		case 'Valid':
-			return $elm$core$Maybe$Just(true);
-		default:
-			return $elm$core$Maybe$Just(false);
-	}
-};
-var $rakutentech$r10$R10$Form$Internal$FieldState$NotValid = {$: 'NotValid'};
-var $rakutentech$r10$R10$Form$Internal$FieldState$NotYetValidated2 = {$: 'NotYetValidated2'};
-var $rakutentech$r10$R10$Form$Internal$FieldState$Valid = {$: 'Valid'};
-var $rakutentech$r10$R10$Form$Internal$FieldState$isValid = function (validation) {
-	if (validation.$ === 'NotYetValidated') {
-		return $rakutentech$r10$R10$Form$Internal$FieldState$NotYetValidated2;
-	} else {
-		var listValidationMessage = validation.a;
-		return A3(
-			$elm$core$List$foldl,
+	}();
+	var find = _v0.a;
+	var split = _v0.b;
+	return $elm$core$List$concat(
+		A2(
+			$elm$core$List$indexedMap,
 			F2(
-				function (validationMessage, acc) {
-					if (validationMessage.$ === 'MessageErr') {
-						return $rakutentech$r10$R10$Form$Internal$FieldState$NotValid;
+				function (index, splitted) {
+					var maybeGetFinding = function () {
+						var _v3 = A2(
+							$elm$core$Array$get,
+							index,
+							$elm$core$Array$fromList(find));
+						if (_v3.$ === 'Just') {
+							var match = _v3.a;
+							return $elm$core$Maybe$Just(
+								A2(
+									$elm$core$List$map,
+									function (item_) {
+										if (item_.$ === 'Just') {
+											var i = item_.a;
+											return i;
+										} else {
+											return '';
+										}
+									},
+									match.submatches));
+						} else {
+							return $elm$core$Maybe$Nothing;
+						}
+					}();
+					if (maybeGetFinding.$ === 'Just') {
+						var getFinding = maybeGetFinding.a;
+						return _List_fromArray(
+							[
+								$rakutentech$r10$R10$SimpleMarkdown$MarkDownText(splitted),
+								$rakutentech$r10$R10$SimpleMarkdown$markDownParseBoldData(getFinding)
+							]);
 					} else {
-						return acc;
+						return _List_fromArray(
+							[
+								$rakutentech$r10$R10$SimpleMarkdown$MarkDownText(splitted)
+							]);
 					}
 				}),
-			$rakutentech$r10$R10$Form$Internal$FieldState$Valid,
-			listValidationMessage);
-	}
+			split));
 };
-var $mdgriffith$elm_ui$Internal$Model$Min = F2(
+var $rakutentech$r10$R10$SimpleMarkdown$MarkDownLink = F2(
 	function (a, b) {
-		return {$: 'Min', a: a, b: b};
+		return {$: 'MarkDownLink', a: a, b: b};
 	});
-var $mdgriffith$elm_ui$Element$minimum = F2(
-	function (i, l) {
-		return A2($mdgriffith$elm_ui$Internal$Model$Min, i, l);
-	});
-var $rakutentech$r10$R10$Form$Internal$Helpers$stringToBool = function (string) {
-	return $elm$core$String$toLower(string) === 'true';
-};
-var $rakutentech$r10$R10$FormComponents$Internal$UI$genericSpacing = 8;
-var $mdgriffith$elm_ui$Internal$Model$paddingName = F4(
-	function (top, right, bottom, left) {
-		return 'pad-' + ($elm$core$String$fromInt(top) + ('-' + ($elm$core$String$fromInt(right) + ('-' + ($elm$core$String$fromInt(bottom) + ('-' + $elm$core$String$fromInt(left)))))));
-	});
-var $mdgriffith$elm_ui$Element$paddingEach = function (_v0) {
-	var top = _v0.top;
-	var right = _v0.right;
-	var bottom = _v0.bottom;
-	var left = _v0.left;
-	if (_Utils_eq(top, right) && (_Utils_eq(top, bottom) && _Utils_eq(top, left))) {
-		var topFloat = top;
-		return A2(
-			$mdgriffith$elm_ui$Internal$Model$StyleClass,
-			$mdgriffith$elm_ui$Internal$Flag$padding,
-			A5(
-				$mdgriffith$elm_ui$Internal$Model$PaddingStyle,
-				'p-' + $elm$core$String$fromInt(top),
-				topFloat,
-				topFloat,
-				topFloat,
-				topFloat));
+var $elm$core$List$tail = function (list) {
+	if (list.b) {
+		var x = list.a;
+		var xs = list.b;
+		return $elm$core$Maybe$Just(xs);
 	} else {
-		return A2(
-			$mdgriffith$elm_ui$Internal$Model$StyleClass,
-			$mdgriffith$elm_ui$Internal$Flag$padding,
-			A5(
-				$mdgriffith$elm_ui$Internal$Model$PaddingStyle,
-				A4($mdgriffith$elm_ui$Internal$Model$paddingName, top, right, bottom, left),
-				top,
-				right,
-				bottom,
-				left));
+		return $elm$core$Maybe$Nothing;
 	}
 };
+var $rakutentech$r10$R10$SimpleMarkdown$markDownParseLinkData = function (data) {
+	var text2 = A2(
+		$elm$core$Maybe$withDefault,
+		'',
+		$elm$core$List$head(
+			A2(
+				$elm$core$Maybe$withDefault,
+				_List_Nil,
+				$elm$core$List$tail(data))));
+	var text1 = A2(
+		$elm$core$Maybe$withDefault,
+		'',
+		$elm$core$List$head(data));
+	return A2($rakutentech$r10$R10$SimpleMarkdown$MarkDownLink, text1, text2);
+};
+var $rakutentech$r10$R10$SimpleMarkdown$regexForLinks = $elm$regex$Regex$fromString('\\[([^\\[\\]]+)\\]\\(([^()]+)\\)');
+var $rakutentech$r10$R10$SimpleMarkdown$parseTextForLinks = function (text) {
+	var _v0 = function () {
+		var _v1 = $rakutentech$r10$R10$SimpleMarkdown$regexForLinks;
+		if (_v1.$ === 'Just') {
+			var regex = _v1.a;
+			return _Utils_Tuple2(
+				A2($elm$regex$Regex$find, regex, text),
+				A2($elm$regex$Regex$split, regex, text));
+		} else {
+			return _Utils_Tuple2(_List_Nil, _List_Nil);
+		}
+	}();
+	var find = _v0.a;
+	var split = _v0.b;
+	return $elm$core$List$concat(
+		A2(
+			$elm$core$List$indexedMap,
+			F2(
+				function (index, splitted) {
+					var maybeGetFinding = function () {
+						var _v3 = A2(
+							$elm$core$Array$get,
+							index,
+							$elm$core$Array$fromList(find));
+						if (_v3.$ === 'Just') {
+							var match = _v3.a;
+							return $elm$core$Maybe$Just(
+								A2(
+									$elm$core$List$map,
+									function (item_) {
+										if (item_.$ === 'Just') {
+											var i = item_.a;
+											return i;
+										} else {
+											return '';
+										}
+									},
+									match.submatches));
+						} else {
+							return $elm$core$Maybe$Nothing;
+						}
+					}();
+					if (maybeGetFinding.$ === 'Just') {
+						var getFinding = maybeGetFinding.a;
+						return _List_fromArray(
+							[
+								$rakutentech$r10$R10$SimpleMarkdown$MarkDownText(splitted),
+								$rakutentech$r10$R10$SimpleMarkdown$markDownParseLinkData(getFinding)
+							]);
+					} else {
+						return _List_fromArray(
+							[
+								$rakutentech$r10$R10$SimpleMarkdown$MarkDownText(splitted)
+							]);
+					}
+				}),
+			split));
+};
+var $rakutentech$r10$R10$SimpleMarkdown$markdown = F4(
+	function (boldGenerator, textGenerator, linkGenerator, string) {
+		var step1 = $rakutentech$r10$R10$SimpleMarkdown$parseTextForLinks(string);
+		var step2 = $elm$core$List$concat(
+			A2(
+				$elm$core$List$map,
+				function (item) {
+					if (item.$ === 'MarkDownText') {
+						var string_ = item.a;
+						return $rakutentech$r10$R10$SimpleMarkdown$parseTextForBold(string_);
+					} else {
+						return _List_fromArray(
+							[item]);
+					}
+				},
+				step1));
+		return A2(
+			$elm$core$List$map,
+			function (item) {
+				switch (item.$) {
+					case 'MarkDownText':
+						var text = item.a;
+						return textGenerator(text);
+					case 'MarkDownBold':
+						var text = item.a;
+						return boldGenerator(text);
+					default:
+						var linkLabel = item.a;
+						var url = item.b;
+						return A2(linkGenerator, linkLabel, url);
+				}
+			},
+			step2);
+	});
+var $rakutentech$r10$R10$SimpleMarkdown$elementMarkdownAdvanced = F2(
+	function (attrs, string) {
+		return A4(
+			$rakutentech$r10$R10$SimpleMarkdown$markdown,
+			$rakutentech$r10$R10$SimpleMarkdown$elementBoldGenerator,
+			$rakutentech$r10$R10$SimpleMarkdown$elementTextGenerator,
+			$rakutentech$r10$R10$SimpleMarkdown$elementLinkGeneratorAdvanced(attrs),
+			string);
+	});
+var $avh4$elm_color$Color$fromRgba = function (components) {
+	return A4($avh4$elm_color$Color$RgbaSpace, components.red, components.green, components.blue, components.alpha);
+};
+var $rakutentech$r10$R10$FormComponents$Internal$UI$Palette$withOpacity = function (opacity) {
+	return A2(
+		$elm$core$Basics$composeR,
+		$avh4$elm_color$Color$toRgba,
+		A2(
+			$elm$core$Basics$composeR,
+			function (rgba) {
+				return _Utils_update(
+					rgba,
+					{alpha: opacity});
+			},
+			$avh4$elm_color$Color$fromRgba));
+};
+var $rakutentech$r10$R10$FormComponents$Internal$UI$Color$onSurfaceA = F2(
+	function (alpha, palette) {
+		return $rakutentech$r10$R10$FormComponents$Internal$UI$Color$fromPaletteColor(
+			A2($rakutentech$r10$R10$FormComponents$Internal$UI$Palette$withOpacity, alpha, palette.onSurface));
+	});
+var $rakutentech$r10$R10$FormComponents$Internal$UI$Color$label = $rakutentech$r10$R10$FormComponents$Internal$UI$Color$onSurfaceA(1);
+var $rakutentech$r10$R10$FormComponents$Internal$UI$Color$primary = A2(
+	$elm$core$Basics$composeR,
+	function ($) {
+		return $.primary;
+	},
+	$rakutentech$r10$R10$FormComponents$Internal$UI$Color$fromPaletteColor);
+var $rakutentech$r10$R10$FormComponents$Internal$UI$viewHelperText = F3(
+	function (palette, attrs, maybeHelperText) {
+		if (maybeHelperText.$ === 'Just') {
+			var helperText = maybeHelperText.a;
+			return A2(
+				$lucamug$elm_ui_with_context$Element$WithContext$paragraph,
+				_Utils_ap(
+					_List_fromArray(
+						[
+							$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+							$elm$html$Html$Attributes$id('ie-flex-fix-320')),
+							$lucamug$elm_ui_with_context$Element$WithContext$Font$color(
+							$rakutentech$r10$R10$FormComponents$Internal$UI$Color$label(palette))
+						]),
+					attrs),
+				A2(
+					$rakutentech$r10$R10$SimpleMarkdown$elementMarkdownAdvanced,
+					{
+						link: _List_fromArray(
+							[
+								$lucamug$elm_ui_with_context$Element$WithContext$Font$color(
+								$rakutentech$r10$R10$FormComponents$Internal$UI$Color$primary(palette))
+							])
+					},
+					helperText));
+		} else {
+			return $lucamug$elm_ui_with_context$Element$WithContext$none;
+		}
+	});
 var $elm$svg$Svg$Attributes$d = _VirtualDom_attribute('d');
 var $elm$svg$Svg$Attributes$fill = _VirtualDom_attribute('fill');
+var $elm$svg$Svg$Attributes$fillRule = _VirtualDom_attribute('fill-rule');
 var $elm$svg$Svg$trustedNode = _VirtualDom_nodeNS('http://www.w3.org/2000/svg');
 var $elm$svg$Svg$path = $elm$svg$Svg$trustedNode('path');
 var $noahzgordon$elm_color_extra$Color$Convert$cssColorString = F2(
@@ -20111,8 +23436,9 @@ var $mdgriffith$elm_ui$Element$toRgb = function (_v0) {
 	var a = _v0.d;
 	return {alpha: a, blue: b, green: g, red: r};
 };
+var $lucamug$elm_ui_with_context$Element$WithContext$toRgb = $mdgriffith$elm_ui$Element$toRgb;
 var $rakutentech$r10$R10$Color$Utils$toColorColor = function (elementColor) {
-	var _v0 = $mdgriffith$elm_ui$Element$toRgb(elementColor);
+	var _v0 = $lucamug$elm_ui_with_context$Element$WithContext$toRgb(elementColor);
 	var red = _v0.red;
 	var green = _v0.green;
 	var blue = _v0.blue;
@@ -20153,7 +23479,6 @@ var $elm$core$Maybe$map4 = F5(
 			}
 		}
 	});
-var $elm$core$String$toFloat = _String_toFloat;
 var $elm$svg$Svg$Attributes$width = _VirtualDom_attribute('width');
 var $rakutentech$r10$R10$Svg$Utils$svgSize_ = F2(
 	function (viewbox, ySize) {
@@ -20220,10 +23545,42 @@ var $rakutentech$r10$R10$Svg$Utils$wrapperWithViewbox_ = F3(
 var $rakutentech$r10$R10$Svg$Utils$wrapperWithViewbox = F4(
 	function (attrs, viewbox, size, listSvg) {
 		return A2(
-			$mdgriffith$elm_ui$Element$el,
+			$lucamug$elm_ui_with_context$Element$WithContext$el,
 			attrs,
-			$mdgriffith$elm_ui$Element$html(
+			$lucamug$elm_ui_with_context$Element$WithContext$html(
 				A3($rakutentech$r10$R10$Svg$Utils$wrapperWithViewbox_, viewbox, size, listSvg)));
+	});
+var $rakutentech$r10$R10$Svg$Utils$wrapper32 = F3(
+	function (attrs, size, listSvg) {
+		return A4($rakutentech$r10$R10$Svg$Utils$wrapperWithViewbox, attrs, '0 0 32 32', size, listSvg);
+	});
+var $rakutentech$r10$R10$Svg$Icons$check = F3(
+	function (attrs, cl, size) {
+		return A3(
+			$rakutentech$r10$R10$Svg$Utils$wrapper32,
+			attrs,
+			size,
+			_List_fromArray(
+				[
+					A2(
+					$elm$svg$Svg$path,
+					_List_fromArray(
+						[
+							$elm$svg$Svg$Attributes$fill('none'),
+							$elm$svg$Svg$Attributes$d('M0 0h32v32H0z')
+						]),
+					_List_Nil),
+					A2(
+					$elm$svg$Svg$path,
+					_List_fromArray(
+						[
+							$elm$svg$Svg$Attributes$fill(
+							$rakutentech$r10$R10$Color$Utils$toCssRgba(cl)),
+							$elm$svg$Svg$Attributes$fillRule('evenodd'),
+							$elm$svg$Svg$Attributes$d('M30 7l-1.41-1.41L11 23.17 3.41 15.6 2 17l9 9L30 7z')
+						]),
+					_List_Nil)
+				]));
 	});
 var $rakutentech$r10$R10$Svg$IconsExtra$checkBold = F3(
 	function (attrs, cl, size) {
@@ -20273,10 +23630,6 @@ var $rakutentech$r10$R10$Svg$IconsExtra$email = F3(
 						]),
 					_List_Nil)
 				]));
-	});
-var $rakutentech$r10$R10$Svg$Utils$wrapper32 = F3(
-	function (attrs, size, listSvg) {
-		return A4($rakutentech$r10$R10$Svg$Utils$wrapperWithViewbox, attrs, '0 0 32 32', size, listSvg);
 	});
 var $rakutentech$r10$R10$Svg$Icons$eye_ban_l = F3(
 	function (attrs, cl, size) {
@@ -20535,32 +23888,557 @@ var $rakutentech$r10$R10$Svg$IconsExtra$validation_error = F3(
 					_List_Nil)
 				]));
 	});
-var $rakutentech$r10$R10$FormComponents$Internal$UI$icons = {checkBold: $rakutentech$r10$R10$Svg$IconsExtra$checkBold, combobox_arrow: $rakutentech$r10$R10$Svg$IconsExtra$keyboardArrowDown, eye_ban_l: $rakutentech$r10$R10$Svg$Icons$eye_ban_l, eye_l: $rakutentech$r10$R10$Svg$IconsExtra$email, grid: $rakutentech$r10$R10$Svg$IconsExtra$grid, notice_generic_l: $rakutentech$r10$R10$Svg$Icons$notice_generic_l, search: $rakutentech$r10$R10$Svg$IconsExtra$search, sign_warning_f: $rakutentech$r10$R10$Svg$Icons$sign_warning_f, sign_warning_l: $rakutentech$r10$R10$Svg$Icons$sign_warning_l, validation_check: $rakutentech$r10$R10$Svg$IconsExtra$validation_check, validation_clear: $rakutentech$r10$R10$Svg$IconsExtra$validation_clear, validation_error: $rakutentech$r10$R10$Svg$IconsExtra$validation_error};
-var $mdgriffith$elm_ui$Element$Border$innerShadow = function (almostShade) {
-	var shade = {blur: almostShade.blur, color: almostShade.color, inset: true, offset: almostShade.offset, size: almostShade.size};
+var $rakutentech$r10$R10$FormComponents$Internal$UI$icons = {check: $rakutentech$r10$R10$Svg$Icons$check, checkBold: $rakutentech$r10$R10$Svg$IconsExtra$checkBold, combobox_arrow: $rakutentech$r10$R10$Svg$IconsExtra$keyboardArrowDown, eye_ban_l: $rakutentech$r10$R10$Svg$Icons$eye_ban_l, eye_l: $rakutentech$r10$R10$Svg$IconsExtra$email, grid: $rakutentech$r10$R10$Svg$IconsExtra$grid, notice_generic_l: $rakutentech$r10$R10$Svg$Icons$notice_generic_l, search: $rakutentech$r10$R10$Svg$IconsExtra$search, sign_warning_f: $rakutentech$r10$R10$Svg$Icons$sign_warning_f, sign_warning_l: $rakutentech$r10$R10$Svg$Icons$sign_warning_l, validation_check: $rakutentech$r10$R10$Svg$IconsExtra$validation_check, validation_clear: $rakutentech$r10$R10$Svg$IconsExtra$validation_clear, validation_error: $rakutentech$r10$R10$Svg$IconsExtra$validation_error};
+var $mdgriffith$elm_ui$Internal$Model$Px = function (a) {
+	return {$: 'Px', a: a};
+};
+var $mdgriffith$elm_ui$Element$px = $mdgriffith$elm_ui$Internal$Model$Px;
+var $lucamug$elm_ui_with_context$Element$WithContext$px = $mdgriffith$elm_ui$Element$px;
+var $lucamug$elm_ui_with_context$Element$WithContext$width = function (l) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$attribute(
+		$mdgriffith$elm_ui$Element$width(l));
+};
+var $rakutentech$r10$R10$FormComponents$Internal$Validations$viewValidationIcon = F2(
+	function (palette, validationIcon) {
+		var iconAttrs = _List_fromArray(
+			[
+				$lucamug$elm_ui_with_context$Element$WithContext$width(
+				$lucamug$elm_ui_with_context$Element$WithContext$px(16)),
+				$lucamug$elm_ui_with_context$Element$WithContext$height(
+				$lucamug$elm_ui_with_context$Element$WithContext$px(16)),
+				$lucamug$elm_ui_with_context$Element$WithContext$alignTop
+			]);
+		switch (validationIcon.$) {
+			case 'NoIcon':
+				return {invalidIcon: $lucamug$elm_ui_with_context$Element$WithContext$none, validIcon: $lucamug$elm_ui_with_context$Element$WithContext$none};
+			case 'ClearOrCheck':
+				return {
+					invalidIcon: A3(
+						$rakutentech$r10$R10$FormComponents$Internal$UI$icons.validation_clear,
+						iconAttrs,
+						$rakutentech$r10$R10$FormComponents$Internal$UI$Color$error(palette),
+						16),
+					validIcon: A3(
+						$rakutentech$r10$R10$FormComponents$Internal$UI$icons.validation_check,
+						iconAttrs,
+						$rakutentech$r10$R10$FormComponents$Internal$UI$Color$success(palette),
+						16)
+				};
+			default:
+				return {
+					invalidIcon: A3(
+						$rakutentech$r10$R10$FormComponents$Internal$UI$icons.sign_warning_f,
+						iconAttrs,
+						$rakutentech$r10$R10$FormComponents$Internal$UI$Color$error(palette),
+						16),
+					validIcon: A3(
+						$rakutentech$r10$R10$FormComponents$Internal$UI$icons.validation_check,
+						iconAttrs,
+						$rakutentech$r10$R10$FormComponents$Internal$UI$Color$success(palette),
+						16)
+				};
+		}
+	});
+var $rakutentech$r10$R10$FormComponents$Internal$Validations$viewValidationMessage = F3(
+	function (palette, validationIcon, validationMessage) {
+		if (validationMessage.$ === 'MessageOk') {
+			var string = validationMessage.a;
+			return A2(
+				$lucamug$elm_ui_with_context$Element$WithContext$row,
+				_List_fromArray(
+					[
+						$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill),
+						$lucamug$elm_ui_with_context$Element$WithContext$height($lucamug$elm_ui_with_context$Element$WithContext$fill),
+						$lucamug$elm_ui_with_context$Element$WithContext$spacing(4)
+					]),
+				_List_fromArray(
+					[
+						A2($rakutentech$r10$R10$FormComponents$Internal$Validations$viewValidationIcon, palette, validationIcon).validIcon,
+						A3(
+						$rakutentech$r10$R10$FormComponents$Internal$UI$viewHelperText,
+						palette,
+						_List_fromArray(
+							[
+								$lucamug$elm_ui_with_context$Element$WithContext$Font$color(
+								$rakutentech$r10$R10$FormComponents$Internal$UI$Color$success(palette))
+							]),
+						$elm$core$Maybe$Just(string))
+					]));
+		} else {
+			var string = validationMessage.a;
+			return A2(
+				$lucamug$elm_ui_with_context$Element$WithContext$row,
+				_List_fromArray(
+					[
+						$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill),
+						$lucamug$elm_ui_with_context$Element$WithContext$height($lucamug$elm_ui_with_context$Element$WithContext$fill),
+						$lucamug$elm_ui_with_context$Element$WithContext$spacing(4)
+					]),
+				_List_fromArray(
+					[
+						A2($rakutentech$r10$R10$FormComponents$Internal$Validations$viewValidationIcon, palette, validationIcon).invalidIcon,
+						A3(
+						$rakutentech$r10$R10$FormComponents$Internal$UI$viewHelperText,
+						palette,
+						_List_fromArray(
+							[
+								$lucamug$elm_ui_with_context$Element$WithContext$Font$color(
+								$rakutentech$r10$R10$FormComponents$Internal$UI$Color$error(palette))
+							]),
+						$elm$core$Maybe$Just(string))
+					]));
+		}
+	});
+var $rakutentech$r10$R10$FormComponents$Internal$Validations$viewValidation = F3(
+	function (palette, validationIcon, validation) {
+		if (validation.$ === 'PretendIsNotYetValidated') {
+			return $rakutentech$r10$R10$FormComponents$Internal$Validations$animatedList(_List_Nil);
+		} else {
+			var listValidationMessage = validation.a;
+			return $rakutentech$r10$R10$FormComponents$Internal$Validations$animatedList(
+				A2(
+					$elm$core$List$map,
+					A2($rakutentech$r10$R10$FormComponents$Internal$Validations$viewValidationMessage, palette, validationIcon),
+					listValidationMessage));
+		}
+	});
+var $rakutentech$r10$R10$Form$Internal$MakerForView$addValidationMessagesUnderTheField = F3(
+	function (args, entity, listEl) {
+		var validationIcon = A2(
+			$elm$core$Maybe$withDefault,
+			$rakutentech$r10$R10$FormTypes$NoIcon,
+			A2(
+				$elm$core$Maybe$map,
+				function ($) {
+					return $.validationIcon;
+				},
+				$rakutentech$r10$R10$Form$Internal$MakerForView$getFieldConfig(entity).validationSpecs));
+		return _List_fromArray(
+			[
+				A2(
+				$lucamug$elm_ui_with_context$Element$WithContext$column,
+				_List_fromArray(
+					[
+						$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill),
+						$lucamug$elm_ui_with_context$Element$WithContext$height($lucamug$elm_ui_with_context$Element$WithContext$fill)
+					]),
+				_Utils_ap(
+					listEl,
+					_List_fromArray(
+						[
+							A3(
+							$rakutentech$r10$R10$FormComponents$Internal$Validations$viewValidation,
+							args.palette,
+							validationIcon,
+							A3(
+								$rakutentech$r10$R10$Form$Internal$Converter$fromFieldStateValidationToComponentValidation,
+								$rakutentech$r10$R10$Form$Internal$MakerForView$getFieldConfig(entity).validationSpecs,
+								A2(
+									$elm$core$Maybe$withDefault,
+									$rakutentech$r10$R10$Form$Internal$FieldState$init,
+									A2($rakutentech$r10$R10$Form$Internal$Dict$get, args.key, args.formState.fieldsState)).validation,
+								args.translator(args.key)))
+						])))
+			]);
+	});
+var $mdgriffith$elm_ui$Internal$Model$Behind = {$: 'Behind'};
+var $mdgriffith$elm_ui$Element$createNearby = F2(
+	function (loc, element) {
+		if (element.$ === 'Empty') {
+			return $mdgriffith$elm_ui$Internal$Model$NoAttribute;
+		} else {
+			return A2($mdgriffith$elm_ui$Internal$Model$Nearby, loc, element);
+		}
+	});
+var $mdgriffith$elm_ui$Element$behindContent = function (element) {
+	return A2($mdgriffith$elm_ui$Element$createNearby, $mdgriffith$elm_ui$Internal$Model$Behind, element);
+};
+var $lucamug$elm_ui_with_context$Element$WithContext$createNearby = F2(
+	function (toAttr, _v0) {
+		var f = _v0.a;
+		return $lucamug$elm_ui_with_context$Element$WithContext$Internal$Attribute(
+			A2($elm$core$Basics$composeR, f, toAttr));
+	});
+var $lucamug$elm_ui_with_context$Element$WithContext$behindContent = $lucamug$elm_ui_with_context$Element$WithContext$createNearby($mdgriffith$elm_ui$Element$behindContent);
+var $rakutentech$r10$R10$FormComponents$Internal$UI$Color$container = $rakutentech$r10$R10$FormComponents$Internal$UI$Color$onSurfaceA(0.54);
+var $mdgriffith$elm_ui$Internal$Model$BorderWidth = F5(
+	function (a, b, c, d, e) {
+		return {$: 'BorderWidth', a: a, b: b, c: c, d: d, e: e};
+	});
+var $mdgriffith$elm_ui$Element$Border$width = function (v) {
 	return A2(
 		$mdgriffith$elm_ui$Internal$Model$StyleClass,
-		$mdgriffith$elm_ui$Internal$Flag$shadows,
-		A3(
-			$mdgriffith$elm_ui$Internal$Model$Single,
-			$mdgriffith$elm_ui$Internal$Model$boxShadowClass(shade),
-			'box-shadow',
-			$mdgriffith$elm_ui$Internal$Model$formatBoxShadow(shade)));
+		$mdgriffith$elm_ui$Internal$Flag$borderWidth,
+		A5(
+			$mdgriffith$elm_ui$Internal$Model$BorderWidth,
+			'b-' + $elm$core$String$fromInt(v),
+			v,
+			v,
+			v,
+			v));
 };
+var $lucamug$elm_ui_with_context$Element$WithContext$Border$width = function (v) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$Internal$attribute(
+		$mdgriffith$elm_ui$Element$Border$width(v));
+};
+var $rakutentech$r10$R10$FormComponents$Internal$UI$borderEntityWithBorder = function (palette) {
+	return _List_fromArray(
+		[
+			$lucamug$elm_ui_with_context$Element$WithContext$Border$width(1),
+			$lucamug$elm_ui_with_context$Element$WithContext$Border$color(
+			$rakutentech$r10$R10$FormComponents$Internal$UI$Color$container(palette)),
+			$lucamug$elm_ui_with_context$Element$WithContext$Border$rounded(5)
+		]);
+};
+var $mdgriffith$elm_ui$Internal$Model$CenterX = {$: 'CenterX'};
+var $mdgriffith$elm_ui$Element$centerX = $mdgriffith$elm_ui$Internal$Model$AlignX($mdgriffith$elm_ui$Internal$Model$CenterX);
+var $lucamug$elm_ui_with_context$Element$WithContext$centerX = $lucamug$elm_ui_with_context$Element$WithContext$attribute($mdgriffith$elm_ui$Element$centerX);
+var $mdgriffith$elm_ui$Internal$Model$CenterY = {$: 'CenterY'};
+var $mdgriffith$elm_ui$Element$centerY = $mdgriffith$elm_ui$Internal$Model$AlignY($mdgriffith$elm_ui$Internal$Model$CenterY);
+var $lucamug$elm_ui_with_context$Element$WithContext$centerY = $lucamug$elm_ui_with_context$Element$WithContext$attribute($mdgriffith$elm_ui$Element$centerY);
+var $mdgriffith$elm_ui$Element$Background$color = function (clr) {
+	return A2(
+		$mdgriffith$elm_ui$Internal$Model$StyleClass,
+		$mdgriffith$elm_ui$Internal$Flag$bgColor,
+		A3(
+			$mdgriffith$elm_ui$Internal$Model$Colored,
+			'bg-' + $mdgriffith$elm_ui$Internal$Model$formatColorClass(clr),
+			'background-color',
+			clr));
+};
+var $lucamug$elm_ui_with_context$Element$WithContext$Background$color = function (clr) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$Internal$attr(
+		$mdgriffith$elm_ui$Element$Background$color(clr));
+};
+var $rakutentech$r10$R10$FormComponents$Internal$UI$Color$containerA = function (alpha) {
+	return $rakutentech$r10$R10$FormComponents$Internal$UI$Color$onSurfaceA(0.54 * alpha);
+};
+var $elm$core$Basics$pi = _Basics_pi;
+var $elm$core$Basics$degrees = function (angleInDegrees) {
+	return (angleInDegrees * $elm$core$Basics$pi) / 180;
+};
+var $rakutentech$r10$R10$Form$Internal$Conf$getId = function (entity) {
+	switch (entity.$) {
+		case 'EntityNormal':
+			var entityId = entity.a;
+			return entityId;
+		case 'EntityWrappable':
+			var entityId = entity.a;
+			return entityId;
+		case 'EntityWithBorder':
+			var entityId = entity.a;
+			return entityId;
+		case 'EntityWithTabs':
+			var entityId = entity.a;
+			return entityId;
+		case 'EntityMulti':
+			var entityId = entity.a;
+			return entityId;
+		case 'EntityField':
+			var fieldConf = entity.a;
+			return fieldConf.id;
+		case 'EntityTitle':
+			var titleConf = entity.b;
+			return titleConf.title;
+		default:
+			var titleConf = entity.b;
+			return titleConf.title;
+	}
+};
+var $rakutentech$r10$R10$Form$Internal$Key$composeMultiKeys = F2(
+	function (key, quantity) {
+		return A2(
+			$elm$core$List$indexedMap,
+			F2(
+				function (index, _v0) {
+					return A2(
+						$rakutentech$r10$R10$Form$Internal$Key$composeKey,
+						key,
+						$elm$core$String$fromInt(index));
+				}),
+			A2($elm$core$List$repeat, quantity, _Utils_Tuple0));
+	});
+var $rakutentech$r10$R10$Form$Internal$Helpers$getMultiActiveKeys = F2(
+	function (key, formState) {
+		var quantity = A2(
+			$elm$core$Maybe$withDefault,
+			1,
+			A2($rakutentech$r10$R10$Form$Internal$Dict$get, key, formState.multiplicableQuantities));
+		var notRemoved = function (newKey) {
+			return !A2(
+				$elm$core$Set$member,
+				$rakutentech$r10$R10$Form$Internal$Key$toString(newKey),
+				formState.removed);
+		};
+		return A2(
+			$elm$core$List$filter,
+			notRemoved,
+			A2($rakutentech$r10$R10$Form$Internal$Key$composeMultiKeys, key, quantity));
+	});
+var $mdgriffith$elm_ui$Internal$Model$InFront = {$: 'InFront'};
+var $mdgriffith$elm_ui$Element$inFront = function (element) {
+	return A2($mdgriffith$elm_ui$Element$createNearby, $mdgriffith$elm_ui$Internal$Model$InFront, element);
+};
+var $lucamug$elm_ui_with_context$Element$WithContext$inFront = $lucamug$elm_ui_with_context$Element$WithContext$createNearby($mdgriffith$elm_ui$Element$inFront);
+var $rakutentech$r10$R10$FormComponents$Internal$UI$Color$labelA = function (alpha) {
+	return $rakutentech$r10$R10$FormComponents$Internal$UI$Color$onSurfaceA(1 * alpha);
+};
+var $mdgriffith$elm_ui$Internal$Model$Max = F2(
+	function (a, b) {
+		return {$: 'Max', a: a, b: b};
+	});
+var $mdgriffith$elm_ui$Element$maximum = F2(
+	function (i, l) {
+		return A2($mdgriffith$elm_ui$Internal$Model$Max, i, l);
+	});
+var $lucamug$elm_ui_with_context$Element$WithContext$maximum = $mdgriffith$elm_ui$Element$maximum;
+var $mdgriffith$elm_ui$Internal$Model$Hover = {$: 'Hover'};
+var $mdgriffith$elm_ui$Internal$Flag$hover = $mdgriffith$elm_ui$Internal$Flag$flag(33);
+var $mdgriffith$elm_ui$Element$mouseOver = function (decs) {
+	return A2(
+		$mdgriffith$elm_ui$Internal$Model$StyleClass,
+		$mdgriffith$elm_ui$Internal$Flag$hover,
+		A2(
+			$mdgriffith$elm_ui$Internal$Model$PseudoSelector,
+			$mdgriffith$elm_ui$Internal$Model$Hover,
+			$mdgriffith$elm_ui$Internal$Model$unwrapDecorations(decs)));
+};
+var $lucamug$elm_ui_with_context$Element$WithContext$mouseOver = function (decs) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$Internal$Attribute(
+		function (context) {
+			return $mdgriffith$elm_ui$Element$mouseOver(
+				A2(
+					$elm$core$List$map,
+					function (_v0) {
+						var f = _v0.a;
+						return f(context);
+					},
+					decs));
+		});
+};
+var $mdgriffith$elm_ui$Internal$Model$MoveX = function (a) {
+	return {$: 'MoveX', a: a};
+};
+var $mdgriffith$elm_ui$Internal$Flag$moveX = $mdgriffith$elm_ui$Internal$Flag$flag(25);
+var $mdgriffith$elm_ui$Element$moveLeft = function (x) {
+	return A2(
+		$mdgriffith$elm_ui$Internal$Model$TransformComponent,
+		$mdgriffith$elm_ui$Internal$Flag$moveX,
+		$mdgriffith$elm_ui$Internal$Model$MoveX(-x));
+};
+var $lucamug$elm_ui_with_context$Element$WithContext$moveLeft = function (x) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$attr(
+		$mdgriffith$elm_ui$Element$moveLeft(x));
+};
+var $rakutentech$r10$R10$Form$Internal$MakerForView$normalizeKey = F2(
+	function (args, entity) {
+		switch (entity.$) {
+			case 'EntityWrappable':
+				var entityId = entity.a;
+				return _Utils_update(
+					args,
+					{
+						key: A2($rakutentech$r10$R10$Form$Internal$Key$composeKey, args.key, entityId)
+					});
+			case 'EntityWithBorder':
+				var entityId = entity.a;
+				return _Utils_update(
+					args,
+					{
+						key: A2($rakutentech$r10$R10$Form$Internal$Key$composeKey, args.key, entityId)
+					});
+			case 'EntityNormal':
+				var entityId = entity.a;
+				return _Utils_update(
+					args,
+					{
+						key: A2($rakutentech$r10$R10$Form$Internal$Key$composeKey, args.key, entityId)
+					});
+			case 'EntityWithTabs':
+				var entityId = entity.a;
+				return _Utils_update(
+					args,
+					{
+						key: A2($rakutentech$r10$R10$Form$Internal$Key$composeKey, args.key, entityId)
+					});
+			case 'EntityMulti':
+				var entityId = entity.a;
+				return _Utils_update(
+					args,
+					{
+						key: A2($rakutentech$r10$R10$Form$Internal$Key$composeKey, args.key, entityId)
+					});
+			case 'EntityField':
+				var fieldConf = entity.a;
+				return _Utils_update(
+					args,
+					{
+						key: A2($rakutentech$r10$R10$Form$Internal$Key$composeKey, args.key, fieldConf.id)
+					});
+			case 'EntityTitle':
+				return args;
+			default:
+				return args;
+		}
+	});
+var $mdgriffith$elm_ui$Element$paddingXY = F2(
+	function (x, y) {
+		if (_Utils_eq(x, y)) {
+			var f = x;
+			return A2(
+				$mdgriffith$elm_ui$Internal$Model$StyleClass,
+				$mdgriffith$elm_ui$Internal$Flag$padding,
+				A5(
+					$mdgriffith$elm_ui$Internal$Model$PaddingStyle,
+					'p-' + $elm$core$String$fromInt(x),
+					f,
+					f,
+					f,
+					f));
+		} else {
+			var yFloat = y;
+			var xFloat = x;
+			return A2(
+				$mdgriffith$elm_ui$Internal$Model$StyleClass,
+				$mdgriffith$elm_ui$Internal$Flag$padding,
+				A5(
+					$mdgriffith$elm_ui$Internal$Model$PaddingStyle,
+					'p-' + ($elm$core$String$fromInt(x) + ('-' + $elm$core$String$fromInt(y))),
+					yFloat,
+					xFloat,
+					yFloat,
+					xFloat));
+		}
+	});
+var $lucamug$elm_ui_with_context$Element$WithContext$paddingXY = F2(
+	function (x, y) {
+		return $lucamug$elm_ui_with_context$Element$WithContext$attribute(
+			A2($mdgriffith$elm_ui$Element$paddingXY, x, y));
+	});
+var $rakutentech$r10$R10$Form$Internal$MakerForView$paddingGeneric = A2($lucamug$elm_ui_with_context$Element$WithContext$paddingXY, 20, 25);
+var $mdgriffith$elm_ui$Internal$Model$Rotate = F2(
+	function (a, b) {
+		return {$: 'Rotate', a: a, b: b};
+	});
+var $mdgriffith$elm_ui$Internal$Flag$rotate = $mdgriffith$elm_ui$Internal$Flag$flag(24);
+var $mdgriffith$elm_ui$Element$rotate = function (angle) {
+	return A2(
+		$mdgriffith$elm_ui$Internal$Model$TransformComponent,
+		$mdgriffith$elm_ui$Internal$Flag$rotate,
+		A2(
+			$mdgriffith$elm_ui$Internal$Model$Rotate,
+			_Utils_Tuple3(0, 0, 1),
+			angle));
+};
+var $lucamug$elm_ui_with_context$Element$WithContext$rotate = function (angle) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$attr(
+		$mdgriffith$elm_ui$Element$rotate(angle));
+};
+var $mdgriffith$elm_ui$Element$scrollbars = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$overflow, $mdgriffith$elm_ui$Internal$Style$classes.scrollbars);
+var $lucamug$elm_ui_with_context$Element$WithContext$scrollbars = $lucamug$elm_ui_with_context$Element$WithContext$attribute($mdgriffith$elm_ui$Element$scrollbars);
+var $elm$core$List$singleton = function (value) {
+	return _List_fromArray(
+		[value]);
+};
+var $mdgriffith$elm_ui$Element$spacingXY = F2(
+	function (x, y) {
+		return A2(
+			$mdgriffith$elm_ui$Internal$Model$StyleClass,
+			$mdgriffith$elm_ui$Internal$Flag$spacing,
+			A3(
+				$mdgriffith$elm_ui$Internal$Model$SpacingStyle,
+				A2($mdgriffith$elm_ui$Internal$Model$spacingName, x, y),
+				x,
+				y));
+	});
+var $lucamug$elm_ui_with_context$Element$WithContext$spacingXY = F2(
+	function (x, y) {
+		return $lucamug$elm_ui_with_context$Element$WithContext$attribute(
+			A2($mdgriffith$elm_ui$Element$spacingXY, x, y));
+	});
+var $rakutentech$r10$R10$Form$Internal$MakerForView$spacingGeneric = A2($lucamug$elm_ui_with_context$Element$WithContext$spacingXY, 15, 25);
+var $rakutentech$r10$R10$FormComponents$Internal$UI$Color$surface = A2(
+	$elm$core$Basics$composeR,
+	function ($) {
+		return $.surface;
+	},
+	$rakutentech$r10$R10$FormComponents$Internal$UI$Color$fromPaletteColor);
+var $rakutentech$r10$R10$Form$Internal$MakerForView$isActive = F2(
+	function (key, active) {
+		if (active.$ === 'Just') {
+			var active_x = active.a;
+			return _Utils_eq(
+				active_x,
+				$rakutentech$r10$R10$Form$Internal$Key$toString(key));
+		} else {
+			return false;
+		}
+	});
+var $rakutentech$r10$R10$Form$Internal$MakerForView$isFocused = F2(
+	function (key, focused) {
+		if (focused.$ === 'Just') {
+			var focused_x = focused.a;
+			return _Utils_eq(
+				focused_x,
+				$rakutentech$r10$R10$Form$Internal$Key$toString(key));
+		} else {
+			return false;
+		}
+	});
+var $rakutentech$r10$R10$Form$Internal$Msg$ChangeValue = F4(
+	function (a, b, c, d) {
+		return {$: 'ChangeValue', a: a, b: b, c: c, d: d};
+	});
+var $rakutentech$r10$R10$Form$Internal$Msg$GetFocus = function (a) {
+	return {$: 'GetFocus', a: a};
+};
+var $rakutentech$r10$R10$Form$Internal$Msg$LoseFocus = F2(
+	function (a, b) {
+		return {$: 'LoseFocus', a: a, b: b};
+	});
+var $rakutentech$r10$R10$Form$Internal$Helpers$boolToString = function (bool) {
+	return bool ? 'True' : 'False';
+};
+var $rakutentech$r10$R10$Form$Internal$FieldState$isValid = function (listValidationMessage) {
+	return A3(
+		$elm$core$List$foldl,
+		F2(
+			function (validationMessage, acc) {
+				if (validationMessage.$ === 'MessageErr') {
+					return false;
+				} else {
+					return acc;
+				}
+			}),
+		true,
+		listValidationMessage);
+};
+var $rakutentech$r10$R10$Form$Internal$MakerForView$maybeValid = function (validation) {
+	if (validation.$ === 'NotYetValidated') {
+		return $elm$core$Maybe$Nothing;
+	} else {
+		var listValidationMessage = validation.a;
+		return $elm$core$Maybe$Just(
+			$rakutentech$r10$R10$Form$Internal$FieldState$isValid(listValidationMessage));
+	}
+};
+var $rakutentech$r10$R10$Form$Internal$Helpers$stringToBool = function (string) {
+	return $elm$core$String$toLower(string) === 'true';
+};
+var $rakutentech$r10$R10$I18n$Normal = {$: 'Normal'};
 var $rakutentech$r10$R10$FormComponents$Internal$UI$Color$onPrimary = A2(
 	$elm$core$Basics$composeR,
 	function ($) {
 		return $.onPrimary;
 	},
 	$rakutentech$r10$R10$FormComponents$Internal$UI$Color$fromPaletteColor);
-var $rakutentech$r10$R10$FormComponents$Internal$UI$Color$primary = A2(
-	$elm$core$Basics$composeR,
-	function ($) {
-		return $.primary;
-	},
-	$rakutentech$r10$R10$FormComponents$Internal$UI$Color$fromPaletteColor);
 var $rakutentech$r10$R10$FormComponents$Internal$UI$Color$transparent = $rakutentech$r10$R10$FormComponents$Internal$UI$Color$fromPaletteColor(
 	A2($rakutentech$r10$R10$FormComponents$Internal$UI$Palette$withOpacity, 0, $rakutentech$r10$R10$FormComponents$Internal$UI$Palette$black));
+var $rakutentech$r10$R10$FormComponents$Internal$UI$Color$borderA = F2(
+	function (alpha, palette) {
+		return $rakutentech$r10$R10$FormComponents$Internal$UI$Color$fromPaletteColor(
+			A2($rakutentech$r10$R10$FormComponents$Internal$UI$Palette$withOpacity, alpha, palette.border));
+	});
 var $rakutentech$r10$R10$FormComponents$Internal$UI$Color$primaryA = F2(
 	function (alpha, palette) {
 		return $rakutentech$r10$R10$FormComponents$Internal$UI$Color$fromPaletteColor(
@@ -20592,62 +24470,71 @@ var $rakutentech$r10$R10$FormComponents$Internal$UI$viewSelectShadowCustomSize =
 		var focused = _v0.focused;
 		var disabled = _v0.disabled;
 		var size = _v0.size;
+		var value = _v0.value;
+		var rounded = _v0.rounded;
 		return A2(
-			$mdgriffith$elm_ui$Element$el,
+			$lucamug$elm_ui_with_context$Element$WithContext$el,
 			_Utils_ap(
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$width(
-						$mdgriffith$elm_ui$Element$px(size.x)),
-						$mdgriffith$elm_ui$Element$height(
-						$mdgriffith$elm_ui$Element$px(size.y)),
-						$mdgriffith$elm_ui$Element$Border$rounded(20),
-						$mdgriffith$elm_ui$Element$htmlAttribute(
-						A2($elm$html$Html$Attributes$style, 'transition', 'all 0.15s'))
-					]),
-				disabled ? _List_Nil : _List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$htmlAttribute(
-						$elm$html$Html$Attributes$class('ripple-primary')),
-						$mdgriffith$elm_ui$Element$Background$color(
-						A3($rakutentech$r10$R10$FormComponents$Internal$UI$getSelectShadowColor, palette, focused, false)),
-						$mdgriffith$elm_ui$Element$mouseOver(
-						_List_fromArray(
-							[
-								$mdgriffith$elm_ui$Element$Background$color(
-								A3($rakutentech$r10$R10$FormComponents$Internal$UI$getSelectShadowColor, palette, focused, true))
-							]))
-					])),
+				_List_Nil,
+				_Utils_ap(
+					_List_fromArray(
+						[
+							$lucamug$elm_ui_with_context$Element$WithContext$width(
+							$lucamug$elm_ui_with_context$Element$WithContext$px(size.x)),
+							$lucamug$elm_ui_with_context$Element$WithContext$height(
+							$lucamug$elm_ui_with_context$Element$WithContext$px(size.y)),
+							$lucamug$elm_ui_with_context$Element$WithContext$Border$rounded(rounded),
+							$rakutentech$r10$R10$Transition$transition('all 0.15s')
+						]),
+					disabled ? _List_Nil : _List_fromArray(
+						[
+							$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+							$elm$html$Html$Attributes$class('ripple-primary')),
+							$lucamug$elm_ui_with_context$Element$WithContext$Background$color(
+							A3($rakutentech$r10$R10$FormComponents$Internal$UI$getSelectShadowColor, palette, focused, false)),
+							$lucamug$elm_ui_with_context$Element$WithContext$mouseOver(
+							_List_fromArray(
+								[
+									$lucamug$elm_ui_with_context$Element$WithContext$Background$color(
+									A3($rakutentech$r10$R10$FormComponents$Internal$UI$getSelectShadowColor, palette, focused, true)),
+									$lucamug$elm_ui_with_context$Element$WithContext$Border$shadow(
+									{
+										blur: 0,
+										color: (value ? $rakutentech$r10$R10$FormComponents$Internal$UI$Color$primary : $rakutentech$r10$R10$FormComponents$Internal$UI$Color$borderA(0.7))(palette),
+										offset: _Utils_Tuple2(0, 0),
+										size: 2
+									})
+								]))
+						]))),
 			element);
 	});
 var $rakutentech$r10$R10$FormComponents$Internal$Binary$checkboxIcon = F2(
 	function (args, value) {
 		var checkMark = value ? A3(
-			$rakutentech$r10$R10$FormComponents$Internal$UI$icons.checkBold,
+			$rakutentech$r10$R10$FormComponents$Internal$UI$icons.check,
 			_List_fromArray(
-				[$mdgriffith$elm_ui$Element$centerX, $mdgriffith$elm_ui$Element$centerY]),
+				[$lucamug$elm_ui_with_context$Element$WithContext$centerX, $lucamug$elm_ui_with_context$Element$WithContext$centerY]),
 			$rakutentech$r10$R10$FormComponents$Internal$UI$Color$onPrimary(args.palette),
-			18) : $mdgriffith$elm_ui$Element$none;
+			18) : $lucamug$elm_ui_with_context$Element$WithContext$none;
 		var boxBorderAndFill = A2(
-			$mdgriffith$elm_ui$Element$el,
+			$lucamug$elm_ui_with_context$Element$WithContext$el,
 			_Utils_ap(
 				_List_fromArray(
 					[
-						$mdgriffith$elm_ui$Element$htmlAttribute(
-						A2($elm$html$Html$Attributes$style, 'transition', 'all 0.2s ')),
-						$mdgriffith$elm_ui$Element$width(
-						$mdgriffith$elm_ui$Element$px(24)),
-						$mdgriffith$elm_ui$Element$height(
-						$mdgriffith$elm_ui$Element$px(24)),
-						$mdgriffith$elm_ui$Element$Border$rounded(3),
-						$mdgriffith$elm_ui$Element$centerY,
-						$mdgriffith$elm_ui$Element$centerX
+						$rakutentech$r10$R10$Transition$transition('all 0.2s '),
+						$lucamug$elm_ui_with_context$Element$WithContext$width(
+						$lucamug$elm_ui_with_context$Element$WithContext$px(24)),
+						$lucamug$elm_ui_with_context$Element$WithContext$height(
+						$lucamug$elm_ui_with_context$Element$WithContext$px(24)),
+						$lucamug$elm_ui_with_context$Element$WithContext$Border$rounded(3),
+						$lucamug$elm_ui_with_context$Element$WithContext$centerY,
+						$lucamug$elm_ui_with_context$Element$WithContext$centerX
 					]),
 				value ? _List_fromArray(
 					[
-						$mdgriffith$elm_ui$Element$Background$color(
+						$lucamug$elm_ui_with_context$Element$WithContext$Background$color(
 						$rakutentech$r10$R10$FormComponents$Internal$UI$Color$primary(args.palette)),
-						$mdgriffith$elm_ui$Element$Border$innerShadow(
+						$lucamug$elm_ui_with_context$Element$WithContext$Border$innerShadow(
 						{
 							blur: 0,
 							color: A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$onSurfaceA, 0.25, args.palette),
@@ -20656,42 +24543,45 @@ var $rakutentech$r10$R10$FormComponents$Internal$Binary$checkboxIcon = F2(
 						})
 					]) : _List_fromArray(
 					[
-						$mdgriffith$elm_ui$Element$Background$color($rakutentech$r10$R10$FormComponents$Internal$UI$Color$transparent),
-						$mdgriffith$elm_ui$Element$Border$innerShadow(
+						$lucamug$elm_ui_with_context$Element$WithContext$Background$color($rakutentech$r10$R10$FormComponents$Internal$UI$Color$transparent),
+						$lucamug$elm_ui_with_context$Element$WithContext$Border$innerShadow(
 						{
 							blur: 0,
 							color: A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$onSurfaceA, 0.25, args.palette),
 							offset: _Utils_Tuple2(0, 0),
-							size: 1
+							size: 2
 						})
 					])),
 			checkMark);
 		return A2(
-			$mdgriffith$elm_ui$Element$el,
-			_List_fromArray(
-				[
-					$mdgriffith$elm_ui$Element$moveLeft(4),
-					$mdgriffith$elm_ui$Element$alignTop
-				]),
-			A2(
-				$rakutentech$r10$R10$FormComponents$Internal$UI$viewSelectShadowCustomSize,
-				{
-					disabled: args.disabled,
-					focused: args.focused,
-					palette: args.palette,
-					size: {x: 32, y: 32}
-				},
-				boxBorderAndFill));
+			$rakutentech$r10$R10$FormComponents$Internal$UI$viewSelectShadowCustomSize,
+			{
+				disabled: args.disabled,
+				focused: args.focused,
+				palette: args.palette,
+				rounded: 4,
+				size: {x: 28, y: 28},
+				value: value
+			},
+			boxBorderAndFill);
 	});
-var $mdgriffith$elm_ui$Element$Font$color = function (fontColor) {
+var $mdgriffith$elm_ui$Internal$Model$MoveY = function (a) {
+	return {$: 'MoveY', a: a};
+};
+var $mdgriffith$elm_ui$Internal$Flag$moveY = $mdgriffith$elm_ui$Internal$Flag$flag(26);
+var $mdgriffith$elm_ui$Element$moveUp = function (y) {
 	return A2(
-		$mdgriffith$elm_ui$Internal$Model$StyleClass,
-		$mdgriffith$elm_ui$Internal$Flag$fontColor,
-		A3(
-			$mdgriffith$elm_ui$Internal$Model$Colored,
-			'fc-' + $mdgriffith$elm_ui$Internal$Model$formatColorClass(fontColor),
-			'color',
-			fontColor));
+		$mdgriffith$elm_ui$Internal$Model$TransformComponent,
+		$mdgriffith$elm_ui$Internal$Flag$moveY,
+		$mdgriffith$elm_ui$Internal$Model$MoveY(-y));
+};
+var $lucamug$elm_ui_with_context$Element$WithContext$moveUp = function (y) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$attr(
+		$mdgriffith$elm_ui$Element$moveUp(y));
+};
+var $lucamug$elm_ui_with_context$Element$WithContext$Events$onClick = function (msg) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$Internal$attribute(
+		$mdgriffith$elm_ui$Element$Events$onClick(msg));
 };
 var $elm$html$Html$Events$onFocus = function (msg) {
 	return A2(
@@ -20700,6 +24590,10 @@ var $elm$html$Html$Events$onFocus = function (msg) {
 		$elm$json$Json$Decode$succeed(msg));
 };
 var $mdgriffith$elm_ui$Element$Events$onFocus = A2($elm$core$Basics$composeL, $mdgriffith$elm_ui$Internal$Model$Attr, $elm$html$Html$Events$onFocus);
+var $lucamug$elm_ui_with_context$Element$WithContext$Events$onFocus = function (msg) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$Internal$attribute(
+		$mdgriffith$elm_ui$Element$Events$onFocus(msg));
+};
 var $elm$html$Html$Events$onBlur = function (msg) {
 	return A2(
 		$elm$html$Html$Events$on,
@@ -20707,6 +24601,10 @@ var $elm$html$Html$Events$onBlur = function (msg) {
 		$elm$json$Json$Decode$succeed(msg));
 };
 var $mdgriffith$elm_ui$Element$Events$onLoseFocus = A2($elm$core$Basics$composeL, $mdgriffith$elm_ui$Internal$Model$Attr, $elm$html$Html$Events$onBlur);
+var $lucamug$elm_ui_with_context$Element$WithContext$Events$onLoseFocus = function (msg) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$Internal$attribute(
+		$mdgriffith$elm_ui$Element$Events$onLoseFocus(msg));
+};
 var $rakutentech$r10$R10$FormComponents$Internal$UI$keyCode = {backspace: 8, del: 46, down: 40, enter: 13, esc: 27, space: 32, up: 38};
 var $elm$html$Html$Events$keyCode = A2($elm$json$Json$Decode$field, 'keyCode', $elm$json$Json$Decode$int);
 var $rakutentech$r10$R10$FormComponents$Internal$UI$onKeyPressBatch = function (codesMsg) {
@@ -20736,208 +24634,892 @@ var $rakutentech$r10$R10$FormComponents$Internal$UI$onSelectKey = function (msg)
 				_Utils_Tuple2($rakutentech$r10$R10$FormComponents$Internal$UI$keyCode.space, msg)
 			]));
 };
-var $rakutentech$r10$R10$FormComponents$Internal$Binary$viewBinaryCheckbox = F2(
-	function (attrs, args) {
-		return A2(
-			$mdgriffith$elm_ui$Element$row,
-			_Utils_ap(
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$height(
-						$mdgriffith$elm_ui$Element$px(20)),
-						$mdgriffith$elm_ui$Element$spacing(26)
-					]),
-				_Utils_ap(
-					args.disabled ? _List_fromArray(
-						[
-							$mdgriffith$elm_ui$Element$alpha(0.38)
-						]) : _List_fromArray(
-						[
-							$mdgriffith$elm_ui$Element$Events$onClick(args.msgOnClick),
-							$mdgriffith$elm_ui$Element$pointer,
-							$mdgriffith$elm_ui$Element$htmlAttribute(
-							$elm$html$Html$Attributes$tabindex(0)),
-							$mdgriffith$elm_ui$Element$htmlAttribute(
-							$rakutentech$r10$R10$FormComponents$Internal$UI$onSelectKey(args.msgOnClick)),
-							$mdgriffith$elm_ui$Element$Events$onFocus(args.msgOnFocus),
-							$mdgriffith$elm_ui$Element$Events$onLoseFocus(args.msgOnLoseFocus)
-						]),
-					attrs)),
-			_List_fromArray(
-				[
-					A2(
-					$mdgriffith$elm_ui$Element$row,
-					_List_fromArray(
-						[
-							$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
-						]),
-					_List_fromArray(
-						[
-							A2($rakutentech$r10$R10$FormComponents$Internal$Binary$checkboxIcon, args, args.value),
-							A2(
-							$mdgriffith$elm_ui$Element$paragraph,
-							_List_fromArray(
-								[
-									$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-									$mdgriffith$elm_ui$Element$paddingEach(
-									{bottom: 0, left: 12, right: 0, top: 0}),
-									$mdgriffith$elm_ui$Element$Font$size(14),
-									$mdgriffith$elm_ui$Element$Font$color(
-									$rakutentech$r10$R10$FormComponents$Internal$UI$Color$label(args.palette)),
-									$mdgriffith$elm_ui$Element$htmlAttribute(
-									$elm$html$Html$Attributes$id('ie-flex-fix'))
-								]),
-							_List_fromArray(
-								[
-									$mdgriffith$elm_ui$Element$text(args.label)
-								]))
-						]))
-				]));
-	});
-var $mdgriffith$elm_ui$Element$moveRight = function (x) {
-	return A2(
-		$mdgriffith$elm_ui$Internal$Model$TransformComponent,
-		$mdgriffith$elm_ui$Internal$Flag$moveX,
-		$mdgriffith$elm_ui$Internal$Model$MoveX(x));
+var $rakutentech$r10$R10$Color$Internal$Derived$Error = {$: 'Error'};
+var $rakutentech$r10$R10$Color$Utils$fromColorColor = function (color) {
+	var _v0 = $avh4$elm_color$Color$toRgba(color);
+	var red = _v0.red;
+	var green = _v0.green;
+	var blue = _v0.blue;
+	var alpha = _v0.alpha;
+	return A4($lucamug$elm_ui_with_context$Element$WithContext$rgba, red, green, blue, alpha);
 };
-var $rakutentech$r10$R10$FormComponents$Internal$UI$Color$primaryVariant = A2(
-	$elm$core$Basics$composeR,
-	function ($) {
-		return $.primaryVariant;
-	},
-	$rakutentech$r10$R10$FormComponents$Internal$UI$Color$fromPaletteColor);
-var $rakutentech$r10$R10$FormComponents$Internal$UI$viewSelectShadow = function (_v0) {
-	var palette = _v0.palette;
-	var focused = _v0.focused;
-	var disabled = _v0.disabled;
-	return $rakutentech$r10$R10$FormComponents$Internal$UI$viewSelectShadowCustomSize(
-		{
-			disabled: disabled,
-			focused: focused,
-			palette: palette,
-			size: {x: 40, y: 40}
-		});
-};
-var $rakutentech$r10$R10$FormComponents$Internal$Binary$viewBinarySwitch = F2(
-	function (attrs, args) {
-		var _v0 = args.value ? {thumbColor: $rakutentech$r10$R10$FormComponents$Internal$UI$Color$primary, trackColor: $rakutentech$r10$R10$FormComponents$Internal$UI$Color$primaryVariant} : {
-			thumbColor: $rakutentech$r10$R10$FormComponents$Internal$UI$Color$surface,
-			trackColor: $rakutentech$r10$R10$FormComponents$Internal$UI$Color$onSurfaceA(0.37)
+var $rakutentech$r10$R10$Color$Internal$Base$Background = {$: 'Background'};
+var $rakutentech$r10$R10$Color$Internal$Base$Border = {$: 'Border'};
+var $rakutentech$r10$R10$Color$Internal$Base$Error = {$: 'Error'};
+var $rakutentech$r10$R10$Color$Internal$Base$FontLink = {$: 'FontLink'};
+var $rakutentech$r10$R10$Color$Internal$Primary$LightBlue = {$: 'LightBlue'};
+var $rakutentech$r10$R10$Color$Internal$Base$Success = {$: 'Success'};
+var $avh4$elm_color$Color$hsla = F4(
+	function (hue, sat, light, alpha) {
+		var _v0 = _Utils_Tuple3(hue, sat, light);
+		var h = _v0.a;
+		var s = _v0.b;
+		var l = _v0.c;
+		var m2 = (l <= 0.5) ? (l * (s + 1)) : ((l + s) - (l * s));
+		var m1 = (l * 2) - m2;
+		var hueToRgb = function (h__) {
+			var h_ = (h__ < 0) ? (h__ + 1) : ((h__ > 1) ? (h__ - 1) : h__);
+			return ((h_ * 6) < 1) ? (m1 + (((m2 - m1) * h_) * 6)) : (((h_ * 2) < 1) ? m2 : (((h_ * 3) < 2) ? (m1 + (((m2 - m1) * ((2 / 3) - h_)) * 6)) : m1));
 		};
-		var trackColor = _v0.trackColor;
-		var thumbColor = _v0.thumbColor;
-		var thumb = A2(
-			$mdgriffith$elm_ui$Element$el,
-			_List_fromArray(
-				[
-					$mdgriffith$elm_ui$Element$height(
-					$mdgriffith$elm_ui$Element$px(20)),
-					$mdgriffith$elm_ui$Element$width(
-					$mdgriffith$elm_ui$Element$px(20)),
-					$mdgriffith$elm_ui$Element$Border$rounded(24),
-					$mdgriffith$elm_ui$Element$htmlAttribute(
-					A2($elm$html$Html$Attributes$style, 'transition', 'all 0.14s ')),
-					$mdgriffith$elm_ui$Element$centerY,
-					$mdgriffith$elm_ui$Element$centerX,
-					$mdgriffith$elm_ui$Element$Background$color(
-					thumbColor(args.palette)),
-					$mdgriffith$elm_ui$Element$Border$shadow(
-					{
-						blur: 2,
-						color: trackColor(args.palette),
-						offset: _Utils_Tuple2(0, 1),
-						size: 1
-					})
-				]),
-			$mdgriffith$elm_ui$Element$none);
-		var track = A2(
-			$mdgriffith$elm_ui$Element$el,
-			_List_fromArray(
-				[
-					$mdgriffith$elm_ui$Element$centerX,
-					$mdgriffith$elm_ui$Element$centerY,
-					$mdgriffith$elm_ui$Element$Border$rounded(36),
-					$mdgriffith$elm_ui$Element$width(
-					$mdgriffith$elm_ui$Element$px(36)),
-					$mdgriffith$elm_ui$Element$height(
-					$mdgriffith$elm_ui$Element$px(14)),
-					$mdgriffith$elm_ui$Element$Background$color(
-					trackColor(args.palette))
-				]),
-			$mdgriffith$elm_ui$Element$none);
-		var _switch = A2(
-			$mdgriffith$elm_ui$Element$el,
-			_List_fromArray(
-				[
-					$mdgriffith$elm_ui$Element$width(
-					$mdgriffith$elm_ui$Element$px(56)),
-					$mdgriffith$elm_ui$Element$height(
-					$mdgriffith$elm_ui$Element$px(40)),
-					$mdgriffith$elm_ui$Element$inFront(
-					A2(
-						$mdgriffith$elm_ui$Element$el,
-						_List_fromArray(
-							[
-								$mdgriffith$elm_ui$Element$htmlAttribute(
-								A2($elm$html$Html$Attributes$style, 'transition', 'all 0.13s')),
-								args.value ? $mdgriffith$elm_ui$Element$moveRight(16) : $mdgriffith$elm_ui$Element$moveRight(0)
-							]),
-						A2($rakutentech$r10$R10$FormComponents$Internal$UI$viewSelectShadow, args, thumb))),
-					$mdgriffith$elm_ui$Element$behindContent(track)
-				]),
-			$mdgriffith$elm_ui$Element$none);
-		return A2(
-			$mdgriffith$elm_ui$Element$row,
-			_Utils_ap(
+		var b = hueToRgb(h - (1 / 3));
+		var g = hueToRgb(h);
+		var r = hueToRgb(h + (1 / 3));
+		return A4($avh4$elm_color$Color$RgbaSpace, r, g, b, alpha);
+	});
+var $elm$core$Basics$clamp = F3(
+	function (low, high, number) {
+		return (_Utils_cmp(number, low) < 0) ? low : ((_Utils_cmp(number, high) > 0) ? high : number);
+	});
+var $noahzgordon$elm_color_extra$Color$Manipulate$limit = A2($elm$core$Basics$clamp, 0, 1);
+var $elm$core$Basics$isNaN = _Basics_isNaN;
+var $avh4$elm_color$Color$toHsla = function (_v0) {
+	var r = _v0.a;
+	var g = _v0.b;
+	var b = _v0.c;
+	var a = _v0.d;
+	var minColor = A2(
+		$elm$core$Basics$min,
+		r,
+		A2($elm$core$Basics$min, g, b));
+	var maxColor = A2(
+		$elm$core$Basics$max,
+		r,
+		A2($elm$core$Basics$max, g, b));
+	var l = (minColor + maxColor) / 2;
+	var s = _Utils_eq(minColor, maxColor) ? 0 : ((l < 0.5) ? ((maxColor - minColor) / (maxColor + minColor)) : ((maxColor - minColor) / ((2 - maxColor) - minColor)));
+	var h1 = _Utils_eq(maxColor, r) ? ((g - b) / (maxColor - minColor)) : (_Utils_eq(maxColor, g) ? (2 + ((b - r) / (maxColor - minColor))) : (4 + ((r - g) / (maxColor - minColor))));
+	var h2 = h1 * (1 / 6);
+	var h3 = $elm$core$Basics$isNaN(h2) ? 0 : ((h2 < 0) ? (h2 + 1) : h2);
+	return {alpha: a, hue: h3, lightness: l, saturation: s};
+};
+var $noahzgordon$elm_color_extra$Color$Manipulate$darken = F2(
+	function (offset, cl) {
+		var _v0 = $avh4$elm_color$Color$toHsla(cl);
+		var hue = _v0.hue;
+		var saturation = _v0.saturation;
+		var lightness = _v0.lightness;
+		var alpha = _v0.alpha;
+		return A4(
+			$avh4$elm_color$Color$hsla,
+			hue,
+			saturation,
+			$noahzgordon$elm_color_extra$Color$Manipulate$limit(lightness - offset),
+			alpha);
+	});
+var $noahzgordon$elm_color_extra$Color$Manipulate$lighten = F2(
+	function (offset, cl) {
+		return A2($noahzgordon$elm_color_extra$Color$Manipulate$darken, -offset, cl);
+	});
+var $noahzgordon$elm_color_extra$Color$Manipulate$saturate = F2(
+	function (offset, cl) {
+		var _v0 = $avh4$elm_color$Color$toHsla(cl);
+		var hue = _v0.hue;
+		var saturation = _v0.saturation;
+		var lightness = _v0.lightness;
+		var alpha = _v0.alpha;
+		return A4(
+			$avh4$elm_color$Color$hsla,
+			hue,
+			$noahzgordon$elm_color_extra$Color$Manipulate$limit(saturation + offset),
+			lightness,
+			alpha);
+	});
+var $noahzgordon$elm_color_extra$Color$Manipulate$desaturate = F2(
+	function (offset, cl) {
+		return A2($noahzgordon$elm_color_extra$Color$Manipulate$saturate, -offset, cl);
+	});
+var $elm$core$Result$andThen = F2(
+	function (callback, result) {
+		if (result.$ === 'Ok') {
+			var value = result.a;
+			return callback(value);
+		} else {
+			var msg = result.a;
+			return $elm$core$Result$Err(msg);
+		}
+	});
+var $elm$regex$Regex$findAtMost = _Regex_findAtMost;
+var $elm$core$String$fromList = _String_fromList;
+var $elm$core$Result$fromMaybe = F2(
+	function (err, maybe) {
+		if (maybe.$ === 'Just') {
+			var v = maybe.a;
+			return $elm$core$Result$Ok(v);
+		} else {
+			return $elm$core$Result$Err(err);
+		}
+	});
+var $elm$core$Result$map = F2(
+	function (func, ra) {
+		if (ra.$ === 'Ok') {
+			var a = ra.a;
+			return $elm$core$Result$Ok(
+				func(a));
+		} else {
+			var e = ra.a;
+			return $elm$core$Result$Err(e);
+		}
+	});
+var $fredcy$elm_parseint$ParseInt$InvalidRadix = function (a) {
+	return {$: 'InvalidRadix', a: a};
+};
+var $fredcy$elm_parseint$ParseInt$InvalidChar = function (a) {
+	return {$: 'InvalidChar', a: a};
+};
+var $fredcy$elm_parseint$ParseInt$OutOfRange = function (a) {
+	return {$: 'OutOfRange', a: a};
+};
+var $fredcy$elm_parseint$ParseInt$charOffset = F2(
+	function (basis, c) {
+		return $elm$core$Char$toCode(c) - $elm$core$Char$toCode(basis);
+	});
+var $fredcy$elm_parseint$ParseInt$isBetween = F3(
+	function (lower, upper, c) {
+		var ci = $elm$core$Char$toCode(c);
+		return (_Utils_cmp(
+			$elm$core$Char$toCode(lower),
+			ci) < 1) && (_Utils_cmp(
+			ci,
+			$elm$core$Char$toCode(upper)) < 1);
+	});
+var $fredcy$elm_parseint$ParseInt$intFromChar = F2(
+	function (radix, c) {
+		var validInt = function (i) {
+			return (_Utils_cmp(i, radix) < 0) ? $elm$core$Result$Ok(i) : $elm$core$Result$Err(
+				$fredcy$elm_parseint$ParseInt$OutOfRange(c));
+		};
+		var toInt = A3(
+			$fredcy$elm_parseint$ParseInt$isBetween,
+			_Utils_chr('0'),
+			_Utils_chr('9'),
+			c) ? $elm$core$Result$Ok(
+			A2(
+				$fredcy$elm_parseint$ParseInt$charOffset,
+				_Utils_chr('0'),
+				c)) : (A3(
+			$fredcy$elm_parseint$ParseInt$isBetween,
+			_Utils_chr('a'),
+			_Utils_chr('z'),
+			c) ? $elm$core$Result$Ok(
+			10 + A2(
+				$fredcy$elm_parseint$ParseInt$charOffset,
+				_Utils_chr('a'),
+				c)) : (A3(
+			$fredcy$elm_parseint$ParseInt$isBetween,
+			_Utils_chr('A'),
+			_Utils_chr('Z'),
+			c) ? $elm$core$Result$Ok(
+			10 + A2(
+				$fredcy$elm_parseint$ParseInt$charOffset,
+				_Utils_chr('A'),
+				c)) : $elm$core$Result$Err(
+			$fredcy$elm_parseint$ParseInt$InvalidChar(c))));
+		return A2($elm$core$Result$andThen, validInt, toInt);
+	});
+var $fredcy$elm_parseint$ParseInt$parseIntR = F2(
+	function (radix, rstring) {
+		var _v0 = $elm$core$String$uncons(rstring);
+		if (_v0.$ === 'Nothing') {
+			return $elm$core$Result$Ok(0);
+		} else {
+			var _v1 = _v0.a;
+			var c = _v1.a;
+			var rest = _v1.b;
+			return A2(
+				$elm$core$Result$andThen,
+				function (ci) {
+					return A2(
+						$elm$core$Result$andThen,
+						function (ri) {
+							return $elm$core$Result$Ok(ci + (ri * radix));
+						},
+						A2($fredcy$elm_parseint$ParseInt$parseIntR, radix, rest));
+				},
+				A2($fredcy$elm_parseint$ParseInt$intFromChar, radix, c));
+		}
+	});
+var $elm$core$String$reverse = _String_reverse;
+var $fredcy$elm_parseint$ParseInt$parseIntRadix = F2(
+	function (radix, string) {
+		return ((2 <= radix) && (radix <= 36)) ? A2(
+			$fredcy$elm_parseint$ParseInt$parseIntR,
+			radix,
+			$elm$core$String$reverse(string)) : $elm$core$Result$Err(
+			$fredcy$elm_parseint$ParseInt$InvalidRadix(radix));
+	});
+var $fredcy$elm_parseint$ParseInt$parseIntHex = $fredcy$elm_parseint$ParseInt$parseIntRadix(16);
+var $avh4$elm_color$Color$rgb = F3(
+	function (r, g, b) {
+		return A4($avh4$elm_color$Color$RgbaSpace, r, g, b, 1.0);
+	});
+var $avh4$elm_color$Color$rgba = F4(
+	function (r, g, b, a) {
+		return A4($avh4$elm_color$Color$RgbaSpace, r, g, b, a);
+	});
+var $elm$core$Basics$pow = _Basics_pow;
+var $noahzgordon$elm_color_extra$Color$Convert$roundToPlaces = F2(
+	function (places, number) {
+		var multiplier = A2($elm$core$Basics$pow, 10, places);
+		return $elm$core$Basics$round(number * multiplier) / multiplier;
+	});
+var $elm$core$String$foldr = _String_foldr;
+var $elm$core$String$toList = function (string) {
+	return A3($elm$core$String$foldr, $elm$core$List$cons, _List_Nil, string);
+};
+var $noahzgordon$elm_color_extra$Color$Convert$hexToColor = function () {
+	var pattern = '' + ('^' + ('#?' + ('(?:' + ('(?:([a-f\\d]{2})([a-f\\d]{2})([a-f\\d]{2}))' + ('|' + ('(?:([a-f\\d])([a-f\\d])([a-f\\d]))' + ('|' + ('(?:([a-f\\d]{2})([a-f\\d]{2})([a-f\\d]{2})([a-f\\d]{2}))' + ('|' + ('(?:([a-f\\d])([a-f\\d])([a-f\\d])([a-f\\d]))' + (')' + '$')))))))))));
+	var extend = function (token) {
+		var _v6 = $elm$core$String$toList(token);
+		if (_v6.b && (!_v6.b.b)) {
+			var token_ = _v6.a;
+			return $elm$core$String$fromList(
 				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$spacing(15),
-						$mdgriffith$elm_ui$Element$height(
-						$mdgriffith$elm_ui$Element$px(20))
-					]),
-				_Utils_ap(
-					args.disabled ? _List_fromArray(
-						[
-							$mdgriffith$elm_ui$Element$alpha(0.38)
-						]) : _List_fromArray(
-						[
-							$mdgriffith$elm_ui$Element$Events$onClick(args.msgOnClick),
-							$mdgriffith$elm_ui$Element$pointer,
-							$mdgriffith$elm_ui$Element$htmlAttribute(
-							$elm$html$Html$Attributes$tabindex(0)),
-							$mdgriffith$elm_ui$Element$htmlAttribute(
-							$rakutentech$r10$R10$FormComponents$Internal$UI$onSelectKey(args.msgOnClick)),
-							$mdgriffith$elm_ui$Element$Events$onFocus(args.msgOnFocus),
-							$mdgriffith$elm_ui$Element$Events$onLoseFocus(args.msgOnLoseFocus)
-						]),
-					attrs)),
+					[token_, token_]));
+		} else {
+			return token;
+		}
+	};
+	return A2(
+		$elm$core$Basics$composeR,
+		$elm$core$String$toLower,
+		A2(
+			$elm$core$Basics$composeR,
+			function (str) {
+				return A2(
+					$elm$core$Maybe$map,
+					function (regex) {
+						return A3($elm$regex$Regex$findAtMost, 1, regex, str);
+					},
+					$elm$regex$Regex$fromString(pattern));
+			},
+			A2(
+				$elm$core$Basics$composeR,
+				$elm$core$Maybe$andThen($elm$core$List$head),
+				A2(
+					$elm$core$Basics$composeR,
+					$elm$core$Maybe$map(
+						function ($) {
+							return $.submatches;
+						}),
+					A2(
+						$elm$core$Basics$composeR,
+						$elm$core$Maybe$map(
+							$elm$core$List$filterMap($elm$core$Basics$identity)),
+						A2(
+							$elm$core$Basics$composeR,
+							$elm$core$Result$fromMaybe('Parsing hex regex failed'),
+							$elm$core$Result$andThen(
+								function (colors) {
+									var _v0 = A2(
+										$elm$core$List$map,
+										A2(
+											$elm$core$Basics$composeR,
+											extend,
+											A2(
+												$elm$core$Basics$composeR,
+												$fredcy$elm_parseint$ParseInt$parseIntHex,
+												$elm$core$Result$map($elm$core$Basics$toFloat))),
+										colors);
+									_v0$2:
+									while (true) {
+										if (((((_v0.b && (_v0.a.$ === 'Ok')) && _v0.b.b) && (_v0.b.a.$ === 'Ok')) && _v0.b.b.b) && (_v0.b.b.a.$ === 'Ok')) {
+											if (_v0.b.b.b.b) {
+												if ((_v0.b.b.b.a.$ === 'Ok') && (!_v0.b.b.b.b.b)) {
+													var r = _v0.a.a;
+													var _v1 = _v0.b;
+													var g = _v1.a.a;
+													var _v2 = _v1.b;
+													var b = _v2.a.a;
+													var _v3 = _v2.b;
+													var a = _v3.a.a;
+													return $elm$core$Result$Ok(
+														A4(
+															$avh4$elm_color$Color$rgba,
+															r / 255,
+															g / 255,
+															b / 255,
+															A2($noahzgordon$elm_color_extra$Color$Convert$roundToPlaces, 2, a / 255)));
+												} else {
+													break _v0$2;
+												}
+											} else {
+												var r = _v0.a.a;
+												var _v4 = _v0.b;
+												var g = _v4.a.a;
+												var _v5 = _v4.b;
+												var b = _v5.a.a;
+												return $elm$core$Result$Ok(
+													A3($avh4$elm_color$Color$rgb, r / 255, g / 255, b / 255));
+											}
+										} else {
+											break _v0$2;
+										}
+									}
+									return $elm$core$Result$Err('Parsing ints from hex failed');
+								})))))));
+}();
+var $elm$core$Result$withDefault = F2(
+	function (def, result) {
+		if (result.$ === 'Ok') {
+			var a = result.a;
+			return a;
+		} else {
+			return def;
+		}
+	});
+var $rakutentech$r10$R10$Color$Utils$fromHexToColorColor = function (hex) {
+	var resultColor = $noahzgordon$elm_color_extra$Color$Convert$hexToColor(hex);
+	var color = A2(
+		$elm$core$Result$withDefault,
+		$avh4$elm_color$Color$fromRgba(
+			{alpha: 0, blue: 0, green: 0, red: 0}),
+		resultColor);
+	return color;
+};
+var $noahzgordon$elm_color_extra$Color$Manipulate$scale = F3(
+	function (max, scaleAmount, value) {
+		var clampedValue = A3($elm$core$Basics$clamp, 0, max, value);
+		var clampedScale = A3($elm$core$Basics$clamp, -1.0, 1.0, scaleAmount);
+		var diff = (clampedScale > 0) ? (max - clampedValue) : clampedValue;
+		return clampedValue + (diff * clampedScale);
+	});
+var $noahzgordon$elm_color_extra$Color$Manipulate$scaleHsl = F2(
+	function (scaleBy, color) {
+		var hsl = $avh4$elm_color$Color$toHsla(color);
+		var _v0 = scaleBy;
+		var saturationScale = _v0.saturationScale;
+		var lightnessScale = _v0.lightnessScale;
+		var alphaScale = _v0.alphaScale;
+		return A4(
+			$avh4$elm_color$Color$hsla,
+			hsl.hue,
+			A3($noahzgordon$elm_color_extra$Color$Manipulate$scale, 1.0, saturationScale, hsl.saturation),
+			A3($noahzgordon$elm_color_extra$Color$Manipulate$scale, 1.0, lightnessScale, hsl.lightness),
+			A3($noahzgordon$elm_color_extra$Color$Manipulate$scale, 1.0, alphaScale, hsl.alpha));
+	});
+var $rakutentech$r10$R10$Color$Utils$fromLightToDark = function (color) {
+	return A2(
+		$noahzgordon$elm_color_extra$Color$Manipulate$scaleHsl,
+		{alphaScale: 0, lightnessScale: -0.04, saturationScale: -0.17},
+		color);
+};
+var $rakutentech$r10$R10$Color$Internal$Base$toColorLight_ = function (color) {
+	switch (color.$) {
+		case 'Font':
+			return _Utils_Tuple2(
+				$rakutentech$r10$R10$Color$Utils$fromHexToColorColor('#000000'),
+				'Hard coded as #000000');
+		case 'FontReversed':
+			return _Utils_Tuple2(
+				$rakutentech$r10$R10$Color$Utils$fromHexToColorColor('#ffffff'),
+				'Hard coded as #ffffff');
+		case 'FontLink':
+			return _Utils_Tuple2(
+				$rakutentech$r10$R10$Color$Utils$fromHexToColorColor('#00a0f0'),
+				'Hard coded as #00a0f0');
+		case 'Error':
+			return _Utils_Tuple2(
+				$rakutentech$r10$R10$Color$Utils$fromHexToColorColor('#df0101'),
+				'Hard coded as #df0101');
+		case 'Success':
+			return _Utils_Tuple2(
+				$rakutentech$r10$R10$Color$Utils$fromHexToColorColor('#047205'),
+				'Hard coded as #047205');
+		case 'Background':
+			return _Utils_Tuple2(
+				$rakutentech$r10$R10$Color$Utils$fromHexToColorColor('#ebebeb'),
+				'Hard coded as #f0f0f0');
+		default:
+			return _Utils_Tuple2(
+				$rakutentech$r10$R10$Color$Utils$fromHexToColorColor('#999999'),
+				'Hard coded as #999999');
+	}
+};
+var $rakutentech$r10$R10$Color$Internal$Base$toColorDark_ = function (color) {
+	switch (color.$) {
+		case 'Font':
+			return _Utils_Tuple2(
+				$rakutentech$r10$R10$Color$Utils$fromHexToColorColor('#ffffff'),
+				'Hard coded as #ffffff');
+		case 'FontReversed':
+			return _Utils_Tuple2(
+				$rakutentech$r10$R10$Color$Utils$fromHexToColorColor('#000000'),
+				'Hard coded as #000000');
+		case 'FontLink':
+			return _Utils_Tuple2(
+				$rakutentech$r10$R10$Color$Utils$fromLightToDark(
+					$rakutentech$r10$R10$Color$Internal$Base$toColorLight_(color).a),
+				'Converted from light mode using `R10.Color.Utils.fromLightToDark`');
+		case 'Error':
+			return _Utils_Tuple2(
+				A2(
+					$noahzgordon$elm_color_extra$Color$Manipulate$desaturate,
+					0.4,
+					A2(
+						$noahzgordon$elm_color_extra$Color$Manipulate$lighten,
+						0.1,
+						$rakutentech$r10$R10$Color$Internal$Base$toColorLight_(color).a)),
+				'Same as light mode but lighten (0.1) and desaturate (0.4)');
+		case 'Success':
+			return _Utils_Tuple2(
+				A2(
+					$noahzgordon$elm_color_extra$Color$Manipulate$desaturate,
+					0.4,
+					A2(
+						$noahzgordon$elm_color_extra$Color$Manipulate$lighten,
+						0.15,
+						$rakutentech$r10$R10$Color$Internal$Base$toColorLight_(color).a)),
+				'Same as light mode but lighten (0.15) and desaturate (0.4)');
+		case 'Background':
+			return _Utils_Tuple2(
+				$rakutentech$r10$R10$Color$Utils$fromHexToColorColor('#121212'),
+				'Hard coded as #121212');
+		default:
+			return _Utils_Tuple2(
+				$rakutentech$r10$R10$Color$Utils$fromHexToColorColor('#999999'),
+				'Hard coded as #cccccc');
+	}
+};
+var $rakutentech$r10$R10$Color$Internal$Base$toColor = function (theme) {
+	var _v0 = theme.mode;
+	if (_v0.$ === 'Light') {
+		return function (c) {
+			return $rakutentech$r10$R10$Color$Internal$Base$toColorLight_(c).a;
+		};
+	} else {
+		return function (c) {
+			return $rakutentech$r10$R10$Color$Internal$Base$toColorDark_(c).a;
+		};
+	}
+};
+var $rakutentech$r10$R10$Color$Internal$Derived$backgroundButtonPrimaryDisabled_ = function (theme) {
+	return function (color) {
+		var _v0 = theme.mode;
+		if (_v0.$ === 'Dark') {
+			return A2($noahzgordon$elm_color_extra$Color$Manipulate$lighten, 0.2, color);
+		} else {
+			return A2($noahzgordon$elm_color_extra$Color$Manipulate$darken, 0.2, color);
+		}
+	}(
+		A2($rakutentech$r10$R10$Color$Internal$Base$toColor, theme, $rakutentech$r10$R10$Color$Internal$Base$Background));
+};
+var $rakutentech$r10$R10$Color$Internal$Base$FontReversed = {$: 'FontReversed'};
+var $rakutentech$r10$R10$Color$Utils$setAlpha = F2(
+	function (newAlpha, color) {
+		var c = $avh4$elm_color$Color$toRgba(color);
+		return $avh4$elm_color$Color$fromRgba(
+			{alpha: newAlpha, blue: c.blue, green: c.green, red: c.red});
+	});
+var $rakutentech$r10$R10$Color$Internal$Derived$highEmphasisReversed_ = function (theme) {
+	return A2(
+		$rakutentech$r10$R10$Color$Utils$setAlpha,
+		0.87,
+		A2($rakutentech$r10$R10$Color$Internal$Base$toColor, theme, $rakutentech$r10$R10$Color$Internal$Base$FontReversed));
+};
+var $rakutentech$r10$R10$Color$Internal$Base$Font = {$: 'Font'};
+var $rakutentech$r10$R10$Color$Internal$Derived$highEmphasis_ = function (theme) {
+	return A2(
+		$rakutentech$r10$R10$Color$Utils$setAlpha,
+		0.87,
+		A2($rakutentech$r10$R10$Color$Internal$Base$toColor, theme, $rakutentech$r10$R10$Color$Internal$Base$Font));
+};
+var $noahzgordon$elm_color_extra$Color$Accessibility$luminance = function (cl) {
+	var f = function (intensity) {
+		return (intensity <= 0.03928) ? (intensity / 12.92) : A2($elm$core$Basics$pow, (intensity + 0.055) / 1.055, 2.4);
+	};
+	var _v0 = function (a) {
+		return _Utils_Tuple3(
+			f(a.red),
+			f(a.green),
+			f(a.blue));
+	}(
+		$avh4$elm_color$Color$toRgba(cl));
+	var r = _v0.a;
+	var g = _v0.b;
+	var b = _v0.c;
+	return ((0.2126 * r) + (0.7152 * g)) + (0.0722 * b);
+};
+var $noahzgordon$elm_color_extra$Color$Accessibility$contrastRatio = F2(
+	function (c1, c2) {
+		var b = $noahzgordon$elm_color_extra$Color$Accessibility$luminance(c2) + 0.05;
+		var a = $noahzgordon$elm_color_extra$Color$Accessibility$luminance(c1) + 0.05;
+		return (_Utils_cmp(a, b) > 0) ? (a / b) : (b / a);
+	});
+var $elm$core$List$sortWith = _List_sortWith;
+var $noahzgordon$elm_color_extra$Color$Accessibility$maximumContrast = F2(
+	function (base, options) {
+		var compareContrast = F2(
+			function (c1, c2) {
+				return A2(
+					$elm$core$Basics$compare,
+					A2($noahzgordon$elm_color_extra$Color$Accessibility$contrastRatio, base, c2),
+					A2($noahzgordon$elm_color_extra$Color$Accessibility$contrastRatio, base, c1));
+			});
+		return $elm$core$List$head(
+			A2($elm$core$List$sortWith, compareContrast, options));
+	});
+var $rakutentech$r10$R10$Color$Internal$Derived$maximumContrast = F2(
+	function (color, listColor) {
+		return A2(
+			$noahzgordon$elm_color_extra$Color$Accessibility$maximumContrast,
+			A2($noahzgordon$elm_color_extra$Color$Manipulate$darken, 0.16, color),
+			listColor);
+	});
+var $rakutentech$r10$R10$Color$Internal$Derived$mediumEmphasisReversed_ = function (theme) {
+	return A2(
+		$rakutentech$r10$R10$Color$Utils$setAlpha,
+		0.6,
+		A2($rakutentech$r10$R10$Color$Internal$Base$toColor, theme, $rakutentech$r10$R10$Color$Internal$Base$FontReversed));
+};
+var $rakutentech$r10$R10$Color$Internal$Derived$mediumEmphasis_ = function (theme) {
+	return A2(
+		$rakutentech$r10$R10$Color$Utils$setAlpha,
+		0.6,
+		A2($rakutentech$r10$R10$Color$Internal$Base$toColor, theme, $rakutentech$r10$R10$Color$Internal$Base$Font));
+};
+var $rakutentech$r10$R10$Color$Internal$Primary$toColorLight_ = function (color) {
+	switch (color.$) {
+		case 'CrimsonRed':
+			return _Utils_Tuple2(
+				$rakutentech$r10$R10$Color$Utils$fromHexToColorColor('#bf0000'),
+				'Hard coded as #bf0000');
+		case 'Orange':
+			return _Utils_Tuple2(
+				$rakutentech$r10$R10$Color$Utils$fromHexToColorColor('#f59600'),
+				'Hard coded as #f59600');
+		case 'Yellow':
+			return _Utils_Tuple2(
+				$rakutentech$r10$R10$Color$Utils$fromHexToColorColor('#ffcc00'),
+				'Hard coded as #ffcc00');
+		case 'Green':
+			return _Utils_Tuple2(
+				$rakutentech$r10$R10$Color$Utils$fromHexToColorColor('#00b900'),
+				'Hard coded as #00b900');
+		case 'LightBlue':
+			return _Utils_Tuple2(
+				$rakutentech$r10$R10$Color$Utils$fromHexToColorColor('#00a0f0'),
+				'Hard coded as #00a0f0');
+		case 'Blue':
+			return _Utils_Tuple2(
+				$rakutentech$r10$R10$Color$Utils$fromHexToColorColor('#002896'),
+				'Hard coded as #002896');
+		case 'Purple':
+			return _Utils_Tuple2(
+				$rakutentech$r10$R10$Color$Utils$fromHexToColorColor('#7d00be'),
+				'Hard coded as #7d00be');
+		case 'Pink':
+			return _Utils_Tuple2(
+				$rakutentech$r10$R10$Color$Utils$fromHexToColorColor('#ff008c'),
+				'Hard coded as #ff008c');
+		default:
+			return _Utils_Tuple2(
+				$rakutentech$r10$R10$Color$Utils$fromHexToColorColor('#117bb4'),
+				'Hard coded as #117bb4');
+	}
+};
+var $rakutentech$r10$R10$Color$Internal$Primary$toColorDark_ = function (color) {
+	switch (color.$) {
+		case 'CrimsonRed':
+			return _Utils_Tuple2(
+				$rakutentech$r10$R10$Color$Utils$fromLightToDark(
+					$rakutentech$r10$R10$Color$Internal$Primary$toColorLight_(color).a),
+				'Converted from light mode using `R10.Color.Utils.fromLightToDark`');
+		case 'Orange':
+			return _Utils_Tuple2(
+				$rakutentech$r10$R10$Color$Utils$fromLightToDark(
+					$rakutentech$r10$R10$Color$Internal$Primary$toColorLight_(color).a),
+				'Converted from light mode using `R10.Color.Utils.fromLightToDark`');
+		case 'Yellow':
+			return _Utils_Tuple2(
+				$rakutentech$r10$R10$Color$Utils$fromLightToDark(
+					$rakutentech$r10$R10$Color$Internal$Primary$toColorLight_(color).a),
+				'Converted from light mode using `R10.Color.Utils.fromLightToDark`');
+		case 'Green':
+			return _Utils_Tuple2(
+				$rakutentech$r10$R10$Color$Utils$fromLightToDark(
+					$rakutentech$r10$R10$Color$Internal$Primary$toColorLight_(color).a),
+				'Converted from light mode using `R10.Color.Utils.fromLightToDark`');
+		case 'LightBlue':
+			return _Utils_Tuple2(
+				$rakutentech$r10$R10$Color$Utils$fromLightToDark(
+					$rakutentech$r10$R10$Color$Internal$Primary$toColorLight_(color).a),
+				'Converted from light mode using `R10.Color.Utils.fromLightToDark`');
+		case 'Blue':
+			return _Utils_Tuple2(
+				$rakutentech$r10$R10$Color$Utils$fromLightToDark(
+					$rakutentech$r10$R10$Color$Internal$Primary$toColorLight_(color).a),
+				'Converted from light mode using `R10.Color.Utils.fromLightToDark`');
+		case 'Purple':
+			return _Utils_Tuple2(
+				$rakutentech$r10$R10$Color$Utils$fromLightToDark(
+					$rakutentech$r10$R10$Color$Internal$Primary$toColorLight_(color).a),
+				'Converted from light mode using `R10.Color.Utils.fromLightToDark`');
+		case 'Pink':
+			return _Utils_Tuple2(
+				$rakutentech$r10$R10$Color$Utils$fromLightToDark(
+					$rakutentech$r10$R10$Color$Internal$Primary$toColorLight_(color).a),
+				'Converted from light mode using `R10.Color.Utils.fromLightToDark`');
+		default:
+			return _Utils_Tuple2(
+				$rakutentech$r10$R10$Color$Utils$fromLightToDark(
+					$rakutentech$r10$R10$Color$Internal$Primary$toColorLight_(color).a),
+				'Converted from light mode using `R10.Color.Utils.fromLightToDark`');
+	}
+};
+var $rakutentech$r10$R10$Color$Internal$Primary$toColor = function (theme) {
+	var _v0 = theme.mode;
+	if (_v0.$ === 'Light') {
+		return function (c) {
+			return $rakutentech$r10$R10$Color$Internal$Primary$toColorLight_(c).a;
+		};
+	} else {
+		return function (c) {
+			return $rakutentech$r10$R10$Color$Internal$Primary$toColorDark_(c).a;
+		};
+	}
+};
+var $rakutentech$r10$R10$Color$Internal$Derived$primary_ = function (theme) {
+	return A2($rakutentech$r10$R10$Color$Internal$Primary$toColor, theme, theme.primaryColor);
+};
+var $rakutentech$r10$R10$Color$Internal$Derived$toColor_ = F2(
+	function (theme, colorDerived) {
+		switch (colorDerived.$) {
+			case 'Success':
+				return _Utils_Tuple2(
+					A2($rakutentech$r10$R10$Color$Internal$Base$toColor, theme, $rakutentech$r10$R10$Color$Internal$Base$Success),
+					'same as base color `Succes`');
+			case 'Logo':
+				return _Utils_Tuple2(
+					function () {
+						var _v1 = theme.mode;
+						if (_v1.$ === 'Light') {
+							return $rakutentech$r10$R10$Color$Internal$Derived$primary_(theme);
+						} else {
+							return $rakutentech$r10$R10$Color$Internal$Derived$highEmphasis_(theme);
+						}
+					}(),
+					'Logo color is the same as primary color in light mode and `highEmphasis` in dark mode');
+			case 'Primary':
+				return _Utils_Tuple2(
+					$rakutentech$r10$R10$Color$Internal$Derived$primary_(theme),
+					'Just the primary color');
+			case 'PrimaryVariant':
+				return _Utils_Tuple2(
+					A2(
+						$noahzgordon$elm_color_extra$Color$Manipulate$scaleHsl,
+						{alphaScale: -0.6, lightnessScale: 0, saturationScale: -0.4},
+						$rakutentech$r10$R10$Color$Internal$Derived$primary_(theme)),
+					'Like the primary, but more subtle');
+			case 'FontMediumEmphasis':
+				return _Utils_Tuple2(
+					$rakutentech$r10$R10$Color$Internal$Derived$mediumEmphasis_(theme),
+					'A color used for fonts when they carry a less important message. It is made changing the alpha channel to 0.6 so the result is that is going to be more similar to the background.');
+			case 'FontHighEmphasis':
+				return _Utils_Tuple2(
+					$rakutentech$r10$R10$Color$Internal$Derived$highEmphasis_(theme),
+					'The default color for text. It is made changing the alpha channel to 0.87.');
+			case 'FontLink':
+				return _Utils_Tuple2(
+					A2($rakutentech$r10$R10$Color$Internal$Base$toColor, theme, $rakutentech$r10$R10$Color$Internal$Base$FontLink),
+					'The same as the base `FontLink` color');
+			case 'Error':
+				return _Utils_Tuple2(
+					A2($rakutentech$r10$R10$Color$Internal$Base$toColor, theme, $rakutentech$r10$R10$Color$Internal$Base$Error),
+					'The same as the base `Error` color');
+			case 'Debugger':
+				return _Utils_Tuple2(
+					A2($rakutentech$r10$R10$Color$Internal$Primary$toColor, theme, $rakutentech$r10$R10$Color$Internal$Primary$LightBlue),
+					'The same as the base `LightBlue` color');
+			case 'FontMediumEmphasisWithMaximumContrast':
+				var goesOn = $rakutentech$r10$R10$Color$Internal$Derived$primary_(theme);
+				var color2 = $rakutentech$r10$R10$Color$Internal$Derived$mediumEmphasisReversed_(theme);
+				var color1 = $rakutentech$r10$R10$Color$Internal$Derived$mediumEmphasis_(theme);
+				var colorFont = A2(
+					$elm$core$Maybe$withDefault,
+					color1,
+					A2(
+						$rakutentech$r10$R10$Color$Internal$Derived$maximumContrast,
+						goesOn,
+						_List_fromArray(
+							[color1, color2])));
+				return _Utils_Tuple2(colorFont, 'A `mediumEmphasis` color for less important text that goes above a primary color');
+			case 'FontHighEmphasisWithMaximumContrast':
+				var goesOn = $rakutentech$r10$R10$Color$Internal$Derived$primary_(theme);
+				var color2 = $rakutentech$r10$R10$Color$Internal$Derived$highEmphasisReversed_(theme);
+				var color1 = $rakutentech$r10$R10$Color$Internal$Derived$highEmphasis_(theme);
+				var colorFont = A2(
+					$elm$core$Maybe$withDefault,
+					color1,
+					A2(
+						$rakutentech$r10$R10$Color$Internal$Derived$maximumContrast,
+						goesOn,
+						_List_fromArray(
+							[color1, color2])));
+				return _Utils_Tuple2(colorFont, 'A `highEmphasis` color for regular text that goes above a primary color');
+			case 'Border':
+				return _Utils_Tuple2(
+					A2($rakutentech$r10$R10$Color$Internal$Base$toColor, theme, $rakutentech$r10$R10$Color$Internal$Base$Border),
+					'Color for borders are hard coded');
+			case 'BackgroundPhoneDropdown':
+				return _Utils_Tuple2(
+					function () {
+						var _v2 = theme.mode;
+						if (_v2.$ === 'Light') {
+							return A2($rakutentech$r10$R10$Color$Internal$Base$toColor, theme, $rakutentech$r10$R10$Color$Internal$Base$Background);
+						} else {
+							return A2(
+								$noahzgordon$elm_color_extra$Color$Manipulate$lighten,
+								0.05,
+								A2($rakutentech$r10$R10$Color$Internal$Base$toColor, theme, $rakutentech$r10$R10$Color$Internal$Base$Background));
+						}
+					}(),
+					'A special background for the phone dropdown. On `light` mode is the same as the base `Background` but in `dark` mode is lighter 0.05 compared to the base `Background` so that it became visible.');
+			case 'Background':
+				return _Utils_Tuple2(
+					A2($rakutentech$r10$R10$Color$Internal$Base$toColor, theme, $rakutentech$r10$R10$Color$Internal$Base$Background),
+					'The same as the base `Background`.');
+			case 'Surface':
+				return _Utils_Tuple2(
+					function () {
+						var _v3 = theme.mode;
+						if (_v3.$ === 'Light') {
+							return A2(
+								$noahzgordon$elm_color_extra$Color$Manipulate$lighten,
+								0.05,
+								A2($rakutentech$r10$R10$Color$Internal$Base$toColor, theme, $rakutentech$r10$R10$Color$Internal$Base$Background));
+						} else {
+							return A2(
+								$noahzgordon$elm_color_extra$Color$Manipulate$lighten,
+								0.05,
+								A2($rakutentech$r10$R10$Color$Internal$Base$toColor, theme, $rakutentech$r10$R10$Color$Internal$Base$Background));
+						}
+					}(),
+					'A color for surfaces above the background, 1dp (See https://material.io/design/color/dark-theme.html#anatomy)');
+			case 'Surface2dp':
+				return _Utils_Tuple2(
+					function () {
+						var _v4 = theme.mode;
+						if (_v4.$ === 'Light') {
+							return A2(
+								$noahzgordon$elm_color_extra$Color$Manipulate$lighten,
+								0.1,
+								A2($rakutentech$r10$R10$Color$Internal$Base$toColor, theme, $rakutentech$r10$R10$Color$Internal$Base$Background));
+						} else {
+							return A2(
+								$noahzgordon$elm_color_extra$Color$Manipulate$lighten,
+								0.1,
+								A2($rakutentech$r10$R10$Color$Internal$Base$toColor, theme, $rakutentech$r10$R10$Color$Internal$Base$Background));
+						}
+					}(),
+					'A color for surfaces above the background, 2dp (See https://material.io/design/color/dark-theme.html#anatomy)');
+			case 'BackgroundInputFieldText':
+				return _Utils_Tuple2(
+					function () {
+						var _v5 = theme.mode;
+						if (_v5.$ === 'Light') {
+							return A2(
+								$noahzgordon$elm_color_extra$Color$Manipulate$darken,
+								0.05,
+								A2($rakutentech$r10$R10$Color$Internal$Base$toColor, theme, $rakutentech$r10$R10$Color$Internal$Base$Background));
+						} else {
+							return A2(
+								$noahzgordon$elm_color_extra$Color$Manipulate$lighten,
+								0.05,
+								A2($rakutentech$r10$R10$Color$Internal$Base$toColor, theme, $rakutentech$r10$R10$Color$Internal$Base$Background));
+						}
+					}(),
+					'A special background color for input fields. In `light` mode is sligthly darken than normal background. In `dark` mode is sligthly lighten than normal background.');
+			case 'BackgroundButtonPrimaryOver':
+				return _Utils_Tuple2(
+					A2(
+						$noahzgordon$elm_color_extra$Color$Manipulate$scaleHsl,
+						{alphaScale: 0, lightnessScale: 0.17, saturationScale: -0.15},
+						A2($rakutentech$r10$R10$Color$Internal$Primary$toColor, theme, theme.primaryColor)),
+					'The mouse-over color for the primary button obtained adding a `scaleHsl` transformation to the primary color.');
+			case 'BackgroundButtonPrimaryDisabledOver':
+				return _Utils_Tuple2(
+					A2(
+						$noahzgordon$elm_color_extra$Color$Manipulate$scaleHsl,
+						{alphaScale: 0, lightnessScale: 0.2, saturationScale: 0},
+						$rakutentech$r10$R10$Color$Internal$Derived$backgroundButtonPrimaryDisabled_(theme)),
+					'The mouse-over color for the disabled primary button obtained adding a `scaleHsl` transformation to the primary color that has been already transformed to change it to disabled.');
+			case 'BackgroundButtonPrimaryDisabled':
+				return _Utils_Tuple2(
+					$rakutentech$r10$R10$Color$Internal$Derived$backgroundButtonPrimaryDisabled_(theme),
+					'The background color of disabled primary button obtained. This is made making it ligher on Light mode and darker on Dark mode.');
+			case 'BackgroundButtonPrimary':
+				return _Utils_Tuple2(
+					A2($rakutentech$r10$R10$Color$Internal$Primary$toColor, theme, theme.primaryColor),
+					'Just the primary color, extracted from the `theme`.');
+			default:
+				return _Utils_Tuple2(
+					function (color) {
+						var _v6 = theme.mode;
+						if (_v6.$ === 'Dark') {
+							return A2($noahzgordon$elm_color_extra$Color$Manipulate$lighten, 0.07, color);
+						} else {
+							return A2($noahzgordon$elm_color_extra$Color$Manipulate$lighten, 0.03, color);
+						}
+					}(
+						A2($rakutentech$r10$R10$Color$Internal$Base$toColor, theme, $rakutentech$r10$R10$Color$Internal$Base$Background)),
+					'Background of minors buttons based on the normal background color. Just making it lighter in Dark mode and darker in Light mode');
+		}
+	});
+var $rakutentech$r10$R10$Color$Internal$Derived$toColor = F2(
+	function (theme, colorDerived) {
+		return A2($rakutentech$r10$R10$Color$Internal$Derived$toColor_, theme, colorDerived).a;
+	});
+var $rakutentech$r10$R10$Color$Svg$error = function (theme) {
+	return $rakutentech$r10$R10$Color$Utils$fromColorColor(
+		A2($rakutentech$r10$R10$Color$Internal$Derived$toColor, theme, $rakutentech$r10$R10$Color$Internal$Derived$Error));
+};
+var $elm$svg$Svg$Attributes$clipRule = _VirtualDom_attribute('clip-rule');
+var $rakutentech$r10$R10$Svg$Others$externalLink = F3(
+	function (attrs, cl, size) {
+		return A4(
+			$rakutentech$r10$R10$Svg$Utils$wrapperWithViewbox,
+			attrs,
+			'0 0 16 16',
+			size,
 			_List_fromArray(
 				[
 					A2(
-					$mdgriffith$elm_ui$Element$paragraph,
-					_List_Nil,
+					$elm$svg$Svg$path,
 					_List_fromArray(
 						[
-							$mdgriffith$elm_ui$Element$text(args.label)
-						])),
-					_switch
+							$elm$svg$Svg$Attributes$fill(
+							$rakutentech$r10$R10$Color$Utils$toCssRgba(cl)),
+							$elm$svg$Svg$Attributes$fillRule('evenodd'),
+							$elm$svg$Svg$Attributes$d('M11 13H2V6.5h1v-1H2a1 1 0 00-1 1V13c0 .6.4 1 1 1h9c.6 0 1-.4 1-1v-1.5h-1V13z'),
+							$elm$svg$Svg$Attributes$clipRule('evenodd')
+						]),
+					_List_Nil),
+					A2(
+					$elm$svg$Svg$path,
+					_List_fromArray(
+						[
+							$elm$svg$Svg$Attributes$fill(
+							$rakutentech$r10$R10$Color$Utils$toCssRgba(cl)),
+							$elm$svg$Svg$Attributes$fillRule('evenodd'),
+							$elm$svg$Svg$Attributes$d('M5 4h9V3H5v1zm0 5.5h9V5H5v4.5zM14 2H5a1 1 0 00-1 1v6.5c0 .6.4 1 1 1h9c.6 0 1-.4 1-1V3c0-.6-.4-1-1-1z'),
+							$elm$svg$Svg$Attributes$clipRule('evenodd')
+						]),
+					_List_Nil)
 				]));
 	});
-var $mdgriffith$elm_ui$Internal$Flag$fontWeight = $mdgriffith$elm_ui$Internal$Flag$flag(13);
-var $mdgriffith$elm_ui$Element$Font$bold = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$fontWeight, $mdgriffith$elm_ui$Internal$Style$classes.bold);
-var $rakutentech$r10$R10$SimpleMarkdown$elementBoldGenerator = function (string) {
-	return A2(
-		$mdgriffith$elm_ui$Element$el,
-		_List_fromArray(
-			[$mdgriffith$elm_ui$Element$Font$bold]),
-		$mdgriffith$elm_ui$Element$text(string));
-};
-var $rakutentech$r10$R10$SimpleMarkdown$elementLabelGenerator = function (string) {
-	return $mdgriffith$elm_ui$Element$text(string);
-};
-var $elm$html$Html$Attributes$rel = _VirtualDom_attribute('rel');
-var $elm$html$Html$Attributes$target = $elm$html$Html$Attributes$stringProperty('target');
-var $mdgriffith$elm_ui$Element$newTabLink = F2(
+var $rakutentech$r10$R10$I18n$isInternalLink = F2(
+	function (current, target) {
+		return A2($elm$core$String$startsWith, '#', target) ? true : A2(
+			$elm$core$Maybe$withDefault,
+			false,
+			A2(
+				$elm$core$Maybe$map,
+				function (target_) {
+					return _Utils_eq(target_.host, current.host) && (_Utils_eq(target_.port_, current.port_) && (_Utils_eq(target_.path, current.path) && (_Utils_eq(target_.protocol, current.protocol) && _Utils_eq(target_.query, current.query))));
+				},
+				$elm$url$Url$fromString(target)));
+	});
+var $mdgriffith$elm_ui$Element$link = F2(
 	function (attrs, _v0) {
 		var url = _v0.url;
 		var label = _v0.label;
@@ -20955,298 +25537,467 @@ var $mdgriffith$elm_ui$Element$newTabLink = F2(
 						$elm$html$Html$Attributes$rel('noopener noreferrer')),
 					A2(
 						$elm$core$List$cons,
-						$mdgriffith$elm_ui$Internal$Model$Attr(
-							$elm$html$Html$Attributes$target('_blank')),
+						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$shrink),
 						A2(
 							$elm$core$List$cons,
-							$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$shrink),
+							$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$shrink),
 							A2(
 								$elm$core$List$cons,
-								$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$shrink),
-								A2(
-									$elm$core$List$cons,
-									$mdgriffith$elm_ui$Internal$Model$htmlClass($mdgriffith$elm_ui$Internal$Style$classes.contentCenterX + (' ' + ($mdgriffith$elm_ui$Internal$Style$classes.contentCenterY + (' ' + $mdgriffith$elm_ui$Internal$Style$classes.link)))),
-									attrs)))))),
+								$mdgriffith$elm_ui$Internal$Model$htmlClass($mdgriffith$elm_ui$Internal$Style$classes.contentCenterX + (' ' + ($mdgriffith$elm_ui$Internal$Style$classes.contentCenterY + (' ' + $mdgriffith$elm_ui$Internal$Style$classes.link)))),
+								attrs))))),
 			$mdgriffith$elm_ui$Internal$Model$Unkeyed(
 				_List_fromArray(
 					[label])));
 	});
-var $mdgriffith$elm_ui$Element$rgb = F3(
-	function (r, g, b) {
-		return A4($mdgriffith$elm_ui$Internal$Model$Rgba, r, g, b, 1);
+var $lucamug$elm_ui_with_context$Element$WithContext$link = A2(
+	$lucamug$elm_ui_with_context$Element$WithContext$Internal$wrapAttrs,
+	$mdgriffith$elm_ui$Element$link,
+	F2(
+		function (context, _v0) {
+			var url = _v0.url;
+			var label = _v0.label;
+			return {
+				label: A2($lucamug$elm_ui_with_context$Element$WithContext$Internal$run, context, label),
+				url: url
+			};
+		}));
+var $rakutentech$r10$R10$Color$Internal$Derived$FontLink = {$: 'FontLink'};
+var $rakutentech$r10$R10$Color$AttrsFont$link = $lucamug$elm_ui_with_context$Element$WithContext$withContextAttribute(
+	function (c) {
+		return $lucamug$elm_ui_with_context$Element$WithContext$Font$color(
+			$rakutentech$r10$R10$Color$Utils$fromColorColor(
+				A2($rakutentech$r10$R10$Color$Internal$Derived$toColor, c.theme, $rakutentech$r10$R10$Color$Internal$Derived$FontLink)));
 	});
-var $rakutentech$r10$R10$SimpleMarkdown$elementLinkGeneratorAdvanced = F3(
-	function (attrs, linkLabel, url) {
+var $rakutentech$r10$R10$Color$Svg$link = function (theme) {
+	return $rakutentech$r10$R10$Color$Utils$fromColorColor(
+		A2($rakutentech$r10$R10$Color$Internal$Derived$toColor, theme, $rakutentech$r10$R10$Color$Internal$Derived$FontLink));
+};
+var $lucamug$elm_ui_with_context$Element$WithContext$withContextDecoration = function (f) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$Internal$Attribute(
+		function (context) {
+			return A2(
+				$lucamug$elm_ui_with_context$Element$WithContext$Internal$runAttr,
+				context,
+				f(context));
+		});
+};
+var $rakutentech$r10$R10$Color$AttrsFont$linkOver = $lucamug$elm_ui_with_context$Element$WithContext$withContextDecoration(
+	function (c) {
+		return $lucamug$elm_ui_with_context$Element$WithContext$Font$color(
+			$rakutentech$r10$R10$Color$Utils$fromColorColor(
+				A2(
+					$noahzgordon$elm_color_extra$Color$Manipulate$scaleHsl,
+					{alphaScale: 0, lightnessScale: -0.2, saturationScale: 0.3},
+					A2($rakutentech$r10$R10$Color$Internal$Derived$toColor, c.theme, $rakutentech$r10$R10$Color$Internal$Derived$FontLink))));
+	});
+var $mdgriffith$elm_ui$Element$Font$underline = $mdgriffith$elm_ui$Internal$Model$htmlClass($mdgriffith$elm_ui$Internal$Style$classes.underline);
+var $lucamug$elm_ui_with_context$Element$WithContext$Font$underline = $lucamug$elm_ui_with_context$Element$WithContext$Internal$attribute($mdgriffith$elm_ui$Element$Font$underline);
+var $lucamug$elm_ui_with_context$Element$WithContext$withContext = function (f) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$Internal$Element(
+		function (context) {
+			return A2(
+				$lucamug$elm_ui_with_context$Element$WithContext$Internal$run,
+				context,
+				f(context));
+		});
+};
+var $rakutentech$r10$R10$I18n$specialMarkdown = F2(
+	function (_v0, translationAsString) {
+		var tagReplacer = _v0.tagReplacer;
+		var renderingMode = _v0.renderingMode;
+		var textGenerator = function (string_) {
+			return $lucamug$elm_ui_with_context$Element$WithContext$text(string_);
+		};
+		var elementLabelGenerator = function (string_) {
+			return $lucamug$elm_ui_with_context$Element$WithContext$text(string_);
+		};
+		var linkGenerator = F2(
+			function (label, tag) {
+				return $lucamug$elm_ui_with_context$Element$WithContext$withContext(
+					function (c) {
+						var newTag = function (tag_) {
+							return _Utils_eq(tag_, '{' + (tag + '}')) ? tag : tag_;
+						}(
+							A2(tagReplacer, c, '{' + (tag + '}')));
+						var isInternal = A2($rakutentech$r10$R10$I18n$isInternalLink, c.currentUrl, newTag);
+						var focusedOrOver = function () {
+							if (renderingMode.$ === 'Normal') {
+								return _List_fromArray(
+									[$rakutentech$r10$R10$Color$AttrsFont$linkOver]);
+							} else {
+								return _List_Nil;
+							}
+						}();
+						if (tag === 'fake_link') {
+							if (renderingMode.$ === 'Normal') {
+								return A2(
+									$lucamug$elm_ui_with_context$Element$WithContext$el,
+									_List_fromArray(
+										[$rakutentech$r10$R10$Color$AttrsFont$link]),
+									$lucamug$elm_ui_with_context$Element$WithContext$text(label));
+							} else {
+								return A2(
+									$lucamug$elm_ui_with_context$Element$WithContext$el,
+									_List_fromArray(
+										[$lucamug$elm_ui_with_context$Element$WithContext$Font$underline]),
+									$lucamug$elm_ui_with_context$Element$WithContext$text(label));
+							}
+						} else {
+							return A2(
+								$lucamug$elm_ui_with_context$Element$WithContext$row,
+								_List_fromArray(
+									[
+										$lucamug$elm_ui_with_context$Element$WithContext$spacing(5)
+									]),
+								_Utils_ap(
+									_List_fromArray(
+										[
+											A2(
+											isInternal ? $lucamug$elm_ui_with_context$Element$WithContext$link : $lucamug$elm_ui_with_context$Element$WithContext$newTabLink,
+											_Utils_ap(
+												_List_Nil,
+												_Utils_ap(
+													function () {
+														if (renderingMode.$ === 'Normal') {
+															return _List_fromArray(
+																[$rakutentech$r10$R10$Color$AttrsFont$link]);
+														} else {
+															return _List_fromArray(
+																[$lucamug$elm_ui_with_context$Element$WithContext$Font$underline]);
+														}
+													}(),
+													_List_fromArray(
+														[
+															$lucamug$elm_ui_with_context$Element$WithContext$focused(focusedOrOver),
+															$lucamug$elm_ui_with_context$Element$WithContext$mouseOver(focusedOrOver),
+															$rakutentech$r10$R10$Transition$transition('all 0.15s')
+														]))),
+											{
+												label: elementLabelGenerator(label),
+												url: newTag
+											})
+										]),
+									isInternal ? _List_Nil : _List_fromArray(
+										[
+											A3(
+											$rakutentech$r10$R10$Svg$Others$externalLink,
+											_List_fromArray(
+												[
+													$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+													A2($elm$html$Html$Attributes$style, 'vertical-align', 'middle')),
+													$lucamug$elm_ui_with_context$Element$WithContext$paddingEach(
+													{bottom: 0, left: 0, right: 3, top: 0})
+												]),
+											function () {
+												if (renderingMode.$ === 'Normal') {
+													return $rakutentech$r10$R10$Color$Svg$link;
+												} else {
+													return $rakutentech$r10$R10$Color$Svg$error;
+												}
+											}()(c.theme),
+											16)
+										])));
+						}
+					});
+			});
+		var boldGenerator = function (string_) {
+			return A2(
+				$lucamug$elm_ui_with_context$Element$WithContext$el,
+				_List_fromArray(
+					[$lucamug$elm_ui_with_context$Element$WithContext$Font$bold]),
+				$lucamug$elm_ui_with_context$Element$WithContext$text(string_));
+		};
+		return A4($rakutentech$r10$R10$SimpleMarkdown$markdown, boldGenerator, textGenerator, linkGenerator, translationAsString);
+	});
+var $rakutentech$r10$R10$I18n$applySubstitutions = F2(
+	function (_v0, translationAsString) {
+		var tagReplacer = _v0.tagReplacer;
+		var context = _v0.context;
+		var renderingMode = _v0.renderingMode;
 		return A2(
-			$mdgriffith$elm_ui$Element$newTabLink,
+			$rakutentech$r10$R10$I18n$specialMarkdown,
+			{renderingMode: renderingMode, tagReplacer: tagReplacer},
+			A2(tagReplacer, context, translationAsString));
+	});
+var $rakutentech$r10$R10$Color$AttrsFont$error = $lucamug$elm_ui_with_context$Element$WithContext$withContextAttribute(
+	function (c) {
+		return $lucamug$elm_ui_with_context$Element$WithContext$Font$color(
+			$rakutentech$r10$R10$Color$Utils$fromColorColor(
+				A2($rakutentech$r10$R10$Color$Internal$Derived$toColor, c.theme, $rakutentech$r10$R10$Color$Internal$Derived$Error)));
+	});
+var $rakutentech$r10$R10$FontSize$normalAsInt = 16;
+var $rakutentech$r10$R10$FontSize$normal = $lucamug$elm_ui_with_context$Element$WithContext$Font$size($rakutentech$r10$R10$FontSize$normalAsInt);
+var $rakutentech$r10$R10$Paragraph$spacingNormal = 10;
+var $rakutentech$r10$R10$Paragraph$normal = F2(
+	function (attrs, children) {
+		return A2(
+			$lucamug$elm_ui_with_context$Element$WithContext$paragraph,
 			_Utils_ap(
 				_List_fromArray(
 					[
-						$mdgriffith$elm_ui$Element$Border$rounded(4),
-						$mdgriffith$elm_ui$Element$focused(
-						_List_fromArray(
-							[
-								$mdgriffith$elm_ui$Element$Border$innerShadow(
-								{
-									blur: 1,
-									color: A3($mdgriffith$elm_ui$Element$rgb, 0.7, 0.7, 0.7),
-									offset: _Utils_Tuple2(0, 0),
-									size: 1
-								})
-							])),
-						$mdgriffith$elm_ui$Element$htmlAttribute(
-						$elm$html$Html$Attributes$tabindex(0))
+						$rakutentech$r10$R10$FontSize$normal,
+						$lucamug$elm_ui_with_context$Element$WithContext$spacing($rakutentech$r10$R10$Paragraph$spacingNormal)
 					]),
-				attrs.link),
-			{
-				label: $rakutentech$r10$R10$SimpleMarkdown$elementLabelGenerator(linkLabel),
-				url: url
+				attrs),
+			children);
+	});
+var $rakutentech$r10$R10$FontSize$small = $lucamug$elm_ui_with_context$Element$WithContext$Font$size(14);
+var $rakutentech$r10$R10$Paragraph$small = F2(
+	function (attrs, children) {
+		return A2(
+			$lucamug$elm_ui_with_context$Element$WithContext$paragraph,
+			_Utils_ap(
+				_List_fromArray(
+					[
+						$rakutentech$r10$R10$FontSize$small,
+						$lucamug$elm_ui_with_context$Element$WithContext$spacing($rakutentech$r10$R10$Paragraph$spacingNormal - 3)
+					]),
+				attrs),
+			children);
+	});
+var $rakutentech$r10$R10$I18n$paragraphFromString = F2(
+	function (attrs, _v0) {
+		var renderingMode = _v0.renderingMode;
+		var tagReplacer = _v0.tagReplacer;
+		var string = _v0.string;
+		return $lucamug$elm_ui_with_context$Element$WithContext$withContext(
+			function (c) {
+				if (renderingMode.$ === 'Normal') {
+					return A2(
+						$rakutentech$r10$R10$Paragraph$normal,
+						attrs,
+						A2(
+							$rakutentech$r10$R10$I18n$applySubstitutions,
+							{context: c, renderingMode: renderingMode, tagReplacer: tagReplacer},
+							string));
+				} else {
+					return A2(
+						$rakutentech$r10$R10$Paragraph$small,
+						_Utils_ap(
+							_List_fromArray(
+								[
+									$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+									$elm$html$Html$Attributes$id('ie-flex-fix-320')),
+									$rakutentech$r10$R10$Color$AttrsFont$error
+								]),
+							attrs),
+						A2(
+							$rakutentech$r10$R10$I18n$applySubstitutions,
+							{context: c, renderingMode: renderingMode, tagReplacer: tagReplacer},
+							string));
+				}
 			});
 	});
-var $rakutentech$r10$R10$SimpleMarkdown$elementTextGenerator = function (string) {
-	return $mdgriffith$elm_ui$Element$text(string);
-};
-var $rakutentech$r10$R10$SimpleMarkdown$MarkDownText = function (a) {
-	return {$: 'MarkDownText', a: a};
-};
-var $elm$regex$Regex$find = _Regex_findAtMost(_Regex_infinity);
-var $rakutentech$r10$R10$SimpleMarkdown$MarkDownBold = function (a) {
-	return {$: 'MarkDownBold', a: a};
-};
-var $rakutentech$r10$R10$SimpleMarkdown$markDownParseBoldData = function (data) {
-	var text1 = A2(
-		$elm$core$Maybe$withDefault,
-		'',
-		$elm$core$List$head(data));
-	return $rakutentech$r10$R10$SimpleMarkdown$MarkDownBold(text1);
-};
-var $rakutentech$r10$R10$SimpleMarkdown$regexForBold = $elm$regex$Regex$fromString('\\*\\*([^*]*)\\*\\*');
-var $elm$regex$Regex$split = _Regex_splitAtMost(_Regex_infinity);
-var $rakutentech$r10$R10$SimpleMarkdown$parseTextForBold = function (text) {
-	var _v0 = function () {
-		var _v1 = $rakutentech$r10$R10$SimpleMarkdown$regexForBold;
-		if (_v1.$ === 'Just') {
-			var regex = _v1.a;
-			return _Utils_Tuple2(
-				A2($elm$regex$Regex$find, regex, text),
-				A2($elm$regex$Regex$split, regex, text));
-		} else {
-			return _Utils_Tuple2(_List_Nil, _List_Nil);
-		}
-	}();
-	var find = _v0.a;
-	var split = _v0.b;
-	return $elm$core$List$concat(
-		A2(
-			$elm$core$List$indexedMap,
-			F2(
-				function (index, splitted) {
-					var maybeGetFinding = function () {
-						var _v3 = A2(
-							$elm$core$Array$get,
-							index,
-							$elm$core$Array$fromList(find));
-						if (_v3.$ === 'Just') {
-							var match = _v3.a;
-							return $elm$core$Maybe$Just(
-								A2(
-									$elm$core$List$map,
-									function (item_) {
-										if (item_.$ === 'Just') {
-											var i = item_.a;
-											return i;
-										} else {
-											return '';
-										}
-									},
-									match.submatches));
-						} else {
-							return $elm$core$Maybe$Nothing;
-						}
-					}();
-					if (maybeGetFinding.$ === 'Just') {
-						var getFinding = maybeGetFinding.a;
-						return _List_fromArray(
-							[
-								$rakutentech$r10$R10$SimpleMarkdown$MarkDownText(splitted),
-								$rakutentech$r10$R10$SimpleMarkdown$markDownParseBoldData(getFinding)
-							]);
-					} else {
-						return _List_fromArray(
-							[
-								$rakutentech$r10$R10$SimpleMarkdown$MarkDownText(splitted)
-							]);
-					}
-				}),
-			split));
-};
-var $rakutentech$r10$R10$SimpleMarkdown$MarkDownLink = F2(
-	function (a, b) {
-		return {$: 'MarkDownLink', a: a, b: b};
+var $lucamug$elm_ui_with_context$Element$WithContext$pointer = $lucamug$elm_ui_with_context$Element$WithContext$attribute($mdgriffith$elm_ui$Element$pointer);
+var $rakutentech$r10$R10$FormComponents$Internal$Binary$tagReplacer = F2(
+	function (c, string) {
+		return A3(
+			$elm$core$String$replace,
+			'{cookie}',
+			c.cookiePolicyLink,
+			A3(
+				$elm$core$String$replace,
+				'{tac}',
+				c.termsAndConditionsLink,
+				A3($elm$core$String$replace, '{privacy}', c.privacyPolicyLink, string)));
 	});
-var $elm$core$List$tail = function (list) {
-	if (list.b) {
-		var x = list.a;
-		var xs = list.b;
-		return $elm$core$Maybe$Just(xs);
-	} else {
-		return $elm$core$Maybe$Nothing;
-	}
-};
-var $rakutentech$r10$R10$SimpleMarkdown$markDownParseLinkData = function (data) {
-	var text2 = A2(
-		$elm$core$Maybe$withDefault,
-		'',
-		$elm$core$List$head(
-			A2(
-				$elm$core$Maybe$withDefault,
-				_List_Nil,
-				$elm$core$List$tail(data))));
-	var text1 = A2(
-		$elm$core$Maybe$withDefault,
-		'',
-		$elm$core$List$head(data));
-	return A2($rakutentech$r10$R10$SimpleMarkdown$MarkDownLink, text1, text2);
-};
-var $rakutentech$r10$R10$SimpleMarkdown$regexForLinks = $elm$regex$Regex$fromString('\\[([^\\[\\]]+)\\]\\(([^()]+)\\)');
-var $rakutentech$r10$R10$SimpleMarkdown$parseTextForLinks = function (text) {
-	var _v0 = function () {
-		var _v1 = $rakutentech$r10$R10$SimpleMarkdown$regexForLinks;
-		if (_v1.$ === 'Just') {
-			var regex = _v1.a;
-			return _Utils_Tuple2(
-				A2($elm$regex$Regex$find, regex, text),
-				A2($elm$regex$Regex$split, regex, text));
-		} else {
-			return _Utils_Tuple2(_List_Nil, _List_Nil);
-		}
-	}();
-	var find = _v0.a;
-	var split = _v0.b;
-	return $elm$core$List$concat(
-		A2(
-			$elm$core$List$indexedMap,
-			F2(
-				function (index, splitted) {
-					var maybeGetFinding = function () {
-						var _v3 = A2(
-							$elm$core$Array$get,
-							index,
-							$elm$core$Array$fromList(find));
-						if (_v3.$ === 'Just') {
-							var match = _v3.a;
-							return $elm$core$Maybe$Just(
-								A2(
-									$elm$core$List$map,
-									function (item_) {
-										if (item_.$ === 'Just') {
-											var i = item_.a;
-											return i;
-										} else {
-											return '';
-										}
-									},
-									match.submatches));
-						} else {
-							return $elm$core$Maybe$Nothing;
-						}
-					}();
-					if (maybeGetFinding.$ === 'Just') {
-						var getFinding = maybeGetFinding.a;
-						return _List_fromArray(
-							[
-								$rakutentech$r10$R10$SimpleMarkdown$MarkDownText(splitted),
-								$rakutentech$r10$R10$SimpleMarkdown$markDownParseLinkData(getFinding)
-							]);
-					} else {
-						return _List_fromArray(
-							[
-								$rakutentech$r10$R10$SimpleMarkdown$MarkDownText(splitted)
-							]);
-					}
-				}),
-			split));
-};
-var $rakutentech$r10$R10$SimpleMarkdown$markdown = F4(
-	function (boldGenerator, textGenerator, linkGenerator, string) {
-		var step1 = $rakutentech$r10$R10$SimpleMarkdown$parseTextForLinks(string);
-		var step2 = $elm$core$List$concat(
-			A2(
-				$elm$core$List$map,
-				function (item) {
-					if (item.$ === 'MarkDownText') {
-						var string_ = item.a;
-						return $rakutentech$r10$R10$SimpleMarkdown$parseTextForBold(string_);
-					} else {
-						return _List_fromArray(
-							[item]);
-					}
-				},
-				step1));
+var $rakutentech$r10$R10$FormComponents$Internal$Binary$viewBinaryCheckbox = F2(
+	function (attrs, args) {
+		var elementThatReceiveClicks = _List_fromArray(
+			[
+				$lucamug$elm_ui_with_context$Element$WithContext$Events$onClick(args.msgOnClick),
+				$lucamug$elm_ui_with_context$Element$WithContext$pointer,
+				$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+				$elm$html$Html$Attributes$tabindex(0)),
+				$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+				$rakutentech$r10$R10$FormComponents$Internal$UI$onSelectKey(args.msgOnClick)),
+				$lucamug$elm_ui_with_context$Element$WithContext$Events$onFocus(args.msgOnFocus),
+				$lucamug$elm_ui_with_context$Element$WithContext$Events$onLoseFocus(args.msgOnLoseFocus)
+			]);
 		return A2(
-			$elm$core$List$map,
-			function (item) {
-				switch (item.$) {
-					case 'MarkDownText':
-						var text = item.a;
-						return textGenerator(text);
-					case 'MarkDownBold':
-						var text = item.a;
-						return boldGenerator(text);
-					default:
-						var linkLabel = item.a;
-						var url = item.b;
-						return A2(linkGenerator, linkLabel, url);
-				}
-			},
-			step2);
-	});
-var $rakutentech$r10$R10$SimpleMarkdown$elementMarkdownAdvanced = F2(
-	function (attrs, string) {
-		return A4(
-			$rakutentech$r10$R10$SimpleMarkdown$markdown,
-			$rakutentech$r10$R10$SimpleMarkdown$elementBoldGenerator,
-			$rakutentech$r10$R10$SimpleMarkdown$elementTextGenerator,
-			$rakutentech$r10$R10$SimpleMarkdown$elementLinkGeneratorAdvanced(attrs),
-			string);
-	});
-var $rakutentech$r10$R10$FormComponents$Internal$UI$viewHelperText = F3(
-	function (palette, attrs, maybeHelperText) {
-		if (maybeHelperText.$ === 'Just') {
-			var helperText = maybeHelperText.a;
-			return A2(
-				$mdgriffith$elm_ui$Element$paragraph,
+			$lucamug$elm_ui_with_context$Element$WithContext$el,
+			_Utils_ap(
+				_List_fromArray(
+					[
+						$lucamug$elm_ui_with_context$Element$WithContext$spacing(26)
+					]),
 				_Utils_ap(
+					args.disabled ? _List_fromArray(
+						[
+							$lucamug$elm_ui_with_context$Element$WithContext$alpha(0.38)
+						]) : (args.clickableLabel ? elementThatReceiveClicks : _List_Nil),
+					attrs)),
+			A2(
+				$lucamug$elm_ui_with_context$Element$WithContext$row,
+				_List_fromArray(
+					[
+						$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill)
+					]),
+				_List_fromArray(
+					[
+						A2(
+						$lucamug$elm_ui_with_context$Element$WithContext$el,
+						_Utils_ap(
+							_List_fromArray(
+								[
+									$lucamug$elm_ui_with_context$Element$WithContext$moveUp(2),
+									$lucamug$elm_ui_with_context$Element$WithContext$alignTop
+								]),
+							args.clickableLabel ? _List_Nil : elementThatReceiveClicks),
+						A2($rakutentech$r10$R10$FormComponents$Internal$Binary$checkboxIcon, args, args.value)),
+						A2(
+						$rakutentech$r10$R10$I18n$paragraphFromString,
+						_List_fromArray(
+							[
+								$rakutentech$r10$R10$FontSize$small,
+								$lucamug$elm_ui_with_context$Element$WithContext$paddingEach(
+								{bottom: 0, left: 12, right: 0, top: 0})
+							]),
+						{renderingMode: $rakutentech$r10$R10$I18n$Normal, string: args.label, tagReplacer: $rakutentech$r10$R10$FormComponents$Internal$Binary$tagReplacer})
+					])));
+	});
+var $mdgriffith$elm_ui$Element$moveRight = function (x) {
+	return A2(
+		$mdgriffith$elm_ui$Internal$Model$TransformComponent,
+		$mdgriffith$elm_ui$Internal$Flag$moveX,
+		$mdgriffith$elm_ui$Internal$Model$MoveX(x));
+};
+var $lucamug$elm_ui_with_context$Element$WithContext$moveRight = function (x) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$attr(
+		$mdgriffith$elm_ui$Element$moveRight(x));
+};
+var $rakutentech$r10$R10$FormComponents$Internal$UI$Color$primaryVariant = A2(
+	$elm$core$Basics$composeR,
+	function ($) {
+		return $.primaryVariant;
+	},
+	$rakutentech$r10$R10$FormComponents$Internal$UI$Color$fromPaletteColor);
+var $rakutentech$r10$R10$FormComponents$Internal$UI$viewSelectShadow = function (_v0) {
+	var palette = _v0.palette;
+	var focused = _v0.focused;
+	var disabled = _v0.disabled;
+	var value = _v0.value;
+	return $rakutentech$r10$R10$FormComponents$Internal$UI$viewSelectShadowCustomSize(
+		{
+			disabled: disabled,
+			focused: focused,
+			palette: palette,
+			rounded: 40,
+			size: {x: 40, y: 40},
+			value: value
+		});
+};
+var $rakutentech$r10$R10$FormComponents$Internal$Binary$viewBinarySwitch = F2(
+	function (attrs, args) {
+		var _v0 = args.value ? {thumbColor: $rakutentech$r10$R10$FormComponents$Internal$UI$Color$primary, trackColor: $rakutentech$r10$R10$FormComponents$Internal$UI$Color$primaryVariant} : {
+			thumbColor: $rakutentech$r10$R10$FormComponents$Internal$UI$Color$surface,
+			trackColor: $rakutentech$r10$R10$FormComponents$Internal$UI$Color$onSurfaceA(0.37)
+		};
+		var trackColor = _v0.trackColor;
+		var thumbColor = _v0.thumbColor;
+		var thumb = A2(
+			$lucamug$elm_ui_with_context$Element$WithContext$el,
+			_List_fromArray(
+				[
+					$lucamug$elm_ui_with_context$Element$WithContext$height(
+					$lucamug$elm_ui_with_context$Element$WithContext$px(20)),
+					$lucamug$elm_ui_with_context$Element$WithContext$width(
+					$lucamug$elm_ui_with_context$Element$WithContext$px(20)),
+					$lucamug$elm_ui_with_context$Element$WithContext$Border$rounded(24),
+					$rakutentech$r10$R10$Transition$transition('all 0.14s '),
+					$lucamug$elm_ui_with_context$Element$WithContext$centerY,
+					$lucamug$elm_ui_with_context$Element$WithContext$centerX,
+					$lucamug$elm_ui_with_context$Element$WithContext$Background$color(
+					thumbColor(args.palette)),
+					$lucamug$elm_ui_with_context$Element$WithContext$Border$shadow(
+					{
+						blur: 2,
+						color: trackColor(args.palette),
+						offset: _Utils_Tuple2(0, 1),
+						size: 1
+					})
+				]),
+			$lucamug$elm_ui_with_context$Element$WithContext$none);
+		var track = A2(
+			$lucamug$elm_ui_with_context$Element$WithContext$el,
+			_List_fromArray(
+				[
+					$lucamug$elm_ui_with_context$Element$WithContext$centerX,
+					$lucamug$elm_ui_with_context$Element$WithContext$centerY,
+					$lucamug$elm_ui_with_context$Element$WithContext$Border$rounded(36),
+					$lucamug$elm_ui_with_context$Element$WithContext$width(
+					$lucamug$elm_ui_with_context$Element$WithContext$px(36)),
+					$lucamug$elm_ui_with_context$Element$WithContext$height(
+					$lucamug$elm_ui_with_context$Element$WithContext$px(14)),
+					$lucamug$elm_ui_with_context$Element$WithContext$Background$color(
+					trackColor(args.palette))
+				]),
+			$lucamug$elm_ui_with_context$Element$WithContext$none);
+		var _switch = A2(
+			$lucamug$elm_ui_with_context$Element$WithContext$el,
+			_List_fromArray(
+				[
+					$lucamug$elm_ui_with_context$Element$WithContext$width(
+					$lucamug$elm_ui_with_context$Element$WithContext$px(56)),
+					$lucamug$elm_ui_with_context$Element$WithContext$height(
+					$lucamug$elm_ui_with_context$Element$WithContext$px(40)),
+					$lucamug$elm_ui_with_context$Element$WithContext$inFront(
+					A2(
+						$lucamug$elm_ui_with_context$Element$WithContext$el,
+						_List_fromArray(
+							[
+								$rakutentech$r10$R10$Transition$transition('all 0.13s'),
+								args.value ? $lucamug$elm_ui_with_context$Element$WithContext$moveRight(16) : $lucamug$elm_ui_with_context$Element$WithContext$moveRight(0)
+							]),
+						A2($rakutentech$r10$R10$FormComponents$Internal$UI$viewSelectShadow, args, thumb))),
+					$lucamug$elm_ui_with_context$Element$WithContext$behindContent(track)
+				]),
+			$lucamug$elm_ui_with_context$Element$WithContext$none);
+		return A2(
+			$lucamug$elm_ui_with_context$Element$WithContext$row,
+			_Utils_ap(
+				_List_fromArray(
+					[
+						$lucamug$elm_ui_with_context$Element$WithContext$spacing(15),
+						$lucamug$elm_ui_with_context$Element$WithContext$height(
+						$lucamug$elm_ui_with_context$Element$WithContext$px(20))
+					]),
+				_Utils_ap(
+					args.disabled ? _List_fromArray(
+						[
+							$lucamug$elm_ui_with_context$Element$WithContext$alpha(0.38)
+						]) : _List_fromArray(
+						[
+							$lucamug$elm_ui_with_context$Element$WithContext$Events$onClick(args.msgOnClick),
+							$lucamug$elm_ui_with_context$Element$WithContext$pointer,
+							$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+							$elm$html$Html$Attributes$tabindex(0)),
+							$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+							$rakutentech$r10$R10$FormComponents$Internal$UI$onSelectKey(args.msgOnClick)),
+							$lucamug$elm_ui_with_context$Element$WithContext$Events$onFocus(args.msgOnFocus),
+							$lucamug$elm_ui_with_context$Element$WithContext$Events$onLoseFocus(args.msgOnLoseFocus)
+						]),
+					attrs)),
+			_List_fromArray(
+				[
+					A2(
+					$lucamug$elm_ui_with_context$Element$WithContext$paragraph,
+					_List_Nil,
 					_List_fromArray(
 						[
-							$mdgriffith$elm_ui$Element$htmlAttribute(
-							$elm$html$Html$Attributes$id('ie-flex-fix-320')),
-							$mdgriffith$elm_ui$Element$Font$color(
-							$rakutentech$r10$R10$FormComponents$Internal$UI$Color$label(palette))
-						]),
-					attrs),
-				A2(
-					$rakutentech$r10$R10$SimpleMarkdown$elementMarkdownAdvanced,
-					{
-						link: _List_fromArray(
-							[
-								$mdgriffith$elm_ui$Element$Font$color(
-								$rakutentech$r10$R10$FormComponents$Internal$UI$Color$primary(palette))
-							])
-					},
-					helperText));
-		} else {
-			return $mdgriffith$elm_ui$Element$none;
-		}
+							$lucamug$elm_ui_with_context$Element$WithContext$text(args.label)
+						])),
+					_switch
+				]));
 	});
 var $rakutentech$r10$R10$FormComponents$Internal$Binary$view = F2(
 	function (attrs, args) {
 		return A2(
-			$mdgriffith$elm_ui$Element$column,
+			$lucamug$elm_ui_with_context$Element$WithContext$column,
 			_List_fromArray(
 				[
-					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-					$mdgriffith$elm_ui$Element$centerY
+					$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill),
+					$lucamug$elm_ui_with_context$Element$WithContext$centerY
 				]),
 			_List_fromArray(
 				[
@@ -21263,9 +26014,9 @@ var $rakutentech$r10$R10$FormComponents$Internal$Binary$view = F2(
 					args.palette,
 					_List_fromArray(
 						[
-							$mdgriffith$elm_ui$Element$Font$size(14),
-							$mdgriffith$elm_ui$Element$alpha(0.5),
-							$mdgriffith$elm_ui$Element$paddingEach(
+							$lucamug$elm_ui_with_context$Element$WithContext$Font$size(14),
+							$lucamug$elm_ui_with_context$Element$WithContext$alpha(0.5),
+							$lucamug$elm_ui_with_context$Element$WithContext$paddingEach(
 							{bottom: 0, left: 0, right: 0, top: $rakutentech$r10$R10$FormComponents$Internal$UI$genericSpacing})
 						]),
 					args.helperText)
@@ -21282,19 +26033,14 @@ var $rakutentech$r10$R10$Form$Internal$MakerForView$viewBinary = F3(
 			$rakutentech$r10$R10$Form$Internal$Helpers$boolToString(!value));
 		return A2(
 			$rakutentech$r10$R10$FormComponents$Internal$Binary$view,
-			_List_fromArray(
-				[
-					$mdgriffith$elm_ui$Element$width(
-					A2(
-						$mdgriffith$elm_ui$Element$maximum,
-						900,
-						A2($mdgriffith$elm_ui$Element$minimum, 300, $mdgriffith$elm_ui$Element$fill)))
-				]),
+			_List_Nil,
 			{
+				clickableLabel: args.fieldConf.clickableLabel,
 				disabled: args.fieldState.disabled,
 				focused: args.focused,
 				helperText: args.fieldConf.helperText,
 				label: args.fieldConf.label,
+				maybeValid: $rakutentech$r10$R10$Form$Internal$MakerForView$maybeValid(args.fieldState.validation),
 				msgOnChange: function (_v0) {
 					return msgOnClick;
 				},
@@ -21303,15 +26049,12 @@ var $rakutentech$r10$R10$Form$Internal$MakerForView$viewBinary = F3(
 				msgOnLoseFocus: A2($rakutentech$r10$R10$Form$Internal$Msg$LoseFocus, args.key, args.fieldConf),
 				palette: args.palette,
 				typeBinary: typeBinary,
-				valid: $rakutentech$r10$R10$Form$Internal$MakerForView$isFieldStateValidationValid(
-					$rakutentech$r10$R10$Form$Internal$FieldState$isValid(args.fieldState.validation)),
 				value: value
 			});
 	});
 var $rakutentech$r10$R10$FormComponents$Internal$Single$Common$OnOptionSelect = function (a) {
 	return {$: 'OnOptionSelect', a: a};
 };
-var $elm$core$String$trim = _String_trim;
 var $rakutentech$r10$R10$FormComponents$Internal$Single$normalizeString = A2($elm$core$Basics$composeR, $elm$core$String$toLower, $elm$core$String$trim);
 var $rakutentech$r10$R10$FormComponents$Internal$Single$defaultSearchFn = F2(
 	function (search, opt) {
@@ -21320,130 +26063,10 @@ var $rakutentech$r10$R10$FormComponents$Internal$Single$defaultSearchFn = F2(
 			$rakutentech$r10$R10$FormComponents$Internal$Single$normalizeString(search),
 			$rakutentech$r10$R10$FormComponents$Internal$Single$normalizeString(opt.label));
 	});
-var $rakutentech$r10$R10$FormComponents$Internal$IconButton$view = F2(
-	function (args, _v0) {
-		var msgOnClick = _v0.msgOnClick;
-		var icon = _v0.icon;
-		var palette = _v0.palette;
-		var size = _v0.size;
-		var padding_ = 8;
-		var iconHitboxSize = size + (padding_ * 2);
-		var containerSize = 24;
-		var moveUp_ = (iconHitboxSize - containerSize) / 2;
-		var attrsCommon = _List_fromArray(
-			[
-				$mdgriffith$elm_ui$Element$Background$color(
-				A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$onSurfaceA, 0, palette)),
-				$mdgriffith$elm_ui$Element$padding(padding_),
-				$mdgriffith$elm_ui$Element$centerX,
-				$mdgriffith$elm_ui$Element$htmlAttribute(
-				A2(
-					$elm$html$Html$Attributes$style,
-					'margin-top',
-					'-' + ($elm$core$String$fromFloat(moveUp_) + 'px')))
-			]);
-		var attrsClickable = function () {
-			if (msgOnClick.$ === 'Just') {
-				var msgOnClick_ = msgOnClick.a;
-				return _List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$htmlAttribute(
-						$elm$html$Html$Attributes$tabindex(0)),
-						$mdgriffith$elm_ui$Element$htmlAttribute(
-						$rakutentech$r10$R10$FormComponents$Internal$UI$onSelectKey(msgOnClick_)),
-						$mdgriffith$elm_ui$Element$htmlAttribute(
-						A2(
-							$elm$html$Html$Events$stopPropagationOn,
-							'mouseup',
-							$elm$json$Json$Decode$succeed(
-								_Utils_Tuple2(msgOnClick_, false)))),
-						$mdgriffith$elm_ui$Element$htmlAttribute(
-						$elm$html$Html$Attributes$class('ripple')),
-						$mdgriffith$elm_ui$Element$htmlAttribute(
-						A2($elm$html$Html$Attributes$style, 'transition', 'all 0.13s; margin-top 0s ')),
-						$mdgriffith$elm_ui$Element$pointer,
-						$mdgriffith$elm_ui$Element$Border$rounded(40),
-						$mdgriffith$elm_ui$Element$mouseOver(
-						_List_fromArray(
-							[
-								$mdgriffith$elm_ui$Element$Border$innerShadow(
-								{
-									blur: 0,
-									color: A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$onSurfaceA, 0.07, palette),
-									offset: _Utils_Tuple2(0, 0),
-									size: 40
-								})
-							])),
-						$mdgriffith$elm_ui$Element$focused(
-						_List_fromArray(
-							[
-								$mdgriffith$elm_ui$Element$Background$color(
-								A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$onSurfaceA, 0.14, palette))
-							]))
-					]);
-			} else {
-				return _List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$alpha(0.5)
-					]);
-			}
-		}();
-		return A2(
-			$mdgriffith$elm_ui$Element$el,
-			_Utils_ap(
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$width(
-						$mdgriffith$elm_ui$Element$px(containerSize)),
-						$mdgriffith$elm_ui$Element$height(
-						$mdgriffith$elm_ui$Element$px(containerSize))
-					]),
-				args),
-			A2(
-				$mdgriffith$elm_ui$Element$el,
-				_Utils_ap(attrsCommon, attrsClickable),
-				A2(
-					$mdgriffith$elm_ui$Element$el,
-					_List_fromArray(
-						[
-							$mdgriffith$elm_ui$Element$centerX,
-							$mdgriffith$elm_ui$Element$centerY,
-							$mdgriffith$elm_ui$Element$width(
-							$mdgriffith$elm_ui$Element$px(size)),
-							$mdgriffith$elm_ui$Element$height(
-							$mdgriffith$elm_ui$Element$px(size))
-						]),
-					icon)));
-	});
-var $rakutentech$r10$R10$FormComponents$Internal$Single$defaultTrailingIcon = function (_v0) {
-	var opened = _v0.opened;
-	var palette = _v0.palette;
-	return A2(
-		$rakutentech$r10$R10$FormComponents$Internal$IconButton$view,
-		_List_fromArray(
-			[$mdgriffith$elm_ui$Element$pointer]),
-		{
-			icon: A3(
-				$rakutentech$r10$R10$FormComponents$Internal$UI$icons.combobox_arrow,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$rotate(
-						$elm$core$Basics$degrees(
-							opened ? 180 : 0)),
-						$mdgriffith$elm_ui$Element$htmlAttribute(
-						A2($elm$html$Html$Attributes$style, 'transition', 'all 0.13s'))
-					]),
-				$rakutentech$r10$R10$FormComponents$Internal$UI$Color$label(palette),
-				24),
-			msgOnClick: $elm$core$Maybe$Nothing,
-			palette: palette,
-			size: 24
-		});
-};
 var $rakutentech$r10$R10$SimpleMarkdown$elementLinkGenerator = F2(
 	function (linkLabel, url) {
 		return A2(
-			$mdgriffith$elm_ui$Element$newTabLink,
+			$lucamug$elm_ui_with_context$Element$WithContext$newTabLink,
 			_List_Nil,
 			{
 				label: $rakutentech$r10$R10$SimpleMarkdown$elementLabelGenerator(linkLabel),
@@ -21512,20 +26135,20 @@ var $rakutentech$r10$R10$FormComponents$Internal$Single$defaultViewOptionEl = F2
 				$rakutentech$r10$R10$FormComponents$Internal$Single$normalizeString(label)));
 		var withBold = $elm$core$List$isEmpty(insertPositions) ? label : A2($rakutentech$r10$R10$FormComponents$Internal$Single$insertBold, insertPositions, label);
 		return A2(
-			$mdgriffith$elm_ui$Element$row,
+			$lucamug$elm_ui_with_context$Element$WithContext$row,
 			_List_fromArray(
 				[
-					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-					$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
-					$mdgriffith$elm_ui$Element$htmlAttribute(
+					$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill),
+					$lucamug$elm_ui_with_context$Element$WithContext$height($lucamug$elm_ui_with_context$Element$WithContext$fill),
+					$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
 					A2($elm$html$Html$Attributes$style, 'z-index', '0')),
-					$mdgriffith$elm_ui$Element$Events$onClick(
+					$lucamug$elm_ui_with_context$Element$WithContext$Events$onClick(
 					msgOnSelect(value)),
-					$mdgriffith$elm_ui$Element$pointer,
-					A2($mdgriffith$elm_ui$Element$paddingXY, 12, 0),
-					$mdgriffith$elm_ui$Element$htmlAttribute(
+					$lucamug$elm_ui_with_context$Element$WithContext$pointer,
+					A2($lucamug$elm_ui_with_context$Element$WithContext$paddingXY, 12, 0),
+					$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
 					A2($elm$html$Html$Attributes$style, 'mask-image', 'linear-gradient(right, rgba(255,255,0,0), rgba(255,255,0, 1) 16px)')),
-					$mdgriffith$elm_ui$Element$htmlAttribute(
+					$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
 					A2($elm$html$Html$Attributes$style, '-webkit-mask-image', '-webkit-linear-gradient(right, rgba(255,255,0,0) 10px, rgba(255,255,0, 1) 16px)'))
 				]),
 			$rakutentech$r10$R10$SimpleMarkdown$elementMarkdown(withBold));
@@ -21688,330 +26311,411 @@ var $rakutentech$r10$R10$FormComponents$Internal$Single$Combobox$optionsLabelOrS
 					},
 					allFieldOptions)));
 	});
-var $rakutentech$r10$R10$FormComponents$Internal$UI$Color$errorA = F2(
-	function (alpha, palette) {
-		return $rakutentech$r10$R10$FormComponents$Internal$UI$Color$fromPaletteColor(
-			A2($rakutentech$r10$R10$FormComponents$Internal$UI$Palette$withOpacity, alpha, palette.error));
-	});
-var $rakutentech$r10$R10$FormComponents$Internal$UI$getBorderColor = function (_v0) {
-	var disabled = _v0.disabled;
+var $rakutentech$r10$R10$FormComponents$Internal$TextColors$getLabelColor = function (_v0) {
 	var focused = _v0.focused;
 	var style = _v0.style;
-	var valid = _v0.valid;
-	var displayValidation = _v0.displayValidation;
-	var isMouseOver = _v0.isMouseOver;
-	var palette = _v0.palette;
-	var validationActive = displayValidation && _Utils_eq(
-		valid,
-		$elm$core$Maybe$Just(false));
-	var alpha = ((!disabled) && (focused || (isMouseOver || validationActive))) ? 1 : 0.5;
-	if (style.$ === 'Filled') {
-		var _v2 = _Utils_Tuple3(displayValidation, valid, focused);
-		if ((_v2.a && (_v2.b.$ === 'Just')) && (!_v2.b.a)) {
-			return A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$errorA, alpha, palette);
-		} else {
-			return A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$onSurfaceA, 0.3 * alpha, palette);
-		}
-	} else {
-		var _v3 = _Utils_Tuple3(displayValidation, valid, focused);
-		_v3$0:
-		while (true) {
-			if (_v3.c) {
-				if ((_v3.a && (_v3.b.$ === 'Just')) && (!_v3.b.a)) {
-					break _v3$0;
-				} else {
-					return A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$primaryA, alpha, palette);
-				}
-			} else {
-				if ((_v3.a && (_v3.b.$ === 'Just')) && (!_v3.b.a)) {
-					break _v3$0;
-				} else {
-					return A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$containerA, alpha, palette);
-				}
-			}
-		}
-		return A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$errorA, alpha, palette);
-	}
-};
-var $rakutentech$r10$R10$FormComponents$Internal$UI$getTextfieldBorderSizeOffset = function (_v0) {
-	var focused = _v0.focused;
-	var style = _v0.style;
-	var valid = _v0.valid;
-	var displayValidation = _v0.displayValidation;
-	var validationActive = displayValidation && _Utils_eq(
-		valid,
-		$elm$core$Maybe$Just(false));
-	var _v1 = _Utils_Tuple2(validationActive || focused, style);
-	if (_v1.a) {
-		if (_v1.b.$ === 'Filled') {
-			var _v2 = _v1.b;
-			return {
-				offset: _Utils_Tuple2(0, -2),
-				size: 0
-			};
-		} else {
-			var _v3 = _v1.b;
-			return {
-				offset: _Utils_Tuple2(0, 0),
-				size: 2
-			};
-		}
-	} else {
-		if (_v1.b.$ === 'Filled') {
-			var _v4 = _v1.b;
-			return {
-				offset: _Utils_Tuple2(0, -1),
-				size: 0
-			};
-		} else {
-			var _v5 = _v1.b;
-			return {
-				offset: _Utils_Tuple2(0, 0),
-				size: 1
-			};
-		}
-	}
-};
-var $rakutentech$r10$R10$FormComponents$Internal$Text$getBorder = function (args) {
-	var _v0 = $rakutentech$r10$R10$FormComponents$Internal$UI$getTextfieldBorderSizeOffset(args);
-	var offset = _v0.offset;
-	var size = _v0.size;
-	return $mdgriffith$elm_ui$Element$Border$innerShadow(
-		{
-			blur: 0,
-			color: $rakutentech$r10$R10$FormComponents$Internal$UI$getBorderColor(args),
-			offset: offset,
-			size: size
-		});
-};
-var $rakutentech$r10$R10$FormComponents$Internal$UI$Const$inputTextHeight = 50;
-var $rakutentech$r10$R10$FormComponents$Internal$UI$iconWidth = function (icon) {
-	if (icon.$ === 'Just') {
-		return 40;
-	} else {
-		return 0;
-	}
-};
-var $rakutentech$r10$R10$FormComponents$Internal$UI$Const$inputTextFilledDown = 8;
-var $rakutentech$r10$R10$FormComponents$Internal$UI$Const$inputTextFontSize = 16;
-var $rakutentech$r10$R10$FormComponents$Internal$UI$getTextfieldPaddingEach = function (args) {
-	var paddingCenterY = $elm$core$Basics$ceiling(($rakutentech$r10$R10$FormComponents$Internal$UI$Const$inputTextHeight - $rakutentech$r10$R10$FormComponents$Internal$UI$Const$inputTextFontSize) / 2);
-	var _v0 = args.style;
-	if (_v0.$ === 'Filled') {
-		return {
-			bottom: paddingCenterY - $rakutentech$r10$R10$FormComponents$Internal$UI$Const$inputTextFilledDown,
-			left: 0 + $rakutentech$r10$R10$FormComponents$Internal$UI$iconWidth(args.leadingIcon),
-			right: 0 + $rakutentech$r10$R10$FormComponents$Internal$UI$iconWidth(args.trailingIcon),
-			top: paddingCenterY + $rakutentech$r10$R10$FormComponents$Internal$UI$Const$inputTextFilledDown
-		};
-	} else {
-		return {
-			bottom: paddingCenterY,
-			left: A2(
-				$elm$core$Basics$max,
-				16,
-				$rakutentech$r10$R10$FormComponents$Internal$UI$iconWidth(args.leadingIcon)),
-			right: A2(
-				$elm$core$Basics$max,
-				16,
-				$rakutentech$r10$R10$FormComponents$Internal$UI$iconWidth(args.trailingIcon)),
-			top: paddingCenterY
-		};
-	}
-};
-var $mdgriffith$elm_ui$Internal$Model$MoveY = function (a) {
-	return {$: 'MoveY', a: a};
-};
-var $mdgriffith$elm_ui$Internal$Flag$moveY = $mdgriffith$elm_ui$Internal$Flag$flag(26);
-var $mdgriffith$elm_ui$Element$moveUp = function (y) {
-	return A2(
-		$mdgriffith$elm_ui$Internal$Model$TransformComponent,
-		$mdgriffith$elm_ui$Internal$Flag$moveY,
-		$mdgriffith$elm_ui$Internal$Model$MoveY(-y));
-};
-var $rakutentech$r10$R10$FormComponents$Internal$UI$Color$error = A2(
-	$elm$core$Basics$composeR,
-	function ($) {
-		return $.error;
-	},
-	$rakutentech$r10$R10$FormComponents$Internal$UI$Color$fromPaletteColor);
-var $rakutentech$r10$R10$FormComponents$Internal$UI$textfieldLabelColor = function (_v0) {
-	var focused = _v0.focused;
-	var style = _v0.style;
-	var valid = _v0.valid;
+	var maybeValid = _v0.maybeValid;
 	var displayValidation = _v0.displayValidation;
 	var palette = _v0.palette;
 	if (style.$ === 'Filled') {
-		var _v2 = _Utils_Tuple3(displayValidation, valid, focused);
+		var _v2 = _Utils_Tuple3(displayValidation, maybeValid, focused);
 		if (((_v2.a && (_v2.b.$ === 'Just')) && (!_v2.b.a)) && _v2.c) {
 			return $rakutentech$r10$R10$FormComponents$Internal$UI$Color$label(palette);
 		} else {
 			return $rakutentech$r10$R10$FormComponents$Internal$UI$Color$label(palette);
 		}
 	} else {
-		var _v3 = _Utils_Tuple3(displayValidation, valid, focused);
-		if (_v3.c) {
-			if ((_v3.a && (_v3.b.$ === 'Just')) && (!_v3.b.a)) {
-				return $rakutentech$r10$R10$FormComponents$Internal$UI$Color$error(palette);
+		var _v3 = _Utils_Tuple3(displayValidation, maybeValid, focused);
+		if (_v3.a && (_v3.b.$ === 'Just')) {
+			if (_v3.b.a) {
+				return $rakutentech$r10$R10$FormComponents$Internal$UI$Color$success(palette);
 			} else {
-				return $rakutentech$r10$R10$FormComponents$Internal$UI$Color$primary(palette);
+				return $rakutentech$r10$R10$FormComponents$Internal$UI$Color$error(palette);
 			}
 		} else {
 			return $rakutentech$r10$R10$FormComponents$Internal$UI$Color$label(palette);
 		}
 	}
 };
-var $rakutentech$r10$R10$FormComponents$Internal$UI$labelBuilder = function (args) {
+var $rakutentech$r10$R10$FormComponents$Internal$UI$Const$inputTextFontSize = $rakutentech$r10$R10$FontSize$normalAsInt;
+var $mdgriffith$elm_ui$Element$moveDown = function (y) {
+	return A2(
+		$mdgriffith$elm_ui$Internal$Model$TransformComponent,
+		$mdgriffith$elm_ui$Internal$Flag$moveY,
+		$mdgriffith$elm_ui$Internal$Model$MoveY(y));
+};
+var $lucamug$elm_ui_with_context$Element$WithContext$moveDown = function (y) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$attr(
+		$mdgriffith$elm_ui$Element$moveDown(y));
+};
+var $rakutentech$r10$R10$FormComponents$Internal$UI$floatingLabel = function (args) {
 	var requiredEl = function () {
-		var _v3 = args.requiredLabel;
-		if (_v3.$ === 'Just') {
-			var required = _v3.a;
+		var _v4 = args.requiredLabel;
+		if (_v4.$ === 'Just') {
+			var required = _v4.a;
 			return A2(
-				$mdgriffith$elm_ui$Element$el,
+				$lucamug$elm_ui_with_context$Element$WithContext$el,
 				_List_fromArray(
 					[
-						$mdgriffith$elm_ui$Element$alpha(0.7)
+						$lucamug$elm_ui_with_context$Element$WithContext$alpha(0.7)
 					]),
-				$mdgriffith$elm_ui$Element$text(required));
+				$lucamug$elm_ui_with_context$Element$WithContext$text(required));
 		} else {
-			return $mdgriffith$elm_ui$Element$none;
+			return $lucamug$elm_ui_with_context$Element$WithContext$none;
 		}
 	}();
 	var notchClearance = function () {
-		var _v2 = args.style;
-		if (_v2.$ === 'Filled') {
+		var _v3 = args.style;
+		if (_v3.$ === 'Filled') {
 			return 0;
 		} else {
-			return 3;
+			return 6;
 		}
 	}();
-	var labelIsAbove = args.focused || ($elm$core$String$length(args.value) > 0);
-	var notch = function () {
-		var _v1 = args.style;
-		if (_v1.$ === 'Filled') {
-			return $mdgriffith$elm_ui$Element$none;
-		} else {
-			return A2(
-				$mdgriffith$elm_ui$Element$el,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$htmlAttribute(
-						A2($elm$html$Html$Attributes$style, 'transition', 'all 0.15s')),
-						$mdgriffith$elm_ui$Element$height(
-						$mdgriffith$elm_ui$Element$px(2)),
-						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-						$mdgriffith$elm_ui$Element$Background$color(
-						$rakutentech$r10$R10$FormComponents$Internal$UI$Color$surface(args.palette)),
-						$mdgriffith$elm_ui$Element$alpha(
-						labelIsAbove ? 1 : 0)
-					]),
-				$mdgriffith$elm_ui$Element$none);
-		}
-	}();
-	var containerPaddingAttrs = $rakutentech$r10$R10$FormComponents$Internal$UI$getTextfieldPaddingEach(
-		_Utils_update(
-			args,
-			{leadingIcon: $elm$core$Maybe$Nothing}));
-	var labelBelowLeftPadding = $rakutentech$r10$R10$FormComponents$Internal$UI$getTextfieldPaddingEach(args).left - containerPaddingAttrs.left;
+	var labelIsAbove = args.focused || (($elm$core$String$length(args.value) > 0) || args.floatingLabelAlwaysUp);
 	var labelAboveAttrs = function () {
 		if (labelIsAbove) {
-			var _v0 = args.style;
-			if (_v0.$ === 'Filled') {
+			var _v2 = args.style;
+			if (_v2.$ === 'Filled') {
 				return _List_fromArray(
 					[
-						$mdgriffith$elm_ui$Element$moveUp(28),
-						$mdgriffith$elm_ui$Element$moveRight(0)
+						$lucamug$elm_ui_with_context$Element$WithContext$moveUp(28 - 16),
+						$lucamug$elm_ui_with_context$Element$WithContext$moveRight(0)
 					]);
 			} else {
 				return _List_fromArray(
 					[
-						$mdgriffith$elm_ui$Element$moveUp(21),
-						$mdgriffith$elm_ui$Element$Font$size(12),
-						$mdgriffith$elm_ui$Element$moveRight(0)
+						$lucamug$elm_ui_with_context$Element$WithContext$moveUp(23 - 16),
+						$lucamug$elm_ui_with_context$Element$WithContext$Font$size(14),
+						$lucamug$elm_ui_with_context$Element$WithContext$moveRight(0)
 					]);
 			}
 		} else {
 			return _List_fromArray(
 				[
-					$mdgriffith$elm_ui$Element$moveUp(0),
-					$mdgriffith$elm_ui$Element$moveRight(labelBelowLeftPadding),
-					$mdgriffith$elm_ui$Element$Font$size($rakutentech$r10$R10$FormComponents$Internal$UI$Const$inputTextFontSize)
+					$lucamug$elm_ui_with_context$Element$WithContext$moveUp(0 - 16),
+					$lucamug$elm_ui_with_context$Element$WithContext$Font$size($rakutentech$r10$R10$FormComponents$Internal$UI$Const$inputTextFontSize)
 				]);
 		}
 	}();
 	var labelEl = A2(
-		$mdgriffith$elm_ui$Element$el,
-		_List_fromArray(
-			[
-				$mdgriffith$elm_ui$Element$htmlAttribute(
-				A2($elm$html$Html$Attributes$style, 'transition', 'all 0.15s')),
-				$mdgriffith$elm_ui$Element$paddingEach(
-				{bottom: containerPaddingAttrs.bottom, left: notchClearance, right: notchClearance, top: containerPaddingAttrs.top}),
-				$mdgriffith$elm_ui$Element$htmlAttribute(
-				A2($elm$html$Html$Attributes$style, 'pointer-events', 'none')),
-				$mdgriffith$elm_ui$Element$behindContent(notch),
-				$mdgriffith$elm_ui$Element$Border$width(0)
-			]),
-		A2(
-			$mdgriffith$elm_ui$Element$row,
-			_Utils_ap(
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$htmlAttribute(
-						A2($elm$html$Html$Attributes$style, 'transition', 'all 0.15s')),
-						$mdgriffith$elm_ui$Element$spacing(6),
-						$mdgriffith$elm_ui$Element$centerY
-					]),
-				labelAboveAttrs),
+		$lucamug$elm_ui_with_context$Element$WithContext$row,
+		_Utils_ap(
 			_List_fromArray(
 				[
-					$mdgriffith$elm_ui$Element$text(args.label),
-					requiredEl
-				])));
-	return ($elm$core$String$isEmpty(args.label) && _Utils_eq(args.requiredLabel, $elm$core$Maybe$Nothing)) ? $mdgriffith$elm_ui$Element$none : A2(
-		$mdgriffith$elm_ui$Element$el,
+					$rakutentech$r10$R10$Transition$transition('all 0.15s'),
+					$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+					A2($elm$html$Html$Attributes$style, 'pointer-events', 'none')),
+					$lucamug$elm_ui_with_context$Element$WithContext$spacing(6),
+					A2($lucamug$elm_ui_with_context$Element$WithContext$paddingXY, 8, 0),
+					$lucamug$elm_ui_with_context$Element$WithContext$centerY
+				]),
+			_Utils_ap(
+				labelIsAbove ? _List_fromArray(
+					[
+						$lucamug$elm_ui_with_context$Element$WithContext$Background$color(
+						$rakutentech$r10$R10$FormComponents$Internal$UI$Color$surface(args.palette))
+					]) : _List_Nil,
+				labelAboveAttrs)),
 		_List_fromArray(
 			[
-				$mdgriffith$elm_ui$Element$height(
-				$mdgriffith$elm_ui$Element$px(0)),
-				$mdgriffith$elm_ui$Element$Font$color(
-				$rakutentech$r10$R10$FormComponents$Internal$UI$textfieldLabelColor(args)),
-				$mdgriffith$elm_ui$Element$paddingEach(
-				{bottom: 0, left: containerPaddingAttrs.left - notchClearance, right: containerPaddingAttrs.right, top: 0})
+				$lucamug$elm_ui_with_context$Element$WithContext$text(args.label),
+				requiredEl
+			]));
+	return ($elm$core$String$isEmpty(args.label) && _Utils_eq(args.requiredLabel, $elm$core$Maybe$Nothing)) ? $lucamug$elm_ui_with_context$Element$WithContext$none : A2(
+		$lucamug$elm_ui_with_context$Element$WithContext$el,
+		_List_fromArray(
+			[
+				$lucamug$elm_ui_with_context$Element$WithContext$height(
+				$lucamug$elm_ui_with_context$Element$WithContext$px(0)),
+				$lucamug$elm_ui_with_context$Element$WithContext$Font$color(
+				$rakutentech$r10$R10$FormComponents$Internal$TextColors$getLabelColor(args)),
+				$lucamug$elm_ui_with_context$Element$WithContext$moveDown(
+				function () {
+					var _v0 = args.style;
+					if (_v0.$ === 'Filled') {
+						return 6;
+					} else {
+						return 0;
+					}
+				}()),
+				$lucamug$elm_ui_with_context$Element$WithContext$moveRight(
+				function () {
+					var _v1 = args.style;
+					if (_v1.$ === 'Filled') {
+						return -8;
+					} else {
+						return 8;
+					}
+				}())
 			]),
 		labelEl);
 };
+var $rakutentech$r10$R10$FormComponents$Internal$UI$Const$inputTextHeight = 50;
+var $mdgriffith$elm_ui$Internal$Model$Min = F2(
+	function (a, b) {
+		return {$: 'Min', a: a, b: b};
+	});
+var $mdgriffith$elm_ui$Element$minimum = F2(
+	function (i, l) {
+		return A2($mdgriffith$elm_ui$Internal$Model$Min, i, l);
+	});
+var $lucamug$elm_ui_with_context$Element$WithContext$minimum = $mdgriffith$elm_ui$Element$minimum;
 var $rakutentech$r10$R10$FormTypes$TextPasswordCurrent = {$: 'TextPasswordCurrent'};
 var $rakutentech$r10$R10$FormTypes$TextPasswordNew = {$: 'TextPasswordNew'};
 var $rakutentech$r10$R10$FormComponents$Internal$Text$needShowHideIcon = function (fieldType) {
 	return _Utils_eq(fieldType, $rakutentech$r10$R10$FormTypes$TextPasswordCurrent) || _Utils_eq(fieldType, $rakutentech$r10$R10$FormTypes$TextPasswordNew);
 };
-var $rakutentech$r10$R10$FormComponents$Internal$UI$showValidationIcon_ = function (_v0) {
-	var maybeValid = _v0.maybeValid;
-	var displayValidation = _v0.displayValidation;
-	var palette = _v0.palette;
-	var widthPx = (displayValidation && _Utils_eq(
-		maybeValid,
-		$elm$core$Maybe$Just(false))) ? 24 : 0;
-	return A3(
+var $rakutentech$r10$R10$FormComponents$Internal$UI$showValidationIcon_ = function (args) {
+	var iconSize = 18;
+	var widthPx = args.displayValidation ? (iconSize + function () {
+		var _v0 = args.style;
+		if (_v0.$ === 'Filled') {
+			return 4;
+		} else {
+			return 16;
+		}
+	}()) : 0;
+	return _Utils_eq(
+		args.maybeValid,
+		$elm$core$Maybe$Just(false)) ? A3(
 		$rakutentech$r10$R10$FormComponents$Internal$UI$icons.sign_warning_f,
 		_List_fromArray(
 			[
-				$mdgriffith$elm_ui$Element$htmlAttribute(
-				A2($elm$html$Html$Attributes$style, 'transition', 'width 0.4s')),
-				$mdgriffith$elm_ui$Element$width(
-				$mdgriffith$elm_ui$Element$px(widthPx)),
-				$mdgriffith$elm_ui$Element$height(
-				$mdgriffith$elm_ui$Element$px(24)),
-				$mdgriffith$elm_ui$Element$clip
+				$rakutentech$r10$R10$Transition$transition('width 0.4s'),
+				$lucamug$elm_ui_with_context$Element$WithContext$width(
+				$lucamug$elm_ui_with_context$Element$WithContext$px(widthPx)),
+				$lucamug$elm_ui_with_context$Element$WithContext$height(
+				$lucamug$elm_ui_with_context$Element$WithContext$px(iconSize)),
+				$lucamug$elm_ui_with_context$Element$WithContext$clip
 			]),
-		$rakutentech$r10$R10$FormComponents$Internal$UI$Color$error(palette),
-		24);
+		$rakutentech$r10$R10$FormComponents$Internal$UI$Color$error(args.palette),
+		iconSize) : A3(
+		$rakutentech$r10$R10$FormComponents$Internal$UI$icons.check,
+		_List_fromArray(
+			[
+				$rakutentech$r10$R10$Transition$transition('width 0.4s'),
+				$lucamug$elm_ui_with_context$Element$WithContext$width(
+				$lucamug$elm_ui_with_context$Element$WithContext$px(widthPx)),
+				$lucamug$elm_ui_with_context$Element$WithContext$height(
+				$lucamug$elm_ui_with_context$Element$WithContext$px(iconSize)),
+				$lucamug$elm_ui_with_context$Element$WithContext$clip
+			]),
+		$rakutentech$r10$R10$FormComponents$Internal$UI$Color$success(args.palette),
+		iconSize);
 };
-var $mdgriffith$elm_ui$Internal$Model$Left = {$: 'Left'};
-var $mdgriffith$elm_ui$Element$alignLeft = $mdgriffith$elm_ui$Internal$Model$AlignX($mdgriffith$elm_ui$Internal$Model$Left);
-var $mdgriffith$elm_ui$Internal$Model$Right = {$: 'Right'};
-var $mdgriffith$elm_ui$Element$alignRight = $mdgriffith$elm_ui$Internal$Model$AlignX($mdgriffith$elm_ui$Internal$Model$Right);
+var $rakutentech$r10$R10$FormComponents$Internal$EmailAutoSuggest$addOnRightKeyDownEvent = F3(
+	function (msg, userInput, suggestion) {
+		var arrowRight = 39;
+		return A2(
+			$elm$html$Html$Events$on,
+			'keydown',
+			A2(
+				$elm$json$Json$Decode$andThen,
+				function (key) {
+					return $elm$json$Json$Decode$succeed(
+						_Utils_eq(key, arrowRight) ? msg(suggestion) : msg(userInput));
+				},
+				$elm$html$Html$Events$keyCode));
+	});
+var $mdgriffith$elm_ui$Internal$Model$Above = {$: 'Above'};
+var $mdgriffith$elm_ui$Element$above = function (element) {
+	return A2($mdgriffith$elm_ui$Element$createNearby, $mdgriffith$elm_ui$Internal$Model$Above, element);
+};
+var $lucamug$elm_ui_with_context$Element$WithContext$above = $lucamug$elm_ui_with_context$Element$WithContext$createNearby($mdgriffith$elm_ui$Element$above);
+var $rakutentech$r10$R10$Color$Internal$Derived$BackgroundPhoneDropdown = {$: 'BackgroundPhoneDropdown'};
+var $rakutentech$r10$R10$Color$AttrsBackground$dropdown = $lucamug$elm_ui_with_context$Element$WithContext$withContextAttribute(
+	function (c) {
+		return $lucamug$elm_ui_with_context$Element$WithContext$Background$color(
+			$rakutentech$r10$R10$Color$Utils$fromColorColor(
+				A2($rakutentech$r10$R10$Color$Internal$Derived$toColor, c.theme, $rakutentech$r10$R10$Color$Internal$Derived$BackgroundPhoneDropdown)));
+	});
+var $rakutentech$r10$R10$Color$AttrsBackground$dropdownHover = $lucamug$elm_ui_with_context$Element$WithContext$withContextDecoration(
+	function (c) {
+		return $lucamug$elm_ui_with_context$Element$WithContext$Background$color(
+			$rakutentech$r10$R10$Color$Utils$fromColorColor(
+				A2(
+					$noahzgordon$elm_color_extra$Color$Manipulate$darken,
+					0.01,
+					A2($rakutentech$r10$R10$Color$Internal$Derived$toColor, c.theme, $rakutentech$r10$R10$Color$Internal$Derived$BackgroundPhoneDropdown))));
+	});
+var $rakutentech$r10$R10$Color$AttrsBackground$dropdownSelected = $lucamug$elm_ui_with_context$Element$WithContext$withContextDecoration(
+	function (c) {
+		return $lucamug$elm_ui_with_context$Element$WithContext$Background$color(
+			$rakutentech$r10$R10$Color$Utils$fromColorColor(
+				A2(
+					$noahzgordon$elm_color_extra$Color$Manipulate$darken,
+					0.03,
+					A2($rakutentech$r10$R10$Color$Internal$Derived$toColor, c.theme, $rakutentech$r10$R10$Color$Internal$Derived$BackgroundPhoneDropdown))));
+	});
+var $rakutentech$r10$R10$Device$isMobileOS = function (_v0) {
+	var os = _v0.a;
+	switch (os.$) {
+		case 'Android':
+			return true;
+		case 'IOS':
+			return true;
+		case 'WindowsPhone':
+			return true;
+		default:
+			return false;
+	}
+};
+var $mdgriffith$elm_ui$Internal$Model$Active = {$: 'Active'};
+var $mdgriffith$elm_ui$Internal$Flag$active = $mdgriffith$elm_ui$Internal$Flag$flag(32);
+var $mdgriffith$elm_ui$Element$mouseDown = function (decs) {
+	return A2(
+		$mdgriffith$elm_ui$Internal$Model$StyleClass,
+		$mdgriffith$elm_ui$Internal$Flag$active,
+		A2(
+			$mdgriffith$elm_ui$Internal$Model$PseudoSelector,
+			$mdgriffith$elm_ui$Internal$Model$Active,
+			$mdgriffith$elm_ui$Internal$Model$unwrapDecorations(decs)));
+};
+var $lucamug$elm_ui_with_context$Element$WithContext$mouseDown = function (decs) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$Internal$Attribute(
+		function (context) {
+			return $mdgriffith$elm_ui$Element$mouseDown(
+				A2(
+					$elm$core$List$map,
+					function (_v0) {
+						var f = _v0.a;
+						return f(context);
+					},
+					decs));
+		});
+};
+var $rakutentech$r10$R10$Color$Internal$Derived$FontMediumEmphasis = {$: 'FontMediumEmphasis'};
+var $rakutentech$r10$R10$Color$AttrsFont$normalLighter = $lucamug$elm_ui_with_context$Element$WithContext$withContextAttribute(
+	function (c) {
+		return $lucamug$elm_ui_with_context$Element$WithContext$Font$color(
+			$rakutentech$r10$R10$Color$Utils$fromColorColor(
+				A2($rakutentech$r10$R10$Color$Internal$Derived$toColor, c.theme, $rakutentech$r10$R10$Color$Internal$Derived$FontMediumEmphasis)));
+	});
+var $rakutentech$r10$R10$Color$Internal$Derived$Border = {$: 'Border'};
+var $rakutentech$r10$R10$Color$AttrsBorder$shadow = function (_v0) {
+	var offset = _v0.offset;
+	var size = _v0.size;
+	var blur = _v0.blur;
+	return $lucamug$elm_ui_with_context$Element$WithContext$withContextAttribute(
+		function (c) {
+			return $lucamug$elm_ui_with_context$Element$WithContext$Border$shadow(
+				function (color) {
+					return {blur: blur, color: color, offset: offset, size: size};
+				}(
+					$rakutentech$r10$R10$Color$Utils$fromColorColor(
+						A2($rakutentech$r10$R10$Color$Internal$Derived$toColor, c.theme, $rakutentech$r10$R10$Color$Internal$Derived$Border))));
+		});
+};
+var $rakutentech$r10$R10$FormComponents$Internal$EmailAutoSuggest$autoSuggestionsAttrs = function (args) {
+	var _v0 = _Utils_Tuple2(
+		args.maybeEmailSuggestion,
+		$rakutentech$r10$R10$Device$isMobileOS(args.userAgent));
+	if (_v0.a.$ === 'Just') {
+		if (_v0.b) {
+			var suggestion = _v0.a.a;
+			return _List_fromArray(
+				[
+					$lucamug$elm_ui_with_context$Element$WithContext$above(
+					$lucamug$elm_ui_with_context$Element$WithContext$withContext(
+						function (c) {
+							return A2(
+								$lucamug$elm_ui_with_context$Element$WithContext$row,
+								_List_fromArray(
+									[
+										$lucamug$elm_ui_with_context$Element$WithContext$moveDown(8),
+										$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill),
+										A2($lucamug$elm_ui_with_context$Element$WithContext$paddingXY, 15, 12),
+										$rakutentech$r10$R10$Color$AttrsBackground$dropdown,
+										$rakutentech$r10$R10$Color$AttrsBorder$shadow(
+										{
+											blur: 2,
+											offset: _Utils_Tuple2(0, 0),
+											size: 0
+										}),
+										$lucamug$elm_ui_with_context$Element$WithContext$Border$rounded(5),
+										$lucamug$elm_ui_with_context$Element$WithContext$mouseDown(
+										_List_fromArray(
+											[$rakutentech$r10$R10$Color$AttrsBackground$dropdownSelected])),
+										$lucamug$elm_ui_with_context$Element$WithContext$mouseOver(
+										_List_fromArray(
+											[$rakutentech$r10$R10$Color$AttrsBackground$dropdownHover])),
+										$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+										A2($elm$html$Html$Attributes$style, 'user-select', 'none')),
+										$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+										A2(
+											$elm$html$Html$Events$preventDefaultOn,
+											'mouseup',
+											$elm$json$Json$Decode$succeed(
+												_Utils_Tuple2(
+													args.msgOnChange(
+														_Utils_ap(args.value, suggestion)),
+													true)))),
+										$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+										A2(
+											$elm$html$Html$Events$preventDefaultOn,
+											'mousedown',
+											$elm$json$Json$Decode$succeed(
+												_Utils_Tuple2(
+													args.msgOnChange(args.value),
+													true))))
+									]),
+								_List_fromArray(
+									[
+										$lucamug$elm_ui_with_context$Element$WithContext$text(
+										_Utils_ap(args.value, suggestion))
+									]));
+						}))
+				]);
+		} else {
+			var suggestion = _v0.a.a;
+			return _List_fromArray(
+				[
+					$lucamug$elm_ui_with_context$Element$WithContext$behindContent(
+					A2(
+						$lucamug$elm_ui_with_context$Element$WithContext$row,
+						_List_fromArray(
+							[
+								$lucamug$elm_ui_with_context$Element$WithContext$moveDown(21),
+								$lucamug$elm_ui_with_context$Element$WithContext$moveRight(16),
+								$rakutentech$r10$R10$Color$AttrsFont$normalLighter,
+								$lucamug$elm_ui_with_context$Element$WithContext$alpha(0.5)
+							]),
+						_List_fromArray(
+							[
+								A2(
+								$lucamug$elm_ui_with_context$Element$WithContext$el,
+								_List_fromArray(
+									[
+										$lucamug$elm_ui_with_context$Element$WithContext$Font$color(
+										A4($lucamug$elm_ui_with_context$Element$WithContext$rgba, 0, 0, 0, 0))
+									]),
+								$lucamug$elm_ui_with_context$Element$WithContext$text(args.value)),
+								A2(
+								$lucamug$elm_ui_with_context$Element$WithContext$el,
+								_List_Nil,
+								$lucamug$elm_ui_with_context$Element$WithContext$text(suggestion))
+							])))
+				]);
+		}
+	} else {
+		if (_v0.b) {
+			var _v1 = _v0.a;
+			return _List_fromArray(
+				[
+					$lucamug$elm_ui_with_context$Element$WithContext$above(
+					A2($lucamug$elm_ui_with_context$Element$WithContext$row, _List_Nil, _List_Nil))
+				]);
+		} else {
+			var _v2 = _v0.a;
+			return _List_fromArray(
+				[
+					$lucamug$elm_ui_with_context$Element$WithContext$behindContent(
+					A2($lucamug$elm_ui_with_context$Element$WithContext$row, _List_Nil, _List_Nil))
+				]);
+		}
+	}
+};
 var $mdgriffith$elm_ui$Element$Input$TextInputNode = function (a) {
 	return {$: 'TextInputNode', a: a};
 };
@@ -22756,13 +27460,186 @@ var $mdgriffith$elm_ui$Element$Input$currentPassword = F2(
 			attrs,
 			{label: pass.label, onChange: pass.onChange, placeholder: pass.placeholder, text: pass.text});
 	});
+var $lucamug$elm_ui_with_context$Element$WithContext$Input$runLabel = F2(
+	function (context, _v0) {
+		var f = _v0.a;
+		return f(context);
+	});
+var $lucamug$elm_ui_with_context$Element$WithContext$Input$runPlaceholder = F2(
+	function (context, _v0) {
+		var f = _v0.a;
+		return f(context);
+	});
+var $lucamug$elm_ui_with_context$Element$WithContext$Input$currentPassword = A2(
+	$lucamug$elm_ui_with_context$Element$WithContext$Internal$wrapAttrs,
+	$mdgriffith$elm_ui$Element$Input$currentPassword,
+	F2(
+		function (context, config) {
+			return {
+				label: A2($lucamug$elm_ui_with_context$Element$WithContext$Input$runLabel, context, config.label),
+				onChange: config.onChange,
+				placeholder: A2(
+					$elm$core$Maybe$map,
+					$lucamug$elm_ui_with_context$Element$WithContext$Input$runPlaceholder(context),
+					config.placeholder),
+				show: config.show,
+				text: config.text
+			};
+		}));
 var $mdgriffith$elm_ui$Element$Input$email = $mdgriffith$elm_ui$Element$Input$textHelper(
 	{
 		autofill: $elm$core$Maybe$Just('email'),
 		spellchecked: false,
 		type_: $mdgriffith$elm_ui$Element$Input$TextInputNode('email')
 	});
+var $lucamug$elm_ui_with_context$Element$WithContext$Input$textHelper = function (f) {
+	return A2(
+		$lucamug$elm_ui_with_context$Element$WithContext$Internal$wrapAttrs,
+		f,
+		F2(
+			function (context, config) {
+				return {
+					label: A2($lucamug$elm_ui_with_context$Element$WithContext$Input$runLabel, context, config.label),
+					onChange: config.onChange,
+					placeholder: A2(
+						$elm$core$Maybe$map,
+						$lucamug$elm_ui_with_context$Element$WithContext$Input$runPlaceholder(context),
+						config.placeholder),
+					text: config.text
+				};
+			}));
+};
+var $lucamug$elm_ui_with_context$Element$WithContext$Input$email = $lucamug$elm_ui_with_context$Element$WithContext$Input$textHelper($mdgriffith$elm_ui$Element$Input$email);
+var $rakutentech$r10$R10$FormComponents$Internal$EmailAutoSuggest$nothingWhenBlank = function (string) {
+	if (string === '') {
+		return $elm$core$Maybe$Nothing;
+	} else {
+		return $elm$core$Maybe$Just(string);
+	}
+};
+var $rakutentech$r10$R10$FormComponents$Internal$EmailAutoSuggest$emailDomainAutocomplete = F2(
+	function (suggestions, email) {
+		var maybeEmailDomain = A2(
+			$elm_community$list_extra$List$Extra$getAt,
+			1,
+			A2($elm$core$String$split, '@', email));
+		var filterStartWith = F2(
+			function (strings, string_) {
+				return A2(
+					$elm$core$List$filter,
+					$elm$core$String$startsWith(string_),
+					strings);
+			});
+		if (maybeEmailDomain.$ === 'Just') {
+			var emailDomain = maybeEmailDomain.a;
+			return A2(
+				$elm$core$Maybe$andThen,
+				$rakutentech$r10$R10$FormComponents$Internal$EmailAutoSuggest$nothingWhenBlank,
+				A2(
+					$elm$core$Maybe$map,
+					$elm$core$String$dropLeft(
+						$elm$core$String$length(emailDomain)),
+					$elm$core$List$head(
+						A2(filterStartWith, suggestions, emailDomain))));
+		} else {
+			return $elm$core$Maybe$Nothing;
+		}
+	});
 var $rakutentech$r10$R10$FormComponents$Internal$UI$Color$font = $rakutentech$r10$R10$FormComponents$Internal$UI$Color$onSurfaceA(0.87);
+var $rakutentech$r10$R10$FormComponents$Internal$UI$Color$errorA = F2(
+	function (alpha, palette) {
+		return $rakutentech$r10$R10$FormComponents$Internal$UI$Color$fromPaletteColor(
+			A2($rakutentech$r10$R10$FormComponents$Internal$UI$Palette$withOpacity, alpha, palette.error));
+	});
+var $rakutentech$r10$R10$FormComponents$Internal$UI$Color$successA = F2(
+	function (alpha, palette) {
+		return $rakutentech$r10$R10$FormComponents$Internal$UI$Color$fromPaletteColor(
+			A2($rakutentech$r10$R10$FormComponents$Internal$UI$Palette$withOpacity, alpha, palette.success));
+	});
+var $rakutentech$r10$R10$FormComponents$Internal$TextColors$getBorderColor = function (_v0) {
+	var disabled = _v0.disabled;
+	var focused = _v0.focused;
+	var style = _v0.style;
+	var maybeValid = _v0.maybeValid;
+	var displayValidation = _v0.displayValidation;
+	var isMouseOver = _v0.isMouseOver;
+	var palette = _v0.palette;
+	var validationActive = displayValidation && _Utils_eq(
+		maybeValid,
+		$elm$core$Maybe$Just(false));
+	var alpha = ((!disabled) && (focused || (isMouseOver || validationActive))) ? 1 : 0.7;
+	if (style.$ === 'Filled') {
+		var _v2 = _Utils_Tuple3(displayValidation, maybeValid, focused);
+		if (_v2.a && (_v2.b.$ === 'Just')) {
+			if (_v2.b.a) {
+				return A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$successA, alpha, palette);
+			} else {
+				return A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$errorA, alpha, palette);
+			}
+		} else {
+			return A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$borderA, alpha, palette);
+		}
+	} else {
+		var _v3 = _Utils_Tuple3(displayValidation, maybeValid, focused);
+		if (_v3.a && (_v3.b.$ === 'Just')) {
+			if (_v3.b.a) {
+				return A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$successA, alpha, palette);
+			} else {
+				return A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$errorA, alpha, palette);
+			}
+		} else {
+			return A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$borderA, alpha, palette);
+		}
+	}
+};
+var $rakutentech$r10$R10$FormComponents$Internal$UI$getTextfieldBorderSizeOffset = function (_v0) {
+	var focused = _v0.focused;
+	var style = _v0.style;
+	var maybeValid = _v0.maybeValid;
+	var displayValidation = _v0.displayValidation;
+	var _v1 = _Utils_Tuple2(focused, style);
+	if (_v1.a) {
+		if (_v1.b.$ === 'Filled') {
+			var _v2 = _v1.b;
+			return {
+				offset: _Utils_Tuple2(0, -2.5),
+				size: 0
+			};
+		} else {
+			var _v4 = _v1.b;
+			return {
+				offset: _Utils_Tuple2(0, 0),
+				size: 2
+			};
+		}
+	} else {
+		if (_v1.b.$ === 'Filled') {
+			var _v3 = _v1.b;
+			return {
+				offset: _Utils_Tuple2(0, -1.5),
+				size: 0
+			};
+		} else {
+			var _v5 = _v1.b;
+			return {
+				offset: _Utils_Tuple2(0, 0),
+				size: 1
+			};
+		}
+	}
+};
+var $rakutentech$r10$R10$FormComponents$Internal$Text$getBorder = function (args) {
+	var _v0 = $rakutentech$r10$R10$FormComponents$Internal$UI$getTextfieldBorderSizeOffset(args);
+	var offset = _v0.offset;
+	var size = _v0.size;
+	return $lucamug$elm_ui_with_context$Element$WithContext$Border$innerShadow(
+		{
+			blur: 0,
+			color: $rakutentech$r10$R10$FormComponents$Internal$TextColors$getBorderColor(args),
+			offset: offset,
+			size: size
+		});
+};
 var $rakutentech$r10$R10$FormComponents$Internal$Text$append = F3(
 	function (tokens, input, formatted) {
 		append:
@@ -22815,10 +27692,6 @@ var $rakutentech$r10$R10$FormComponents$Internal$Text$append = F3(
 			}
 		}
 	});
-var $elm$core$String$foldr = _String_foldr;
-var $elm$core$String$toList = function (string) {
-	return A3($elm$core$String$foldr, $elm$core$List$cons, _List_Nil, string);
-};
 var $rakutentech$r10$R10$FormComponents$Internal$Text$format = F2(
 	function (tokens, input) {
 		return $elm$core$String$isEmpty(input) ? input : A3(
@@ -22833,13 +27706,10 @@ var $rakutentech$r10$R10$FormComponents$Internal$Text$Other = function (a) {
 };
 var $rakutentech$r10$R10$FormComponents$Internal$Text$tokenize = F2(
 	function (inputChar, pattern) {
-		return (_Utils_eq(pattern, inputChar) || (_Utils_eq(
+		return A2(
+			$elm$core$List$member,
 			pattern,
-			_Utils_chr('_')) || (_Utils_eq(
-			pattern,
-			_Utils_chr('M')) || _Utils_eq(
-			pattern,
-			_Utils_chr('Y'))))) ? $rakutentech$r10$R10$FormComponents$Internal$Text$InputValue : $rakutentech$r10$R10$FormComponents$Internal$Text$Other(pattern);
+			$elm$core$String$toList('_MYD年月日AG0123456789')) ? $rakutentech$r10$R10$FormComponents$Internal$Text$InputValue : $rakutentech$r10$R10$FormComponents$Internal$Text$Other(pattern);
 	});
 var $rakutentech$r10$R10$FormComponents$Internal$Text$parse = F2(
 	function (inputChar, pattern) {
@@ -22858,12 +27728,10 @@ var $rakutentech$r10$R10$FormComponents$Internal$Text$appendPattern = F2(
 				template),
 			string);
 	});
-var $elm$regex$Regex$never = _Regex_never;
 var $rakutentech$r10$R10$FormComponents$Internal$Text$regexNotDigit = A2(
 	$elm$core$Maybe$withDefault,
 	$elm$regex$Regex$never,
 	$elm$regex$Regex$fromString('[^0-9]'));
-var $elm$regex$Regex$replace = _Regex_replaceAtMost(_Regex_infinity);
 var $rakutentech$r10$R10$FormComponents$Internal$Text$onlyDigit = function (str) {
 	return A3(
 		$elm$regex$Regex$replace,
@@ -22892,27 +27760,29 @@ var $rakutentech$r10$R10$FormComponents$Internal$Text$removeTrailingPattern = fu
 		},
 		str);
 };
-var $rakutentech$r10$R10$FormComponents$Internal$Text$handleWithPatternChange = F3(
-	function (pattern, oldValue, newValue) {
-		var value = A2(
-			$rakutentech$r10$R10$FormComponents$Internal$Text$appendPattern,
-			pattern,
-			$rakutentech$r10$R10$FormComponents$Internal$Text$onlyDigit(newValue));
-		var isDeleteAction = _Utils_eq(
-			$rakutentech$r10$R10$FormComponents$Internal$Text$removeTrailingChar(oldValue),
-			newValue);
-		return (_Utils_eq(value, oldValue) && isDeleteAction) ? $rakutentech$r10$R10$FormComponents$Internal$Text$removeTrailingChar(
-			$rakutentech$r10$R10$FormComponents$Internal$Text$removeTrailingPattern(value)) : value;
-	});
+var $rakutentech$r10$R10$FormComponents$Internal$Text$handleWithPatternChange = function (args) {
+	var value = A2(
+		$rakutentech$r10$R10$FormComponents$Internal$Text$appendPattern,
+		args.pattern,
+		$rakutentech$r10$R10$FormComponents$Internal$Text$onlyDigit(args.newValue));
+	var isDeleteAction = _Utils_eq(
+		$rakutentech$r10$R10$FormComponents$Internal$Text$removeTrailingChar(args.oldValue),
+		args.newValue);
+	return (_Utils_eq(value, args.oldValue) && isDeleteAction) ? $rakutentech$r10$R10$FormComponents$Internal$Text$removeTrailingChar(
+		$rakutentech$r10$R10$FormComponents$Internal$Text$removeTrailingPattern(value)) : value;
+};
+var $lucamug$elm_ui_with_context$Element$WithContext$Input$Label = function (a) {
+	return {$: 'Label', a: a};
+};
 var $mdgriffith$elm_ui$Element$Input$HiddenLabel = function (a) {
 	return {$: 'HiddenLabel', a: a};
 };
 var $mdgriffith$elm_ui$Element$Input$labelHidden = $mdgriffith$elm_ui$Element$Input$HiddenLabel;
-var $mdgriffith$elm_ui$Element$moveDown = function (y) {
-	return A2(
-		$mdgriffith$elm_ui$Internal$Model$TransformComponent,
-		$mdgriffith$elm_ui$Internal$Flag$moveY,
-		$mdgriffith$elm_ui$Internal$Model$MoveY(y));
+var $lucamug$elm_ui_with_context$Element$WithContext$Input$labelHidden = function (content) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$Input$Label(
+		function (_v0) {
+			return $mdgriffith$elm_ui$Element$Input$labelHidden(content);
+		});
 };
 var $mdgriffith$elm_ui$Element$Input$multiline = F2(
 	function (attrs, multi) {
@@ -22922,6 +27792,23 @@ var $mdgriffith$elm_ui$Element$Input$multiline = F2(
 			attrs,
 			{label: multi.label, onChange: multi.onChange, placeholder: multi.placeholder, text: multi.text});
 	});
+var $lucamug$elm_ui_with_context$Element$WithContext$Input$multiline = A2(
+	$lucamug$elm_ui_with_context$Element$WithContext$Internal$wrapAttrs,
+	$mdgriffith$elm_ui$Element$Input$multiline,
+	F2(
+		function (context, config) {
+			return {
+				label: A2($lucamug$elm_ui_with_context$Element$WithContext$Input$runLabel, context, config.label),
+				onChange: config.onChange,
+				placeholder: A2(
+					$elm$core$Maybe$map,
+					$lucamug$elm_ui_with_context$Element$WithContext$Input$runPlaceholder(context),
+					config.placeholder),
+				spellcheck: config.spellcheck,
+				text: config.text
+			};
+		}));
+var $elm$html$Html$Attributes$name = $elm$html$Html$Attributes$stringProperty('name');
 var $mdgriffith$elm_ui$Element$Input$newPassword = F2(
 	function (attrs, pass) {
 		return A3(
@@ -22935,6 +27822,22 @@ var $mdgriffith$elm_ui$Element$Input$newPassword = F2(
 			attrs,
 			{label: pass.label, onChange: pass.onChange, placeholder: pass.placeholder, text: pass.text});
 	});
+var $lucamug$elm_ui_with_context$Element$WithContext$Input$newPassword = A2(
+	$lucamug$elm_ui_with_context$Element$WithContext$Internal$wrapAttrs,
+	$mdgriffith$elm_ui$Element$Input$newPassword,
+	F2(
+		function (context, config) {
+			return {
+				label: A2($lucamug$elm_ui_with_context$Element$WithContext$Input$runLabel, context, config.label),
+				onChange: config.onChange,
+				placeholder: A2(
+					$elm$core$Maybe$map,
+					$lucamug$elm_ui_with_context$Element$WithContext$Input$runPlaceholder(context),
+					config.placeholder),
+				show: config.show,
+				text: config.text
+			};
+		}));
 var $rakutentech$r10$R10$FormComponents$Internal$UI$onEnter = function (msg) {
 	return $rakutentech$r10$R10$FormComponents$Internal$UI$onKeyPressBatch(
 		_List_fromArray(
@@ -22942,24 +27845,90 @@ var $rakutentech$r10$R10$FormComponents$Internal$UI$onEnter = function (msg) {
 				_Utils_Tuple2($rakutentech$r10$R10$FormComponents$Internal$UI$keyCode.enter, msg)
 			]));
 };
+var $lucamug$elm_ui_with_context$Element$WithContext$Input$Placeholder = function (a) {
+	return {$: 'Placeholder', a: a};
+};
+var $mdgriffith$elm_ui$Element$Input$Placeholder = F2(
+	function (a, b) {
+		return {$: 'Placeholder', a: a, b: b};
+	});
+var $mdgriffith$elm_ui$Element$Input$placeholder = $mdgriffith$elm_ui$Element$Input$Placeholder;
+var $lucamug$elm_ui_with_context$Element$WithContext$Input$placeholder = F2(
+	function (attrs, child) {
+		return $lucamug$elm_ui_with_context$Element$WithContext$Input$Placeholder(
+			function (context) {
+				return A2(
+					$mdgriffith$elm_ui$Element$Input$placeholder,
+					A2($lucamug$elm_ui_with_context$Element$WithContext$Internal$attributes, context, attrs),
+					A2($lucamug$elm_ui_with_context$Element$WithContext$Internal$run, context, child));
+			});
+	});
 var $mdgriffith$elm_ui$Element$Input$text = $mdgriffith$elm_ui$Element$Input$textHelper(
 	{
 		autofill: $elm$core$Maybe$Nothing,
 		spellchecked: false,
 		type_: $mdgriffith$elm_ui$Element$Input$TextInputNode('text')
 	});
+var $lucamug$elm_ui_with_context$Element$WithContext$Input$text = $lucamug$elm_ui_with_context$Element$WithContext$Input$textHelper($mdgriffith$elm_ui$Element$Input$text);
+var $rakutentech$r10$R10$FormComponents$Internal$Text$textWithPatternAttrs = _List_fromArray(
+	[
+		$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+		A2($elm$html$Html$Attributes$style, 'letter-spacing', '2px'))
+	]);
+var $mdgriffith$elm_ui$Element$Font$family = function (families) {
+	return A2(
+		$mdgriffith$elm_ui$Internal$Model$StyleClass,
+		$mdgriffith$elm_ui$Internal$Flag$fontFamily,
+		A2(
+			$mdgriffith$elm_ui$Internal$Model$FontFamily,
+			A3($elm$core$List$foldl, $mdgriffith$elm_ui$Internal$Model$renderFontClassName, 'ff-', families),
+			families));
+};
+var $lucamug$elm_ui_with_context$Element$WithContext$Font$family = function (families) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$Internal$attribute(
+		$mdgriffith$elm_ui$Element$Font$family(families));
+};
+var $mdgriffith$elm_ui$Internal$Model$Monospace = {$: 'Monospace'};
+var $mdgriffith$elm_ui$Element$Font$monospace = $mdgriffith$elm_ui$Internal$Model$Monospace;
+var $lucamug$elm_ui_with_context$Element$WithContext$Font$monospace = $mdgriffith$elm_ui$Element$Font$monospace;
+var $rakutentech$r10$R10$FormComponents$Internal$Text$textWithPatternLargeAttrs = _List_fromArray(
+	[
+		$lucamug$elm_ui_with_context$Element$WithContext$withContextAttribute(
+		function (c) {
+			return $lucamug$elm_ui_with_context$Element$WithContext$Font$size(c.inputFieldWithLargePattern_fontSize);
+		}),
+		$lucamug$elm_ui_with_context$Element$WithContext$Font$family(
+		_List_fromArray(
+			[$lucamug$elm_ui_with_context$Element$WithContext$Font$monospace])),
+		$lucamug$elm_ui_with_context$Element$WithContext$withContextAttribute(
+		function (c) {
+			return $lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+				A2(
+					$elm$html$Html$Attributes$style,
+					'letter-spacing',
+					$elm$core$String$fromInt(c.inputFieldWithLargePattern_letterSpacing) + 'px'));
+		})
+	]);
+var $rakutentech$r10$R10$FormComponents$Internal$Text$textWithPatternLargeAttrsExtra = _List_fromArray(
+	[
+		$lucamug$elm_ui_with_context$Element$WithContext$centerX,
+		$lucamug$elm_ui_with_context$Element$WithContext$withContextAttribute(
+		function (c) {
+			return $lucamug$elm_ui_with_context$Element$WithContext$width(
+				$lucamug$elm_ui_with_context$Element$WithContext$px(c.inputFieldWithLargePattern_width));
+		})
+	]);
 var $mdgriffith$elm_ui$Element$Input$username = $mdgriffith$elm_ui$Element$Input$textHelper(
 	{
 		autofill: $elm$core$Maybe$Just('username'),
 		spellchecked: false,
 		type_: $mdgriffith$elm_ui$Element$Input$TextInputNode('text')
 	});
-var $rakutentech$r10$R10$FormComponents$Internal$Text$viewBehindPattern = function (args) {
-	var _v4 = args.textType;
-	if (_v4.$ === 'TextWithPattern') {
-		var pattern = _v4.a;
+var $lucamug$elm_ui_with_context$Element$WithContext$Input$username = $lucamug$elm_ui_with_context$Element$WithContext$Input$textHelper($mdgriffith$elm_ui$Element$Input$username);
+var $rakutentech$r10$R10$FormComponents$Internal$Text$viewBehindPattern2 = F2(
+	function (args, pattern) {
 		var valueWithTrailingPattern = function () {
-			if (args.focused) {
+			if (args.focused || args.floatingLabelAlwaysUp) {
 				var lengthDifference = $elm$core$String$length(pattern) - $elm$core$String$length(args.value);
 				return _Utils_ap(
 					args.value,
@@ -22970,35 +27939,213 @@ var $rakutentech$r10$R10$FormComponents$Internal$Text$viewBehindPattern = functi
 		}();
 		return _List_fromArray(
 			[
-				$mdgriffith$elm_ui$Element$behindContent(
+				$lucamug$elm_ui_with_context$Element$WithContext$behindContent(
 				A2(
-					$rakutentech$r10$R10$FormComponents$Internal$Text$viewInput,
-					_List_fromArray(
-						[
-							$mdgriffith$elm_ui$Element$alpha(0.6),
-							$mdgriffith$elm_ui$Element$htmlAttribute(
-							A2($elm$html$Html$Attributes$attribute, 'disabled', 'true'))
-						]),
-					_Utils_update(
-						args,
-						{textType: $rakutentech$r10$R10$FormTypes$TextPlain, value: valueWithTrailingPattern})))
+					$lucamug$elm_ui_with_context$Element$WithContext$Input$text,
+					_Utils_ap(
+						_List_fromArray(
+							[
+								$lucamug$elm_ui_with_context$Element$WithContext$alpha(0.4),
+								$lucamug$elm_ui_with_context$Element$WithContext$Border$color(
+								A4($lucamug$elm_ui_with_context$Element$WithContext$rgba, 0, 0, 0, 0)),
+								$lucamug$elm_ui_with_context$Element$WithContext$Background$color(
+								A4($lucamug$elm_ui_with_context$Element$WithContext$rgba, 0, 0, 0, 0)),
+								$lucamug$elm_ui_with_context$Element$WithContext$moveDown(7),
+								$lucamug$elm_ui_with_context$Element$WithContext$moveRight(3),
+								$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+								A2($elm$html$Html$Attributes$attribute, 'disabled', 'true'))
+							]),
+						function () {
+							var _v0 = args.textType;
+							switch (_v0.$) {
+								case 'TextWithPatternLarge':
+									return _Utils_ap($rakutentech$r10$R10$FormComponents$Internal$Text$textWithPatternLargeAttrs, $rakutentech$r10$R10$FormComponents$Internal$Text$textWithPatternLargeAttrsExtra);
+								case 'TextWithPattern':
+									return $rakutentech$r10$R10$FormComponents$Internal$Text$textWithPatternAttrs;
+								default:
+									return _List_Nil;
+							}
+						}()),
+					{
+						label: $lucamug$elm_ui_with_context$Element$WithContext$Input$labelHidden(''),
+						onChange: args.msgOnChange,
+						placeholder: $elm$core$Maybe$Nothing,
+						text: valueWithTrailingPattern
+					}))
 			]);
-	} else {
-		return _List_Nil;
+	});
+var $rakutentech$r10$R10$FormComponents$Internal$Text$viewBehindPattern = function (args) {
+	var _v0 = args.textType;
+	switch (_v0.$) {
+		case 'TextWithPattern':
+			var pattern = _v0.a;
+			return A2($rakutentech$r10$R10$FormComponents$Internal$Text$viewBehindPattern2, args, pattern);
+		case 'TextWithPatternLarge':
+			var pattern = _v0.a;
+			return A2($rakutentech$r10$R10$FormComponents$Internal$Text$viewBehindPattern2, args, pattern);
+		default:
+			return _List_Nil;
 	}
 };
 var $rakutentech$r10$R10$FormComponents$Internal$Text$viewInput = F2(
 	function (extraAttr, args) {
-		var paddingValues = $rakutentech$r10$R10$FormComponents$Internal$UI$getTextfieldPaddingEach(args);
 		var paddingOffset = 12;
+		var name = function () {
+			var _v12 = args.textType;
+			switch (_v12.$) {
+				case 'TextUsername':
+					return 'username';
+				case 'TextEmail':
+					return 'email';
+				case 'TextEmailWithSuggestions':
+					return 'email';
+				case 'TextPasswordCurrent':
+					return 'password';
+				case 'TextPasswordNew':
+					return 'password';
+				case 'TextPlain':
+					return '';
+				case 'TextMultiline':
+					return '';
+				case 'TextWithPattern':
+					return '';
+				default:
+					return '';
+			}
+		}();
+		var maybeEmailSuggestion = function (listSuggestions) {
+			return args.focused ? A2($rakutentech$r10$R10$FormComponents$Internal$EmailAutoSuggest$emailDomainAutocomplete, listSuggestions, args.value) : $elm$core$Maybe$Nothing;
+		};
+		var rightKeyDownDetection = function (listSuggestions) {
+			var _v11 = maybeEmailSuggestion(listSuggestions);
+			if (_v11.$ === 'Nothing') {
+				return _List_Nil;
+			} else {
+				var emailSuggestion = _v11.a;
+				return _List_fromArray(
+					[
+						$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+						A3(
+							$rakutentech$r10$R10$FormComponents$Internal$EmailAutoSuggest$addOnRightKeyDownEvent,
+							args.msgOnChange,
+							args.value,
+							_Utils_ap(args.value, emailSuggestion)))
+					]);
+			}
+		};
 		var inputDisabledAttrs = _List_fromArray(
 			[
-				$mdgriffith$elm_ui$Element$htmlAttribute(
+				$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
 				A2($elm$html$Html$Attributes$attribute, 'disabled', 'true'))
 			]);
+		var inputAttrs = _Utils_ap(
+			_List_fromArray(
+				[
+					$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+					A2($elm$html$Html$Attributes$attribute, 'spellcheck', 'false')),
+					$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+					A2($elm$html$Html$Attributes$attribute, 'autocorrect', 'off')),
+					$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+					A2($elm$html$Html$Attributes$attribute, 'autocapitalize', 'off')),
+					$rakutentech$r10$R10$Transition$transition('all 0.15s'),
+					$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+					$elm$html$Html$Attributes$name(name)),
+					$lucamug$elm_ui_with_context$Element$WithContext$Font$size($rakutentech$r10$R10$FormComponents$Internal$UI$Const$inputTextFontSize),
+					$lucamug$elm_ui_with_context$Element$WithContext$Font$color(
+					$rakutentech$r10$R10$FormComponents$Internal$UI$Color$font(args.palette)),
+					$lucamug$elm_ui_with_context$Element$WithContext$Border$width(0),
+					$lucamug$elm_ui_with_context$Element$WithContext$Background$color($rakutentech$r10$R10$FormComponents$Internal$UI$Color$transparent),
+					$lucamug$elm_ui_with_context$Element$WithContext$Events$onFocus(args.msgOnFocus),
+					$lucamug$elm_ui_with_context$Element$WithContext$paddingEach(
+					{
+						bottom: function () {
+							var _v4 = args.style;
+							if (_v4.$ === 'Filled') {
+								return 2;
+							} else {
+								return 5;
+							}
+						}(),
+						left: function () {
+							var _v5 = args.style;
+							if (_v5.$ === 'Filled') {
+								return 0;
+							} else {
+								return 16;
+							}
+						}(),
+						right: 16,
+						top: function () {
+							var _v6 = args.style;
+							if (_v6.$ === 'Filled') {
+								return 23;
+							} else {
+								return 20;
+							}
+						}()
+					})
+				]),
+			_Utils_ap(
+				function () {
+					var _v7 = args.textType;
+					switch (_v7.$) {
+						case 'TextWithPatternLarge':
+							return $rakutentech$r10$R10$FormComponents$Internal$Text$textWithPatternLargeAttrs;
+						case 'TextWithPattern':
+							return $rakutentech$r10$R10$FormComponents$Internal$Text$textWithPatternAttrs;
+						default:
+							return _List_Nil;
+					}
+				}(),
+				_Utils_ap(
+					function () {
+						var _v8 = args.autocomplete;
+						if (_v8.$ === 'Nothing') {
+							return _List_Nil;
+						} else {
+							var string = _v8.a;
+							return _List_fromArray(
+								[
+									$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+									A2($elm$html$Html$Attributes$attribute, 'autocomplete', string))
+								]);
+						}
+					}(),
+					_Utils_ap(
+						function () {
+							var _v9 = args.msgOnEnter;
+							if (_v9.$ === 'Just') {
+								var msgOnEnter_ = _v9.a;
+								return _List_fromArray(
+									[
+										$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+										$rakutentech$r10$R10$FormComponents$Internal$UI$onEnter(msgOnEnter_))
+									]);
+							} else {
+								return _List_Nil;
+							}
+						}(),
+						_Utils_ap(
+							function () {
+								var _v10 = args.msgOnLoseFocus;
+								if (_v10.$ === 'Just') {
+									var msgOnLoseFocus_ = _v10.a;
+									return _List_fromArray(
+										[
+											$lucamug$elm_ui_with_context$Element$WithContext$Events$onLoseFocus(msgOnLoseFocus_)
+										]);
+								} else {
+									return _List_Nil;
+								}
+							}(),
+							_Utils_ap(
+								args.disabled ? inputDisabledAttrs : _List_Nil,
+								_Utils_ap(
+									$rakutentech$r10$R10$FormComponents$Internal$Text$viewBehindPattern(args),
+									extraAttr)))))));
 		var iconCommonAttrs = _List_fromArray(
 			[
-				$mdgriffith$elm_ui$Element$moveDown(
+				$lucamug$elm_ui_with_context$Element$WithContext$moveDown(
 				function () {
 					var _v3 = args.style;
 					if (_v3.$ === 'Filled') {
@@ -23006,99 +28153,44 @@ var $rakutentech$r10$R10$FormComponents$Internal$Text$viewInput = F2(
 					} else {
 						return 0;
 					}
-				}()),
-				A2($mdgriffith$elm_ui$Element$paddingXY, 8, 13)
+				}())
 			]);
-		var inputAttrs = _Utils_ap(
-			_List_fromArray(
-				[
-					$mdgriffith$elm_ui$Element$htmlAttribute(
-					A2($elm$html$Html$Attributes$attribute, 'spellcheck', 'false')),
-					$mdgriffith$elm_ui$Element$htmlAttribute(
-					A2($elm$html$Html$Attributes$attribute, 'autocorrect', 'off')),
-					$mdgriffith$elm_ui$Element$htmlAttribute(
-					A2($elm$html$Html$Attributes$attribute, 'autocapitalize', 'off')),
-					$mdgriffith$elm_ui$Element$htmlAttribute(
-					A2($elm$html$Html$Attributes$style, 'transition', 'all 0.15s')),
-					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-					$mdgriffith$elm_ui$Element$Font$size($rakutentech$r10$R10$FormComponents$Internal$UI$Const$inputTextFontSize),
-					$mdgriffith$elm_ui$Element$Border$width(0),
-					$mdgriffith$elm_ui$Element$Background$color($rakutentech$r10$R10$FormComponents$Internal$UI$Color$transparent),
-					$mdgriffith$elm_ui$Element$Font$color(
-					$rakutentech$r10$R10$FormComponents$Internal$UI$Color$font(args.palette)),
-					$mdgriffith$elm_ui$Element$Events$onFocus(args.msgOnFocus),
-					$mdgriffith$elm_ui$Element$paddingEach(
-					_Utils_update(
-						paddingValues,
-						{top: paddingValues.top - paddingOffset})),
-					$mdgriffith$elm_ui$Element$htmlAttribute(
-					A2(
-						$elm$html$Html$Attributes$style,
-						'margin-top',
-						$elm$core$String$fromInt(paddingOffset) + 'px')),
-					$mdgriffith$elm_ui$Element$behindContent(
-					A2(
-						$mdgriffith$elm_ui$Element$el,
-						A2($elm$core$List$cons, $mdgriffith$elm_ui$Element$alignLeft, iconCommonAttrs),
-						A2($elm$core$Maybe$withDefault, $mdgriffith$elm_ui$Element$none, args.leadingIcon))),
-					$mdgriffith$elm_ui$Element$inFront(
-					A2(
-						$mdgriffith$elm_ui$Element$el,
-						A2($elm$core$List$cons, $mdgriffith$elm_ui$Element$alignRight, iconCommonAttrs),
-						A2($elm$core$Maybe$withDefault, $mdgriffith$elm_ui$Element$none, args.trailingIcon)))
-				]),
-			_Utils_ap(
-				function () {
-					var _v1 = args.msgOnEnter;
-					if (_v1.$ === 'Just') {
-						var msgOnEnter_ = _v1.a;
-						return _List_fromArray(
-							[
-								$mdgriffith$elm_ui$Element$htmlAttribute(
-								$rakutentech$r10$R10$FormComponents$Internal$UI$onEnter(msgOnEnter_))
-							]);
-					} else {
-						return _List_Nil;
-					}
-				}(),
-				_Utils_ap(
-					function () {
-						var _v2 = args.msgOnLoseFocus;
-						if (_v2.$ === 'Just') {
-							var msgOnLoseFocus_ = _v2.a;
-							return _List_fromArray(
-								[
-									$mdgriffith$elm_ui$Element$Events$onLoseFocus(msgOnLoseFocus_)
-								]);
-						} else {
-							return _List_Nil;
-						}
-					}(),
-					_Utils_ap(
-						args.disabled ? inputDisabledAttrs : _List_Nil,
-						_Utils_ap(
-							$rakutentech$r10$R10$FormComponents$Internal$Text$viewBehindPattern(args),
-							extraAttr)))));
+		var displayValidation = !_Utils_eq(args.maybeValid, $elm$core$Maybe$Nothing);
+		var styleArgs = {disabled: args.disabled, displayValidation: displayValidation, focused: args.focused, isMouseOver: false, label: args.label, leadingIcon: args.leadingIcon, maybeValid: args.maybeValid, palette: args.palette, requiredLabel: args.requiredLabel, style: args.style, trailingIcon: args.trailingIcon, value: args.value};
 		var behavioursTextWithPattern = function (pattern) {
 			return {
-				label: $mdgriffith$elm_ui$Element$Input$labelHidden(args.label),
-				onChange: A2(
-					$elm$core$Basics$composeR,
-					A2($rakutentech$r10$R10$FormComponents$Internal$Text$handleWithPatternChange, pattern, args.value),
-					args.msgOnChange),
+				label: $lucamug$elm_ui_with_context$Element$WithContext$Input$labelHidden(args.label),
+				onChange: function (string) {
+					return args.msgOnChange(
+						$rakutentech$r10$R10$FormComponents$Internal$Text$handleWithPatternChange(
+							{newValue: string, oldValue: args.value, pattern: pattern}));
+				},
 				placeholder: $elm$core$Maybe$Nothing,
 				text: args.value
 			};
 		};
 		var behavioursText = {
-			label: $mdgriffith$elm_ui$Element$Input$labelHidden(args.label),
+			label: $lucamug$elm_ui_with_context$Element$WithContext$Input$labelHidden(args.label),
 			onChange: args.msgOnChange,
-			placeholder: $elm$core$Maybe$Nothing,
+			placeholder: function () {
+				var _v2 = args.placeholder;
+				if (_v2.$ === 'Just') {
+					var string = _v2.a;
+					return $elm$core$Maybe$Just(
+						A2(
+							$lucamug$elm_ui_with_context$Element$WithContext$Input$placeholder,
+							_List_Nil,
+							$lucamug$elm_ui_with_context$Element$WithContext$text(string)));
+				} else {
+					return $elm$core$Maybe$Nothing;
+				}
+			}(),
 			text: args.value
 		};
+		var behavioursTextEmailWithSuggestions = behavioursText;
 		var behavioursPassword = function (show) {
 			return {
-				label: $mdgriffith$elm_ui$Element$Input$labelHidden(args.label),
+				label: $lucamug$elm_ui_with_context$Element$WithContext$Input$labelHidden(args.label),
 				onChange: args.msgOnChange,
 				placeholder: $elm$core$Maybe$Nothing,
 				show: show,
@@ -23106,39 +28198,115 @@ var $rakutentech$r10$R10$FormComponents$Internal$Text$viewInput = F2(
 			};
 		};
 		var behavioursMultiline = {
-			label: $mdgriffith$elm_ui$Element$Input$labelHidden(args.label),
+			label: $lucamug$elm_ui_with_context$Element$WithContext$Input$labelHidden(args.label),
 			onChange: args.msgOnChange,
 			placeholder: $elm$core$Maybe$Nothing,
 			spellcheck: false,
 			text: args.value
 		};
-		var _v0 = args.textType;
-		switch (_v0.$) {
-			case 'TextUsername':
-				return A2($mdgriffith$elm_ui$Element$Input$username, inputAttrs, behavioursText);
-			case 'TextEmail':
-				return A2($mdgriffith$elm_ui$Element$Input$email, inputAttrs, behavioursText);
-			case 'TextPasswordCurrent':
-				return A2(
-					$mdgriffith$elm_ui$Element$Input$currentPassword,
-					inputAttrs,
-					behavioursPassword(args.showPassword));
-			case 'TextPasswordNew':
-				return A2(
-					$mdgriffith$elm_ui$Element$Input$newPassword,
-					inputAttrs,
-					behavioursPassword(args.showPassword));
-			case 'TextPlain':
-				return A2($mdgriffith$elm_ui$Element$Input$text, inputAttrs, behavioursText);
-			case 'TextMultiline':
-				return A2($mdgriffith$elm_ui$Element$Input$multiline, inputAttrs, behavioursMultiline);
-			default:
-				var pattern = _v0.a;
-				return A2(
-					$mdgriffith$elm_ui$Element$Input$text,
-					inputAttrs,
-					behavioursTextWithPattern(pattern));
-		}
+		return A2(
+			$lucamug$elm_ui_with_context$Element$WithContext$row,
+			_List_fromArray(
+				[
+					function () {
+					var _v0 = args.style;
+					if (_v0.$ === 'Filled') {
+						return $lucamug$elm_ui_with_context$Element$WithContext$Border$rounded(0);
+					} else {
+						return $lucamug$elm_ui_with_context$Element$WithContext$Border$rounded(5);
+					}
+				}(),
+					$rakutentech$r10$R10$FormComponents$Internal$Text$getBorder(styleArgs),
+					$lucamug$elm_ui_with_context$Element$WithContext$mouseOver(
+					_List_fromArray(
+						[
+							$rakutentech$r10$R10$FormComponents$Internal$Text$getBorder(
+							_Utils_update(
+								styleArgs,
+								{isMouseOver: true}))
+						])),
+					$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill),
+					$lucamug$elm_ui_with_context$Element$WithContext$padding(0),
+					$lucamug$elm_ui_with_context$Element$WithContext$spacing(0)
+				]),
+			_Utils_ap(
+				_List_Nil,
+				_Utils_ap(
+					A2(
+						$elm$core$List$map,
+						function (icon) {
+							return A2($lucamug$elm_ui_with_context$Element$WithContext$el, iconCommonAttrs, icon);
+						},
+						args.leadingIcon),
+					_Utils_ap(
+						_List_fromArray(
+							[
+								function () {
+								var _v1 = args.textType;
+								switch (_v1.$) {
+									case 'TextUsername':
+										return A2($lucamug$elm_ui_with_context$Element$WithContext$Input$username, inputAttrs, behavioursText);
+									case 'TextEmail':
+										return A2($lucamug$elm_ui_with_context$Element$WithContext$Input$email, inputAttrs, behavioursText);
+									case 'TextEmailWithSuggestions':
+										var listSuggestions = _v1.a;
+										return A2(
+											$lucamug$elm_ui_with_context$Element$WithContext$el,
+											_Utils_ap(
+												_List_fromArray(
+													[
+														$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill)
+													]),
+												rightKeyDownDetection(listSuggestions)),
+											$lucamug$elm_ui_with_context$Element$WithContext$withContext(
+												function (c) {
+													var autoSuggestionsAttrs = $rakutentech$r10$R10$FormComponents$Internal$EmailAutoSuggest$autoSuggestionsAttrs(
+														{
+															maybeEmailSuggestion: maybeEmailSuggestion(c.emailDomainList),
+															msgOnChange: args.msgOnChange,
+															userAgent: c.userAgent,
+															value: args.value
+														});
+													return A2(
+														$lucamug$elm_ui_with_context$Element$WithContext$Input$email,
+														_Utils_ap(autoSuggestionsAttrs, inputAttrs),
+														behavioursTextEmailWithSuggestions);
+												}));
+									case 'TextPasswordCurrent':
+										return A2(
+											$lucamug$elm_ui_with_context$Element$WithContext$Input$currentPassword,
+											inputAttrs,
+											behavioursPassword(args.showPassword));
+									case 'TextPasswordNew':
+										return A2(
+											$lucamug$elm_ui_with_context$Element$WithContext$Input$newPassword,
+											inputAttrs,
+											behavioursPassword(args.showPassword));
+									case 'TextPlain':
+										return A2($lucamug$elm_ui_with_context$Element$WithContext$Input$text, inputAttrs, behavioursText);
+									case 'TextMultiline':
+										return A2($lucamug$elm_ui_with_context$Element$WithContext$Input$multiline, inputAttrs, behavioursMultiline);
+									case 'TextWithPattern':
+										var pattern = _v1.a;
+										return A2(
+											$lucamug$elm_ui_with_context$Element$WithContext$Input$text,
+											inputAttrs,
+											behavioursTextWithPattern(pattern));
+									default:
+										var pattern = _v1.a;
+										return A2(
+											$lucamug$elm_ui_with_context$Element$WithContext$Input$text,
+											_Utils_ap($rakutentech$r10$R10$FormComponents$Internal$Text$textWithPatternLargeAttrsExtra, inputAttrs),
+											behavioursTextWithPattern(pattern));
+								}
+							}()
+							]),
+						A2(
+							$elm$core$List$map,
+							function (icon) {
+								return A2($lucamug$elm_ui_with_context$Element$WithContext$el, iconCommonAttrs, icon);
+							},
+							args.trailingIcon)))));
 	});
 var $rakutentech$r10$R10$Svg$Icons$eye_l = F3(
 	function (attrs, cl, size) {
@@ -23182,6 +28350,100 @@ var $rakutentech$r10$R10$Svg$Icons$eye_l = F3(
 						]))
 				]));
 	});
+var $rakutentech$r10$R10$FormComponents$Internal$IconButton$view = F2(
+	function (args, _v0) {
+		var msgOnClick = _v0.msgOnClick;
+		var icon = _v0.icon;
+		var palette = _v0.palette;
+		var size = _v0.size;
+		var padding_ = 8;
+		var iconHitboxSize = size + (padding_ * 2);
+		var containerSize = 24;
+		var moveUp_ = (iconHitboxSize - containerSize) / 2;
+		var attrsCommon = _List_fromArray(
+			[
+				$lucamug$elm_ui_with_context$Element$WithContext$Background$color(
+				A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$onSurfaceA, 0, palette)),
+				$lucamug$elm_ui_with_context$Element$WithContext$padding(padding_),
+				$lucamug$elm_ui_with_context$Element$WithContext$centerX,
+				$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+				A2(
+					$elm$html$Html$Attributes$style,
+					'margin-top',
+					'-' + ($elm$core$String$fromFloat(moveUp_) + 'px')))
+			]);
+		var attrsClickable = function () {
+			if (msgOnClick.$ === 'Just') {
+				var msgOnClick_ = msgOnClick.a;
+				return _List_fromArray(
+					[
+						$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+						$elm$html$Html$Attributes$tabindex(0)),
+						$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+						$rakutentech$r10$R10$FormComponents$Internal$UI$onSelectKey(msgOnClick_)),
+						$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+						A2(
+							$elm$html$Html$Events$stopPropagationOn,
+							'mouseup',
+							$elm$json$Json$Decode$succeed(
+								_Utils_Tuple2(msgOnClick_, false)))),
+						$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+						$elm$html$Html$Attributes$class('ripple')),
+						$rakutentech$r10$R10$Transition$transition('all 0.13s; margin-top 0s '),
+						$lucamug$elm_ui_with_context$Element$WithContext$pointer,
+						$lucamug$elm_ui_with_context$Element$WithContext$Border$rounded(40),
+						$lucamug$elm_ui_with_context$Element$WithContext$mouseOver(
+						_List_fromArray(
+							[
+								$lucamug$elm_ui_with_context$Element$WithContext$Border$innerShadow(
+								{
+									blur: 0,
+									color: A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$onSurfaceA, 0.07, palette),
+									offset: _Utils_Tuple2(0, 0),
+									size: 40
+								})
+							])),
+						$lucamug$elm_ui_with_context$Element$WithContext$focused(
+						_List_fromArray(
+							[
+								$lucamug$elm_ui_with_context$Element$WithContext$Background$color(
+								A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$onSurfaceA, 0.14, palette))
+							]))
+					]);
+			} else {
+				return _List_fromArray(
+					[
+						$lucamug$elm_ui_with_context$Element$WithContext$alpha(0.5)
+					]);
+			}
+		}();
+		return A2(
+			$lucamug$elm_ui_with_context$Element$WithContext$el,
+			_Utils_ap(
+				_List_fromArray(
+					[
+						$lucamug$elm_ui_with_context$Element$WithContext$width(
+						$lucamug$elm_ui_with_context$Element$WithContext$px(containerSize)),
+						$lucamug$elm_ui_with_context$Element$WithContext$height(
+						$lucamug$elm_ui_with_context$Element$WithContext$px(containerSize))
+					]),
+				args),
+			A2(
+				$lucamug$elm_ui_with_context$Element$WithContext$el,
+				_Utils_ap(attrsCommon, attrsClickable),
+				A2(
+					$lucamug$elm_ui_with_context$Element$WithContext$el,
+					_List_fromArray(
+						[
+							$lucamug$elm_ui_with_context$Element$WithContext$centerX,
+							$lucamug$elm_ui_with_context$Element$WithContext$centerY,
+							$lucamug$elm_ui_with_context$Element$WithContext$width(
+							$lucamug$elm_ui_with_context$Element$WithContext$px(size)),
+							$lucamug$elm_ui_with_context$Element$WithContext$height(
+							$lucamug$elm_ui_with_context$Element$WithContext$px(size))
+						]),
+					icon)));
+	});
 var $rakutentech$r10$R10$FormComponents$Internal$Text$viewShowHidePasswordButton = function (_v0) {
 	var msgOnTogglePasswordShow = _v0.msgOnTogglePasswordShow;
 	var showPassword = _v0.showPassword;
@@ -23207,39 +28469,57 @@ var $rakutentech$r10$R10$FormComponents$Internal$Text$viewShowHidePasswordButton
 				size: 24
 			});
 	} else {
-		return $mdgriffith$elm_ui$Element$none;
+		return $lucamug$elm_ui_with_context$Element$WithContext$none;
 	}
 };
 var $rakutentech$r10$R10$FormComponents$Internal$Text$view = F3(
 	function (attrs, extraInputAttrs, args) {
-		var displayValidation = !_Utils_eq(args.valid, $elm$core$Maybe$Nothing);
+		var displayValidation = !_Utils_eq(args.maybeValid, $elm$core$Maybe$Nothing);
 		var newArgs = _Utils_update(
 			args,
 			{
-				trailingIcon: $rakutentech$r10$R10$FormComponents$Internal$Text$needShowHideIcon(args.textType) ? $elm$core$Maybe$Just(
-					$rakutentech$r10$R10$FormComponents$Internal$Text$viewShowHidePasswordButton(args)) : ((!_Utils_eq(args.trailingIcon, $elm$core$Maybe$Nothing)) ? args.trailingIcon : $elm$core$Maybe$Just(
-					$rakutentech$r10$R10$FormComponents$Internal$UI$showValidationIcon_(
-						{displayValidation: displayValidation, maybeValid: args.valid, palette: args.palette})))
+				trailingIcon: function (icons) {
+					return _Utils_ap(
+						icons,
+						_List_fromArray(
+							[
+								$rakutentech$r10$R10$FormComponents$Internal$UI$showValidationIcon_(
+								{displayValidation: displayValidation, maybeValid: args.maybeValid, palette: args.palette, style: args.style})
+							]));
+				}(
+					function (icons) {
+						return $rakutentech$r10$R10$FormComponents$Internal$Text$needShowHideIcon(args.textType) ? A2(
+							$elm$core$List$cons,
+							A2(
+								$lucamug$elm_ui_with_context$Element$WithContext$el,
+								_List_fromArray(
+									[
+										$lucamug$elm_ui_with_context$Element$WithContext$paddingEach(
+										{bottom: 0, left: 0, right: 8, top: 0})
+									]),
+								$rakutentech$r10$R10$FormComponents$Internal$Text$viewShowHidePasswordButton(args)),
+							icons) : icons;
+					}(args.trailingIcon))
 			});
-		var styleArgs = {disabled: newArgs.disabled, displayValidation: displayValidation, focused: newArgs.focused, isMouseOver: false, label: newArgs.label, leadingIcon: newArgs.leadingIcon, palette: newArgs.palette, requiredLabel: newArgs.requiredLabel, style: newArgs.style, trailingIcon: newArgs.trailingIcon, valid: args.valid, value: newArgs.value};
+		var styleArgs = {disabled: newArgs.disabled, displayValidation: displayValidation, floatingLabelAlwaysUp: args.floatingLabelAlwaysUp, focused: newArgs.focused, isMouseOver: false, label: newArgs.label, leadingIcon: newArgs.leadingIcon, maybeValid: args.maybeValid, palette: newArgs.palette, requiredLabel: newArgs.requiredLabel, style: newArgs.style, trailingIcon: newArgs.trailingIcon, value: newArgs.value};
 		return A2(
-			$mdgriffith$elm_ui$Element$column,
+			$lucamug$elm_ui_with_context$Element$WithContext$column,
 			_Utils_ap(
 				_List_fromArray(
 					[
-						$mdgriffith$elm_ui$Element$spacing(0),
-						$mdgriffith$elm_ui$Element$width(
-						A2($mdgriffith$elm_ui$Element$minimum, 150, $mdgriffith$elm_ui$Element$fill)),
-						$mdgriffith$elm_ui$Element$inFront(
-						$rakutentech$r10$R10$FormComponents$Internal$UI$labelBuilder(styleArgs))
+						$lucamug$elm_ui_with_context$Element$WithContext$spacing(0),
+						$lucamug$elm_ui_with_context$Element$WithContext$width(
+						A2($lucamug$elm_ui_with_context$Element$WithContext$minimum, 150, $lucamug$elm_ui_with_context$Element$WithContext$fill)),
+						$lucamug$elm_ui_with_context$Element$WithContext$inFront(
+						$rakutentech$r10$R10$FormComponents$Internal$UI$floatingLabel(styleArgs))
 					]),
 				_Utils_ap(
 					newArgs.disabled ? _List_fromArray(
 						[
-							$mdgriffith$elm_ui$Element$alpha(0.6)
+							$lucamug$elm_ui_with_context$Element$WithContext$alpha(0.6)
 						]) : _List_fromArray(
 						[
-							$mdgriffith$elm_ui$Element$alpha(1)
+							$lucamug$elm_ui_with_context$Element$WithContext$alpha(1)
 						]),
 					attrs)),
 			_List_fromArray(
@@ -23249,35 +28529,39 @@ var $rakutentech$r10$R10$FormComponents$Internal$Text$view = F3(
 					_Utils_ap(
 						_List_fromArray(
 							[
-								$rakutentech$r10$R10$FormComponents$Internal$Text$getBorder(styleArgs),
-								$mdgriffith$elm_ui$Element$mouseOver(
-								_List_fromArray(
-									[
-										$rakutentech$r10$R10$FormComponents$Internal$Text$getBorder(
-										_Utils_update(
-											styleArgs,
-											{isMouseOver: true}))
-									])),
 								function () {
 								var _v0 = newArgs.style;
 								if (_v0.$ === 'Filled') {
-									return $mdgriffith$elm_ui$Element$Border$rounded(0);
+									return $lucamug$elm_ui_with_context$Element$WithContext$Border$rounded(0);
 								} else {
-									return $mdgriffith$elm_ui$Element$Border$rounded(5);
+									return $lucamug$elm_ui_with_context$Element$WithContext$Border$rounded(5);
 								}
 							}(),
-								$mdgriffith$elm_ui$Element$height(
-								$mdgriffith$elm_ui$Element$px(
-									_Utils_eq(newArgs.textType, $rakutentech$r10$R10$FormTypes$TextMultiline) ? 200 : $rakutentech$r10$R10$FormComponents$Internal$UI$Const$inputTextHeight))
+								$lucamug$elm_ui_with_context$Element$WithContext$withContextAttribute(
+								function (c) {
+									return $lucamug$elm_ui_with_context$Element$WithContext$height(
+										$lucamug$elm_ui_with_context$Element$WithContext$px(
+											function () {
+												var _v1 = newArgs.textType;
+												switch (_v1.$) {
+													case 'TextMultiline':
+														return 200;
+													case 'TextWithPatternLarge':
+														return c.inputFieldWithLargePattern_height;
+													default:
+														return $rakutentech$r10$R10$FormComponents$Internal$UI$Const$inputTextHeight;
+												}
+											}()));
+								})
 							]),
 						_Utils_ap(
 							function () {
-								var _v1 = args.idDom;
-								if (_v1.$ === 'Just') {
-									var id = _v1.a;
+								var _v2 = args.idDom;
+								if (_v2.$ === 'Just') {
+									var id = _v2.a;
 									return _List_fromArray(
 										[
-											$mdgriffith$elm_ui$Element$htmlAttribute(
+											$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
 											$elm$html$Html$Attributes$id(id))
 										]);
 								} else {
@@ -23291,10 +28575,10 @@ var $rakutentech$r10$R10$FormComponents$Internal$Text$view = F3(
 					newArgs.palette,
 					_List_fromArray(
 						[
-							$mdgriffith$elm_ui$Element$spacing(2),
-							$mdgriffith$elm_ui$Element$alpha(0.5),
-							$mdgriffith$elm_ui$Element$Font$size(14),
-							$mdgriffith$elm_ui$Element$paddingEach(
+							$lucamug$elm_ui_with_context$Element$WithContext$spacing(2),
+							$lucamug$elm_ui_with_context$Element$WithContext$alpha(0.5),
+							$lucamug$elm_ui_with_context$Element$WithContext$Font$size(14),
+							$lucamug$elm_ui_with_context$Element$WithContext$paddingEach(
 							{bottom: 0, left: 0, right: 0, top: $rakutentech$r10$R10$FormComponents$Internal$UI$genericSpacing})
 						]),
 					newArgs.helperText)
@@ -23321,26 +28605,33 @@ var $mdgriffith$elm_ui$Element$Keyed$column = F2(
 						attrs))),
 			$mdgriffith$elm_ui$Internal$Model$Keyed(children));
 	});
+var $lucamug$elm_ui_with_context$Element$WithContext$Keyed$column = A2(
+	$lucamug$elm_ui_with_context$Element$WithContext$Internal$wrapAttrs,
+	$mdgriffith$elm_ui$Element$Keyed$column,
+	A2(
+		$elm$core$Basics$composeL,
+		$elm$core$List$map,
+		A2($elm$core$Basics$composeL, $elm$core$Tuple$mapSecond, $lucamug$elm_ui_with_context$Element$WithContext$Internal$run)));
 var $rakutentech$r10$R10$FormComponents$Internal$Single$Combobox$comboboxOptionNoResults = function (_v0) {
 	var palette = _v0.palette;
 	var selectOptionHeight = _v0.selectOptionHeight;
 	return A2(
-		$mdgriffith$elm_ui$Element$el,
+		$lucamug$elm_ui_with_context$Element$WithContext$el,
 		_List_fromArray(
 			[
-				$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-				$mdgriffith$elm_ui$Element$height(
-				$mdgriffith$elm_ui$Element$px(selectOptionHeight)),
-				$mdgriffith$elm_ui$Element$paddingEach(
+				$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill),
+				$lucamug$elm_ui_with_context$Element$WithContext$height(
+				$lucamug$elm_ui_with_context$Element$WithContext$px(selectOptionHeight)),
+				$lucamug$elm_ui_with_context$Element$WithContext$paddingEach(
 				{bottom: 0, left: 12, right: 0, top: 0}),
-				$mdgriffith$elm_ui$Element$Font$color(
+				$lucamug$elm_ui_with_context$Element$WithContext$Font$color(
 				A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$onSurfaceA, 0.5, palette))
 			]),
 		A2(
-			$mdgriffith$elm_ui$Element$el,
+			$lucamug$elm_ui_with_context$Element$WithContext$el,
 			_List_fromArray(
-				[$mdgriffith$elm_ui$Element$centerY]),
-			$mdgriffith$elm_ui$Element$text('No results')));
+				[$lucamug$elm_ui_with_context$Element$WithContext$centerY]),
+			$lucamug$elm_ui_with_context$Element$WithContext$text('No results')));
 };
 var $rakutentech$r10$R10$FormComponents$Internal$Utils$listSlice = F3(
 	function (from, to, list) {
@@ -23369,6 +28660,7 @@ var $rakutentech$r10$R10$FormComponents$Internal$UI$onScroll = function (msg) {
 				$elm$json$Json$Decode$float)));
 };
 var $mdgriffith$elm_ui$Element$scrollbarX = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$overflow, $mdgriffith$elm_ui$Internal$Style$classes.scrollbarsX);
+var $lucamug$elm_ui_with_context$Element$WithContext$scrollbarX = $lucamug$elm_ui_with_context$Element$WithContext$attribute($mdgriffith$elm_ui$Element$scrollbarX);
 var $rakutentech$r10$R10$FormComponents$Internal$UI$Color$primaryVariantA = F2(
 	function (alpha, palette) {
 		return $rakutentech$r10$R10$FormComponents$Internal$UI$Color$fromPaletteColor(
@@ -23381,17 +28673,17 @@ var $rakutentech$r10$R10$FormComponents$Internal$Single$Combobox$viewComboboxOpt
 		var getShadowColor = isActiveValue ? A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$primaryVariantA, 0.1, args.palette) : A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$onSurfaceA, 0.05, args.palette);
 		var getBackgroundColor = (isActiveValue && isSelected_) ? A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$primaryVariantA, 0.13, args.palette) : (isActiveValue ? A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$primaryVariantA, 0.07, args.palette) : (isSelected_ ? A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$onSurfaceA, 0.07, args.palette) : A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$onSurfaceA, 0, args.palette)));
 		return A2(
-			$mdgriffith$elm_ui$Element$el,
+			$lucamug$elm_ui_with_context$Element$WithContext$el,
 			_List_fromArray(
 				[
-					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-					$mdgriffith$elm_ui$Element$height(
-					$mdgriffith$elm_ui$Element$px(args.selectOptionHeight)),
-					$mdgriffith$elm_ui$Element$Background$color(getBackgroundColor),
-					$mdgriffith$elm_ui$Element$mouseOver(
+					$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill),
+					$lucamug$elm_ui_with_context$Element$WithContext$height(
+					$lucamug$elm_ui_with_context$Element$WithContext$px(args.selectOptionHeight)),
+					$lucamug$elm_ui_with_context$Element$WithContext$Background$color(getBackgroundColor),
+					$lucamug$elm_ui_with_context$Element$WithContext$mouseOver(
 					_List_fromArray(
 						[
-							$mdgriffith$elm_ui$Element$Border$innerShadow(
+							$lucamug$elm_ui_with_context$Element$WithContext$Border$innerShadow(
 							{
 								blur: 0,
 								color: getShadowColor,
@@ -23402,6 +28694,11 @@ var $rakutentech$r10$R10$FormComponents$Internal$Single$Combobox$viewComboboxOpt
 				]),
 			args.viewOptionEl(opt));
 	});
+var $rakutentech$r10$R10$Color$Internal$Derived$FontHighEmphasis = {$: 'FontHighEmphasis'};
+var $rakutentech$r10$R10$Color$Svg$fontHighEmphasis = function (theme) {
+	return $rakutentech$r10$R10$Color$Utils$fromColorColor(
+		A2($rakutentech$r10$R10$Color$Internal$Derived$toColor, theme, $rakutentech$r10$R10$Color$Internal$Derived$FontHighEmphasis));
+};
 var $rakutentech$r10$R10$FormComponents$Internal$Single$Common$OnSearch = F2(
 	function (a, b) {
 		return {$: 'OnSearch', a: a, b: b};
@@ -23417,6 +28714,50 @@ var $rakutentech$r10$R10$FormComponents$Internal$Single$Update$getMsgOnSearch = 
 				selectOptionHeight: args.selectOptionHeight
 			},
 			newSearch);
+	});
+var $lucamug$elm_ui_with_context$Element$WithContext$Input$buildLabel = F3(
+	function (f, attrs, child) {
+		return $lucamug$elm_ui_with_context$Element$WithContext$Input$Label(
+			function (context) {
+				return A2(
+					f,
+					A2($lucamug$elm_ui_with_context$Element$WithContext$Internal$attributes, context, attrs),
+					A2($lucamug$elm_ui_with_context$Element$WithContext$Internal$run, context, child));
+			});
+	});
+var $mdgriffith$elm_ui$Element$Input$Label = F3(
+	function (a, b, c) {
+		return {$: 'Label', a: a, b: b, c: c};
+	});
+var $mdgriffith$elm_ui$Element$Input$OnLeft = {$: 'OnLeft'};
+var $mdgriffith$elm_ui$Element$Input$labelLeft = $mdgriffith$elm_ui$Element$Input$Label($mdgriffith$elm_ui$Element$Input$OnLeft);
+var $lucamug$elm_ui_with_context$Element$WithContext$Input$labelLeft = $lucamug$elm_ui_with_context$Element$WithContext$Input$buildLabel($mdgriffith$elm_ui$Element$Input$labelLeft);
+var $rakutentech$r10$R10$Svg$Icons$search = F3(
+	function (attrs, cl, size) {
+		return A3(
+			$rakutentech$r10$R10$Svg$Utils$wrapper32,
+			attrs,
+			size,
+			_List_fromArray(
+				[
+					A2(
+					$elm$svg$Svg$path,
+					_List_fromArray(
+						[
+							$elm$svg$Svg$Attributes$d('M13 2a11 11 0 1 0 11 11A11 11 0 0 0 13 2zm0 20a9 9 0 1 1 9-9 9.01 9.01 0 0 1-9 9zm9.86-.55a13.11 13.11 0 0 1-1.41 1.41L28.59 30 30 28.59z'),
+							$elm$svg$Svg$Attributes$fill(
+							$rakutentech$r10$R10$Color$Utils$toCssRgba(cl))
+						]),
+					_List_Nil),
+					A2(
+					$elm$svg$Svg$path,
+					_List_fromArray(
+						[
+							$elm$svg$Svg$Attributes$fill('none'),
+							$elm$svg$Svg$Attributes$d('M0 0h32v32H0z')
+						]),
+					_List_Nil)
+				]));
 	});
 var $mdgriffith$elm_ui$Element$Border$widthXY = F2(
 	function (x, y) {
@@ -23447,51 +28788,61 @@ var $mdgriffith$elm_ui$Element$Border$widthEach = function (_v0) {
 			bottom,
 			left));
 };
+var $lucamug$elm_ui_with_context$Element$WithContext$Border$widthEach = function (edges) {
+	return $lucamug$elm_ui_with_context$Element$WithContext$Internal$attribute(
+		$mdgriffith$elm_ui$Element$Border$widthEach(edges));
+};
 var $rakutentech$r10$R10$FormComponents$Internal$Single$Combobox$viewSearchBox = F2(
 	function (model, args) {
 		return args.searchable ? A2(
-			$mdgriffith$elm_ui$Element$el,
+			$lucamug$elm_ui_with_context$Element$WithContext$row,
 			_List_fromArray(
 				[
-					$mdgriffith$elm_ui$Element$height(
-					$mdgriffith$elm_ui$Element$px(52)),
-					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+					$lucamug$elm_ui_with_context$Element$WithContext$Border$widthEach(
+					{bottom: 1, left: 0, right: 0, top: 0}),
+					$lucamug$elm_ui_with_context$Element$WithContext$Border$color(
+					A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$borderA, 0.3, args.palette)),
+					A2($lucamug$elm_ui_with_context$Element$WithContext$paddingXY, 17, 0),
+					$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill)
 				]),
-			A2(
-				$rakutentech$r10$R10$FormComponents$Internal$Text$viewInput,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$htmlAttribute(
-						$elm$html$Html$Attributes$id(
-							$rakutentech$r10$R10$FormComponents$Internal$Single$Common$singleSearchBoxId(args.key))),
-						$mdgriffith$elm_ui$Element$Border$widthEach(
-						{bottom: 1, left: 0, right: 0, top: 0}),
-						$mdgriffith$elm_ui$Element$Border$rounded(0)
-					]),
-				{
-					disabled: args.disabled,
-					focused: model.focused,
-					helperText: args.helperText,
-					label: args.label,
-					leadingIcon: $elm$core$Maybe$Nothing,
-					msgOnChange: A2(
-						$elm$core$Basics$composeL,
-						args.toMsg,
-						$rakutentech$r10$R10$FormComponents$Internal$Single$Update$getMsgOnSearch(args)),
-					msgOnEnter: $elm$core$Maybe$Nothing,
-					msgOnFocus: args.toMsg(
-						$rakutentech$r10$R10$FormComponents$Internal$Single$Common$OnFocus(model.value)),
-					msgOnLoseFocus: $elm$core$Maybe$Nothing,
-					msgOnTogglePasswordShow: $elm$core$Maybe$Nothing,
-					palette: args.palette,
-					requiredLabel: args.requiredLabel,
-					showPassword: false,
-					style: $rakutentech$r10$R10$FormComponents$Internal$Style$Outlined,
-					textType: $rakutentech$r10$R10$FormTypes$TextPlain,
-					trailingIcon: $elm$core$Maybe$Nothing,
-					valid: args.valid,
-					value: model.search
-				})) : $mdgriffith$elm_ui$Element$none;
+			_List_fromArray(
+				[
+					$lucamug$elm_ui_with_context$Element$WithContext$withContext(
+					function (c) {
+						return A2(
+							$lucamug$elm_ui_with_context$Element$WithContext$Input$text,
+							_List_fromArray(
+								[
+									$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+									$elm$html$Html$Attributes$id(
+										$rakutentech$r10$R10$FormComponents$Internal$Single$Common$singleSearchBoxId(args.key))),
+									$lucamug$elm_ui_with_context$Element$WithContext$Background$color(
+									$rakutentech$r10$R10$FormComponents$Internal$UI$Color$surface(args.palette)),
+									$lucamug$elm_ui_with_context$Element$WithContext$paddingEach(
+									{bottom: 16, left: 10, right: 16, top: 16}),
+									$lucamug$elm_ui_with_context$Element$WithContext$Border$width(0)
+								]),
+							{
+								label: A2(
+									$lucamug$elm_ui_with_context$Element$WithContext$Input$labelLeft,
+									_List_fromArray(
+										[
+											$lucamug$elm_ui_with_context$Element$WithContext$moveDown(3)
+										]),
+									A3(
+										$rakutentech$r10$R10$Svg$Icons$search,
+										_List_Nil,
+										$rakutentech$r10$R10$Color$Svg$fontHighEmphasis(c.theme),
+										18)),
+								onChange: function (string) {
+									return args.toMsg(
+										A2($rakutentech$r10$R10$FormComponents$Internal$Single$Update$getMsgOnSearch, args, string));
+								},
+								placeholder: $elm$core$Maybe$Nothing,
+								text: model.search
+							});
+					})
+				])) : $lucamug$elm_ui_with_context$Element$WithContext$none;
 	});
 var $rakutentech$r10$R10$FormComponents$Internal$Single$Combobox$viewComboboxDropdown = F4(
 	function (model, args, opened, filteredOptions) {
@@ -23515,20 +28866,23 @@ var $rakutentech$r10$R10$FormComponents$Internal$Single$Combobox$viewComboboxDro
 				$rakutentech$r10$R10$FormComponents$Internal$Single$Combobox$comboboxOptionNoResults(args))
 			]);
 		var contentHeight = args.selectOptionHeight * A2($elm$core$Basics$max, optionsCount, 1);
-		return (!opened) ? $mdgriffith$elm_ui$Element$none : A2(
-			$mdgriffith$elm_ui$Element$column,
+		return (!opened) ? $lucamug$elm_ui_with_context$Element$WithContext$none : A2(
+			$lucamug$elm_ui_with_context$Element$WithContext$column,
 			_List_fromArray(
 				[
-					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-					$mdgriffith$elm_ui$Element$clip,
-					$mdgriffith$elm_ui$Element$moveDown(52),
-					$mdgriffith$elm_ui$Element$htmlAttribute(
+					$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill),
+					$lucamug$elm_ui_with_context$Element$WithContext$clip,
+					$lucamug$elm_ui_with_context$Element$WithContext$moveDown(60),
+					$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
 					$elm$html$Html$Attributes$tabindex(-1)),
-					$mdgriffith$elm_ui$Element$Background$color(
+					$lucamug$elm_ui_with_context$Element$WithContext$Background$color(
 					$rakutentech$r10$R10$FormComponents$Internal$UI$Color$surface(args.palette)),
-					$mdgriffith$elm_ui$Element$htmlAttribute(
+					$lucamug$elm_ui_with_context$Element$WithContext$Border$color(
+					A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$borderA, 0.5, args.palette)),
+					$lucamug$elm_ui_with_context$Element$WithContext$Border$width(1),
+					$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
 					A2($elm$html$Html$Attributes$style, 'z-index', '1')),
-					$mdgriffith$elm_ui$Element$Border$rounded(
+					$lucamug$elm_ui_with_context$Element$WithContext$Border$rounded(
 					function () {
 						var _v0 = args.style;
 						if (_v0.$ === 'Filled') {
@@ -23537,58 +28891,57 @@ var $rakutentech$r10$R10$FormComponents$Internal$Single$Combobox$viewComboboxDro
 							return 8;
 						}
 					}()),
-					$mdgriffith$elm_ui$Element$Border$shadow(
+					$lucamug$elm_ui_with_context$Element$WithContext$Border$shadow(
 					{
-						blur: 3,
-						color: A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$onSurfaceA, 0.1, args.palette),
+						blur: 10,
+						color: A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$onSurfaceA, 0.3, args.palette),
 						offset: _Utils_Tuple2(0, 0),
-						size: 1
+						size: 3
 					})
 				]),
 			_List_fromArray(
 				[
 					A2($rakutentech$r10$R10$FormComponents$Internal$Single$Combobox$viewSearchBox, model, args),
 					A2(
-					$mdgriffith$elm_ui$Element$el,
+					$lucamug$elm_ui_with_context$Element$WithContext$el,
 					_List_fromArray(
 						[
-							$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-							$mdgriffith$elm_ui$Element$height(
-							$mdgriffith$elm_ui$Element$px(
+							$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill),
+							$lucamug$elm_ui_with_context$Element$WithContext$height(
+							$lucamug$elm_ui_with_context$Element$WithContext$px(
 								A2($rakutentech$r10$R10$FormComponents$Internal$Single$Update$getDropdownHeight, args, optionsCount))),
-							$mdgriffith$elm_ui$Element$htmlAttribute(
+							$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
 							A2($elm$html$Html$Attributes$style, 'overscroll-behavior', 'contain')),
-							$mdgriffith$elm_ui$Element$htmlAttribute(
+							$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
 							$rakutentech$r10$R10$FormComponents$Internal$UI$onScroll(
 								A2($elm$core$Basics$composeL, args.toMsg, $rakutentech$r10$R10$FormComponents$Internal$Single$Common$OnScroll))),
-							$mdgriffith$elm_ui$Element$Font$color(
+							$lucamug$elm_ui_with_context$Element$WithContext$Font$color(
 							$rakutentech$r10$R10$FormComponents$Internal$UI$Color$font(args.palette)),
-							$mdgriffith$elm_ui$Element$Background$color(
+							$lucamug$elm_ui_with_context$Element$WithContext$Background$color(
 							$rakutentech$r10$R10$FormComponents$Internal$UI$Color$surface(args.palette)),
-							A2($mdgriffith$elm_ui$Element$paddingXY, 0, $rakutentech$r10$R10$FormComponents$Internal$Single$Update$dropdownHingeHeight),
-							$mdgriffith$elm_ui$Element$htmlAttribute(
+							$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
 							$elm$html$Html$Attributes$id(
 								$rakutentech$r10$R10$FormComponents$Internal$Single$Common$dropdownContentId(args.key))),
-							$mdgriffith$elm_ui$Element$scrollbarX,
-							$mdgriffith$elm_ui$Element$inFront(
+							$lucamug$elm_ui_with_context$Element$WithContext$scrollbarX,
+							$lucamug$elm_ui_with_context$Element$WithContext$inFront(
 							A2(
-								$mdgriffith$elm_ui$Element$Keyed$column,
+								$lucamug$elm_ui_with_context$Element$WithContext$Keyed$column,
 								_List_fromArray(
 									[
-										$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-										$mdgriffith$elm_ui$Element$moveDown(visibleMoveDown)
+										$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill),
+										$lucamug$elm_ui_with_context$Element$WithContext$moveDown(visibleMoveDown)
 									]),
 								visibleOptions))
 						]),
 					A2(
-						$mdgriffith$elm_ui$Element$el,
+						$lucamug$elm_ui_with_context$Element$WithContext$el,
 						_List_fromArray(
 							[
-								$mdgriffith$elm_ui$Element$height(
-								$mdgriffith$elm_ui$Element$px(contentHeight)),
-								$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+								$lucamug$elm_ui_with_context$Element$WithContext$height(
+								$lucamug$elm_ui_with_context$Element$WithContext$px(contentHeight)),
+								$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill)
 							]),
-						$mdgriffith$elm_ui$Element$none))
+						$lucamug$elm_ui_with_context$Element$WithContext$none))
 				]));
 	});
 var $rakutentech$r10$R10$FormComponents$Internal$Single$Combobox$view = F3(
@@ -23597,20 +28950,23 @@ var $rakutentech$r10$R10$FormComponents$Internal$Single$Combobox$view = F3(
 		var filteredFieldOption = A2($rakutentech$r10$R10$FormComponents$Internal$Single$Common$filterBySearch, model.search, args);
 		var inputAttrs = _List_fromArray(
 			[
-				$mdgriffith$elm_ui$Element$Events$onClick(
+				$lucamug$elm_ui_with_context$Element$WithContext$Events$onClick(
 				args.toMsg(
 					A3($rakutentech$r10$R10$FormComponents$Internal$Single$Combobox$getMsgOnInputClick, model, args, filteredFieldOption))),
-				$mdgriffith$elm_ui$Element$htmlAttribute(
+				$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
 				A2($elm$html$Html$Attributes$attribute, 'readonly', 'true'))
 			]);
 		var displayValue = A2($rakutentech$r10$R10$FormComponents$Internal$Single$Combobox$optionsLabelOrSearchValue, model.value, args.fieldOptions);
 		var textArgs = {
+			autocomplete: $elm$core$Maybe$Nothing,
 			disabled: args.disabled,
+			floatingLabelAlwaysUp: false,
 			focused: model.focused,
 			helperText: args.helperText,
 			idDom: $elm$core$Maybe$Nothing,
 			label: args.label,
 			leadingIcon: args.leadingIcon,
+			maybeValid: args.maybeValid,
 			msgOnChange: A2(
 				$elm$core$Basics$composeL,
 				args.toMsg,
@@ -23621,24 +28977,24 @@ var $rakutentech$r10$R10$FormComponents$Internal$Single$Combobox$view = F3(
 			msgOnLoseFocus: $elm$core$Maybe$Nothing,
 			msgOnTogglePasswordShow: $elm$core$Maybe$Nothing,
 			palette: args.palette,
+			placeholder: $elm$core$Maybe$Nothing,
 			requiredLabel: args.requiredLabel,
 			showPassword: false,
 			style: args.style,
 			textType: $rakutentech$r10$R10$FormTypes$TextPlain,
 			trailingIcon: args.trailingIcon,
-			valid: args.valid,
 			value: displayValue
 		};
 		return A3(
 			$rakutentech$r10$R10$FormComponents$Internal$Text$view,
 			_List_fromArray(
 				[
-					$mdgriffith$elm_ui$Element$htmlAttribute(
+					$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
 					$elm$html$Html$Attributes$id(
 						$rakutentech$r10$R10$FormComponents$Internal$Single$Common$dropdownContainerId(args.key))),
-					$mdgriffith$elm_ui$Element$htmlAttribute(
+					$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
 					$elm$html$Html$Attributes$tabindex(-1)),
-					$mdgriffith$elm_ui$Element$htmlAttribute(
+					$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
 					A2(
 						$elm$html$Html$Events$on,
 						'focusout',
@@ -23647,7 +29003,7 @@ var $rakutentech$r10$R10$FormComponents$Internal$Single$Combobox$view = F3(
 							$rakutentech$r10$R10$FormComponents$Internal$Single$Common$dropdownContainerId(args.key),
 							args.toMsg(
 								$rakutentech$r10$R10$FormComponents$Internal$Single$Common$OnLoseFocus(model.value))))),
-					$mdgriffith$elm_ui$Element$htmlAttribute(
+					$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
 					$rakutentech$r10$R10$FormComponents$Internal$UI$onKeyPressBatch(
 						_Utils_ap(
 							_List_fromArray(
@@ -23684,24 +29040,23 @@ var $rakutentech$r10$R10$FormComponents$Internal$Single$Combobox$view = F3(
 											$rakutentech$r10$R10$FormComponents$Internal$Single$Common$OnOptionSelect(
 												A3($rakutentech$r10$R10$FormComponents$Internal$Single$Common$getSelectedOrFirst, filteredFieldOption, model.value, model.select))))
 									]) : _List_Nil)))),
-					$mdgriffith$elm_ui$Element$inFront(
+					$lucamug$elm_ui_with_context$Element$WithContext$inFront(
 					A4($rakutentech$r10$R10$FormComponents$Internal$Single$Combobox$viewComboboxDropdown, model, args, model.opened, filteredFieldOption))
 				]),
 			_Utils_ap(inputAttrs, attrs),
 			textArgs);
 	});
 var $mdgriffith$elm_ui$Element$Input$Above = {$: 'Above'};
-var $mdgriffith$elm_ui$Element$Input$Label = F3(
-	function (a, b, c) {
-		return {$: 'Label', a: a, b: b, c: c};
-	});
 var $mdgriffith$elm_ui$Element$Input$labelAbove = $mdgriffith$elm_ui$Element$Input$Label($mdgriffith$elm_ui$Element$Input$Above);
+var $lucamug$elm_ui_with_context$Element$WithContext$Input$labelAbove = $lucamug$elm_ui_with_context$Element$WithContext$Input$buildLabel($mdgriffith$elm_ui$Element$Input$labelAbove);
 var $mdgriffith$elm_ui$Element$Input$Column = {$: 'Column'};
 var $mdgriffith$elm_ui$Element$Input$AfterFound = {$: 'AfterFound'};
 var $mdgriffith$elm_ui$Element$Input$BeforeFound = {$: 'BeforeFound'};
 var $mdgriffith$elm_ui$Element$Input$Idle = {$: 'Idle'};
 var $mdgriffith$elm_ui$Element$Input$NotFound = {$: 'NotFound'};
 var $mdgriffith$elm_ui$Element$Input$Selected = {$: 'Selected'};
+var $mdgriffith$elm_ui$Internal$Model$Left = {$: 'Left'};
+var $mdgriffith$elm_ui$Element$alignLeft = $mdgriffith$elm_ui$Internal$Model$AlignX($mdgriffith$elm_ui$Internal$Model$Left);
 var $mdgriffith$elm_ui$Element$Input$column = F2(
 	function (attributes, children) {
 		return A4(
@@ -24022,40 +29377,62 @@ var $mdgriffith$elm_ui$Element$Input$radioHelper = F3(
 			optionArea);
 	});
 var $mdgriffith$elm_ui$Element$Input$radio = $mdgriffith$elm_ui$Element$Input$radioHelper($mdgriffith$elm_ui$Element$Input$Column);
-var $rakutentech$r10$R10$FormComponents$Internal$UI$fontSizeSubTitle = $mdgriffith$elm_ui$Element$Font$size(18);
+var $lucamug$elm_ui_with_context$Element$WithContext$Input$runOption = F2(
+	function (context, _v0) {
+		var f = _v0.a;
+		return f(context);
+	});
+var $lucamug$elm_ui_with_context$Element$WithContext$Input$radioHelper = F2(
+	function (context, config) {
+		return {
+			label: A2($lucamug$elm_ui_with_context$Element$WithContext$Input$runLabel, context, config.label),
+			onChange: config.onChange,
+			options: A2(
+				$elm$core$List$map,
+				$lucamug$elm_ui_with_context$Element$WithContext$Input$runOption(context),
+				config.options),
+			selected: config.selected
+		};
+	});
+var $lucamug$elm_ui_with_context$Element$WithContext$Input$radio = A2($lucamug$elm_ui_with_context$Element$WithContext$Internal$wrapAttrs, $mdgriffith$elm_ui$Element$Input$radio, $lucamug$elm_ui_with_context$Element$WithContext$Input$radioHelper);
 var $rakutentech$r10$R10$FormComponents$Internal$Single$Radio$viewRadioLabel = F3(
 	function (palette, label, helperText) {
-		return (label === '') ? $mdgriffith$elm_ui$Element$none : A2(
-			$mdgriffith$elm_ui$Element$column,
+		return (label === '') ? $lucamug$elm_ui_with_context$Element$WithContext$none : A2(
+			$lucamug$elm_ui_with_context$Element$WithContext$column,
 			_List_fromArray(
 				[
-					$mdgriffith$elm_ui$Element$paddingEach(
+					$lucamug$elm_ui_with_context$Element$WithContext$paddingEach(
 					{bottom: 24, left: 0, right: 0, top: 10}),
-					$rakutentech$r10$R10$FormComponents$Internal$UI$fontSizeSubTitle,
-					$mdgriffith$elm_ui$Element$spacing($rakutentech$r10$R10$FormComponents$Internal$UI$genericSpacing)
+					$lucamug$elm_ui_with_context$Element$WithContext$spacing($rakutentech$r10$R10$FormComponents$Internal$UI$genericSpacing)
 				]),
 			_List_fromArray(
 				[
 					A2(
-					$mdgriffith$elm_ui$Element$paragraph,
+					$rakutentech$r10$R10$Paragraph$normal,
 					_List_Nil,
 					_List_fromArray(
 						[
-							$mdgriffith$elm_ui$Element$text(label)
+							$lucamug$elm_ui_with_context$Element$WithContext$text(label)
 						])),
 					A3(
 					$rakutentech$r10$R10$FormComponents$Internal$UI$viewHelperText,
 					palette,
 					_List_fromArray(
 						[
-							$mdgriffith$elm_ui$Element$Font$size(14),
-							$mdgriffith$elm_ui$Element$alpha(0.5),
-							$mdgriffith$elm_ui$Element$paddingEach(
+							$lucamug$elm_ui_with_context$Element$WithContext$Font$size(14),
+							$lucamug$elm_ui_with_context$Element$WithContext$alpha(0.5),
+							$lucamug$elm_ui_with_context$Element$WithContext$paddingEach(
 							{bottom: 0, left: 0, right: 0, top: $rakutentech$r10$R10$FormComponents$Internal$UI$genericSpacing})
 						]),
 					helperText)
 				]));
 	});
+var $lucamug$elm_ui_with_context$Element$WithContext$Input$Focused = {$: 'Focused'};
+var $lucamug$elm_ui_with_context$Element$WithContext$Input$Idle = {$: 'Idle'};
+var $lucamug$elm_ui_with_context$Element$WithContext$Input$Option = function (a) {
+	return {$: 'Option', a: a};
+};
+var $lucamug$elm_ui_with_context$Element$WithContext$Input$Selected = {$: 'Selected'};
 var $mdgriffith$elm_ui$Element$Input$Option = F2(
 	function (a, b) {
 		return {$: 'Option', a: a, b: b};
@@ -24063,6 +29440,33 @@ var $mdgriffith$elm_ui$Element$Input$Option = F2(
 var $mdgriffith$elm_ui$Element$Input$optionWith = F2(
 	function (val, view) {
 		return A2($mdgriffith$elm_ui$Element$Input$Option, val, view);
+	});
+var $lucamug$elm_ui_with_context$Element$WithContext$Input$optionWith = F2(
+	function (val, view) {
+		var optionStateConverter = function (optionState) {
+			switch (optionState.$) {
+				case 'Idle':
+					return $lucamug$elm_ui_with_context$Element$WithContext$Input$Idle;
+				case 'Focused':
+					return $lucamug$elm_ui_with_context$Element$WithContext$Input$Focused;
+				default:
+					return $lucamug$elm_ui_with_context$Element$WithContext$Input$Selected;
+			}
+		};
+		var viewConverted = function (optionState) {
+			return view(
+				optionStateConverter(optionState));
+		};
+		return $lucamug$elm_ui_with_context$Element$WithContext$Input$Option(
+			function (context) {
+				return A2(
+					$mdgriffith$elm_ui$Element$Input$optionWith,
+					val,
+					A2(
+						$elm$core$Basics$composeL,
+						$lucamug$elm_ui_with_context$Element$WithContext$Internal$run(context),
+						viewConverted));
+			});
 	});
 var $rakutentech$r10$R10$FormComponents$Internal$Single$Radio$isSelected = function (optionState) {
 	switch (optionState.$) {
@@ -24080,6 +29484,7 @@ var $rakutentech$r10$R10$FormComponents$Internal$Single$Radio$viewRadioOption = 
 		var palette = _v0.palette;
 		var focused = _v0.focused;
 		var label = _v0.label;
+		var value = _v0.value;
 		var _v1 = function () {
 			var _v2 = _Utils_Tuple2(
 				$rakutentech$r10$R10$FormComponents$Internal$Single$Radio$isSelected(optionState),
@@ -24118,133 +29523,139 @@ var $rakutentech$r10$R10$FormComponents$Internal$Single$Radio$viewRadioOption = 
 		var innerCircleColor = _v1.innerCircleColor;
 		var outerCircleColor = _v1.outerCircleColor;
 		var innerCircle = A2(
-			$mdgriffith$elm_ui$Element$el,
+			$lucamug$elm_ui_with_context$Element$WithContext$el,
 			_List_fromArray(
 				[
-					$mdgriffith$elm_ui$Element$htmlAttribute(
-					A2($elm$html$Html$Attributes$style, 'transition', 'all 0.13s')),
-					$mdgriffith$elm_ui$Element$Background$color(innerCircleColor),
-					$mdgriffith$elm_ui$Element$width(
-					$mdgriffith$elm_ui$Element$px(innerCircleSize)),
-					$mdgriffith$elm_ui$Element$height(
-					$mdgriffith$elm_ui$Element$px(innerCircleSize)),
-					$mdgriffith$elm_ui$Element$Border$rounded(20),
-					$mdgriffith$elm_ui$Element$centerX,
-					$mdgriffith$elm_ui$Element$centerY
+					$rakutentech$r10$R10$Transition$transition('all 0.13s'),
+					$lucamug$elm_ui_with_context$Element$WithContext$Background$color(innerCircleColor),
+					$lucamug$elm_ui_with_context$Element$WithContext$width(
+					$lucamug$elm_ui_with_context$Element$WithContext$px(innerCircleSize)),
+					$lucamug$elm_ui_with_context$Element$WithContext$height(
+					$lucamug$elm_ui_with_context$Element$WithContext$px(innerCircleSize)),
+					$lucamug$elm_ui_with_context$Element$WithContext$Border$rounded(20),
+					$lucamug$elm_ui_with_context$Element$WithContext$centerX,
+					$lucamug$elm_ui_with_context$Element$WithContext$centerY
 				]),
-			$mdgriffith$elm_ui$Element$none);
+			$lucamug$elm_ui_with_context$Element$WithContext$none);
 		var selector = A2(
-			$mdgriffith$elm_ui$Element$el,
+			$lucamug$elm_ui_with_context$Element$WithContext$el,
 			_List_fromArray(
 				[
-					$mdgriffith$elm_ui$Element$htmlAttribute(
-					A2($elm$html$Html$Attributes$style, 'transition', 'all 0.13s')),
-					$mdgriffith$elm_ui$Element$width(
-					$mdgriffith$elm_ui$Element$px(20)),
-					$mdgriffith$elm_ui$Element$height(
-					$mdgriffith$elm_ui$Element$px(20)),
-					$mdgriffith$elm_ui$Element$centerX,
-					$mdgriffith$elm_ui$Element$centerY,
-					$mdgriffith$elm_ui$Element$behindContent(innerCircle),
-					$mdgriffith$elm_ui$Element$Border$innerShadow(
+					$rakutentech$r10$R10$Transition$transition('all 0.13s'),
+					$lucamug$elm_ui_with_context$Element$WithContext$width(
+					$lucamug$elm_ui_with_context$Element$WithContext$px(24)),
+					$lucamug$elm_ui_with_context$Element$WithContext$height(
+					$lucamug$elm_ui_with_context$Element$WithContext$px(24)),
+					$lucamug$elm_ui_with_context$Element$WithContext$moveRight(2),
+					$lucamug$elm_ui_with_context$Element$WithContext$centerX,
+					$lucamug$elm_ui_with_context$Element$WithContext$centerY,
+					$lucamug$elm_ui_with_context$Element$WithContext$behindContent(innerCircle),
+					$lucamug$elm_ui_with_context$Element$WithContext$Border$innerShadow(
 					{
 						blur: 0,
 						color: outerCircleColor,
 						offset: _Utils_Tuple2(0, 0),
 						size: 2
 					}),
-					$mdgriffith$elm_ui$Element$Border$rounded(20),
-					$mdgriffith$elm_ui$Element$inFront(
+					$lucamug$elm_ui_with_context$Element$WithContext$Border$rounded(20),
+					$lucamug$elm_ui_with_context$Element$WithContext$inFront(
 					A2(
-						$mdgriffith$elm_ui$Element$el,
+						$lucamug$elm_ui_with_context$Element$WithContext$el,
 						_List_fromArray(
 							[
-								$mdgriffith$elm_ui$Element$moveUp(10),
-								$mdgriffith$elm_ui$Element$moveLeft(10),
-								$mdgriffith$elm_ui$Element$Border$rounded(20)
+								$lucamug$elm_ui_with_context$Element$WithContext$moveUp(2),
+								$lucamug$elm_ui_with_context$Element$WithContext$moveLeft(2)
 							]),
 						A2(
-							$rakutentech$r10$R10$FormComponents$Internal$UI$viewSelectShadow,
+							$rakutentech$r10$R10$FormComponents$Internal$UI$viewSelectShadowCustomSize,
 							{
 								disabled: disabled,
 								focused: focused && $rakutentech$r10$R10$FormComponents$Internal$Single$Radio$isSelected(optionState),
-								palette: palette
+								palette: palette,
+								rounded: 50,
+								size: {x: 28, y: 28},
+								value: value
 							},
-							$mdgriffith$elm_ui$Element$none)))
+							$lucamug$elm_ui_with_context$Element$WithContext$none)))
 				]),
-			$mdgriffith$elm_ui$Element$none);
+			$lucamug$elm_ui_with_context$Element$WithContext$none);
 		return A2(
-			$mdgriffith$elm_ui$Element$row,
+			$lucamug$elm_ui_with_context$Element$WithContext$row,
 			_Utils_ap(
 				_List_fromArray(
 					[
-						$mdgriffith$elm_ui$Element$spacing(17),
-						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-						$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill)
+						$lucamug$elm_ui_with_context$Element$WithContext$spacing(17),
+						$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill),
+						$lucamug$elm_ui_with_context$Element$WithContext$height($lucamug$elm_ui_with_context$Element$WithContext$fill)
 					]),
 				disabled ? _List_fromArray(
 					[
-						$mdgriffith$elm_ui$Element$htmlAttribute(
+						$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
 						A2($elm$html$Html$Attributes$style, 'cursor', 'auto'))
 					]) : _List_Nil),
 			_List_fromArray(
 				[
 					selector,
 					A2(
-					$mdgriffith$elm_ui$Element$paragraph,
+					$lucamug$elm_ui_with_context$Element$WithContext$paragraph,
 					_List_Nil,
 					_List_fromArray(
 						[
-							$mdgriffith$elm_ui$Element$text(label)
+							$lucamug$elm_ui_with_context$Element$WithContext$text(label)
 						]))
 				]));
 	});
-var $rakutentech$r10$R10$FormComponents$Internal$Single$Radio$viewRadioOptions = F3(
-	function (args, focused, fieldOption) {
+var $rakutentech$r10$R10$FormComponents$Internal$Single$Radio$viewRadioOptions = F4(
+	function (selected, args, focused, fieldOption) {
 		return A2(
-			$mdgriffith$elm_ui$Element$Input$optionWith,
+			$lucamug$elm_ui_with_context$Element$WithContext$Input$optionWith,
 			fieldOption.value,
 			$rakutentech$r10$R10$FormComponents$Internal$Single$Radio$viewRadioOption(
-				{disabled: args.disabled, focused: focused, label: fieldOption.label, palette: args.palette, value: fieldOption.value}));
+				{
+					disabled: args.disabled,
+					focused: focused,
+					label: fieldOption.label,
+					palette: args.palette,
+					value: _Utils_eq(fieldOption.value, selected)
+				}));
 	});
 var $rakutentech$r10$R10$FormComponents$Internal$Single$Radio$view = F3(
 	function (attrs, model, args) {
 		var fixedValue = model.value;
 		return A2(
-			$mdgriffith$elm_ui$Element$el,
+			$lucamug$elm_ui_with_context$Element$WithContext$el,
 			_Utils_ap(
 				_List_fromArray(
 					[
-						$mdgriffith$elm_ui$Element$spacing(10),
-						$mdgriffith$elm_ui$Element$alignTop,
-						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-						$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill)
+						$lucamug$elm_ui_with_context$Element$WithContext$alignTop,
+						$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill),
+						$lucamug$elm_ui_with_context$Element$WithContext$height($lucamug$elm_ui_with_context$Element$WithContext$fill)
 					]),
 				attrs),
 			A2(
-				$mdgriffith$elm_ui$Element$Input$radio,
+				$lucamug$elm_ui_with_context$Element$WithContext$Input$radio,
 				_Utils_ap(
 					_List_fromArray(
 						[
-							$mdgriffith$elm_ui$Element$spacing(26),
-							$mdgriffith$elm_ui$Element$alignTop,
-							$mdgriffith$elm_ui$Element$Events$onFocus(
+							$lucamug$elm_ui_with_context$Element$WithContext$spacing(16),
+							$lucamug$elm_ui_with_context$Element$WithContext$alignTop,
+							$lucamug$elm_ui_with_context$Element$WithContext$Events$onFocus(
 							args.toMsg(
 								$rakutentech$r10$R10$FormComponents$Internal$Single$Common$OnFocus(
 									A3($rakutentech$r10$R10$FormComponents$Internal$Single$Common$getSelectedOrFirst, args.fieldOptions, model.value, model.select)))),
-							$mdgriffith$elm_ui$Element$Events$onLoseFocus(
+							$lucamug$elm_ui_with_context$Element$WithContext$Events$onLoseFocus(
 							args.toMsg(
 								$rakutentech$r10$R10$FormComponents$Internal$Single$Common$OnLoseFocus(model.value))),
-							$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+							$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill)
 						]),
 					args.disabled ? _List_fromArray(
 						[
-							$mdgriffith$elm_ui$Element$htmlAttribute(
+							$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
 							$elm$html$Html$Attributes$tabindex(-1))
 						]) : _List_Nil),
 				{
 					label: A2(
-						$mdgriffith$elm_ui$Element$Input$labelAbove,
+						$lucamug$elm_ui_with_context$Element$WithContext$Input$labelAbove,
 						_List_Nil,
 						A3($rakutentech$r10$R10$FormComponents$Internal$Single$Radio$viewRadioLabel, args.palette, args.label, args.helperText)),
 					onChange: args.disabled ? $elm$core$Basics$always(
@@ -24252,66 +29663,65 @@ var $rakutentech$r10$R10$FormComponents$Internal$Single$Radio$view = F3(
 							$rakutentech$r10$R10$FormComponents$Internal$Single$Common$OnOptionSelect(model.value))) : A2($elm$core$Basics$composeL, args.toMsg, $rakutentech$r10$R10$FormComponents$Internal$Single$Common$OnOptionSelect),
 					options: A2(
 						$elm$core$List$map,
-						A2($rakutentech$r10$R10$FormComponents$Internal$Single$Radio$viewRadioOptions, args, model.focused),
+						A3($rakutentech$r10$R10$FormComponents$Internal$Single$Radio$viewRadioOptions, fixedValue, args, model.focused),
 						args.fieldOptions),
 					selected: $elm$core$Maybe$Just(fixedValue)
 				}));
 	});
-var $mdgriffith$elm_ui$Element$Input$OnLeft = {$: 'OnLeft'};
-var $mdgriffith$elm_ui$Element$Input$labelLeft = $mdgriffith$elm_ui$Element$Input$Label($mdgriffith$elm_ui$Element$Input$OnLeft);
 var $mdgriffith$elm_ui$Element$Input$Row = {$: 'Row'};
 var $mdgriffith$elm_ui$Element$Input$radioRow = $mdgriffith$elm_ui$Element$Input$radioHelper($mdgriffith$elm_ui$Element$Input$Row);
+var $lucamug$elm_ui_with_context$Element$WithContext$Input$radioRow = A2($lucamug$elm_ui_with_context$Element$WithContext$Internal$wrapAttrs, $mdgriffith$elm_ui$Element$Input$radioRow, $lucamug$elm_ui_with_context$Element$WithContext$Input$radioHelper);
 var $rakutentech$r10$R10$FormComponents$Internal$Single$Radio$viewRow = F3(
 	function (attrs, model, args) {
 		var fixedValue = model.value;
 		return A2(
-			$mdgriffith$elm_ui$Element$column,
+			$lucamug$elm_ui_with_context$Element$WithContext$column,
 			_Utils_ap(
 				_List_fromArray(
 					[
-						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+						$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill)
 					]),
 				attrs),
 			_List_fromArray(
 				[
 					A2(
-					$mdgriffith$elm_ui$Element$Input$radioRow,
+					$lucamug$elm_ui_with_context$Element$WithContext$Input$radioRow,
 					_Utils_ap(
 						_List_fromArray(
 							[
-								$mdgriffith$elm_ui$Element$spacing(15),
-								$mdgriffith$elm_ui$Element$Events$onFocus(
+								$lucamug$elm_ui_with_context$Element$WithContext$spacing(15),
+								$lucamug$elm_ui_with_context$Element$WithContext$Events$onFocus(
 								args.toMsg(
 									$rakutentech$r10$R10$FormComponents$Internal$Single$Common$OnFocus(
 										A3($rakutentech$r10$R10$FormComponents$Internal$Single$Common$getSelectedOrFirst, args.fieldOptions, model.value, model.select)))),
-								$mdgriffith$elm_ui$Element$Events$onLoseFocus(
+								$lucamug$elm_ui_with_context$Element$WithContext$Events$onLoseFocus(
 								args.toMsg(
 									$rakutentech$r10$R10$FormComponents$Internal$Single$Common$OnLoseFocus(model.value))),
-								$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-								$mdgriffith$elm_ui$Element$height(
-								$mdgriffith$elm_ui$Element$px(20)),
-								$mdgriffith$elm_ui$Element$centerY
+								$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill),
+								$lucamug$elm_ui_with_context$Element$WithContext$height(
+								$lucamug$elm_ui_with_context$Element$WithContext$px(20)),
+								$lucamug$elm_ui_with_context$Element$WithContext$centerY
 							]),
 						args.disabled ? _List_fromArray(
 							[
-								$mdgriffith$elm_ui$Element$htmlAttribute(
+								$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
 								$elm$html$Html$Attributes$tabindex(-1))
 							]) : _List_Nil),
 					{
 						label: A2(
-							$mdgriffith$elm_ui$Element$Input$labelLeft,
+							$lucamug$elm_ui_with_context$Element$WithContext$Input$labelLeft,
 							_List_fromArray(
 								[
-									$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-									$mdgriffith$elm_ui$Element$centerY
+									$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill),
+									$lucamug$elm_ui_with_context$Element$WithContext$centerY
 								]),
-							$mdgriffith$elm_ui$Element$text(args.label)),
+							$lucamug$elm_ui_with_context$Element$WithContext$text(args.label)),
 						onChange: args.disabled ? $elm$core$Basics$always(
 							args.toMsg(
 								$rakutentech$r10$R10$FormComponents$Internal$Single$Common$OnOptionSelect(model.value))) : A2($elm$core$Basics$composeL, args.toMsg, $rakutentech$r10$R10$FormComponents$Internal$Single$Common$OnOptionSelect),
 						options: A2(
 							$elm$core$List$map,
-							A2($rakutentech$r10$R10$FormComponents$Internal$Single$Radio$viewRadioOptions, args, model.focused),
+							A3($rakutentech$r10$R10$FormComponents$Internal$Single$Radio$viewRadioOptions, fixedValue, args, model.focused),
 							args.fieldOptions),
 						selected: $elm$core$Maybe$Just(fixedValue)
 					}),
@@ -24320,9 +29730,9 @@ var $rakutentech$r10$R10$FormComponents$Internal$Single$Radio$viewRow = F3(
 					args.palette,
 					_List_fromArray(
 						[
-							$mdgriffith$elm_ui$Element$Font$size(14),
-							$mdgriffith$elm_ui$Element$alpha(0.5),
-							$mdgriffith$elm_ui$Element$paddingEach(
+							$lucamug$elm_ui_with_context$Element$WithContext$Font$size(14),
+							$lucamug$elm_ui_with_context$Element$WithContext$alpha(0.5),
+							$lucamug$elm_ui_with_context$Element$WithContext$paddingEach(
 							{bottom: 0, left: 0, right: 0, top: $rakutentech$r10$R10$FormComponents$Internal$UI$genericSpacing})
 						]),
 					args.helperText)
@@ -24331,13 +29741,15 @@ var $rakutentech$r10$R10$FormComponents$Internal$Single$Radio$viewRow = F3(
 var $rakutentech$r10$R10$FormComponents$Internal$Single$view = F3(
 	function (attrs, model, conf) {
 		var args = {
+			autocomplete: $elm$core$Maybe$Nothing,
 			disabled: conf.disabled,
 			fieldOptions: conf.fieldOptions,
 			helperText: conf.helperText,
 			key: conf.key,
 			label: conf.label,
-			leadingIcon: $elm$core$Maybe$Nothing,
+			leadingIcon: _List_Nil,
 			maxDisplayCount: 3,
+			maybeValid: conf.maybeValid,
 			palette: conf.palette,
 			requiredLabel: conf.requiredLabel,
 			searchFn: $rakutentech$r10$R10$FormComponents$Internal$Single$defaultSearchFn,
@@ -24346,10 +29758,7 @@ var $rakutentech$r10$R10$FormComponents$Internal$Single$view = F3(
 			singleType: conf.singleType,
 			style: conf.style,
 			toMsg: conf.toMsg,
-			trailingIcon: $elm$core$Maybe$Just(
-				$rakutentech$r10$R10$FormComponents$Internal$Single$defaultTrailingIcon(
-					{opened: model.opened, palette: conf.palette})),
-			valid: conf.valid,
+			trailingIcon: _List_Nil,
 			viewOptionEl: $rakutentech$r10$R10$FormComponents$Internal$Single$defaultViewOptionEl(
 				{
 					msgOnSelect: A2($elm$core$Basics$composeR, $rakutentech$r10$R10$FormComponents$Internal$Single$Common$OnOptionSelect, conf.toMsg),
@@ -24380,18 +29789,11 @@ var $rakutentech$r10$R10$FormComponents$Internal$Single$view = F3(
 				return A3($rakutentech$r10$R10$FormComponents$Internal$Single$Radio$viewRow, attrs, model, args);
 		}
 	});
-var $rakutentech$r10$R10$Form$Internal$MakerForView$viewSingleSelection = F4(
+var $rakutentech$r10$R10$Form$Internal$MakerForView$viewSingle = F4(
 	function (args, singleType, fieldOptions, formConf) {
 		return A3(
 			$rakutentech$r10$R10$FormComponents$Internal$Single$view,
-			_List_fromArray(
-				[
-					$mdgriffith$elm_ui$Element$width(
-					A2(
-						$mdgriffith$elm_ui$Element$maximum,
-						900,
-						A2($mdgriffith$elm_ui$Element$minimum, 300, $mdgriffith$elm_ui$Element$fill)))
-				]),
+			_List_Nil,
 			{focused: args.focused, opened: args.active, scroll: args.fieldState.scroll, search: args.fieldState.search, select: args.fieldState.select, value: args.fieldState.value},
 			{
 				disabled: args.fieldState.disabled,
@@ -24399,13 +29801,1205 @@ var $rakutentech$r10$R10$Form$Internal$MakerForView$viewSingleSelection = F4(
 				helperText: args.fieldConf.helperText,
 				key: $rakutentech$r10$R10$Form$Internal$Key$toString(args.key),
 				label: args.fieldConf.label,
+				maybeValid: $rakutentech$r10$R10$Form$Internal$MakerForView$maybeValid(args.fieldState.validation),
 				palette: args.palette,
 				requiredLabel: args.fieldConf.requiredLabel,
 				singleType: singleType,
 				style: args.style,
-				toMsg: A3($rakutentech$r10$R10$Form$Internal$Msg$OnSingleMsg, args.key, args.fieldConf, formConf),
-				valid: $rakutentech$r10$R10$Form$Internal$MakerForView$isFieldStateValidationValid(
-					$rakutentech$r10$R10$Form$Internal$FieldState$isValid(args.fieldState.validation))
+				toMsg: A3($rakutentech$r10$R10$Form$Internal$Msg$OnSingleMsg, args.key, args.fieldConf, formConf)
+			});
+	});
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$Common$OnOptionSelect = function (a) {
+	return {$: 'OnOptionSelect', a: a};
+};
+var $rakutentech$r10$R10$Country$list = _List_fromArray(
+	[$rakutentech$r10$R10$Country$Afghanistan, $rakutentech$r10$R10$Country$Albania, $rakutentech$r10$R10$Country$Algeria, $rakutentech$r10$R10$Country$AmericanSamoa, $rakutentech$r10$R10$Country$Andorra, $rakutentech$r10$R10$Country$Angola, $rakutentech$r10$R10$Country$Anguilla, $rakutentech$r10$R10$Country$Antarctica, $rakutentech$r10$R10$Country$AntiguaandBarbuda, $rakutentech$r10$R10$Country$Argentina, $rakutentech$r10$R10$Country$Armenia, $rakutentech$r10$R10$Country$Aruba, $rakutentech$r10$R10$Country$Australia, $rakutentech$r10$R10$Country$Austria, $rakutentech$r10$R10$Country$Azerbaijan, $rakutentech$r10$R10$Country$Bahamas, $rakutentech$r10$R10$Country$Bahrain, $rakutentech$r10$R10$Country$Bangladesh, $rakutentech$r10$R10$Country$Barbados, $rakutentech$r10$R10$Country$Belarus, $rakutentech$r10$R10$Country$Belgium, $rakutentech$r10$R10$Country$Belize, $rakutentech$r10$R10$Country$Benin, $rakutentech$r10$R10$Country$Bermuda, $rakutentech$r10$R10$Country$Bhutan, $rakutentech$r10$R10$Country$Bolivia, $rakutentech$r10$R10$Country$BosniaandHerzegovina, $rakutentech$r10$R10$Country$Botswana, $rakutentech$r10$R10$Country$Brazil, $rakutentech$r10$R10$Country$BritishIndianOceanTerritory, $rakutentech$r10$R10$Country$BritishVirginIslands, $rakutentech$r10$R10$Country$Brunei, $rakutentech$r10$R10$Country$Bulgaria, $rakutentech$r10$R10$Country$BurkinaFaso, $rakutentech$r10$R10$Country$Burundi, $rakutentech$r10$R10$Country$Cambodia, $rakutentech$r10$R10$Country$Cameroon, $rakutentech$r10$R10$Country$Canada, $rakutentech$r10$R10$Country$CapeVerde, $rakutentech$r10$R10$Country$CaymanIslands, $rakutentech$r10$R10$Country$CentralAfricanRepublic, $rakutentech$r10$R10$Country$Chad, $rakutentech$r10$R10$Country$Chile, $rakutentech$r10$R10$Country$China, $rakutentech$r10$R10$Country$ChristmasIsland, $rakutentech$r10$R10$Country$CocosIslands, $rakutentech$r10$R10$Country$Colombia, $rakutentech$r10$R10$Country$Comoros, $rakutentech$r10$R10$Country$CookIslands, $rakutentech$r10$R10$Country$CostaRica, $rakutentech$r10$R10$Country$Croatia, $rakutentech$r10$R10$Country$Cuba, $rakutentech$r10$R10$Country$Curacao, $rakutentech$r10$R10$Country$Cyprus, $rakutentech$r10$R10$Country$CzechRepublic, $rakutentech$r10$R10$Country$DemocraticRepublicoftheCongo, $rakutentech$r10$R10$Country$Denmark, $rakutentech$r10$R10$Country$Djibouti, $rakutentech$r10$R10$Country$Dominica, $rakutentech$r10$R10$Country$DominicanRepublic, $rakutentech$r10$R10$Country$EastTimor, $rakutentech$r10$R10$Country$Ecuador, $rakutentech$r10$R10$Country$Egypt, $rakutentech$r10$R10$Country$ElSalvador, $rakutentech$r10$R10$Country$EquatorialGuinea, $rakutentech$r10$R10$Country$Eritrea, $rakutentech$r10$R10$Country$Estonia, $rakutentech$r10$R10$Country$Ethiopia, $rakutentech$r10$R10$Country$FalklandIslands, $rakutentech$r10$R10$Country$FaroeIslands, $rakutentech$r10$R10$Country$Fiji, $rakutentech$r10$R10$Country$Finland, $rakutentech$r10$R10$Country$France, $rakutentech$r10$R10$Country$FrenchPolynesia, $rakutentech$r10$R10$Country$Gabon, $rakutentech$r10$R10$Country$Gambia, $rakutentech$r10$R10$Country$Georgia, $rakutentech$r10$R10$Country$Germany, $rakutentech$r10$R10$Country$Ghana, $rakutentech$r10$R10$Country$Gibraltar, $rakutentech$r10$R10$Country$Greece, $rakutentech$r10$R10$Country$Greenland, $rakutentech$r10$R10$Country$Grenada, $rakutentech$r10$R10$Country$Guam, $rakutentech$r10$R10$Country$Guatemala, $rakutentech$r10$R10$Country$Guernsey, $rakutentech$r10$R10$Country$Guinea, $rakutentech$r10$R10$Country$GuineaBissau, $rakutentech$r10$R10$Country$Guyana, $rakutentech$r10$R10$Country$Haiti, $rakutentech$r10$R10$Country$Honduras, $rakutentech$r10$R10$Country$HongKong, $rakutentech$r10$R10$Country$Hungary, $rakutentech$r10$R10$Country$Iceland, $rakutentech$r10$R10$Country$India, $rakutentech$r10$R10$Country$Indonesia, $rakutentech$r10$R10$Country$Iran, $rakutentech$r10$R10$Country$Iraq, $rakutentech$r10$R10$Country$Ireland, $rakutentech$r10$R10$Country$IsleofMan, $rakutentech$r10$R10$Country$Israel, $rakutentech$r10$R10$Country$Italy, $rakutentech$r10$R10$Country$IvoryCoast, $rakutentech$r10$R10$Country$Jamaica, $rakutentech$r10$R10$Country$Japan, $rakutentech$r10$R10$Country$Jersey, $rakutentech$r10$R10$Country$Jordan, $rakutentech$r10$R10$Country$Kazakhstan, $rakutentech$r10$R10$Country$Kenya, $rakutentech$r10$R10$Country$Kiribati, $rakutentech$r10$R10$Country$Kosovo, $rakutentech$r10$R10$Country$Kuwait, $rakutentech$r10$R10$Country$Kyrgyzstan, $rakutentech$r10$R10$Country$Laos, $rakutentech$r10$R10$Country$Latvia, $rakutentech$r10$R10$Country$Lebanon, $rakutentech$r10$R10$Country$Lesotho, $rakutentech$r10$R10$Country$Liberia, $rakutentech$r10$R10$Country$Libya, $rakutentech$r10$R10$Country$Liechtenstein, $rakutentech$r10$R10$Country$Lithuania, $rakutentech$r10$R10$Country$Luxembourg, $rakutentech$r10$R10$Country$Macau, $rakutentech$r10$R10$Country$Macedonia, $rakutentech$r10$R10$Country$Madagascar, $rakutentech$r10$R10$Country$Malawi, $rakutentech$r10$R10$Country$Malaysia, $rakutentech$r10$R10$Country$Maldives, $rakutentech$r10$R10$Country$Mali, $rakutentech$r10$R10$Country$Malta, $rakutentech$r10$R10$Country$MarshallIslands, $rakutentech$r10$R10$Country$Mauritania, $rakutentech$r10$R10$Country$Mauritius, $rakutentech$r10$R10$Country$Mayotte, $rakutentech$r10$R10$Country$Mexico, $rakutentech$r10$R10$Country$Micronesia, $rakutentech$r10$R10$Country$Moldova, $rakutentech$r10$R10$Country$Monaco, $rakutentech$r10$R10$Country$Mongolia, $rakutentech$r10$R10$Country$Montenegro, $rakutentech$r10$R10$Country$Montserrat, $rakutentech$r10$R10$Country$Morocco, $rakutentech$r10$R10$Country$Mozambique, $rakutentech$r10$R10$Country$Myanmar, $rakutentech$r10$R10$Country$Namibia, $rakutentech$r10$R10$Country$Nauru, $rakutentech$r10$R10$Country$Nepal, $rakutentech$r10$R10$Country$Netherlands, $rakutentech$r10$R10$Country$NewCaledonia, $rakutentech$r10$R10$Country$NewZealand, $rakutentech$r10$R10$Country$Nicaragua, $rakutentech$r10$R10$Country$Niger, $rakutentech$r10$R10$Country$Nigeria, $rakutentech$r10$R10$Country$Niue, $rakutentech$r10$R10$Country$NorthKorea, $rakutentech$r10$R10$Country$NorthernMarianaIslands, $rakutentech$r10$R10$Country$Norway, $rakutentech$r10$R10$Country$Oman, $rakutentech$r10$R10$Country$Pakistan, $rakutentech$r10$R10$Country$Palau, $rakutentech$r10$R10$Country$Palestine, $rakutentech$r10$R10$Country$Panama, $rakutentech$r10$R10$Country$PapuaNewGuinea, $rakutentech$r10$R10$Country$Paraguay, $rakutentech$r10$R10$Country$Peru, $rakutentech$r10$R10$Country$Philippines, $rakutentech$r10$R10$Country$Pitcairn, $rakutentech$r10$R10$Country$Poland, $rakutentech$r10$R10$Country$Portugal, $rakutentech$r10$R10$Country$PuertoRico, $rakutentech$r10$R10$Country$Qatar, $rakutentech$r10$R10$Country$RepublicoftheCongo, $rakutentech$r10$R10$Country$Reunion, $rakutentech$r10$R10$Country$Romania, $rakutentech$r10$R10$Country$Russia, $rakutentech$r10$R10$Country$Rwanda, $rakutentech$r10$R10$Country$SaintBarthelemy, $rakutentech$r10$R10$Country$SaintHelena, $rakutentech$r10$R10$Country$SaintKittsandNevis, $rakutentech$r10$R10$Country$SaintLucia, $rakutentech$r10$R10$Country$SaintMartin, $rakutentech$r10$R10$Country$SaintPierreandMiquelon, $rakutentech$r10$R10$Country$SaintVincentandTheGrenadines, $rakutentech$r10$R10$Country$Samoa, $rakutentech$r10$R10$Country$SanMarino, $rakutentech$r10$R10$Country$SaoTomeandPrincipe, $rakutentech$r10$R10$Country$SaudiArabia, $rakutentech$r10$R10$Country$Senegal, $rakutentech$r10$R10$Country$Serbia, $rakutentech$r10$R10$Country$Seychelles, $rakutentech$r10$R10$Country$SierraLeone, $rakutentech$r10$R10$Country$Singapore, $rakutentech$r10$R10$Country$SintMaarten, $rakutentech$r10$R10$Country$Slovakia, $rakutentech$r10$R10$Country$Slovenia, $rakutentech$r10$R10$Country$SolomonIslands, $rakutentech$r10$R10$Country$Somalia, $rakutentech$r10$R10$Country$SouthAfrica, $rakutentech$r10$R10$Country$SouthKorea, $rakutentech$r10$R10$Country$SouthSudan, $rakutentech$r10$R10$Country$Spain, $rakutentech$r10$R10$Country$SriLanka, $rakutentech$r10$R10$Country$Sudan, $rakutentech$r10$R10$Country$Suriname, $rakutentech$r10$R10$Country$SvalbardandJanMayen, $rakutentech$r10$R10$Country$Swaziland, $rakutentech$r10$R10$Country$Sweden, $rakutentech$r10$R10$Country$Switzerland, $rakutentech$r10$R10$Country$Syria, $rakutentech$r10$R10$Country$Taiwan, $rakutentech$r10$R10$Country$Tajikistan, $rakutentech$r10$R10$Country$Tanzania, $rakutentech$r10$R10$Country$Thailand, $rakutentech$r10$R10$Country$Togo, $rakutentech$r10$R10$Country$Tokelau, $rakutentech$r10$R10$Country$Tonga, $rakutentech$r10$R10$Country$TrinidadandTobago, $rakutentech$r10$R10$Country$Tunisia, $rakutentech$r10$R10$Country$Turkey, $rakutentech$r10$R10$Country$Turkmenistan, $rakutentech$r10$R10$Country$TurksandCaicosIslands, $rakutentech$r10$R10$Country$Tuvalu, $rakutentech$r10$R10$Country$USVirginIslands, $rakutentech$r10$R10$Country$Uganda, $rakutentech$r10$R10$Country$Ukraine, $rakutentech$r10$R10$Country$UnitedArabEmirates, $rakutentech$r10$R10$Country$UnitedKingdom, $rakutentech$r10$R10$Country$UnitedStates, $rakutentech$r10$R10$Country$Uruguay, $rakutentech$r10$R10$Country$Uzbekistan, $rakutentech$r10$R10$Country$Vanuatu, $rakutentech$r10$R10$Country$Vatican, $rakutentech$r10$R10$Country$Venezuela, $rakutentech$r10$R10$Country$Vietnam, $rakutentech$r10$R10$Country$WallisandFutuna, $rakutentech$r10$R10$Country$WesternSahara, $rakutentech$r10$R10$Country$Yemen, $rakutentech$r10$R10$Country$Zambia, $rakutentech$r10$R10$Country$Zimbabwe]);
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$countryOptions = $rakutentech$r10$R10$Country$list;
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$Common$normalizeString = A2($elm$core$Basics$composeR, $elm$core$String$toLower, $elm$core$String$trim);
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$Common$searchFn = F2(
+	function (search, country) {
+		return A2(
+			$elm$core$String$contains,
+			$rakutentech$r10$R10$FormComponents$Internal$Phone$Common$normalizeString(search),
+			$rakutentech$r10$R10$FormComponents$Internal$Phone$Common$normalizeString(
+				$rakutentech$r10$R10$Country$toString(country)));
+	});
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$Common$filterBySearch = F2(
+	function (search, fieldOptions) {
+		return ($elm$core$String$isEmpty(search) || A2(
+			$elm$core$List$any,
+			$elm$core$Basics$eq(search),
+			A2($elm$core$List$map, $rakutentech$r10$R10$Country$toString, fieldOptions))) ? fieldOptions : A2(
+			$elm$core$List$filter,
+			$rakutentech$r10$R10$FormComponents$Internal$Phone$Common$searchFn(search),
+			fieldOptions);
+	});
+var $rakutentech$r10$R10$Country$emptyFlag = '🏳️';
+var $rakutentech$r10$R10$Country$toFlag = function (country) {
+	switch (country.$) {
+		case 'Afghanistan':
+			return '🇦🇫';
+		case 'Albania':
+			return '🇦🇱';
+		case 'Algeria':
+			return '🇩🇿';
+		case 'AmericanSamoa':
+			return '🇦🇸';
+		case 'Andorra':
+			return '🇦🇩';
+		case 'Angola':
+			return '🇦🇴';
+		case 'Anguilla':
+			return '🇦🇮';
+		case 'Antarctica':
+			return '🇦🇶';
+		case 'AntiguaandBarbuda':
+			return '🇦🇬';
+		case 'Argentina':
+			return '🇦🇷';
+		case 'Armenia':
+			return '🇦🇲';
+		case 'Aruba':
+			return '🇦🇼';
+		case 'Australia':
+			return '🇦🇺';
+		case 'Austria':
+			return '🇦🇹';
+		case 'Azerbaijan':
+			return '🇦🇿';
+		case 'Bahamas':
+			return '🇧🇸';
+		case 'Bahrain':
+			return '🇧🇭';
+		case 'Bangladesh':
+			return '🇧🇩';
+		case 'Barbados':
+			return '🇧🇧';
+		case 'Belarus':
+			return '🇧🇾';
+		case 'Belgium':
+			return '🇧🇪';
+		case 'Belize':
+			return '🇧🇿';
+		case 'Benin':
+			return '🇧🇯';
+		case 'Bermuda':
+			return '🇧🇲';
+		case 'Bhutan':
+			return '🇧🇹';
+		case 'Bolivia':
+			return '🇧🇴';
+		case 'BosniaandHerzegovina':
+			return '🇧🇦';
+		case 'Botswana':
+			return '🇧🇼';
+		case 'Brazil':
+			return '🇧🇷';
+		case 'BritishIndianOceanTerritory':
+			return '🇮🇴';
+		case 'BritishVirginIslands':
+			return '🇻🇬';
+		case 'Brunei':
+			return '🇧🇳';
+		case 'Bulgaria':
+			return '🇧🇬';
+		case 'BurkinaFaso':
+			return '🇧🇫';
+		case 'Burundi':
+			return '🇧🇮';
+		case 'Cambodia':
+			return '🇰🇭';
+		case 'Cameroon':
+			return '🇨🇲';
+		case 'Canada':
+			return '🇨🇦';
+		case 'CapeVerde':
+			return '🇨🇻';
+		case 'CaymanIslands':
+			return '🇰🇾';
+		case 'CentralAfricanRepublic':
+			return '🇨🇫';
+		case 'Chad':
+			return '🇹🇩';
+		case 'Chile':
+			return '🇨🇱';
+		case 'China':
+			return '🇨🇳';
+		case 'ChristmasIsland':
+			return '🇨🇽';
+		case 'CocosIslands':
+			return '🇨🇨';
+		case 'Colombia':
+			return '🇨🇴';
+		case 'Comoros':
+			return '🇰🇲';
+		case 'CookIslands':
+			return '🇨🇰';
+		case 'CostaRica':
+			return '🇨🇷';
+		case 'Croatia':
+			return '🇭🇷';
+		case 'Cuba':
+			return '🇨🇺';
+		case 'Curacao':
+			return '🇨🇼';
+		case 'Cyprus':
+			return '🇨🇾';
+		case 'CzechRepublic':
+			return '🇨🇿';
+		case 'DemocraticRepublicoftheCongo':
+			return '🇨🇩';
+		case 'Denmark':
+			return '🇩🇰';
+		case 'Djibouti':
+			return '🇩🇯';
+		case 'Dominica':
+			return '🇩🇲';
+		case 'DominicanRepublic':
+			return '🇩🇴';
+		case 'EastTimor':
+			return '🇹🇱';
+		case 'Ecuador':
+			return '🇪🇨';
+		case 'Egypt':
+			return '🇪🇬';
+		case 'ElSalvador':
+			return '🇸🇻';
+		case 'EquatorialGuinea':
+			return '🇬🇶';
+		case 'Eritrea':
+			return '🇪🇷';
+		case 'Estonia':
+			return '🇪🇪';
+		case 'Ethiopia':
+			return '🇪🇹';
+		case 'FalklandIslands':
+			return '🇫🇰';
+		case 'FaroeIslands':
+			return '🇫🇴';
+		case 'Fiji':
+			return '🇫🇯';
+		case 'Finland':
+			return '🇫🇮';
+		case 'France':
+			return '🇫🇷';
+		case 'FrenchPolynesia':
+			return '🇵🇫';
+		case 'Gabon':
+			return '🇬🇦';
+		case 'Gambia':
+			return '🇬🇲';
+		case 'Georgia':
+			return '🇬🇪';
+		case 'Germany':
+			return '🇩🇪';
+		case 'Ghana':
+			return '🇬🇭';
+		case 'Gibraltar':
+			return '🇬🇮';
+		case 'Greece':
+			return '🇬🇷';
+		case 'Greenland':
+			return '🇬🇱';
+		case 'Grenada':
+			return '🇬🇩';
+		case 'Guam':
+			return '🇬🇺';
+		case 'Guatemala':
+			return '🇬🇹';
+		case 'Guernsey':
+			return '🇬🇬';
+		case 'Guinea':
+			return '🇬🇳';
+		case 'GuineaBissau':
+			return '🇬🇼';
+		case 'Guyana':
+			return '🇬🇾';
+		case 'Haiti':
+			return '🇭🇹';
+		case 'Honduras':
+			return '🇭🇳';
+		case 'HongKong':
+			return '🇭🇰';
+		case 'Hungary':
+			return '🇭🇺';
+		case 'Iceland':
+			return '🇮🇸';
+		case 'India':
+			return '🇮🇳';
+		case 'Indonesia':
+			return '🇮🇩';
+		case 'Iran':
+			return '🇮🇷';
+		case 'Iraq':
+			return '🇮🇶';
+		case 'Ireland':
+			return '🇮🇪';
+		case 'IsleofMan':
+			return '🇮🇲';
+		case 'Israel':
+			return '🇮🇱';
+		case 'Italy':
+			return '🇮🇹';
+		case 'IvoryCoast':
+			return '🇨🇮';
+		case 'Jamaica':
+			return '🇯🇲';
+		case 'Japan':
+			return '🇯🇵';
+		case 'Jersey':
+			return '🇯🇪';
+		case 'Jordan':
+			return '🇯🇴';
+		case 'Kazakhstan':
+			return '🇰🇿';
+		case 'Kenya':
+			return '🇰🇪';
+		case 'Kiribati':
+			return '🇰🇮';
+		case 'Kosovo':
+			return '🇽🇰';
+		case 'Kuwait':
+			return '🇰🇼';
+		case 'Kyrgyzstan':
+			return '🇰🇬';
+		case 'Laos':
+			return '🇱🇦';
+		case 'Latvia':
+			return '🇱🇻';
+		case 'Lebanon':
+			return '🇱🇧';
+		case 'Lesotho':
+			return '🇱🇸';
+		case 'Liberia':
+			return '🇱🇷';
+		case 'Libya':
+			return '🇱🇾';
+		case 'Liechtenstein':
+			return '🇱🇮';
+		case 'Lithuania':
+			return '🇱🇹';
+		case 'Luxembourg':
+			return '🇱🇺';
+		case 'Macau':
+			return '🇲🇴';
+		case 'Macedonia':
+			return '🇲🇰';
+		case 'Madagascar':
+			return '🇲🇬';
+		case 'Malawi':
+			return '🇲🇼';
+		case 'Malaysia':
+			return '🇲🇾';
+		case 'Maldives':
+			return '🇲🇻';
+		case 'Mali':
+			return '🇲🇱';
+		case 'Malta':
+			return '🇲🇹';
+		case 'MarshallIslands':
+			return '🇲🇭';
+		case 'Mauritania':
+			return '🇲🇷';
+		case 'Mauritius':
+			return '🇲🇺';
+		case 'Mayotte':
+			return '🇾🇹';
+		case 'Mexico':
+			return '🇲🇽';
+		case 'Micronesia':
+			return '🇫🇲';
+		case 'Moldova':
+			return '🇲🇩';
+		case 'Monaco':
+			return '🇲🇨';
+		case 'Mongolia':
+			return '🇲🇳';
+		case 'Montenegro':
+			return '🇲🇪';
+		case 'Montserrat':
+			return '🇲🇸';
+		case 'Morocco':
+			return '🇲🇦';
+		case 'Mozambique':
+			return '🇲🇿';
+		case 'Myanmar':
+			return '🇲🇲';
+		case 'Namibia':
+			return '🇳🇦';
+		case 'Nauru':
+			return '🇳🇷';
+		case 'Nepal':
+			return '🇳🇵';
+		case 'Netherlands':
+			return '🇳🇱';
+		case 'NewCaledonia':
+			return '🇳🇨';
+		case 'NewZealand':
+			return '🇳🇿';
+		case 'Nicaragua':
+			return '🇳🇮';
+		case 'Niger':
+			return '🇳🇪';
+		case 'Nigeria':
+			return '🇳🇬';
+		case 'Niue':
+			return '🇳🇺';
+		case 'NorthKorea':
+			return '🇰🇵';
+		case 'NorthernMarianaIslands':
+			return '🇲🇵';
+		case 'Norway':
+			return '🇳🇴';
+		case 'Oman':
+			return '🇴🇲';
+		case 'Pakistan':
+			return '🇵🇰';
+		case 'Palau':
+			return '🇵🇼';
+		case 'Palestine':
+			return '🇵🇸';
+		case 'Panama':
+			return '🇵🇦';
+		case 'PapuaNewGuinea':
+			return '🇵🇬';
+		case 'Paraguay':
+			return '🇵🇾';
+		case 'Peru':
+			return '🇵🇪';
+		case 'Philippines':
+			return '🇵🇭';
+		case 'Pitcairn':
+			return '🇵🇳';
+		case 'Poland':
+			return '🇵🇱';
+		case 'Portugal':
+			return '🇵🇹';
+		case 'PuertoRico':
+			return '🇵🇷';
+		case 'Qatar':
+			return '🇶🇦';
+		case 'RepublicoftheCongo':
+			return '🇨🇬';
+		case 'Reunion':
+			return '🇷🇪';
+		case 'Romania':
+			return '🇷🇴';
+		case 'Russia':
+			return '🇷🇺';
+		case 'Rwanda':
+			return '🇷🇼';
+		case 'SaintBarthelemy':
+			return '🇧🇱';
+		case 'SaintHelena':
+			return '🇸🇭';
+		case 'SaintKittsandNevis':
+			return '🇰🇳';
+		case 'SaintLucia':
+			return '🇱🇨';
+		case 'SaintMartin':
+			return '🇲🇫';
+		case 'SaintPierreandMiquelon':
+			return '🇵🇲';
+		case 'SaintVincentandTheGrenadines':
+			return '🇻🇨';
+		case 'Samoa':
+			return '🇼🇸';
+		case 'SanMarino':
+			return '🇸🇲';
+		case 'SaoTomeandPrincipe':
+			return '🇸🇹';
+		case 'SaudiArabia':
+			return '🇸🇦';
+		case 'Senegal':
+			return '🇸🇳';
+		case 'Serbia':
+			return '🇷🇸';
+		case 'Seychelles':
+			return '🇸🇨';
+		case 'SierraLeone':
+			return '🇸🇱';
+		case 'Singapore':
+			return '🇸🇬';
+		case 'SintMaarten':
+			return '🇸🇽';
+		case 'Slovakia':
+			return '🇸🇰';
+		case 'Slovenia':
+			return '🇸🇮';
+		case 'SolomonIslands':
+			return '🇸🇧';
+		case 'Somalia':
+			return '🇸🇴';
+		case 'SouthAfrica':
+			return '🇿🇦';
+		case 'SouthKorea':
+			return '🇰🇷';
+		case 'SouthSudan':
+			return '🇸🇸';
+		case 'Spain':
+			return '🇪🇸';
+		case 'SriLanka':
+			return '🇱🇰';
+		case 'Sudan':
+			return '🇸🇩';
+		case 'Suriname':
+			return '🇸🇷';
+		case 'SvalbardandJanMayen':
+			return '🇸🇯';
+		case 'Swaziland':
+			return '🇸🇿';
+		case 'Sweden':
+			return '🇸🇪';
+		case 'Switzerland':
+			return '🇨🇭';
+		case 'Syria':
+			return '🇸🇾';
+		case 'Taiwan':
+			return '🇹🇼';
+		case 'Tajikistan':
+			return '🇹🇯';
+		case 'Tanzania':
+			return '🇹🇿';
+		case 'Thailand':
+			return '🇹🇭';
+		case 'Togo':
+			return '🇹🇬';
+		case 'Tokelau':
+			return '🇹🇰';
+		case 'Tonga':
+			return '🇹🇴';
+		case 'TrinidadandTobago':
+			return '🇹🇹';
+		case 'Tunisia':
+			return '🇹🇳';
+		case 'Turkey':
+			return '🇹🇷';
+		case 'Turkmenistan':
+			return '🇹🇲';
+		case 'TurksandCaicosIslands':
+			return '🇹🇨';
+		case 'Tuvalu':
+			return '🇹🇻';
+		case 'USVirginIslands':
+			return '🇻🇮';
+		case 'Uganda':
+			return '🇺🇬';
+		case 'Ukraine':
+			return '🇺🇦';
+		case 'UnitedArabEmirates':
+			return '🇦🇪';
+		case 'UnitedKingdom':
+			return '🇬🇧';
+		case 'UnitedStates':
+			return '🇺🇸';
+		case 'Uruguay':
+			return '🇺🇾';
+		case 'Uzbekistan':
+			return '🇺🇿';
+		case 'Vanuatu':
+			return '🇻🇺';
+		case 'Vatican':
+			return '🇻🇦';
+		case 'Venezuela':
+			return '🇻🇪';
+		case 'Vietnam':
+			return '🇻🇳';
+		case 'WallisandFutuna':
+			return '🇼🇫';
+		case 'WesternSahara':
+			return '🇪🇭';
+		case 'Yemen':
+			return '🇾🇪';
+		case 'Zambia':
+			return '🇿🇲';
+		default:
+			return '🇿🇼';
+	}
+};
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$getFlagIcon = F2(
+	function (size, maybeCountry) {
+		return A2(
+			$lucamug$elm_ui_with_context$Element$WithContext$el,
+			_List_fromArray(
+				[
+					$lucamug$elm_ui_with_context$Element$WithContext$Font$size(size)
+				]),
+			$lucamug$elm_ui_with_context$Element$WithContext$text(
+				function () {
+					if (maybeCountry.$ === 'Just') {
+						var country = maybeCountry.a;
+						return $rakutentech$r10$R10$Country$toFlag(country);
+					} else {
+						return $rakutentech$r10$R10$Country$emptyFlag;
+					}
+				}()));
+	});
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$Common$OnInputClick = function (a) {
+	return {$: 'OnInputClick', a: a};
+};
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$Update$getMsgOnInputClick = F3(
+	function (model, args, filteredFieldOption) {
+		var maybeCountryValue = $rakutentech$r10$R10$Country$fromTelephoneAsString(model.value);
+		var activeOptionIndex = A2(
+			$elm$core$Maybe$withDefault,
+			-1,
+			A2(
+				$elm$core$Maybe$andThen,
+				$rakutentech$r10$R10$FormComponents$Internal$Phone$Update$getOptionIndex(filteredFieldOption),
+				maybeCountryValue));
+		var activeOptionY = A4(
+			$rakutentech$r10$R10$FormComponents$Internal$Phone$Update$getOptionY,
+			model.scroll,
+			args,
+			activeOptionIndex,
+			$elm$core$List$length(filteredFieldOption));
+		return $rakutentech$r10$R10$FormComponents$Internal$Phone$Common$OnInputClick(
+			{key: args.key, selectedY: activeOptionY});
+	});
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$getFlagButton = function (_v0) {
+	var palette = _v0.palette;
+	var disabled = _v0.disabled;
+	var toMsg = _v0.toMsg;
+	var key = _v0.key;
+	var filteredFieldOption = _v0.filteredFieldOption;
+	var model = _v0.model;
+	var style = _v0.style;
+	return A2(
+		$lucamug$elm_ui_with_context$Element$WithContext$Input$button,
+		_Utils_ap(
+			_List_fromArray(
+				[
+					$lucamug$elm_ui_with_context$Element$WithContext$mouseOver(
+					_List_fromArray(
+						[
+							$lucamug$elm_ui_with_context$Element$WithContext$Background$color(
+							A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$borderA, 0.3, palette))
+						])),
+					$rakutentech$r10$R10$Transition$transition('all 0.2s'),
+					A2($lucamug$elm_ui_with_context$Element$WithContext$paddingXY, 10, 5),
+					$lucamug$elm_ui_with_context$Element$WithContext$Border$rounded(10)
+				]),
+			function () {
+				if (style.$ === 'Filled') {
+					return _List_fromArray(
+						[
+							$lucamug$elm_ui_with_context$Element$WithContext$moveDown(-2),
+							$lucamug$elm_ui_with_context$Element$WithContext$moveRight(0)
+						]);
+				} else {
+					return _List_fromArray(
+						[
+							$lucamug$elm_ui_with_context$Element$WithContext$moveDown(3),
+							$lucamug$elm_ui_with_context$Element$WithContext$moveRight(8)
+						]);
+				}
+			}()),
+		{
+			label: function () {
+				var maybeCountryValue = $rakutentech$r10$R10$Country$fromTelephoneAsString(model.value);
+				return A2(
+					$lucamug$elm_ui_with_context$Element$WithContext$row,
+					_List_fromArray(
+						[
+							$lucamug$elm_ui_with_context$Element$WithContext$spacing(7)
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$lucamug$elm_ui_with_context$Element$WithContext$el,
+							_List_Nil,
+							A2($rakutentech$r10$R10$FormComponents$Internal$Phone$getFlagIcon, 24, maybeCountryValue)),
+							$lucamug$elm_ui_with_context$Element$WithContext$text(
+							A2(
+								$elm$core$Maybe$withDefault,
+								'',
+								A2($elm$core$Maybe$map, $rakutentech$r10$R10$Country$toCountryTelCode, maybeCountryValue))),
+							A2(
+							$lucamug$elm_ui_with_context$Element$WithContext$el,
+							_List_fromArray(
+								[
+									$lucamug$elm_ui_with_context$Element$WithContext$Font$size(11),
+									$lucamug$elm_ui_with_context$Element$WithContext$alpha(0.6),
+									$rakutentech$r10$R10$Transition$transition('all 0.2s'),
+									$lucamug$elm_ui_with_context$Element$WithContext$rotate(
+									model.opened ? $elm$core$Basics$pi : 0)
+								]),
+							$lucamug$elm_ui_with_context$Element$WithContext$text('▼'))
+						]));
+			}(),
+			onPress: disabled ? $elm$core$Maybe$Nothing : $elm$core$Maybe$Just(
+				toMsg(
+					A3(
+						$rakutentech$r10$R10$FormComponents$Internal$Phone$Update$getMsgOnInputClick,
+						model,
+						{key: key, maxDisplayCount: 5, selectOptionHeight: 36},
+						filteredFieldOption)))
+		});
+};
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$Common$OnArrowDown = function (a) {
+	return {$: 'OnArrowDown', a: a};
+};
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$Common$OnArrowUp = function (a) {
+	return {$: 'OnArrowUp', a: a};
+};
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$Common$OnEsc = {$: 'OnEsc'};
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$Common$OnFocus = function (a) {
+	return {$: 'OnFocus', a: a};
+};
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$Common$OnLoseFocus = function (a) {
+	return {$: 'OnLoseFocus', a: a};
+};
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$Common$OnValueChange = F3(
+	function (a, b, c) {
+		return {$: 'OnValueChange', a: a, b: b, c: c};
+	});
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$Common$dropdownContainerId = function (key) {
+	return 'dropdown-container-' + key;
+};
+var $rakutentech$r10$R10$Country$toPhoneTemplate = function (country) {
+	if (country.$ === 'Japan') {
+		return '080-1234-567';
+	} else {
+		return '';
+	}
+};
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$Common$OnScroll = function (a) {
+	return {$: 'OnScroll', a: a};
+};
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$Combobox$comboboxOptionNoResults = function (_v0) {
+	var palette = _v0.palette;
+	var selectOptionHeight = _v0.selectOptionHeight;
+	return A2(
+		$lucamug$elm_ui_with_context$Element$WithContext$el,
+		_List_fromArray(
+			[
+				$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill),
+				$lucamug$elm_ui_with_context$Element$WithContext$height(
+				$lucamug$elm_ui_with_context$Element$WithContext$px(selectOptionHeight)),
+				$lucamug$elm_ui_with_context$Element$WithContext$paddingEach(
+				{bottom: 0, left: 12, right: 0, top: 0}),
+				$lucamug$elm_ui_with_context$Element$WithContext$Font$color(
+				A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$onSurfaceA, 0.5, palette))
+			]),
+		A2(
+			$lucamug$elm_ui_with_context$Element$WithContext$el,
+			_List_fromArray(
+				[$lucamug$elm_ui_with_context$Element$WithContext$centerY]),
+			$lucamug$elm_ui_with_context$Element$WithContext$text('No results')));
+};
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$Combobox$viewComboboxOption = F4(
+	function (countryValue, select, args, country) {
+		var isSelected_ = _Utils_eq(
+			$rakutentech$r10$R10$Country$fromString(select),
+			$elm$core$Maybe$Just(country));
+		var isActiveValue = _Utils_eq(
+			countryValue,
+			$elm$core$Maybe$Just(country));
+		var getShadowColor = isActiveValue ? A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$primaryVariantA, 0.1, args.palette) : A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$onSurfaceA, 0.05, args.palette);
+		var getBackgroundColor = (isActiveValue && isSelected_) ? A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$primaryVariantA, 0.13, args.palette) : (isActiveValue ? A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$primaryVariantA, 0.07, args.palette) : (isSelected_ ? A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$onSurfaceA, 0.07, args.palette) : A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$onSurfaceA, 0, args.palette)));
+		return A2(
+			$lucamug$elm_ui_with_context$Element$WithContext$el,
+			_List_fromArray(
+				[
+					$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill),
+					$lucamug$elm_ui_with_context$Element$WithContext$height(
+					$lucamug$elm_ui_with_context$Element$WithContext$px(args.selectOptionHeight)),
+					$lucamug$elm_ui_with_context$Element$WithContext$Background$color(getBackgroundColor),
+					$lucamug$elm_ui_with_context$Element$WithContext$mouseOver(
+					_List_fromArray(
+						[
+							$lucamug$elm_ui_with_context$Element$WithContext$Border$innerShadow(
+							{
+								blur: 0,
+								color: getShadowColor,
+								offset: _Utils_Tuple2(0, 0),
+								size: 40
+							})
+						]))
+				]),
+			args.toOptionEl(country));
+	});
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$Common$OnSearch = F2(
+	function (a, b) {
+		return {$: 'OnSearch', a: a, b: b};
+	});
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$Update$getMsgOnSearch = F2(
+	function (args, newSearch) {
+		return A2(
+			$rakutentech$r10$R10$FormComponents$Internal$Phone$Common$OnSearch,
+			{
+				filteredFieldOption: A2($rakutentech$r10$R10$FormComponents$Internal$Phone$Common$filterBySearch, newSearch, args.countryOptions),
+				key: args.key,
+				maxDisplayCount: args.maxDisplayCount,
+				selectOptionHeight: args.selectOptionHeight
+			},
+			newSearch);
+	});
+var $rakutentech$r10$R10$Svg$Icons$x = F3(
+	function (attrs, cl, size) {
+		return A3(
+			$rakutentech$r10$R10$Svg$Utils$wrapper32,
+			attrs,
+			size,
+			_List_fromArray(
+				[
+					A2(
+					$elm$svg$Svg$path,
+					_List_fromArray(
+						[
+							$elm$svg$Svg$Attributes$fill('none'),
+							$elm$svg$Svg$Attributes$d('M0 0h32v32H0z')
+						]),
+					_List_Nil),
+					A2(
+					$elm$svg$Svg$path,
+					_List_fromArray(
+						[
+							$elm$svg$Svg$Attributes$fill(
+							$rakutentech$r10$R10$Color$Utils$toCssRgba(cl)),
+							$elm$svg$Svg$Attributes$d('M27 6.45L25.55 5 16 14.55 6.45 5 5 6.45 14.55 16 5 25.55 6.45 27 16 17.45 25.55 27 27 25.55 17.45 16 27 6.45z')
+						]),
+					_List_Nil)
+				]));
+	});
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$Combobox$viewSearchBox = F2(
+	function (model, args) {
+		return A2(
+			$lucamug$elm_ui_with_context$Element$WithContext$row,
+			_List_fromArray(
+				[
+					$lucamug$elm_ui_with_context$Element$WithContext$Border$widthEach(
+					{bottom: 1, left: 0, right: 0, top: 0}),
+					$lucamug$elm_ui_with_context$Element$WithContext$Border$color(
+					A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$borderA, 0.3, args.palette)),
+					A2($lucamug$elm_ui_with_context$Element$WithContext$paddingXY, 10, 0),
+					$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill)
+				]),
+			_List_fromArray(
+				[
+					$lucamug$elm_ui_with_context$Element$WithContext$withContext(
+					function (c) {
+						return A2(
+							$lucamug$elm_ui_with_context$Element$WithContext$Input$text,
+							_List_fromArray(
+								[
+									$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+									$elm$html$Html$Attributes$id(
+										$rakutentech$r10$R10$FormComponents$Internal$Phone$Common$dropdownSearchBoxId(args.key))),
+									$lucamug$elm_ui_with_context$Element$WithContext$Background$color(
+									$rakutentech$r10$R10$FormComponents$Internal$UI$Color$surface(args.palette)),
+									$lucamug$elm_ui_with_context$Element$WithContext$paddingEach(
+									{bottom: 16, left: 8, right: 16, top: 16}),
+									$lucamug$elm_ui_with_context$Element$WithContext$Border$width(0)
+								]),
+							{
+								label: A2(
+									$lucamug$elm_ui_with_context$Element$WithContext$Input$labelLeft,
+									_List_fromArray(
+										[
+											$lucamug$elm_ui_with_context$Element$WithContext$moveDown(3),
+											$lucamug$elm_ui_with_context$Element$WithContext$moveRight(5)
+										]),
+									A3(
+										$rakutentech$r10$R10$Svg$Icons$search,
+										_List_Nil,
+										$rakutentech$r10$R10$Color$Svg$fontHighEmphasis(c.theme),
+										18)),
+								onChange: function (string) {
+									return args.toMsg(
+										A2($rakutentech$r10$R10$FormComponents$Internal$Phone$Update$getMsgOnSearch, args, string));
+								},
+								placeholder: $elm$core$Maybe$Nothing,
+								text: model.search
+							});
+					}),
+					A2(
+					$lucamug$elm_ui_with_context$Element$WithContext$Input$button,
+					_List_fromArray(
+						[
+							$lucamug$elm_ui_with_context$Element$WithContext$mouseOver(
+							_List_fromArray(
+								[
+									$lucamug$elm_ui_with_context$Element$WithContext$Background$color(
+									A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$borderA, 0.3, args.palette))
+								])),
+							$rakutentech$r10$R10$Transition$transition('all 0.2s'),
+							$lucamug$elm_ui_with_context$Element$WithContext$padding(6),
+							$lucamug$elm_ui_with_context$Element$WithContext$Border$rounded(20)
+						]),
+					{
+						label: $lucamug$elm_ui_with_context$Element$WithContext$withContext(
+							function (c) {
+								return A3(
+									$rakutentech$r10$R10$Svg$Icons$x,
+									_List_Nil,
+									$rakutentech$r10$R10$Color$Svg$fontHighEmphasis(c.theme),
+									18);
+							}),
+						onPress: $elm$core$Maybe$Just(
+							args.toMsg($rakutentech$r10$R10$FormComponents$Internal$Phone$Common$OnEsc))
+					})
+				]));
+	});
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$Combobox$viewComboboxDropdown = F4(
+	function (model, args, opened, filteredFieldOption) {
+		var visibleCount = args.maxDisplayCount * 3;
+		var optionsCount = $elm$core$List$length(filteredFieldOption);
+		var elementsScrolledFromTop = ($elm$core$Basics$round(model.scroll) / args.selectOptionHeight) | 0;
+		var visibleFrom = elementsScrolledFromTop - args.maxDisplayCount;
+		var visibleMoveDown = $rakutentech$r10$R10$FormComponents$Internal$Phone$Update$dropdownHingeHeight + (A2($elm$core$Basics$max, 0, visibleFrom) * args.selectOptionHeight);
+		var visibleTo = visibleFrom + visibleCount;
+		var visibleOptions = function () {
+			if (optionsCount > 0) {
+				var maybeCountryValue = $rakutentech$r10$R10$Country$fromTelephoneAsString(model.value);
+				return A2(
+					$elm$core$List$map,
+					function (country) {
+						return _Utils_Tuple2(
+							$rakutentech$r10$R10$Country$toString(country),
+							A4($rakutentech$r10$R10$FormComponents$Internal$Phone$Combobox$viewComboboxOption, maybeCountryValue, model.select, args, country));
+					},
+					A3($rakutentech$r10$R10$FormComponents$Internal$Utils$listSlice, visibleFrom, visibleTo, filteredFieldOption));
+			} else {
+				return _List_fromArray(
+					[
+						_Utils_Tuple2(
+						'no_results',
+						$rakutentech$r10$R10$FormComponents$Internal$Phone$Combobox$comboboxOptionNoResults(args))
+					]);
+			}
+		}();
+		var contentHeight = args.selectOptionHeight * A2($elm$core$Basics$max, optionsCount, 1);
+		return (!opened) ? $lucamug$elm_ui_with_context$Element$WithContext$none : A2(
+			$lucamug$elm_ui_with_context$Element$WithContext$column,
+			_List_fromArray(
+				[
+					$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill),
+					$lucamug$elm_ui_with_context$Element$WithContext$clip,
+					$lucamug$elm_ui_with_context$Element$WithContext$moveDown(60),
+					$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+					$elm$html$Html$Attributes$tabindex(-1)),
+					$lucamug$elm_ui_with_context$Element$WithContext$Background$color(
+					$rakutentech$r10$R10$FormComponents$Internal$UI$Color$surface(args.palette)),
+					$lucamug$elm_ui_with_context$Element$WithContext$Border$color(
+					A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$borderA, 0.5, args.palette)),
+					$lucamug$elm_ui_with_context$Element$WithContext$Border$width(1),
+					$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+					A2($elm$html$Html$Attributes$style, 'z-index', '1')),
+					$lucamug$elm_ui_with_context$Element$WithContext$Border$rounded(
+					function () {
+						var _v0 = args.style;
+						if (_v0.$ === 'Filled') {
+							return 0;
+						} else {
+							return 8;
+						}
+					}()),
+					$lucamug$elm_ui_with_context$Element$WithContext$Border$shadow(
+					{
+						blur: 10,
+						color: A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$onSurfaceA, 0.3, args.palette),
+						offset: _Utils_Tuple2(0, 0),
+						size: 3
+					})
+				]),
+			_List_fromArray(
+				[
+					A2($rakutentech$r10$R10$FormComponents$Internal$Phone$Combobox$viewSearchBox, model, args),
+					A2(
+					$lucamug$elm_ui_with_context$Element$WithContext$el,
+					_List_fromArray(
+						[
+							$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill),
+							$lucamug$elm_ui_with_context$Element$WithContext$height(
+							$lucamug$elm_ui_with_context$Element$WithContext$px(
+								A2($rakutentech$r10$R10$FormComponents$Internal$Phone$Update$getDropdownHeight, args, optionsCount))),
+							$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+							A2($elm$html$Html$Attributes$style, 'overscroll-behavior', 'contain')),
+							$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+							$rakutentech$r10$R10$FormComponents$Internal$UI$onScroll(
+								A2($elm$core$Basics$composeL, args.toMsg, $rakutentech$r10$R10$FormComponents$Internal$Phone$Common$OnScroll))),
+							$lucamug$elm_ui_with_context$Element$WithContext$Font$color(
+							$rakutentech$r10$R10$FormComponents$Internal$UI$Color$font(args.palette)),
+							$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+							$elm$html$Html$Attributes$id(
+								$rakutentech$r10$R10$FormComponents$Internal$Phone$Common$dropdownContentId(args.key))),
+							$lucamug$elm_ui_with_context$Element$WithContext$scrollbarX,
+							$lucamug$elm_ui_with_context$Element$WithContext$inFront(
+							A2(
+								$lucamug$elm_ui_with_context$Element$WithContext$Keyed$column,
+								_List_fromArray(
+									[
+										$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill),
+										$lucamug$elm_ui_with_context$Element$WithContext$moveDown(visibleMoveDown)
+									]),
+								visibleOptions))
+						]),
+					A2(
+						$lucamug$elm_ui_with_context$Element$WithContext$el,
+						_List_fromArray(
+							[
+								$lucamug$elm_ui_with_context$Element$WithContext$height(
+								$lucamug$elm_ui_with_context$Element$WithContext$px(contentHeight)),
+								$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill)
+							]),
+						$lucamug$elm_ui_with_context$Element$WithContext$none))
+				]));
+	});
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$Combobox$view = F3(
+	function (attrs, model, args) {
+		var maybeTelCode = A2(
+			$elm$core$Maybe$withDefault,
+			'',
+			A2(
+				$elm$core$Maybe$map,
+				$rakutentech$r10$R10$Country$toCountryTelCode,
+				$rakutentech$r10$R10$Country$fromTelephoneAsString(model.value)));
+		var valueToShowOnTheScreen = A3($elm$core$String$replace, maybeTelCode, '', model.value);
+		var maybeCountry = $rakutentech$r10$R10$Country$fromTelephoneAsString(model.value);
+		var inputAttrs = _List_fromArray(
+			[
+				$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+				$elm$html$Html$Attributes$type_('tel'))
+			]);
+		var filteredFieldOption = A2($rakutentech$r10$R10$FormComponents$Internal$Phone$Common$filterBySearch, model.search, args.countryOptions);
+		var textArgs = {
+			autocomplete: $elm$core$Maybe$Nothing,
+			disabled: args.disabled,
+			floatingLabelAlwaysUp: true,
+			focused: model.focused,
+			helperText: args.helperText,
+			idDom: $elm$core$Maybe$Nothing,
+			label: args.label,
+			leadingIcon: args.leadingIcon,
+			maybeValid: args.maybeValid,
+			msgOnChange: A2(
+				$elm$core$Basics$composeL,
+				args.toMsg,
+				A2(
+					$rakutentech$r10$R10$FormComponents$Internal$Phone$Common$OnValueChange,
+					args.key,
+					{filteredFieldOption: filteredFieldOption, maxDisplayCount: args.maxDisplayCount, selectOptionHeight: args.selectOptionHeight})),
+			msgOnEnter: $elm$core$Maybe$Nothing,
+			msgOnFocus: args.toMsg(
+				$rakutentech$r10$R10$FormComponents$Internal$Phone$Common$OnFocus(model.value)),
+			msgOnLoseFocus: $elm$core$Maybe$Nothing,
+			msgOnTogglePasswordShow: $elm$core$Maybe$Nothing,
+			palette: args.palette,
+			placeholder: A2(
+				$elm$core$Maybe$map,
+				$elm$core$Basics$append(' '),
+				A2($elm$core$Maybe$map, $rakutentech$r10$R10$Country$toPhoneTemplate, maybeCountry)),
+			requiredLabel: args.requiredLabel,
+			showPassword: false,
+			style: args.style,
+			textType: $rakutentech$r10$R10$FormTypes$TextPlain,
+			trailingIcon: args.trailingIcon,
+			value: valueToShowOnTheScreen
+		};
+		return A2(
+			$lucamug$elm_ui_with_context$Element$WithContext$column,
+			_List_fromArray(
+				[
+					$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill),
+					$lucamug$elm_ui_with_context$Element$WithContext$spacing(50)
+				]),
+			_List_fromArray(
+				[
+					A2(
+					$lucamug$elm_ui_with_context$Element$WithContext$paragraph,
+					_List_fromArray(
+						[
+							$lucamug$elm_ui_with_context$Element$WithContext$Background$color(
+							A3($lucamug$elm_ui_with_context$Element$WithContext$rgb, 1, 1, 0))
+						]),
+					_List_fromArray(
+						[
+							$lucamug$elm_ui_with_context$Element$WithContext$text(model.value)
+						])),
+					A3(
+					$rakutentech$r10$R10$FormComponents$Internal$Text$view,
+					_List_fromArray(
+						[
+							$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+							$elm$html$Html$Attributes$id(
+								$rakutentech$r10$R10$FormComponents$Internal$Phone$Common$dropdownContainerId(args.key))),
+							$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+							$elm$html$Html$Attributes$tabindex(-1)),
+							$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+							A2(
+								$elm$html$Html$Events$on,
+								'focusout',
+								A2(
+									$rakutentech$r10$R10$FormComponents$Internal$Utils$FocusOut$onFocusOut,
+									$rakutentech$r10$R10$FormComponents$Internal$Phone$Common$dropdownContainerId(args.key),
+									args.toMsg(
+										$rakutentech$r10$R10$FormComponents$Internal$Phone$Common$OnLoseFocus(model.value))))),
+							$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+							$rakutentech$r10$R10$FormComponents$Internal$UI$onKeyPressBatch(
+								_Utils_ap(
+									_List_fromArray(
+										[
+											_Utils_Tuple2(
+											$rakutentech$r10$R10$FormComponents$Internal$UI$keyCode.down,
+											args.toMsg(
+												$rakutentech$r10$R10$FormComponents$Internal$Phone$Common$OnArrowDown(
+													{filteredFieldOption: filteredFieldOption, key: args.key, maxDisplayCount: args.maxDisplayCount, selectOptionHeight: args.selectOptionHeight}))),
+											_Utils_Tuple2(
+											$rakutentech$r10$R10$FormComponents$Internal$UI$keyCode.up,
+											args.toMsg(
+												$rakutentech$r10$R10$FormComponents$Internal$Phone$Common$OnArrowUp(
+													{filteredFieldOption: filteredFieldOption, key: args.key, maxDisplayCount: args.maxDisplayCount, selectOptionHeight: args.selectOptionHeight})))
+										]),
+									model.opened ? _Utils_ap(
+										_List_fromArray(
+											[
+												_Utils_Tuple2(
+												$rakutentech$r10$R10$FormComponents$Internal$UI$keyCode.esc,
+												args.toMsg($rakutentech$r10$R10$FormComponents$Internal$Phone$Common$OnEsc))
+											]),
+										function () {
+											var _v0 = $rakutentech$r10$R10$Country$fromString(model.select);
+											if (_v0.$ === 'Just') {
+												var country = _v0.a;
+												return _List_fromArray(
+													[
+														_Utils_Tuple2(
+														$rakutentech$r10$R10$FormComponents$Internal$UI$keyCode.enter,
+														args.toMsg(
+															$rakutentech$r10$R10$FormComponents$Internal$Phone$Common$OnOptionSelect(country)))
+													]);
+											} else {
+												return _List_Nil;
+											}
+										}()) : _List_Nil))),
+							$lucamug$elm_ui_with_context$Element$WithContext$inFront(
+							A4($rakutentech$r10$R10$FormComponents$Internal$Phone$Combobox$viewComboboxDropdown, model, args, model.opened, filteredFieldOption))
+						]),
+					_Utils_ap(inputAttrs, attrs),
+					textArgs)
+				]));
+	});
+var $elm_community$string_extra$String$Extra$surround = F2(
+	function (wrapper, string) {
+		return _Utils_ap(
+			wrapper,
+			_Utils_ap(string, wrapper));
+	});
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$insertBold = F2(
+	function (indexes, string) {
+		return A2(
+			$elm_community$string_extra$String$Extra$surround,
+			'**',
+			A3($rakutentech$r10$R10$FormComponents$Internal$Utils$stringInsertAtMulti, '**', indexes, string));
+	});
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$viewOptionEl = F2(
+	function (_v0, country) {
+		var search = _v0.search;
+		var msgOnSelect = _v0.msgOnSelect;
+		var label = $rakutentech$r10$R10$Country$toString(country);
+		var insertPositions = A2(
+			$elm$core$List$concatMap,
+			function (idx) {
+				return _List_fromArray(
+					[
+						idx,
+						idx + $elm$core$String$length(search)
+					]);
+			},
+			A2(
+				$elm$core$String$indexes,
+				$rakutentech$r10$R10$FormComponents$Internal$Phone$Common$normalizeString(search),
+				$rakutentech$r10$R10$FormComponents$Internal$Phone$Common$normalizeString(label)));
+		var withBold = $elm$core$List$isEmpty(insertPositions) ? label : A2($rakutentech$r10$R10$FormComponents$Internal$Phone$insertBold, insertPositions, label);
+		return A2(
+			$lucamug$elm_ui_with_context$Element$WithContext$row,
+			_List_fromArray(
+				[
+					$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill),
+					$lucamug$elm_ui_with_context$Element$WithContext$height($lucamug$elm_ui_with_context$Element$WithContext$fill),
+					$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+					A2($elm$html$Html$Attributes$style, 'z-index', '0')),
+					$lucamug$elm_ui_with_context$Element$WithContext$Events$onClick(
+					msgOnSelect(country)),
+					$lucamug$elm_ui_with_context$Element$WithContext$pointer,
+					A2($lucamug$elm_ui_with_context$Element$WithContext$paddingXY, 12, 0),
+					$lucamug$elm_ui_with_context$Element$WithContext$spacing(8),
+					$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+					A2($elm$html$Html$Attributes$style, 'mask-image', 'linear-gradient(right, rgba(255,255,0,0), rgba(255,255,0, 1) 16px)')),
+					$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
+					A2($elm$html$Html$Attributes$style, '-webkit-mask-image', '-webkit-linear-gradient(right, rgba(255,255,0,0) 10px, rgba(255,255,0, 1) 16px)'))
+				]),
+			_List_fromArray(
+				[
+					A2(
+					$rakutentech$r10$R10$FormComponents$Internal$Phone$getFlagIcon,
+					24,
+					$elm$core$Maybe$Just(country)),
+					A2(
+					$lucamug$elm_ui_with_context$Element$WithContext$row,
+					_List_Nil,
+					$rakutentech$r10$R10$SimpleMarkdown$elementMarkdown(withBold)),
+					A2(
+					$lucamug$elm_ui_with_context$Element$WithContext$el,
+					_List_fromArray(
+						[
+							$lucamug$elm_ui_with_context$Element$WithContext$alpha(0.5)
+						]),
+					$lucamug$elm_ui_with_context$Element$WithContext$text(
+						'(' + ($rakutentech$r10$R10$Country$toCountryTelCode(country) + ')')))
+				]));
+	});
+var $rakutentech$r10$R10$FormComponents$Internal$Phone$view = F3(
+	function (attrs, model, conf) {
+		var countryOptions_ = A2($elm$core$Maybe$withDefault, $rakutentech$r10$R10$FormComponents$Internal$Phone$countryOptions, conf.countryOptions);
+		var filteredFieldOption = A2($rakutentech$r10$R10$FormComponents$Internal$Phone$Common$filterBySearch, model.search, countryOptions_);
+		var args = {
+			countryOptions: countryOptions_,
+			disabled: conf.disabled,
+			helperText: conf.helperText,
+			key: conf.key,
+			label: conf.label,
+			leadingIcon: _List_fromArray(
+				[
+					$rakutentech$r10$R10$FormComponents$Internal$Phone$getFlagButton(
+					{disabled: conf.disabled, filteredFieldOption: filteredFieldOption, key: conf.key, model: model, palette: conf.palette, style: conf.style, toMsg: conf.toMsg})
+				]),
+			maxDisplayCount: 5,
+			maybeValid: conf.maybeValid,
+			palette: conf.palette,
+			requiredLabel: conf.requiredLabel,
+			selectOptionHeight: 36,
+			style: conf.style,
+			toMsg: conf.toMsg,
+			toOptionEl: $rakutentech$r10$R10$FormComponents$Internal$Phone$viewOptionEl(
+				{
+					msgOnSelect: A2($elm$core$Basics$composeR, $rakutentech$r10$R10$FormComponents$Internal$Phone$Common$OnOptionSelect, conf.toMsg),
+					search: model.search
+				}),
+			trailingIcon: _List_Nil
+		};
+		return A3($rakutentech$r10$R10$FormComponents$Internal$Phone$Combobox$view, attrs, model, args);
+	});
+var $rakutentech$r10$R10$Form$Internal$MakerForView$viewSpecial = F3(
+	function (args, typeSpecial, formConf) {
+		var model = {focused: args.focused, opened: args.active, scroll: args.fieldState.scroll, search: args.fieldState.search, select: args.fieldState.select, value: args.fieldState.value};
+		return A3(
+			$rakutentech$r10$R10$FormComponents$Internal$Phone$view,
+			_List_Nil,
+			model,
+			{
+				countryOptions: $elm$core$Maybe$Nothing,
+				disabled: args.fieldState.disabled,
+				helperText: args.fieldConf.helperText,
+				key: $rakutentech$r10$R10$Form$Internal$Key$toString(args.key),
+				label: args.fieldConf.label,
+				maybeValid: $rakutentech$r10$R10$Form$Internal$MakerForView$maybeValid(args.fieldState.validation),
+				palette: args.palette,
+				requiredLabel: args.fieldConf.requiredLabel,
+				style: args.style,
+				toMsg: A3($rakutentech$r10$R10$Form$Internal$Msg$OnPhoneMsg, args.key, args.fieldConf, formConf)
 			});
 	});
 var $rakutentech$r10$R10$Form$Internal$Msg$Submit = function (a) {
@@ -24420,20 +31014,43 @@ var $rakutentech$r10$R10$Form$Internal$MakerForView$viewText = F3(
 			$rakutentech$r10$R10$FormComponents$Internal$Text$view,
 			_List_fromArray(
 				[
-					$mdgriffith$elm_ui$Element$width(
-					A2(
-						$mdgriffith$elm_ui$Element$maximum,
-						900,
-						A2($mdgriffith$elm_ui$Element$minimum, 300, $mdgriffith$elm_ui$Element$fill)))
+					$lucamug$elm_ui_with_context$Element$WithContext$width(
+					function () {
+						var _v1 = args.fieldConf.maxWidth;
+						if (_v1.$ === 'Just') {
+							var _int = _v1.a;
+							return $lucamug$elm_ui_with_context$Element$WithContext$maximum(_int);
+						} else {
+							return $elm$core$Basics$identity;
+						}
+					}()(
+						function () {
+							var _v0 = args.fieldConf.minWidth;
+							if (_v0.$ === 'Just') {
+								var _int = _v0.a;
+								return $lucamug$elm_ui_with_context$Element$WithContext$minimum(_int);
+							} else {
+								return $elm$core$Basics$identity;
+							}
+						}()($lucamug$elm_ui_with_context$Element$WithContext$fill)))
 				]),
 			_List_Nil,
 			{
+				autocomplete: args.fieldConf.autocomplete,
 				disabled: args.fieldState.disabled,
+				floatingLabelAlwaysUp: function () {
+					if (textType.$ === 'TextWithPatternLarge') {
+						return true;
+					} else {
+						return false;
+					}
+				}(),
 				focused: args.focused,
 				helperText: args.fieldConf.helperText,
 				idDom: args.fieldConf.idDom,
 				label: args.fieldConf.label,
-				leadingIcon: $elm$core$Maybe$Nothing,
+				leadingIcon: _List_Nil,
+				maybeValid: $rakutentech$r10$R10$Form$Internal$MakerForView$maybeValid(args.fieldState.validation),
 				msgOnChange: A3($rakutentech$r10$R10$Form$Internal$Msg$ChangeValue, args.key, args.fieldConf, formConf),
 				msgOnEnter: $elm$core$Maybe$Just(
 					$rakutentech$r10$R10$Form$Internal$Msg$Submit(formConf)),
@@ -24443,13 +31060,12 @@ var $rakutentech$r10$R10$Form$Internal$MakerForView$viewText = F3(
 				msgOnTogglePasswordShow: $elm$core$Maybe$Just(
 					$rakutentech$r10$R10$Form$Internal$Msg$TogglePasswordShow(args.key)),
 				palette: args.palette,
+				placeholder: $elm$core$Maybe$Nothing,
 				requiredLabel: args.fieldConf.requiredLabel,
 				showPassword: args.fieldState.showPassword,
 				style: args.style,
 				textType: textType,
-				trailingIcon: $elm$core$Maybe$Nothing,
-				valid: $rakutentech$r10$R10$Form$Internal$MakerForView$isFieldStateValidationValid(
-					$rakutentech$r10$R10$Form$Internal$FieldState$isValid(args.fieldState.validation)),
+				trailingIcon: _List_Nil,
 				value: args.fieldState.value
 			});
 	});
@@ -24483,9 +31099,12 @@ var $rakutentech$r10$R10$Form$Internal$MakerForView$viewEntityField = F3(
 				case 'TypeSingle':
 					var typeSingle = _v0.a;
 					var options = _v0.b;
-					return A4($rakutentech$r10$R10$Form$Internal$MakerForView$viewSingleSelection, args2, typeSingle, options, formConf);
+					return A4($rakutentech$r10$R10$Form$Internal$MakerForView$viewSingle, args2, typeSingle, options, formConf);
+				case 'TypeMulti':
+					return $lucamug$elm_ui_with_context$Element$WithContext$text('TODO');
 				default:
-					return $mdgriffith$elm_ui$Element$text('TODO');
+					var typeSpecial = _v0.a;
+					return A3($rakutentech$r10$R10$Form$Internal$MakerForView$viewSpecial, args2, typeSpecial, formConf);
 			}
 		}();
 		return _List_fromArray(
@@ -24497,7 +31116,7 @@ var $rakutentech$r10$R10$Form$Internal$Msg$AddEntity = function (a) {
 var $rakutentech$r10$R10$Form$Internal$MakerForView$viewEntityMultiLastRow = function (args) {
 	var shadow = F2(
 		function (size_, a) {
-			return $mdgriffith$elm_ui$Element$Border$shadow(
+			return $lucamug$elm_ui_with_context$Element$WithContext$Border$shadow(
 				{
 					blur: 0,
 					color: A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$labelA, a, args.palette),
@@ -24511,155 +31130,154 @@ var $rakutentech$r10$R10$Form$Internal$MakerForView$viewEntityMultiLastRow = fun
 		function (widthPx, heightPx, color, rotateDeg) {
 			return _List_fromArray(
 				[
-					$mdgriffith$elm_ui$Element$htmlAttribute(
-					A2($elm$html$Html$Attributes$style, 'transition', 'all 0.2s ')),
-					$mdgriffith$elm_ui$Element$Border$rounded(2),
-					$mdgriffith$elm_ui$Element$centerX,
-					$mdgriffith$elm_ui$Element$centerY,
-					$mdgriffith$elm_ui$Element$width(
-					$mdgriffith$elm_ui$Element$px(widthPx)),
-					$mdgriffith$elm_ui$Element$height(
-					$mdgriffith$elm_ui$Element$px(heightPx)),
-					$mdgriffith$elm_ui$Element$Background$color(color),
-					$mdgriffith$elm_ui$Element$rotate(
+					$rakutentech$r10$R10$Transition$transition('all 0.2s '),
+					$lucamug$elm_ui_with_context$Element$WithContext$Border$rounded(2),
+					$lucamug$elm_ui_with_context$Element$WithContext$centerX,
+					$lucamug$elm_ui_with_context$Element$WithContext$centerY,
+					$lucamug$elm_ui_with_context$Element$WithContext$width(
+					$lucamug$elm_ui_with_context$Element$WithContext$px(widthPx)),
+					$lucamug$elm_ui_with_context$Element$WithContext$height(
+					$lucamug$elm_ui_with_context$Element$WithContext$px(heightPx)),
+					$lucamug$elm_ui_with_context$Element$WithContext$Background$color(color),
+					$lucamug$elm_ui_with_context$Element$WithContext$rotate(
 					$elm$core$Basics$degrees(rotateDeg))
 				]);
 		});
 	var buttonAttrs = _List_fromArray(
 		[
-			$mdgriffith$elm_ui$Element$Border$width(1),
-			$mdgriffith$elm_ui$Element$Border$rounded(5),
-			$mdgriffith$elm_ui$Element$htmlAttribute(
+			$lucamug$elm_ui_with_context$Element$WithContext$Border$width(1),
+			$lucamug$elm_ui_with_context$Element$WithContext$Border$rounded(5),
+			$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
 			$elm$html$Html$Attributes$class('ripple')),
-			$mdgriffith$elm_ui$Element$htmlAttribute(
-			A2($elm$html$Html$Attributes$style, 'transition', 'all 0.11s ease-out')),
-			$mdgriffith$elm_ui$Element$padding(8),
-			$mdgriffith$elm_ui$Element$width(
-			$mdgriffith$elm_ui$Element$px(28)),
-			$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
+			$rakutentech$r10$R10$Transition$transition('all 0.11s ease-out'),
+			$lucamug$elm_ui_with_context$Element$WithContext$padding(8),
+			$lucamug$elm_ui_with_context$Element$WithContext$width(
+			$lucamug$elm_ui_with_context$Element$WithContext$px(28)),
+			$lucamug$elm_ui_with_context$Element$WithContext$height($lucamug$elm_ui_with_context$Element$WithContext$fill),
 			A2(shadow, 10, 0),
-			$mdgriffith$elm_ui$Element$Border$color(
+			$lucamug$elm_ui_with_context$Element$WithContext$Border$color(
 			A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$containerA, 0.5, args.palette)),
-			$mdgriffith$elm_ui$Element$mouseOver(
+			$lucamug$elm_ui_with_context$Element$WithContext$mouseOver(
 			_List_fromArray(
 				[
-					$mdgriffith$elm_ui$Element$Border$color(
+					$lucamug$elm_ui_with_context$Element$WithContext$Border$color(
 					A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$containerA, 1, args.palette))
 				])),
-			$mdgriffith$elm_ui$Element$focused(
+			$lucamug$elm_ui_with_context$Element$WithContext$focused(
 			_List_fromArray(
 				[
-					$mdgriffith$elm_ui$Element$alpha(1),
+					$lucamug$elm_ui_with_context$Element$WithContext$alpha(1),
 					A2(shadow, 1, 1),
-					$mdgriffith$elm_ui$Element$Border$color(
+					$lucamug$elm_ui_with_context$Element$WithContext$Border$color(
 					A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$containerA, 1, args.palette))
 				]))
 		]);
 	var buttonToAddEntity = A2(
-		$mdgriffith$elm_ui$Element$Input$button,
+		$lucamug$elm_ui_with_context$Element$WithContext$Input$button,
 		buttonAttrs,
 		{
 			label: A2(
-				$mdgriffith$elm_ui$Element$el,
+				$lucamug$elm_ui_with_context$Element$WithContext$el,
 				_List_fromArray(
 					[
-						$mdgriffith$elm_ui$Element$width(
-						$mdgriffith$elm_ui$Element$px(iconSize)),
-						$mdgriffith$elm_ui$Element$height(
-						$mdgriffith$elm_ui$Element$px(iconSize)),
-						$mdgriffith$elm_ui$Element$inFront(
+						$lucamug$elm_ui_with_context$Element$WithContext$width(
+						$lucamug$elm_ui_with_context$Element$WithContext$px(iconSize)),
+						$lucamug$elm_ui_with_context$Element$WithContext$height(
+						$lucamug$elm_ui_with_context$Element$WithContext$px(iconSize)),
+						$lucamug$elm_ui_with_context$Element$WithContext$inFront(
 						A2(
-							$mdgriffith$elm_ui$Element$el,
+							$lucamug$elm_ui_with_context$Element$WithContext$el,
 							A4(iconCommonAttrs, iconSize, 2, plusColor, 0),
-							$mdgriffith$elm_ui$Element$none)),
-						$mdgriffith$elm_ui$Element$inFront(
+							$lucamug$elm_ui_with_context$Element$WithContext$none)),
+						$lucamug$elm_ui_with_context$Element$WithContext$inFront(
 						A2(
-							$mdgriffith$elm_ui$Element$el,
+							$lucamug$elm_ui_with_context$Element$WithContext$el,
 							A4(iconCommonAttrs, 2, iconSize, plusColor, 0),
-							$mdgriffith$elm_ui$Element$none))
+							$lucamug$elm_ui_with_context$Element$WithContext$none))
 					]),
-				$mdgriffith$elm_ui$Element$none),
+				$lucamug$elm_ui_with_context$Element$WithContext$none),
 			onPress: $elm$core$Maybe$Just(
 				$rakutentech$r10$R10$Form$Internal$Msg$AddEntity(args.key))
 		});
 	return A2(
-		$mdgriffith$elm_ui$Element$row,
+		$lucamug$elm_ui_with_context$Element$WithContext$row,
 		_List_fromArray(
 			[
-				$mdgriffith$elm_ui$Element$spacing(10),
-				$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+				$lucamug$elm_ui_with_context$Element$WithContext$spacing(10),
+				$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill)
 			]),
 		_List_fromArray(
 			[
 				buttonToAddEntity,
 				A2(
-				$mdgriffith$elm_ui$Element$el,
+				$lucamug$elm_ui_with_context$Element$WithContext$el,
 				_List_fromArray(
 					[
-						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+						$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill),
 						$rakutentech$r10$R10$Form$Internal$MakerForView$spacingGeneric
 					]),
-				$mdgriffith$elm_ui$Element$none)
+				$lucamug$elm_ui_with_context$Element$WithContext$none)
 			]));
 };
+var $rakutentech$r10$R10$FormComponents$Internal$UI$fontSizeSubTitle = $lucamug$elm_ui_with_context$Element$WithContext$Font$size(18);
 var $rakutentech$r10$R10$Form$Internal$MakerForView$viewEntitySubTitle = F2(
 	function (palette, titleConf) {
 		return _List_fromArray(
 			[
 				A2(
-				$mdgriffith$elm_ui$Element$column,
+				$lucamug$elm_ui_with_context$Element$WithContext$column,
 				_List_fromArray(
 					[
-						$mdgriffith$elm_ui$Element$spacing($rakutentech$r10$R10$FormComponents$Internal$UI$genericSpacing),
-						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+						$lucamug$elm_ui_with_context$Element$WithContext$spacing($rakutentech$r10$R10$FormComponents$Internal$UI$genericSpacing),
+						$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill)
 					]),
 				_List_fromArray(
 					[
 						A2(
-						$mdgriffith$elm_ui$Element$paragraph,
+						$lucamug$elm_ui_with_context$Element$WithContext$paragraph,
 						_List_fromArray(
 							[$rakutentech$r10$R10$FormComponents$Internal$UI$fontSizeSubTitle]),
 						_List_fromArray(
 							[
-								$mdgriffith$elm_ui$Element$text(titleConf.title)
+								$lucamug$elm_ui_with_context$Element$WithContext$text(titleConf.title)
 							])),
 						A3(
 						$rakutentech$r10$R10$FormComponents$Internal$UI$viewHelperText,
 						palette,
 						_List_fromArray(
 							[
-								$mdgriffith$elm_ui$Element$alpha(0.5),
-								$mdgriffith$elm_ui$Element$Font$size(14),
-								$mdgriffith$elm_ui$Element$paddingEach(
+								$lucamug$elm_ui_with_context$Element$WithContext$alpha(0.5),
+								$lucamug$elm_ui_with_context$Element$WithContext$Font$size(14),
+								$lucamug$elm_ui_with_context$Element$WithContext$paddingEach(
 								{bottom: 0, left: 0, right: 0, top: $rakutentech$r10$R10$FormComponents$Internal$UI$genericSpacing})
 							]),
 						titleConf.helperText)
 					]))
 			]);
 	});
-var $rakutentech$r10$R10$FormComponents$Internal$UI$fontSizeTitle = $mdgriffith$elm_ui$Element$Font$size(24);
+var $rakutentech$r10$R10$FormComponents$Internal$UI$fontSizeTitle = $lucamug$elm_ui_with_context$Element$WithContext$Font$size(24);
 var $rakutentech$r10$R10$Form$Internal$MakerForView$viewEntityTitle = F2(
 	function (palette, titleConf) {
 		return _List_fromArray(
 			[
 				A2(
-				$mdgriffith$elm_ui$Element$column,
+				$lucamug$elm_ui_with_context$Element$WithContext$column,
 				_List_fromArray(
 					[
-						$mdgriffith$elm_ui$Element$spacing(12),
-						$mdgriffith$elm_ui$Element$paddingEach(
+						$lucamug$elm_ui_with_context$Element$WithContext$spacing(12),
+						$lucamug$elm_ui_with_context$Element$WithContext$paddingEach(
 						{bottom: 0, left: 0, right: 0, top: 40}),
-						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+						$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill)
 					]),
 				_List_fromArray(
 					[
 						A2(
-						$mdgriffith$elm_ui$Element$paragraph,
+						$lucamug$elm_ui_with_context$Element$WithContext$paragraph,
 						_List_fromArray(
 							[$rakutentech$r10$R10$FormComponents$Internal$UI$fontSizeTitle]),
 						_List_fromArray(
 							[
-								$mdgriffith$elm_ui$Element$text(titleConf.title)
+								$lucamug$elm_ui_with_context$Element$WithContext$text(titleConf.title)
 							])),
 						A3($rakutentech$r10$R10$FormComponents$Internal$UI$viewHelperText, palette, _List_Nil, titleConf.helperText)
 					]))
@@ -24679,14 +31297,12 @@ var $rakutentech$r10$R10$Form$Internal$Update$entitiesWithErrorsForOnlyExistingV
 					$elm$core$Maybe$withDefault,
 					$rakutentech$r10$R10$Form$Internal$FieldState$init,
 					A2($rakutentech$r10$R10$Form$Internal$Dict$get, key, fieldsState));
-				var _v1 = $rakutentech$r10$R10$Form$Internal$FieldState$isValid(fieldState.validation);
-				switch (_v1.$) {
-					case 'NotYetValidated2':
-						return false;
-					case 'NotValid':
-						return true;
-					default:
-						return false;
+				var _v1 = fieldState.validation;
+				if (_v1.$ === 'NotYetValidated') {
+					return false;
+				} else {
+					var listValidationMessage = _v1.a;
+					return !$rakutentech$r10$R10$Form$Internal$FieldState$isValid(listValidationMessage);
 				}
 			},
 			allKeys);
@@ -24699,6 +31315,7 @@ var $rakutentech$r10$R10$Form$Internal$Update$isExistingFormFieldsValid = functi
 		$elm$core$Maybe$Nothing);
 };
 var $rakutentech$r10$R10$FormComponents$Internal$UI$Color$mouseOverSurface = $rakutentech$r10$R10$FormComponents$Internal$UI$Color$onSurfaceA(0.04);
+var $lucamug$elm_ui_with_context$Element$WithContext$shrink = $mdgriffith$elm_ui$Element$shrink;
 var $rakutentech$r10$R10$FormComponents$Internal$UI$Color$surfaceA = F2(
 	function (alpha, palette) {
 		return $rakutentech$r10$R10$FormComponents$Internal$UI$Color$fromPaletteColor(
@@ -24716,29 +31333,29 @@ var $rakutentech$r10$R10$Form$Internal$MakerForView$viewTab = F3(
 					[entity]),
 				state: args.formState
 			});
-		var _v1 = fieldState.disabled ? {clickOverlay: $mdgriffith$elm_ui$Element$none, opacity: 0.5} : {
+		var _v1 = fieldState.disabled ? {clickOverlay: $lucamug$elm_ui_with_context$Element$WithContext$none, opacity: 0.5} : {
 			clickOverlay: A2(
-				$mdgriffith$elm_ui$Element$el,
+				$lucamug$elm_ui_with_context$Element$WithContext$el,
 				_List_fromArray(
 					[
-						$mdgriffith$elm_ui$Element$Events$onClick(
+						$lucamug$elm_ui_with_context$Element$WithContext$Events$onClick(
 						A2(
 							$rakutentech$r10$R10$Form$Internal$Msg$ChangeTab,
 							args.key,
 							$rakutentech$r10$R10$Form$Internal$Conf$getId(entity))),
-						$mdgriffith$elm_ui$Element$pointer,
-						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-						$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
-						$mdgriffith$elm_ui$Element$htmlAttribute(
+						$lucamug$elm_ui_with_context$Element$WithContext$pointer,
+						$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill),
+						$lucamug$elm_ui_with_context$Element$WithContext$height($lucamug$elm_ui_with_context$Element$WithContext$fill),
+						$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
 						$elm$html$Html$Attributes$class('ripple')),
-						$mdgriffith$elm_ui$Element$mouseOver(
+						$lucamug$elm_ui_with_context$Element$WithContext$mouseOver(
 						_List_fromArray(
 							[
-								$mdgriffith$elm_ui$Element$Background$color(
+								$lucamug$elm_ui_with_context$Element$WithContext$Background$color(
 								$rakutentech$r10$R10$FormComponents$Internal$UI$Color$mouseOverSurface(args.palette))
 							]))
 					]),
-				$mdgriffith$elm_ui$Element$none),
+				$lucamug$elm_ui_with_context$Element$WithContext$none),
 			opacity: 1
 		};
 		var opacity = _v1.opacity;
@@ -24759,51 +31376,52 @@ var $rakutentech$r10$R10$Form$Internal$MakerForView$viewTab = F3(
 		var circleText = _v2.circleText;
 		var labelText = _v2.labelText;
 		return A2(
-			$mdgriffith$elm_ui$Element$el,
+			$lucamug$elm_ui_with_context$Element$WithContext$el,
 			_List_fromArray(
 				[
-					A2($mdgriffith$elm_ui$Element$paddingXY, 8, 0),
-					$mdgriffith$elm_ui$Element$inFront(clickOverlay)
+					A2($lucamug$elm_ui_with_context$Element$WithContext$paddingXY, 8, 0),
+					$lucamug$elm_ui_with_context$Element$WithContext$inFront(clickOverlay)
 				]),
 			A2(
-				$mdgriffith$elm_ui$Element$row,
+				$lucamug$elm_ui_with_context$Element$WithContext$row,
 				_List_fromArray(
 					[
-						$mdgriffith$elm_ui$Element$Background$color(
+						$lucamug$elm_ui_with_context$Element$WithContext$Background$color(
 						$rakutentech$r10$R10$FormComponents$Internal$UI$Color$surface(args.palette)),
-						A2($mdgriffith$elm_ui$Element$paddingXY, 8, 24),
-						$mdgriffith$elm_ui$Element$spacing(8),
-						$mdgriffith$elm_ui$Element$Font$color(labelText)
+						A2($lucamug$elm_ui_with_context$Element$WithContext$paddingXY, 8, 24),
+						$lucamug$elm_ui_with_context$Element$WithContext$spacing(8),
+						$lucamug$elm_ui_with_context$Element$WithContext$Font$color(labelText)
 					]),
 				_List_fromArray(
 					[
 						A2(
-						$mdgriffith$elm_ui$Element$el,
+						$lucamug$elm_ui_with_context$Element$WithContext$el,
 						_List_fromArray(
 							[
-								$mdgriffith$elm_ui$Element$inFront(
+								$lucamug$elm_ui_with_context$Element$WithContext$inFront(
 								A2(
-									$mdgriffith$elm_ui$Element$el,
+									$lucamug$elm_ui_with_context$Element$WithContext$el,
 									_List_fromArray(
 										[
-											$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
-											$mdgriffith$elm_ui$Element$Background$color(
+											$lucamug$elm_ui_with_context$Element$WithContext$height($lucamug$elm_ui_with_context$Element$WithContext$fill),
+											$lucamug$elm_ui_with_context$Element$WithContext$Background$color(
 											$rakutentech$r10$R10$FormComponents$Internal$UI$Color$surface(args.palette))
 										]),
 									$rakutentech$r10$R10$FormComponents$Internal$UI$showValidationIcon_(
 										{
 											displayValidation: true,
 											maybeValid: $elm$core$Maybe$Just(valid),
-											palette: args.palette
+											palette: args.palette,
+											style: args.style
 										}))),
-								$mdgriffith$elm_ui$Element$height(
-								$mdgriffith$elm_ui$Element$px(24)),
-								$mdgriffith$elm_ui$Element$width(
-								$mdgriffith$elm_ui$Element$px(24)),
-								$mdgriffith$elm_ui$Element$Border$rounded(24),
-								$mdgriffith$elm_ui$Element$Background$color(circleBackground),
-								$mdgriffith$elm_ui$Element$Font$color(circleText),
-								$mdgriffith$elm_ui$Element$Border$innerShadow(
+								$lucamug$elm_ui_with_context$Element$WithContext$height(
+								$lucamug$elm_ui_with_context$Element$WithContext$px(24)),
+								$lucamug$elm_ui_with_context$Element$WithContext$width(
+								$lucamug$elm_ui_with_context$Element$WithContext$px(24)),
+								$lucamug$elm_ui_with_context$Element$WithContext$Border$rounded(24),
+								$lucamug$elm_ui_with_context$Element$WithContext$Background$color(circleBackground),
+								$lucamug$elm_ui_with_context$Element$WithContext$Font$color(circleText),
+								$lucamug$elm_ui_with_context$Element$WithContext$Border$innerShadow(
 								{
 									blur: 0,
 									color: circleBorder,
@@ -24812,380 +31430,47 @@ var $rakutentech$r10$R10$Form$Internal$MakerForView$viewTab = F3(
 								})
 							]),
 						A2(
-							$mdgriffith$elm_ui$Element$el,
+							$lucamug$elm_ui_with_context$Element$WithContext$el,
 							_List_fromArray(
-								[$mdgriffith$elm_ui$Element$centerY, $mdgriffith$elm_ui$Element$centerX]),
-							$mdgriffith$elm_ui$Element$text(
+								[$lucamug$elm_ui_with_context$Element$WithContext$centerY, $lucamug$elm_ui_with_context$Element$WithContext$centerX]),
+							$lucamug$elm_ui_with_context$Element$WithContext$text(
 								$elm$core$String$fromInt(index + 1)))),
 						A2(
-						$mdgriffith$elm_ui$Element$column,
+						$lucamug$elm_ui_with_context$Element$WithContext$column,
 						_List_fromArray(
 							[
-								$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$shrink)
+								$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$shrink)
 							]),
 						_List_fromArray(
 							[
-								$mdgriffith$elm_ui$Element$text(label),
+								$lucamug$elm_ui_with_context$Element$WithContext$text(label),
 								A2(
-								$mdgriffith$elm_ui$Element$el,
+								$lucamug$elm_ui_with_context$Element$WithContext$el,
 								_Utils_ap(
 									_List_fromArray(
 										[
-											$mdgriffith$elm_ui$Element$Font$size(11),
-											$mdgriffith$elm_ui$Element$clip,
-											$mdgriffith$elm_ui$Element$Font$color(
+											$lucamug$elm_ui_with_context$Element$WithContext$Font$size(11),
+											$lucamug$elm_ui_with_context$Element$WithContext$clip,
+											$lucamug$elm_ui_with_context$Element$WithContext$Font$color(
 											$rakutentech$r10$R10$FormComponents$Internal$UI$Color$error(args.palette)),
-											$mdgriffith$elm_ui$Element$htmlAttribute(
-											A2($elm$html$Html$Attributes$style, 'transition', 'all 0.15s ease-out'))
+											$rakutentech$r10$R10$Transition$transition('all 0.15s ease-out')
 										]),
 									valid ? _List_fromArray(
 										[
-											$mdgriffith$elm_ui$Element$width(
-											$mdgriffith$elm_ui$Element$px(0)),
-											$mdgriffith$elm_ui$Element$height(
-											$mdgriffith$elm_ui$Element$px(0))
+											$lucamug$elm_ui_with_context$Element$WithContext$width(
+											$lucamug$elm_ui_with_context$Element$WithContext$px(0)),
+											$lucamug$elm_ui_with_context$Element$WithContext$height(
+											$lucamug$elm_ui_with_context$Element$WithContext$px(0))
 										]) : _List_fromArray(
 										[
-											$mdgriffith$elm_ui$Element$width(
-											$mdgriffith$elm_ui$Element$px(80)),
-											$mdgriffith$elm_ui$Element$height(
-											$mdgriffith$elm_ui$Element$px(11))
+											$lucamug$elm_ui_with_context$Element$WithContext$width(
+											$lucamug$elm_ui_with_context$Element$WithContext$px(80)),
+											$lucamug$elm_ui_with_context$Element$WithContext$height(
+											$lucamug$elm_ui_with_context$Element$WithContext$px(11))
 										])),
-								$mdgriffith$elm_ui$Element$text('Validation error'))
+								$lucamug$elm_ui_with_context$Element$WithContext$text('Validation error'))
 							]))
 					])));
-	});
-var $rakutentech$r10$R10$FormComponents$Internal$Validations$NotYetValidated = {$: 'NotYetValidated'};
-var $rakutentech$r10$R10$FormComponents$Internal$Validations$Validated = function (a) {
-	return {$: 'Validated', a: a};
-};
-var $rakutentech$r10$R10$FormComponents$Internal$Validations$MessageErr = function (a) {
-	return {$: 'MessageErr', a: a};
-};
-var $rakutentech$r10$R10$FormComponents$Internal$Validations$MessageOk = function (a) {
-	return {$: 'MessageOk', a: a};
-};
-var $elm$core$Tuple$pair = F2(
-	function (a, b) {
-		return _Utils_Tuple2(a, b);
-	});
-var $rakutentech$r10$R10$Form$Internal$ValidationCode$regexBracket = function (index) {
-	return A2(
-		$elm$core$Maybe$withDefault,
-		$elm$regex$Regex$never,
-		A2(
-			$elm$regex$Regex$fromStringWith,
-			{caseInsensitive: true, multiline: true},
-			'\\{' + ($elm$core$String$fromInt(index) + '\\}')));
-};
-var $rakutentech$r10$R10$Form$Internal$ValidationCode$replacer = F2(
-	function (_v0, acc) {
-		var index = _v0.a;
-		var value = _v0.b;
-		return A3(
-			$elm$regex$Regex$replace,
-			$rakutentech$r10$R10$Form$Internal$ValidationCode$regexBracket(index),
-			function (_v1) {
-				return value;
-			},
-			acc);
-	});
-var $rakutentech$r10$R10$Form$Internal$ValidationCode$replaceBrackets = F2(
-	function (values, target) {
-		return A3(
-			$elm$core$List$foldl,
-			$rakutentech$r10$R10$Form$Internal$ValidationCode$replacer,
-			target,
-			A2($elm$core$List$indexedMap, $elm$core$Tuple$pair, values));
-	});
-var $rakutentech$r10$R10$Form$Internal$ValidationCode$fromValidationCodeToMessageWithReplacedValues = F3(
-	function (validationCode, bracketsArgs, translator_) {
-		var translated = translator_(validationCode);
-		return $elm$core$List$isEmpty(bracketsArgs) ? translated : A2($rakutentech$r10$R10$Form$Internal$ValidationCode$replaceBrackets, bracketsArgs, translated);
-	});
-var $rakutentech$r10$R10$Form$Internal$Converter$fromValidationOutcomeToValidationMessage = F2(
-	function (validationOutcome, translator) {
-		if (validationOutcome.$ === 'MessageOk') {
-			var validationCode = validationOutcome.a;
-			var validationPayload = validationOutcome.b;
-			return $rakutentech$r10$R10$FormComponents$Internal$Validations$MessageOk(
-				A3($rakutentech$r10$R10$Form$Internal$ValidationCode$fromValidationCodeToMessageWithReplacedValues, validationCode, validationPayload, translator));
-		} else {
-			var validationCode = validationOutcome.a;
-			var validationPayload = validationOutcome.b;
-			return $rakutentech$r10$R10$FormComponents$Internal$Validations$MessageErr(
-				A3($rakutentech$r10$R10$Form$Internal$ValidationCode$fromValidationCodeToMessageWithReplacedValues, validationCode, validationPayload, translator));
-		}
-	});
-var $rakutentech$r10$R10$Form$Internal$Converter$fromFieldStateValidationToComponentValidation = F3(
-	function (maybeValidationSpecs, validation, translator) {
-		if (validation.$ === 'NotYetValidated') {
-			return $rakutentech$r10$R10$FormComponents$Internal$Validations$NotYetValidated;
-		} else {
-			var listValidationOutcome = validation.a;
-			var showPassedValidationMessages = A2(
-				$elm$core$Maybe$withDefault,
-				false,
-				A2(
-					$elm$core$Maybe$map,
-					function ($) {
-						return $.showPassedValidationMessages;
-					},
-					maybeValidationSpecs));
-			var listErrValidationOutcome = A2(
-				$elm$core$List$filter,
-				function (validationOutcome) {
-					if (validationOutcome.$ === 'MessageOk') {
-						return false;
-					} else {
-						return true;
-					}
-				},
-				listValidationOutcome);
-			var hidePassedValidationStyle = A2(
-				$elm$core$Maybe$withDefault,
-				false,
-				A2(
-					$elm$core$Maybe$map,
-					function ($) {
-						return $.hidePassedValidationStyle;
-					},
-					maybeValidationSpecs));
-			return showPassedValidationMessages ? $rakutentech$r10$R10$FormComponents$Internal$Validations$Validated(
-				A2(
-					$elm$core$List$map,
-					function (err) {
-						return A2($rakutentech$r10$R10$Form$Internal$Converter$fromValidationOutcomeToValidationMessage, err, translator);
-					},
-					listValidationOutcome)) : ((hidePassedValidationStyle && (!$elm$core$List$length(listErrValidationOutcome))) ? $rakutentech$r10$R10$FormComponents$Internal$Validations$NotYetValidated : $rakutentech$r10$R10$FormComponents$Internal$Validations$Validated(
-				A2(
-					$elm$core$List$map,
-					function (err) {
-						return A2($rakutentech$r10$R10$Form$Internal$Converter$fromValidationOutcomeToValidationMessage, err, translator);
-					},
-					listErrValidationOutcome)));
-		}
-	});
-var $rakutentech$r10$R10$Form$Internal$FieldConf$initValidationSpecs = {
-	hidePassedValidationStyle: false,
-	showPassedValidationMessages: false,
-	validation: _List_fromArray(
-		[$rakutentech$r10$R10$Form$Internal$FieldConf$NoValidation]),
-	validationIcon: $rakutentech$r10$R10$FormTypes$NoIcon
-};
-var $rakutentech$r10$R10$Form$Internal$FieldConf$init = {
-	helperText: $elm$core$Maybe$Nothing,
-	id: '',
-	idDom: $elm$core$Maybe$Nothing,
-	label: '',
-	requiredLabel: $elm$core$Maybe$Nothing,
-	type_: $rakutentech$r10$R10$FormTypes$TypeText($rakutentech$r10$R10$FormTypes$TextPlain),
-	validationSpecs: $elm$core$Maybe$Just($rakutentech$r10$R10$Form$Internal$FieldConf$initValidationSpecs)
-};
-var $rakutentech$r10$R10$Form$Internal$MakerForView$getFieldConfig = function (entity) {
-	if (entity.$ === 'EntityField') {
-		var fieldConf = entity.a;
-		return fieldConf;
-	} else {
-		return $rakutentech$r10$R10$Form$Internal$FieldConf$init;
-	}
-};
-var $mdgriffith$elm_ui$Element$clipY = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$overflow, $mdgriffith$elm_ui$Internal$Style$classes.clipY);
-var $rakutentech$r10$R10$FormComponents$Internal$Validations$animatedList = function (elements) {
-	var transition = $mdgriffith$elm_ui$Element$htmlAttribute(
-		A2($elm$html$Html$Attributes$style, 'transition', 'all 0.15s ease-in, opacity 0.15s 0.2s ease-in'));
-	var wrappedLine = A2(
-		$mdgriffith$elm_ui$Element$el,
-		_List_fromArray(
-			[
-				$mdgriffith$elm_ui$Element$padding(0),
-				$mdgriffith$elm_ui$Element$alpha(0),
-				$mdgriffith$elm_ui$Element$htmlAttribute(
-				A2($elm$html$Html$Attributes$style, 'min-height', '0px')),
-				$mdgriffith$elm_ui$Element$htmlAttribute(
-				A2($elm$html$Html$Attributes$style, 'max-height', '0px')),
-				$mdgriffith$elm_ui$Element$Font$size(0),
-				transition
-			]),
-		$mdgriffith$elm_ui$Element$none);
-	var expandedLine = $mdgriffith$elm_ui$Element$el(
-		_List_fromArray(
-			[
-				$mdgriffith$elm_ui$Element$paddingEach(
-				{bottom: 0, left: 0, right: 0, top: 6}),
-				$mdgriffith$elm_ui$Element$Font$size(14),
-				$mdgriffith$elm_ui$Element$alpha(1),
-				$mdgriffith$elm_ui$Element$htmlAttribute(
-				A2($elm$html$Html$Attributes$style, 'min-height', '24px')),
-				$mdgriffith$elm_ui$Element$htmlAttribute(
-				A2($elm$html$Html$Attributes$style, 'max-height', '64px')),
-				transition,
-				$mdgriffith$elm_ui$Element$clipY
-			]));
-	return A2(
-		$mdgriffith$elm_ui$Element$column,
-		_Utils_ap(
-			_List_fromArray(
-				[$mdgriffith$elm_ui$Element$alignTop, transition]),
-			($elm$core$List$length(elements) > 0) ? _List_fromArray(
-				[
-					$mdgriffith$elm_ui$Element$paddingEach(
-					{bottom: 0, left: 0, right: 0, top: $rakutentech$r10$R10$FormComponents$Internal$UI$genericSpacing})
-				]) : _List_fromArray(
-				[
-					$mdgriffith$elm_ui$Element$padding(0)
-				])),
-		_Utils_ap(
-			A2($elm$core$List$map, expandedLine, elements),
-			A2($elm$core$List$repeat, 5, wrappedLine)));
-};
-var $rakutentech$r10$R10$FormComponents$Internal$UI$Color$success = A2(
-	$elm$core$Basics$composeR,
-	function ($) {
-		return $.success;
-	},
-	$rakutentech$r10$R10$FormComponents$Internal$UI$Color$fromPaletteColor);
-var $rakutentech$r10$R10$FormComponents$Internal$Validations$viewValidationIcon = F2(
-	function (palette, validationIcon) {
-		var iconAttrs = _List_fromArray(
-			[
-				$mdgriffith$elm_ui$Element$width(
-				$mdgriffith$elm_ui$Element$px(16)),
-				$mdgriffith$elm_ui$Element$height(
-				$mdgriffith$elm_ui$Element$px(16))
-			]);
-		switch (validationIcon.$) {
-			case 'NoIcon':
-				return {invalidIcon: $mdgriffith$elm_ui$Element$none, validIcon: $mdgriffith$elm_ui$Element$none};
-			case 'ClearOrCheck':
-				return {
-					invalidIcon: A3(
-						$rakutentech$r10$R10$FormComponents$Internal$UI$icons.validation_clear,
-						iconAttrs,
-						$rakutentech$r10$R10$FormComponents$Internal$UI$Color$error(palette),
-						24),
-					validIcon: A3(
-						$rakutentech$r10$R10$FormComponents$Internal$UI$icons.validation_check,
-						iconAttrs,
-						$rakutentech$r10$R10$FormComponents$Internal$UI$Color$success(palette),
-						24)
-				};
-			default:
-				return {
-					invalidIcon: A3(
-						$rakutentech$r10$R10$FormComponents$Internal$UI$icons.validation_error,
-						iconAttrs,
-						$rakutentech$r10$R10$FormComponents$Internal$UI$Color$error(palette),
-						24),
-					validIcon: A3(
-						$rakutentech$r10$R10$FormComponents$Internal$UI$icons.validation_check,
-						iconAttrs,
-						$rakutentech$r10$R10$FormComponents$Internal$UI$Color$success(palette),
-						24)
-				};
-		}
-	});
-var $rakutentech$r10$R10$FormComponents$Internal$Validations$viewValidationMessage = F3(
-	function (palette, validationIcon, validationMessage) {
-		if (validationMessage.$ === 'MessageOk') {
-			var string = validationMessage.a;
-			return A2(
-				$mdgriffith$elm_ui$Element$row,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-						$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
-						$mdgriffith$elm_ui$Element$spacing(4)
-					]),
-				_List_fromArray(
-					[
-						A2($rakutentech$r10$R10$FormComponents$Internal$Validations$viewValidationIcon, palette, validationIcon).validIcon,
-						A3(
-						$rakutentech$r10$R10$FormComponents$Internal$UI$viewHelperText,
-						palette,
-						_List_fromArray(
-							[
-								$mdgriffith$elm_ui$Element$Font$color(
-								$rakutentech$r10$R10$FormComponents$Internal$UI$Color$success(palette))
-							]),
-						$elm$core$Maybe$Just(string))
-					]));
-		} else {
-			var string = validationMessage.a;
-			return A2(
-				$mdgriffith$elm_ui$Element$row,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-						$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
-						$mdgriffith$elm_ui$Element$spacing(4)
-					]),
-				_List_fromArray(
-					[
-						A2($rakutentech$r10$R10$FormComponents$Internal$Validations$viewValidationIcon, palette, validationIcon).invalidIcon,
-						A3(
-						$rakutentech$r10$R10$FormComponents$Internal$UI$viewHelperText,
-						palette,
-						_List_fromArray(
-							[
-								$mdgriffith$elm_ui$Element$Font$color(
-								$rakutentech$r10$R10$FormComponents$Internal$UI$Color$error(palette))
-							]),
-						$elm$core$Maybe$Just(string))
-					]));
-		}
-	});
-var $rakutentech$r10$R10$FormComponents$Internal$Validations$viewValidation = F3(
-	function (palette, validationIcon, validation) {
-		if (validation.$ === 'NotYetValidated') {
-			return $rakutentech$r10$R10$FormComponents$Internal$Validations$animatedList(_List_Nil);
-		} else {
-			var listValidationMessage = validation.a;
-			return $rakutentech$r10$R10$FormComponents$Internal$Validations$animatedList(
-				A2(
-					$elm$core$List$map,
-					A2($rakutentech$r10$R10$FormComponents$Internal$Validations$viewValidationMessage, palette, validationIcon),
-					listValidationMessage));
-		}
-	});
-var $rakutentech$r10$R10$Form$Internal$MakerForView$viewWithValidationMessage = F3(
-	function (args, entity, listEl) {
-		var validationIcon = A2(
-			$elm$core$Maybe$withDefault,
-			$rakutentech$r10$R10$FormTypes$NoIcon,
-			A2(
-				$elm$core$Maybe$map,
-				function ($) {
-					return $.validationIcon;
-				},
-				$rakutentech$r10$R10$Form$Internal$MakerForView$getFieldConfig(entity).validationSpecs));
-		return _List_fromArray(
-			[
-				A2(
-				$mdgriffith$elm_ui$Element$column,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-						$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill)
-					]),
-				_Utils_ap(
-					listEl,
-					_List_fromArray(
-						[
-							A3(
-							$rakutentech$r10$R10$FormComponents$Internal$Validations$viewValidation,
-							args.palette,
-							validationIcon,
-							A3(
-								$rakutentech$r10$R10$Form$Internal$Converter$fromFieldStateValidationToComponentValidation,
-								$rakutentech$r10$R10$Form$Internal$MakerForView$getFieldConfig(entity).validationSpecs,
-								A2(
-									$elm$core$Maybe$withDefault,
-									$rakutentech$r10$R10$Form$Internal$FieldState$init,
-									A2($rakutentech$r10$R10$Form$Internal$Dict$get, args.key, args.formState.fieldsState)).validation,
-								args.translator(args.key)))
-						])))
-			]);
 	});
 var $mdgriffith$elm_ui$Internal$Model$Padding = F5(
 	function (a, b, c, d, e) {
@@ -25371,6 +31656,7 @@ var $mdgriffith$elm_ui$Element$wrappedRow = F2(
 			}
 		}
 	});
+var $lucamug$elm_ui_with_context$Element$WithContext$wrappedRow = $lucamug$elm_ui_with_context$Element$WithContext$Internal$wrapContainer($mdgriffith$elm_ui$Element$wrappedRow);
 var $rakutentech$r10$R10$Form$Internal$MakerForView$maker_ = F3(
 	function (args, branchConf, rootFormConf) {
 		return $elm$core$List$concat(
@@ -25378,7 +31664,7 @@ var $rakutentech$r10$R10$Form$Internal$MakerForView$maker_ = F3(
 				$elm$core$List$map,
 				function (entity) {
 					return A3(
-						$rakutentech$r10$R10$Form$Internal$MakerForView$viewWithValidationMessage,
+						$rakutentech$r10$R10$Form$Internal$MakerForView$addValidationMessagesUnderTheField,
 						A2($rakutentech$r10$R10$Form$Internal$MakerForView$normalizeKey, args, entity),
 						entity,
 						function () {
@@ -25441,11 +31727,11 @@ var $rakutentech$r10$R10$Form$Internal$MakerForView$viewEntityMulti = F3(
 		var activeKeys = A2($rakutentech$r10$R10$Form$Internal$Helpers$getMultiActiveKeys, args.key, args.formState);
 		return $elm$core$List$singleton(
 			A2(
-				$mdgriffith$elm_ui$Element$column,
+				$lucamug$elm_ui_with_context$Element$WithContext$column,
 				_List_fromArray(
 					[
-						$mdgriffith$elm_ui$Element$spacing(10),
-						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+						$lucamug$elm_ui_with_context$Element$WithContext$spacing(10),
+						$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill)
 					]),
 				function (rows) {
 					return _Utils_ap(
@@ -25467,7 +31753,7 @@ var $rakutentech$r10$R10$Form$Internal$MakerForView$viewEntityMultiSingleRow = F
 	function (args, newKey, entities, formConf) {
 		var shadow = F2(
 			function (size_, a) {
-				return $mdgriffith$elm_ui$Element$Border$shadow(
+				return $lucamug$elm_ui_with_context$Element$WithContext$Border$shadow(
 					{
 						blur: 0,
 						color: A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$labelA, a, args.palette),
@@ -25481,77 +31767,74 @@ var $rakutentech$r10$R10$Form$Internal$MakerForView$viewEntityMultiSingleRow = F
 			function (widthPx, heightPx, color, rotateDeg) {
 				return _List_fromArray(
 					[
-						$mdgriffith$elm_ui$Element$htmlAttribute(
-						A2($elm$html$Html$Attributes$style, 'transition', 'all 0.2s ')),
-						$mdgriffith$elm_ui$Element$Border$rounded(2),
-						$mdgriffith$elm_ui$Element$centerX,
-						$mdgriffith$elm_ui$Element$centerY,
-						$mdgriffith$elm_ui$Element$width(
-						$mdgriffith$elm_ui$Element$px(widthPx)),
-						$mdgriffith$elm_ui$Element$height(
-						$mdgriffith$elm_ui$Element$px(heightPx)),
-						$mdgriffith$elm_ui$Element$Background$color(color),
-						$mdgriffith$elm_ui$Element$rotate(
+						$rakutentech$r10$R10$Transition$transition('all 0.2s '),
+						$lucamug$elm_ui_with_context$Element$WithContext$Border$rounded(2),
+						$lucamug$elm_ui_with_context$Element$WithContext$centerX,
+						$lucamug$elm_ui_with_context$Element$WithContext$centerY,
+						$lucamug$elm_ui_with_context$Element$WithContext$width(
+						$lucamug$elm_ui_with_context$Element$WithContext$px(widthPx)),
+						$lucamug$elm_ui_with_context$Element$WithContext$height(
+						$lucamug$elm_ui_with_context$Element$WithContext$px(heightPx)),
+						$lucamug$elm_ui_with_context$Element$WithContext$Background$color(color),
+						$lucamug$elm_ui_with_context$Element$WithContext$rotate(
 						$elm$core$Basics$degrees(rotateDeg))
 					]);
 			});
 		var buttonAttrs = _List_fromArray(
 			[
-				$mdgriffith$elm_ui$Element$Border$width(1),
-				$mdgriffith$elm_ui$Element$Border$rounded(5),
-				$mdgriffith$elm_ui$Element$htmlAttribute(
+				$lucamug$elm_ui_with_context$Element$WithContext$Border$width(1),
+				$lucamug$elm_ui_with_context$Element$WithContext$Border$rounded(5),
+				$lucamug$elm_ui_with_context$Element$WithContext$htmlAttribute(
 				$elm$html$Html$Attributes$class('ripple')),
-				$mdgriffith$elm_ui$Element$htmlAttribute(
-				A2($elm$html$Html$Attributes$style, 'transition', 'all 0.11s ease-out')),
-				$mdgriffith$elm_ui$Element$padding(8),
-				$mdgriffith$elm_ui$Element$width(
-				$mdgriffith$elm_ui$Element$px(28)),
-				$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
+				$rakutentech$r10$R10$Transition$transition('all 0.11s ease-out'),
+				$lucamug$elm_ui_with_context$Element$WithContext$padding(8),
+				$lucamug$elm_ui_with_context$Element$WithContext$width(
+				$lucamug$elm_ui_with_context$Element$WithContext$px(28)),
+				$lucamug$elm_ui_with_context$Element$WithContext$height($lucamug$elm_ui_with_context$Element$WithContext$fill),
 				A2(shadow, 10, 0),
-				$mdgriffith$elm_ui$Element$Border$color(
+				$lucamug$elm_ui_with_context$Element$WithContext$Border$color(
 				A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$containerA, 0.5, args.palette)),
-				$mdgriffith$elm_ui$Element$mouseOver(
+				$lucamug$elm_ui_with_context$Element$WithContext$mouseOver(
 				_List_fromArray(
 					[
-						$mdgriffith$elm_ui$Element$Border$color(
+						$lucamug$elm_ui_with_context$Element$WithContext$Border$color(
 						A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$containerA, 1, args.palette))
 					])),
-				$mdgriffith$elm_ui$Element$focused(
+				$lucamug$elm_ui_with_context$Element$WithContext$focused(
 				_List_fromArray(
 					[
-						$mdgriffith$elm_ui$Element$alpha(1),
+						$lucamug$elm_ui_with_context$Element$WithContext$alpha(1),
 						A2(shadow, 1, 1),
-						$mdgriffith$elm_ui$Element$Border$color(
+						$lucamug$elm_ui_with_context$Element$WithContext$Border$color(
 						A2($rakutentech$r10$R10$FormComponents$Internal$UI$Color$containerA, 1, args.palette))
 					]))
 			]);
 		var buttonToRemoveEntity = function (key_) {
 			return A2(
-				$mdgriffith$elm_ui$Element$Input$button,
+				$lucamug$elm_ui_with_context$Element$WithContext$Input$button,
 				buttonAttrs,
 				{
 					label: A2(
-						$mdgriffith$elm_ui$Element$el,
+						$lucamug$elm_ui_with_context$Element$WithContext$el,
 						_List_fromArray(
 							[
-								$mdgriffith$elm_ui$Element$width(
-								$mdgriffith$elm_ui$Element$px(iconSize)),
-								$mdgriffith$elm_ui$Element$height(
-								$mdgriffith$elm_ui$Element$px(iconSize)),
-								$mdgriffith$elm_ui$Element$htmlAttribute(
-								A2($elm$html$Html$Attributes$style, 'transition', 'all 0.2s ')),
-								$mdgriffith$elm_ui$Element$inFront(
+								$lucamug$elm_ui_with_context$Element$WithContext$width(
+								$lucamug$elm_ui_with_context$Element$WithContext$px(iconSize)),
+								$lucamug$elm_ui_with_context$Element$WithContext$height(
+								$lucamug$elm_ui_with_context$Element$WithContext$px(iconSize)),
+								$rakutentech$r10$R10$Transition$transition('all 0.2s '),
+								$lucamug$elm_ui_with_context$Element$WithContext$inFront(
 								A2(
-									$mdgriffith$elm_ui$Element$el,
+									$lucamug$elm_ui_with_context$Element$WithContext$el,
 									A4(iconCommonAttrs, iconSize, 2, removeColor, 45),
-									$mdgriffith$elm_ui$Element$none)),
-								$mdgriffith$elm_ui$Element$inFront(
+									$lucamug$elm_ui_with_context$Element$WithContext$none)),
+								$lucamug$elm_ui_with_context$Element$WithContext$inFront(
 								A2(
-									$mdgriffith$elm_ui$Element$el,
+									$lucamug$elm_ui_with_context$Element$WithContext$el,
 									A4(iconCommonAttrs, 2, iconSize, removeColor, -135),
-									$mdgriffith$elm_ui$Element$none))
+									$lucamug$elm_ui_with_context$Element$WithContext$none))
 							]),
-						$mdgriffith$elm_ui$Element$none),
+						$lucamug$elm_ui_with_context$Element$WithContext$none),
 					onPress: $elm$core$Maybe$Just(
 						$rakutentech$r10$R10$Form$Internal$Msg$RemoveEntity(key_))
 				});
@@ -25559,20 +31842,20 @@ var $rakutentech$r10$R10$Form$Internal$MakerForView$viewEntityMultiSingleRow = F
 		return _List_fromArray(
 			[
 				A2(
-				$mdgriffith$elm_ui$Element$row,
+				$lucamug$elm_ui_with_context$Element$WithContext$row,
 				_List_fromArray(
 					[
-						$mdgriffith$elm_ui$Element$spacing(10),
-						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+						$lucamug$elm_ui_with_context$Element$WithContext$spacing(10),
+						$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill)
 					]),
 				_List_fromArray(
 					[
 						buttonToRemoveEntity(newKey),
 						A2(
-						$mdgriffith$elm_ui$Element$column,
+						$lucamug$elm_ui_with_context$Element$WithContext$column,
 						_List_fromArray(
 							[
-								$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+								$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill),
 								$rakutentech$r10$R10$Form$Internal$MakerForView$spacingGeneric
 							]),
 						A3(
@@ -25590,20 +31873,20 @@ var $rakutentech$r10$R10$Form$Internal$MakerForView$viewEntityNormal = F3(
 		return _List_fromArray(
 			[
 				A2(
-				$mdgriffith$elm_ui$Element$el,
+				$lucamug$elm_ui_with_context$Element$WithContext$el,
 				_List_fromArray(
 					[
-						$mdgriffith$elm_ui$Element$alignTop,
-						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-						$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
+						$lucamug$elm_ui_with_context$Element$WithContext$alignTop,
+						$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill),
+						$lucamug$elm_ui_with_context$Element$WithContext$height($lucamug$elm_ui_with_context$Element$WithContext$fill),
 						$rakutentech$r10$R10$Form$Internal$MakerForView$spacingGeneric
 					]),
 				A2(
-					$mdgriffith$elm_ui$Element$column,
+					$lucamug$elm_ui_with_context$Element$WithContext$column,
 					_List_fromArray(
 						[
 							$rakutentech$r10$R10$Form$Internal$MakerForView$spacingGeneric,
-							$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+							$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill)
 						]),
 					A3($rakutentech$r10$R10$Form$Internal$MakerForView$maker_, args, entities, formConf)))
 			]);
@@ -25613,22 +31896,22 @@ var $rakutentech$r10$R10$Form$Internal$MakerForView$viewEntityWithBorder = F3(
 		return _List_fromArray(
 			[
 				A2(
-				$mdgriffith$elm_ui$Element$el,
+				$lucamug$elm_ui_with_context$Element$WithContext$el,
 				_Utils_ap(
 					_List_fromArray(
 						[
-							$mdgriffith$elm_ui$Element$alignTop,
-							$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-							$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill)
+							$lucamug$elm_ui_with_context$Element$WithContext$alignTop,
+							$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill),
+							$lucamug$elm_ui_with_context$Element$WithContext$height($lucamug$elm_ui_with_context$Element$WithContext$fill)
 						]),
 					$rakutentech$r10$R10$FormComponents$Internal$UI$borderEntityWithBorder(args.palette)),
 				A2(
-					$mdgriffith$elm_ui$Element$column,
+					$lucamug$elm_ui_with_context$Element$WithContext$column,
 					_List_fromArray(
 						[
 							$rakutentech$r10$R10$Form$Internal$MakerForView$paddingGeneric,
 							$rakutentech$r10$R10$Form$Internal$MakerForView$spacingGeneric,
-							$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+							$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill)
 						]),
 					A3($rakutentech$r10$R10$Form$Internal$MakerForView$maker_, args, entities, formConf)))
 			]);
@@ -25636,14 +31919,14 @@ var $rakutentech$r10$R10$Form$Internal$MakerForView$viewEntityWithBorder = F3(
 var $rakutentech$r10$R10$Form$Internal$MakerForView$viewEntityWithTabs = F3(
 	function (args, titleEntityList, formConf) {
 		var tabSpacer = A2(
-			$mdgriffith$elm_ui$Element$el,
+			$lucamug$elm_ui_with_context$Element$WithContext$el,
 			_List_fromArray(
 				[
-					$mdgriffith$elm_ui$Element$width(
-					A2($mdgriffith$elm_ui$Element$maximum, 40, $mdgriffith$elm_ui$Element$fill)),
-					$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill)
+					$lucamug$elm_ui_with_context$Element$WithContext$width(
+					A2($lucamug$elm_ui_with_context$Element$WithContext$maximum, 40, $lucamug$elm_ui_with_context$Element$WithContext$fill)),
+					$lucamug$elm_ui_with_context$Element$WithContext$height($lucamug$elm_ui_with_context$Element$WithContext$fill)
 				]),
-			$mdgriffith$elm_ui$Element$none);
+			$lucamug$elm_ui_with_context$Element$WithContext$none);
 		var paddingPx = 8;
 		var firstEntity = $elm$core$List$head(titleEntityList);
 		var maybeSelectedEntity = function () {
@@ -25671,16 +31954,16 @@ var $rakutentech$r10$R10$Form$Internal$MakerForView$viewEntityWithTabs = F3(
 			}
 		}();
 		var emptyTab = A2(
-			$mdgriffith$elm_ui$Element$el,
+			$lucamug$elm_ui_with_context$Element$WithContext$el,
 			_List_fromArray(
 				[
-					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-					$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
-					$mdgriffith$elm_ui$Element$moveLeft(paddingPx),
-					$mdgriffith$elm_ui$Element$Background$color(
+					$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill),
+					$lucamug$elm_ui_with_context$Element$WithContext$height($lucamug$elm_ui_with_context$Element$WithContext$fill),
+					$lucamug$elm_ui_with_context$Element$WithContext$moveLeft(paddingPx),
+					$lucamug$elm_ui_with_context$Element$WithContext$Background$color(
 					$rakutentech$r10$R10$FormComponents$Internal$UI$Color$surface(args.palette))
 				]),
-			$mdgriffith$elm_ui$Element$none);
+			$lucamug$elm_ui_with_context$Element$WithContext$none);
 		if (maybeSelectedEntity.$ === 'Just') {
 			var _v1 = maybeSelectedEntity.a;
 			var selectedEntity = _v1.b;
@@ -25688,37 +31971,37 @@ var $rakutentech$r10$R10$Form$Internal$MakerForView$viewEntityWithTabs = F3(
 				_List_fromArray(
 					[
 						A2(
-						$mdgriffith$elm_ui$Element$el,
+						$lucamug$elm_ui_with_context$Element$WithContext$el,
 						_List_fromArray(
 							[
-								$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-								$mdgriffith$elm_ui$Element$behindContent(
+								$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill),
+								$lucamug$elm_ui_with_context$Element$WithContext$behindContent(
 								A2(
-									$mdgriffith$elm_ui$Element$el,
+									$lucamug$elm_ui_with_context$Element$WithContext$el,
 									_List_fromArray(
 										[
-											$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-											$mdgriffith$elm_ui$Element$centerY,
-											A2($mdgriffith$elm_ui$Element$paddingXY, paddingPx, 0)
+											$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill),
+											$lucamug$elm_ui_with_context$Element$WithContext$centerY,
+											A2($lucamug$elm_ui_with_context$Element$WithContext$paddingXY, paddingPx, 0)
 										]),
 									A2(
-										$mdgriffith$elm_ui$Element$el,
+										$lucamug$elm_ui_with_context$Element$WithContext$el,
 										_List_fromArray(
 											[
-												$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-												$mdgriffith$elm_ui$Element$Border$widthEach(
+												$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill),
+												$lucamug$elm_ui_with_context$Element$WithContext$Border$widthEach(
 												{bottom: 1, left: 0, right: 0, top: 0}),
-												$mdgriffith$elm_ui$Element$Border$color(
+												$lucamug$elm_ui_with_context$Element$WithContext$Border$color(
 												$rakutentech$r10$R10$FormComponents$Internal$UI$Color$container(args.palette))
 											]),
-										$mdgriffith$elm_ui$Element$none)))
+										$lucamug$elm_ui_with_context$Element$WithContext$none)))
 							]),
 						A2(
-							$mdgriffith$elm_ui$Element$row,
+							$lucamug$elm_ui_with_context$Element$WithContext$row,
 							_List_fromArray(
 								[
-									$mdgriffith$elm_ui$Element$scrollbars,
-									$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+									$lucamug$elm_ui_with_context$Element$WithContext$scrollbars,
+									$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill)
 								]),
 							function (items) {
 								return _Utils_ap(
@@ -25779,12 +32062,12 @@ var $rakutentech$r10$R10$Form$Internal$MakerForView$viewEntityWrappable = F3(
 		return _List_fromArray(
 			[
 				A2(
-				$mdgriffith$elm_ui$Element$wrappedRow,
+				$lucamug$elm_ui_with_context$Element$WithContext$wrappedRow,
 				_List_fromArray(
 					[
-						$mdgriffith$elm_ui$Element$alignTop,
-						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-						$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
+						$lucamug$elm_ui_with_context$Element$WithContext$alignTop,
+						$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill),
+						$lucamug$elm_ui_with_context$Element$WithContext$height($lucamug$elm_ui_with_context$Element$WithContext$fill),
 						$rakutentech$r10$R10$Form$Internal$MakerForView$spacingGeneric
 					]),
 				A3($rakutentech$r10$R10$Form$Internal$MakerForView$maker_, args, entities, formConf))
@@ -25799,7 +32082,7 @@ var $rakutentech$r10$R10$Form$viewWithOptions = F3(
 		var maker_ = A2($elm$core$Maybe$withDefault, $rakutentech$r10$R10$Form$Internal$MakerForView$maker, args.maker);
 		return A2(
 			$elm$core$List$map,
-			$mdgriffith$elm_ui$Element$map(msgMapper),
+			$lucamug$elm_ui_with_context$Element$WithContext$map(msgMapper),
 			A2(
 				maker_,
 				{
@@ -25817,17 +32100,8 @@ var $rakutentech$r10$R10$Form$view = F2(
 			$rakutentech$r10$R10$Form$viewWithOptions,
 			form,
 			msgMapper,
-			{maker: $elm$core$Maybe$Nothing, palette: $elm$core$Maybe$Nothing, style: $rakutentech$r10$R10$Form$style.outlined, translator: $elm$core$Maybe$Nothing});
+			{maker: $elm$core$Maybe$Nothing, palette: $elm$core$Maybe$Nothing, style: $rakutentech$r10$R10$Form$defaultStyle, translator: $elm$core$Maybe$Nothing});
 	});
-var $mdgriffith$elm_ui$Element$Font$family = function (families) {
-	return A2(
-		$mdgriffith$elm_ui$Internal$Model$StyleClass,
-		$mdgriffith$elm_ui$Internal$Flag$fontFamily,
-		A2(
-			$mdgriffith$elm_ui$Internal$Model$FontFamily,
-			A3($elm$core$List$foldl, $mdgriffith$elm_ui$Internal$Model$renderFontClassName, 'ff-', families),
-			families));
-};
 var $pablohirafuji$elm_syntax_highlight$SyntaxHighlight$Theme = function (a) {
 	return {$: 'Theme', a: a};
 };
@@ -26188,16 +32462,6 @@ var $pablohirafuji$elm_syntax_highlight$SyntaxHighlight$useTheme = function (_v0
 				$elm$html$Html$text(theme)
 			]));
 };
-var $elm$core$Result$andThen = F2(
-	function (callback, result) {
-		if (result.$ === 'Ok') {
-			var value = result.a;
-			return callback(value);
-		} else {
-			var msg = result.a;
-			return $elm$core$Result$Err(msg);
-		}
-	});
 var $dillonkearns$elm_markdown$Markdown$Parser$problemToString = function (problem) {
 	switch (problem.$) {
 		case 'Expecting':
@@ -27314,16 +33578,6 @@ var $dillonkearns$elm_markdown$HtmlParser$entities = $elm$core$Dict$fromList(
 			_Utils_chr('\"'))
 		]));
 var $elm$core$Char$fromCode = _Char_fromCode;
-var $elm$core$Result$fromMaybe = F2(
-	function (err, maybe) {
-		if (maybe.$ === 'Just') {
-			var v = maybe.a;
-			return $elm$core$Result$Ok(v);
-		} else {
-			return $elm$core$Result$Err(err);
-		}
-	});
-var $elm$core$Basics$pow = _Basics_pow;
 var $rtfeldman$elm_hex$Hex$fromStringHelp = F3(
 	function (position, chars, accumulated) {
 		fromStringHelp:
@@ -27468,17 +33722,6 @@ var $rtfeldman$elm_hex$Hex$fromStringHelp = F3(
 							$elm$core$String$fromChar(nonHex) + ' is not a valid hexadecimal character.');
 				}
 			}
-		}
-	});
-var $elm$core$Result$map = F2(
-	function (func, ra) {
-		if (ra.$ === 'Ok') {
-			var a = ra.a;
-			return $elm$core$Result$Ok(
-				func(a));
-		} else {
-			var e = ra.a;
-			return $elm$core$Result$Err(e);
 		}
 	});
 var $rtfeldman$elm_hex$Hex$fromString = function (str) {
@@ -29421,7 +35664,6 @@ var $dillonkearns$elm_markdown$Markdown$InlineParser$autolinkToMatch = function 
 				}))) : $elm$core$Result$Err(
 		$dillonkearns$elm_markdown$Markdown$InlineParser$Match(match));
 };
-var $elm$regex$Regex$findAtMost = _Regex_findAtMost;
 var $dillonkearns$elm_markdown$Markdown$Helpers$insideSquareBracketRegex = '[^\\[\\]\\\\]*(?:\\\\.[^\\[\\]\\\\]*)*';
 var $dillonkearns$elm_markdown$Markdown$InlineParser$refLabelRegex = A2(
 	$elm$core$Maybe$withDefault,
@@ -30969,11 +37211,6 @@ var $dillonkearns$elm_markdown$Markdown$CodeBlock$parser = A2(
 			$dillonkearns$elm_markdown$Markdown$CodeBlock$remainingBlock(fence));
 	},
 	$dillonkearns$elm_markdown$Markdown$CodeBlock$openingFence);
-var $elm$core$String$dropRight = F2(
-	function (n, string) {
-		return (n < 1) ? string : A3($elm$core$String$slice, 0, -n, string);
-	});
-var $elm$core$String$endsWith = _String_endsWith;
 var $dillonkearns$elm_markdown$Markdown$Heading$dropTrailingHashes = function (headingString) {
 	return A2($elm$core$String$endsWith, '#', headingString) ? $dillonkearns$elm_markdown$Markdown$Heading$dropTrailingHashes(
 		A2($elm$core$String$dropRight, 1, headingString)) : headingString;
@@ -31973,15 +38210,6 @@ var $dillonkearns$elm_markdown$Markdown$Parser$unorderedListBlock = function () 
 			$dillonkearns$elm_markdown$Markdown$RawBlock$UnorderedListBlock),
 		$dillonkearns$elm_markdown$Markdown$UnorderedList$parser);
 }();
-var $elm$core$Result$withDefault = F2(
-	function (def, result) {
-		if (result.$ === 'Ok') {
-			var a = result.a;
-			return a;
-		} else {
-			return def;
-		}
-	});
 var $dillonkearns$elm_markdown$Markdown$Parser$childToBlocks = F2(
 	function (node, blocks) {
 		switch (node.$) {
@@ -33245,36 +39473,6 @@ var $author$project$Internal$Markdown$avatarView = function (avatarUrl) {
 };
 var $mdgriffith$elm_ui$Internal$Flag$fontAlignment = $mdgriffith$elm_ui$Internal$Flag$flag(12);
 var $mdgriffith$elm_ui$Element$Font$center = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$fontAlignment, $mdgriffith$elm_ui$Internal$Style$classes.textCenter);
-var $mdgriffith$elm_ui$Element$link = F2(
-	function (attrs, _v0) {
-		var url = _v0.url;
-		var label = _v0.label;
-		return A4(
-			$mdgriffith$elm_ui$Internal$Model$element,
-			$mdgriffith$elm_ui$Internal$Model$asEl,
-			$mdgriffith$elm_ui$Internal$Model$NodeName('a'),
-			A2(
-				$elm$core$List$cons,
-				$mdgriffith$elm_ui$Internal$Model$Attr(
-					$elm$html$Html$Attributes$href(url)),
-				A2(
-					$elm$core$List$cons,
-					$mdgriffith$elm_ui$Internal$Model$Attr(
-						$elm$html$Html$Attributes$rel('noopener noreferrer')),
-					A2(
-						$elm$core$List$cons,
-						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$shrink),
-						A2(
-							$elm$core$List$cons,
-							$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$shrink),
-							A2(
-								$elm$core$List$cons,
-								$mdgriffith$elm_ui$Internal$Model$htmlClass($mdgriffith$elm_ui$Internal$Style$classes.contentCenterX + (' ' + ($mdgriffith$elm_ui$Internal$Style$classes.contentCenterY + (' ' + $mdgriffith$elm_ui$Internal$Style$classes.link)))),
-								attrs))))),
-			$mdgriffith$elm_ui$Internal$Model$Unkeyed(
-				_List_fromArray(
-					[label])));
-	});
 var $author$project$Internal$Markdown$icons = F3(
 	function (twitter, github, dribbble) {
 		return A2(
@@ -33378,8 +39576,6 @@ var $author$project$Internal$Markdown$bioView = F6(
 				renderedChildren));
 	});
 var $elm$html$Html$br = _VirtualDom_node('br');
-var $mdgriffith$elm_ui$Internal$Model$Monospace = {$: 'Monospace'};
-var $mdgriffith$elm_ui$Element$Font$monospace = $mdgriffith$elm_ui$Internal$Model$Monospace;
 var $mdgriffith$elm_ui$Element$rgb255 = F3(
 	function (red, green, blue) {
 		return A4($mdgriffith$elm_ui$Internal$Model$Rgba, red / 255, green / 255, blue / 255, 1);
@@ -36749,6 +42945,8 @@ var $author$project$Internal$Views$viewElement = F2(
 							[$author$project$Internal$Views$viewFooter])))));
 	});
 var $author$project$Exercises$viewElement = $author$project$Internal$Views$viewElement;
+var $mdgriffith$elm_ui$Internal$Model$Right = {$: 'Right'};
+var $mdgriffith$elm_ui$Element$alignRight = $mdgriffith$elm_ui$Internal$Model$AlignX($mdgriffith$elm_ui$Internal$Model$Right);
 var $author$project$Internal$Data$MenuOver = function (a) {
 	return {$: 'MenuOver', a: a};
 };
@@ -37410,10 +43608,6 @@ var $terezka$charts$Internal$Commands$Move = F2(
 var $elm$core$Basics$abs = function (n) {
 	return (n < 0) ? (-n) : n;
 };
-var $elm$core$Basics$clamp = F3(
-	function (low, high, number) {
-		return (_Utils_cmp(number, low) < 0) ? low : ((_Utils_cmp(number, high) > 0) ? high : number);
-	});
 var $terezka$charts$Internal$Svg$clipperStyle = F2(
 	function (plane, limits) {
 		var topCut = ((plane.y.max - limits.y2) / $elm$core$Basics$abs(limits.y2 - limits.y1)) * 100;
@@ -37687,13 +43881,6 @@ var $elm$svg$Svg$Attributes$offset = _VirtualDom_attribute('offset');
 var $elm$svg$Svg$pattern = $elm$svg$Svg$trustedNode('pattern');
 var $elm$svg$Svg$Attributes$patternTransform = _VirtualDom_attribute('patternTransform');
 var $elm$svg$Svg$Attributes$patternUnits = _VirtualDom_attribute('patternUnits');
-var $elm$core$String$replace = F3(
-	function (before, after, string) {
-		return A2(
-			$elm$core$String$join,
-			after,
-			A2($elm$core$String$split, before, string));
-	});
 var $elm$svg$Svg$stop = $elm$svg$Svg$trustedNode('stop');
 var $elm$svg$Svg$Attributes$stopColor = _VirtualDom_attribute('stop-color');
 var $terezka$charts$Internal$Svg$toPattern = F2(
@@ -40522,15 +46709,6 @@ var $terezka$charts$Chart$Svg$line = F2(
 			plane,
 			A2($terezka$charts$Internal$Helpers$apply, edits, $terezka$charts$Internal$Svg$defaultLine));
 	});
-var $elm$core$List$member = F2(
-	function (x, xs) {
-		return A2(
-			$elm$core$List$any,
-			function (a) {
-				return _Utils_eq(a, x);
-			},
-			xs);
-	});
 var $terezka$charts$Chart$Attributes$size = F2(
 	function (v, config) {
 		return _Utils_update(
@@ -40993,7 +47171,6 @@ var $myrho$elm_round$Round$increaseNum = function (_v0) {
 	}
 };
 var $elm$core$Basics$isInfinite = _Basics_isInfinite;
-var $elm$core$Basics$isNaN = _Basics_isNaN;
 var $elm$core$String$padRight = F3(
 	function (n, _char, string) {
 		return _Utils_ap(
@@ -41003,7 +47180,6 @@ var $elm$core$String$padRight = F3(
 				n - $elm$core$String$length(string),
 				$elm$core$String$fromChar(_char)));
 	});
-var $elm$core$String$reverse = _String_reverse;
 var $myrho$elm_round$Round$splitComma = function (str) {
 	var _v0 = A2($elm$core$String$split, '.', str);
 	if (_v0.b) {
@@ -44346,50 +50522,51 @@ var $author$project$Main$viewEllie = function (_v0) {
 		$author$project$Main$textarea,
 		_List_fromArray(
 			[
-				$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+				$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill)
 			]),
 		$author$project$Main$htmlForEllie);
 };
 var $author$project$Main$view = function (model) {
-	return A3(
-		$mdgriffith$elm_ui$Element$layoutWith,
+	return A4(
+		$lucamug$elm_ui_with_context$Element$WithContext$layoutWith,
+		$rakutentech$r10$R10$Context$empty,
 		{
 			options: _List_fromArray(
 				[
-					$mdgriffith$elm_ui$Element$focusStyle(
+					$lucamug$elm_ui_with_context$Element$WithContext$focusStyle(
 					{backgroundColor: $elm$core$Maybe$Nothing, borderColor: $elm$core$Maybe$Nothing, shadow: $elm$core$Maybe$Nothing})
 				])
 		},
 		_List_fromArray(
 			[
-				$mdgriffith$elm_ui$Element$Font$size(16)
+				$lucamug$elm_ui_with_context$Element$WithContext$Font$size(16)
 			]),
 		A2(
-			$mdgriffith$elm_ui$Element$column,
+			$lucamug$elm_ui_with_context$Element$WithContext$column,
 			_List_fromArray(
 				[
-					$mdgriffith$elm_ui$Element$padding(20),
-					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-					$mdgriffith$elm_ui$Element$spacing(20)
+					$lucamug$elm_ui_with_context$Element$WithContext$padding(20),
+					$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill),
+					$lucamug$elm_ui_with_context$Element$WithContext$spacing(20)
 				]),
 			_List_fromArray(
 				[
 					A2(
-					$mdgriffith$elm_ui$Element$paragraph,
+					$lucamug$elm_ui_with_context$Element$WithContext$paragraph,
 					_List_fromArray(
 						[
-							$mdgriffith$elm_ui$Element$Region$heading(1),
-							$mdgriffith$elm_ui$Element$Font$size(35)
+							$lucamug$elm_ui_with_context$Element$WithContext$Region$heading(1),
+							$lucamug$elm_ui_with_context$Element$WithContext$Font$size(35)
 						]),
 					_List_fromArray(
 						[
-							$mdgriffith$elm_ui$Element$text('Elm Exercises Dashboard')
+							$lucamug$elm_ui_with_context$Element$WithContext$text('Elm Exercises Dashboard')
 						])),
 					A2(
-					$mdgriffith$elm_ui$Element$row,
+					$lucamug$elm_ui_with_context$Element$WithContext$row,
 					_List_fromArray(
 						[
-							$mdgriffith$elm_ui$Element$spacing(10)
+							$lucamug$elm_ui_with_context$Element$WithContext$spacing(10)
 						]),
 					_Utils_ap(
 						_List_Nil,
@@ -44397,14 +50574,14 @@ var $author$project$Main$view = function (model) {
 							_List_fromArray(
 								[
 									A2(
-									$mdgriffith$elm_ui$Element$Input$button,
+									$lucamug$elm_ui_with_context$Element$WithContext$Input$button,
 									_List_fromArray(
 										[
-											$mdgriffith$elm_ui$Element$Border$width(1),
-											$mdgriffith$elm_ui$Element$padding(5)
+											$lucamug$elm_ui_with_context$Element$WithContext$Border$width(1),
+											$lucamug$elm_ui_with_context$Element$WithContext$padding(5)
 										]),
 									{
-										label: $mdgriffith$elm_ui$Element$text('Top'),
+										label: $lucamug$elm_ui_with_context$Element$WithContext$text('Top'),
 										onPress: $elm$core$Maybe$Just(
 											$author$project$Main$ChangePage($author$project$Main$Top))
 									})
@@ -44413,14 +50590,14 @@ var $author$project$Main$view = function (model) {
 								_List_fromArray(
 									[
 										A2(
-										$mdgriffith$elm_ui$Element$Input$button,
+										$lucamug$elm_ui_with_context$Element$WithContext$Input$button,
 										_List_fromArray(
 											[
-												$mdgriffith$elm_ui$Element$Border$width(1),
-												$mdgriffith$elm_ui$Element$padding(5)
+												$lucamug$elm_ui_with_context$Element$WithContext$Border$width(1),
+												$lucamug$elm_ui_with_context$Element$WithContext$padding(5)
 											]),
 										{
-											label: $mdgriffith$elm_ui$Element$text('Output'),
+											label: $lucamug$elm_ui_with_context$Element$WithContext$text('Output'),
 											onPress: $elm$core$Maybe$Just(
 												$author$project$Main$ChangePage($author$project$Main$PageOutput))
 										})
@@ -44429,14 +50606,14 @@ var $author$project$Main$view = function (model) {
 									_List_fromArray(
 										[
 											A2(
-											$mdgriffith$elm_ui$Element$Input$button,
+											$lucamug$elm_ui_with_context$Element$WithContext$Input$button,
 											_List_fromArray(
 												[
-													$mdgriffith$elm_ui$Element$Border$width(1),
-													$mdgriffith$elm_ui$Element$padding(5)
+													$lucamug$elm_ui_with_context$Element$WithContext$Border$width(1),
+													$lucamug$elm_ui_with_context$Element$WithContext$padding(5)
 												]),
 											{
-												label: $mdgriffith$elm_ui$Element$text('Index'),
+												label: $lucamug$elm_ui_with_context$Element$WithContext$text('Index'),
 												onPress: $elm$core$Maybe$Just(
 													$author$project$Main$ChangePage($author$project$Main$Index))
 											})
@@ -44446,14 +50623,14 @@ var $author$project$Main$view = function (model) {
 											$elm$core$List$map,
 											function (exerciseData) {
 												return A2(
-													$mdgriffith$elm_ui$Element$Input$button,
+													$lucamug$elm_ui_with_context$Element$WithContext$Input$button,
 													_List_fromArray(
 														[
-															$mdgriffith$elm_ui$Element$Border$width(1),
-															$mdgriffith$elm_ui$Element$padding(5)
+															$lucamug$elm_ui_with_context$Element$WithContext$Border$width(1),
+															$lucamug$elm_ui_with_context$Element$WithContext$padding(5)
 														]),
 													{
-														label: $mdgriffith$elm_ui$Element$text(
+														label: $lucamug$elm_ui_with_context$Element$WithContext$text(
 															$elm$core$String$fromInt(exerciseData.id)),
 														onPress: $elm$core$Maybe$Just(
 															$author$project$Main$ChangePage(
@@ -44466,14 +50643,14 @@ var $author$project$Main$view = function (model) {
 												$elm$core$List$map,
 												function (exerciseData) {
 													return A2(
-														$mdgriffith$elm_ui$Element$Input$button,
+														$lucamug$elm_ui_with_context$Element$WithContext$Input$button,
 														_List_fromArray(
 															[
-																$mdgriffith$elm_ui$Element$Border$width(1),
-																$mdgriffith$elm_ui$Element$padding(5)
+																$lucamug$elm_ui_with_context$Element$WithContext$Border$width(1),
+																$lucamug$elm_ui_with_context$Element$WithContext$padding(5)
 															]),
 														{
-															label: $mdgriffith$elm_ui$Element$text(
+															label: $lucamug$elm_ui_with_context$Element$WithContext$text(
 																$elm$core$String$fromInt(exerciseData.id)),
 															onPress: $elm$core$Maybe$Just(
 																$author$project$Main$ChangePage(
@@ -44496,14 +50673,14 @@ var $author$project$Main$view = function (model) {
 												$elm$core$List$map,
 												function (exerciseData) {
 													return A2(
-														$mdgriffith$elm_ui$Element$Input$button,
+														$lucamug$elm_ui_with_context$Element$WithContext$Input$button,
 														_List_fromArray(
 															[
-																$mdgriffith$elm_ui$Element$Border$width(1),
-																$mdgriffith$elm_ui$Element$padding(5)
+																$lucamug$elm_ui_with_context$Element$WithContext$Border$width(1),
+																$lucamug$elm_ui_with_context$Element$WithContext$padding(5)
 															]),
 														{
-															label: $mdgriffith$elm_ui$Element$text(
+															label: $lucamug$elm_ui_with_context$Element$WithContext$text(
 																$elm$core$String$fromInt(exerciseData.id)),
 															onPress: $elm$core$Maybe$Just(
 																$author$project$Main$ChangePage(
@@ -44516,94 +50693,94 @@ var $author$project$Main$view = function (model) {
 					switch (_v0.$) {
 						case 'Top':
 							return A2(
-								$mdgriffith$elm_ui$Element$column,
+								$lucamug$elm_ui_with_context$Element$WithContext$column,
 								_List_fromArray(
 									[
-										$mdgriffith$elm_ui$Element$spacing(20)
+										$lucamug$elm_ui_with_context$Element$WithContext$spacing(20)
 									]),
 								_List_fromArray(
 									[
-										$mdgriffith$elm_ui$Element$text('Welcome to Elm Exercises.'),
+										$lucamug$elm_ui_with_context$Element$WithContext$text('Welcome to Elm Exercises.'),
 										A2(
-										$mdgriffith$elm_ui$Element$column,
+										$lucamug$elm_ui_with_context$Element$WithContext$column,
 										_List_fromArray(
 											[
-												$mdgriffith$elm_ui$Element$spacing(10)
+												$lucamug$elm_ui_with_context$Element$WithContext$spacing(10)
 											]),
 										A2(
 											$elm$core$List$map,
 											function (exercise) {
-												return $mdgriffith$elm_ui$Element$text(exercise.title);
+												return $lucamug$elm_ui_with_context$Element$WithContext$text(exercise.title);
 											},
 											$author$project$ListExercises$exercises))
 									]));
 						case 'PageOutput':
 							return A2(
-								$mdgriffith$elm_ui$Element$column,
+								$lucamug$elm_ui_with_context$Element$WithContext$column,
 								_List_fromArray(
 									[
-										$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-										$mdgriffith$elm_ui$Element$spacing(10)
+										$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill),
+										$lucamug$elm_ui_with_context$Element$WithContext$spacing(10)
 									]),
 								_List_fromArray(
 									[
 										A2(
-										$mdgriffith$elm_ui$Element$paragraph,
+										$lucamug$elm_ui_with_context$Element$WithContext$paragraph,
 										_List_Nil,
 										_List_fromArray(
 											[
-												$mdgriffith$elm_ui$Element$text('Updated list of all exercises. Copy this JSON data into \"docs/index.json\".')
+												$lucamug$elm_ui_with_context$Element$WithContext$text('Updated list of all exercises. Copy this JSON data into \"docs/index.json\".')
 											])),
 										A2(
 										$author$project$Main$textarea,
 										_List_fromArray(
 											[
-												$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+												$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill)
 											]),
 										A2($author$project$Main$createOutputs, 4, $author$project$ListExercises$exercises))
 									]));
 						case 'Index':
 							return A2(
-								$mdgriffith$elm_ui$Element$column,
+								$lucamug$elm_ui_with_context$Element$WithContext$column,
 								_List_fromArray(
 									[
-										$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-										$mdgriffith$elm_ui$Element$spacing(10)
+										$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill),
+										$lucamug$elm_ui_with_context$Element$WithContext$spacing(10)
 									]),
 								_List_fromArray(
 									[
 										A2(
-										$mdgriffith$elm_ui$Element$paragraph,
+										$lucamug$elm_ui_with_context$Element$WithContext$paragraph,
 										_List_Nil,
 										_List_fromArray(
 											[
-												$mdgriffith$elm_ui$Element$text('Updated list of all exercises. Copy this JSON data into \"docs/index.json\".')
+												$lucamug$elm_ui_with_context$Element$WithContext$text('Updated list of all exercises. Copy this JSON data into \"docs/index.json\".')
 											])),
 										A2(
 										$author$project$Main$textarea,
 										_List_fromArray(
 											[
-												$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+												$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill)
 											]),
 										A2($author$project$Main$createIndexJsonp, 0, $author$project$ListExercises$exercises))
 									]));
 						case 'ViewJson':
 							var exerciseData = _v0.a;
 							return A2(
-								$mdgriffith$elm_ui$Element$column,
+								$lucamug$elm_ui_with_context$Element$WithContext$column,
 								_List_fromArray(
 									[
-										$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-										$mdgriffith$elm_ui$Element$spacing(10)
+										$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill),
+										$lucamug$elm_ui_with_context$Element$WithContext$spacing(10)
 									]),
 								_List_fromArray(
 									[
 										A2(
-										$mdgriffith$elm_ui$Element$paragraph,
+										$lucamug$elm_ui_with_context$Element$WithContext$paragraph,
 										_List_Nil,
 										_List_fromArray(
 											[
-												$mdgriffith$elm_ui$Element$text(
+												$lucamug$elm_ui_with_context$Element$WithContext$text(
 												'Copy this JSON data into \"docs/' + (A3(
 													$elm$core$String$padLeft,
 													3,
@@ -44614,27 +50791,27 @@ var $author$project$Main$view = function (model) {
 										$author$project$Main$textarea,
 										_List_fromArray(
 											[
-												$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+												$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill)
 											]),
 										A2($author$project$Main$createExerciseJsonp, 0, exerciseData))
 									]));
 						case 'ViewEllie':
 							var exerciseData = _v0.a;
 							return A2(
-								$mdgriffith$elm_ui$Element$column,
+								$lucamug$elm_ui_with_context$Element$WithContext$column,
 								_List_fromArray(
 									[
-										$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-										$mdgriffith$elm_ui$Element$spacing(10)
+										$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill),
+										$lucamug$elm_ui_with_context$Element$WithContext$spacing(10)
 									]),
 								_List_fromArray(
 									[
 										A2(
-										$mdgriffith$elm_ui$Element$paragraph,
+										$lucamug$elm_ui_with_context$Element$WithContext$paragraph,
 										_List_Nil,
 										_List_fromArray(
 											[
-												$mdgriffith$elm_ui$Element$text('Copy these into an Ellie (https://ellie-app.com/new), then copy the Ellie id back in ...')
+												$lucamug$elm_ui_with_context$Element$WithContext$text('Copy these into an Ellie (https://ellie-app.com/new), then copy the Ellie id back in ...')
 											])),
 										$author$project$Main$viewEllie(exerciseData)
 									]));
@@ -44642,165 +50819,169 @@ var $author$project$Main$view = function (model) {
 							var exerciseData = _v0.a;
 							var exerciseModel = _v0.b;
 							return A2(
-								$mdgriffith$elm_ui$Element$row,
+								$lucamug$elm_ui_with_context$Element$WithContext$row,
 								_List_fromArray(
 									[
-										$mdgriffith$elm_ui$Element$spacing(20),
-										$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+										$lucamug$elm_ui_with_context$Element$WithContext$spacing(20),
+										$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill)
 									]),
 								_List_fromArray(
 									[
 										A2(
-										$mdgriffith$elm_ui$Element$column,
+										$lucamug$elm_ui_with_context$Element$WithContext$column,
 										_List_fromArray(
 											[
-												$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-												$mdgriffith$elm_ui$Element$alignTop,
-												$mdgriffith$elm_ui$Element$spacing(20),
-												$mdgriffith$elm_ui$Element$width(
-												$mdgriffith$elm_ui$Element$fillPortion(2))
+												$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill),
+												$lucamug$elm_ui_with_context$Element$WithContext$alignTop,
+												$lucamug$elm_ui_with_context$Element$WithContext$spacing(20),
+												$lucamug$elm_ui_with_context$Element$WithContext$width(
+												$lucamug$elm_ui_with_context$Element$WithContext$fillPortion(2))
 											]),
 										_List_fromArray(
 											[
 												A2(
-												$mdgriffith$elm_ui$Element$column,
+												$lucamug$elm_ui_with_context$Element$WithContext$column,
 												_List_fromArray(
 													[
-														$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-														$mdgriffith$elm_ui$Element$spacing(20)
+														$lucamug$elm_ui_with_context$Element$WithContext$width($lucamug$elm_ui_with_context$Element$WithContext$fill),
+														$lucamug$elm_ui_with_context$Element$WithContext$spacing(20)
 													]),
 												A2($rakutentech$r10$R10$Form$view, model.form, $author$project$Main$MsgForm)),
 												A2(
-												$mdgriffith$elm_ui$Element$column,
+												$lucamug$elm_ui_with_context$Element$WithContext$column,
 												_List_fromArray(
 													[
-														$mdgriffith$elm_ui$Element$spacing(10)
+														$lucamug$elm_ui_with_context$Element$WithContext$spacing(10)
 													]),
 												_List_fromArray(
 													[
-														$mdgriffith$elm_ui$Element$text('Title'),
+														$lucamug$elm_ui_with_context$Element$WithContext$text('Title'),
 														A2(
-														$mdgriffith$elm_ui$Element$paragraph,
+														$lucamug$elm_ui_with_context$Element$WithContext$paragraph,
 														_List_Nil,
 														_List_fromArray(
 															[
-																$mdgriffith$elm_ui$Element$text(exerciseModel.exerciseData.title)
+																$lucamug$elm_ui_with_context$Element$WithContext$text(exerciseModel.exerciseData.title)
 															]))
 													])),
 												A2(
-												$mdgriffith$elm_ui$Element$column,
+												$lucamug$elm_ui_with_context$Element$WithContext$column,
 												_List_fromArray(
 													[
-														$mdgriffith$elm_ui$Element$spacing(10)
+														$lucamug$elm_ui_with_context$Element$WithContext$spacing(10)
 													]),
 												_List_fromArray(
 													[
-														$mdgriffith$elm_ui$Element$text('Ellie ID'),
+														$lucamug$elm_ui_with_context$Element$WithContext$text('Ellie ID'),
 														A2(
-														$mdgriffith$elm_ui$Element$paragraph,
+														$lucamug$elm_ui_with_context$Element$WithContext$paragraph,
 														_List_Nil,
 														_List_fromArray(
 															[
-																$mdgriffith$elm_ui$Element$text(exerciseModel.exerciseData.ellieId)
+																$lucamug$elm_ui_with_context$Element$WithContext$text(exerciseModel.exerciseData.ellieId)
 															]))
 													])),
 												A2(
-												$mdgriffith$elm_ui$Element$column,
+												$lucamug$elm_ui_with_context$Element$WithContext$column,
 												_List_fromArray(
 													[
-														$mdgriffith$elm_ui$Element$spacing(10)
+														$lucamug$elm_ui_with_context$Element$WithContext$spacing(10)
 													]),
 												_List_fromArray(
 													[
-														$mdgriffith$elm_ui$Element$text('Reference'),
+														$lucamug$elm_ui_with_context$Element$WithContext$text('Reference'),
 														A2(
-														$mdgriffith$elm_ui$Element$paragraph,
+														$lucamug$elm_ui_with_context$Element$WithContext$paragraph,
 														_List_Nil,
 														_List_fromArray(
 															[
-																$mdgriffith$elm_ui$Element$text(exerciseModel.exerciseData.reference)
+																$lucamug$elm_ui_with_context$Element$WithContext$text(exerciseModel.exerciseData.reference)
 															]))
 													])),
 												A2(
-												$mdgriffith$elm_ui$Element$column,
+												$lucamug$elm_ui_with_context$Element$WithContext$column,
 												_List_fromArray(
 													[
-														$mdgriffith$elm_ui$Element$spacing(10)
+														$lucamug$elm_ui_with_context$Element$WithContext$spacing(10)
 													]),
 												_List_fromArray(
 													[
-														$mdgriffith$elm_ui$Element$text('Problem'),
+														$lucamug$elm_ui_with_context$Element$WithContext$text('Problem'),
 														A2(
-														$mdgriffith$elm_ui$Element$paragraph,
+														$lucamug$elm_ui_with_context$Element$WithContext$paragraph,
 														_List_Nil,
 														_List_fromArray(
 															[
-																$mdgriffith$elm_ui$Element$text(exerciseModel.exerciseData.problem)
+																$lucamug$elm_ui_with_context$Element$WithContext$text(exerciseModel.exerciseData.problem)
 															]))
 													])),
 												A2(
-												$mdgriffith$elm_ui$Element$column,
+												$lucamug$elm_ui_with_context$Element$WithContext$column,
 												_List_fromArray(
 													[
-														$mdgriffith$elm_ui$Element$spacing(10)
+														$lucamug$elm_ui_with_context$Element$WithContext$spacing(10)
 													]),
 												_List_fromArray(
 													[
-														$mdgriffith$elm_ui$Element$text('Example'),
+														$lucamug$elm_ui_with_context$Element$WithContext$text('Example'),
 														A2(
-														$mdgriffith$elm_ui$Element$paragraph,
+														$lucamug$elm_ui_with_context$Element$WithContext$paragraph,
 														_List_Nil,
 														_List_fromArray(
 															[
-																$mdgriffith$elm_ui$Element$text(exerciseModel.exerciseData.example)
+																$lucamug$elm_ui_with_context$Element$WithContext$text(exerciseModel.exerciseData.example)
 															]))
 													])),
 												A2(
-												$mdgriffith$elm_ui$Element$column,
+												$lucamug$elm_ui_with_context$Element$WithContext$column,
 												_List_fromArray(
 													[
-														$mdgriffith$elm_ui$Element$spacing(10)
+														$lucamug$elm_ui_with_context$Element$WithContext$spacing(10)
 													]),
 												_List_fromArray(
 													[
-														$mdgriffith$elm_ui$Element$text('Dummy Solution'),
+														$lucamug$elm_ui_with_context$Element$WithContext$text('Dummy Solution'),
 														A2(
-														$mdgriffith$elm_ui$Element$paragraph,
+														$lucamug$elm_ui_with_context$Element$WithContext$paragraph,
 														_List_Nil,
 														_List_fromArray(
 															[
-																$mdgriffith$elm_ui$Element$text(exerciseModel.exerciseData.dummySolution)
+																$lucamug$elm_ui_with_context$Element$WithContext$text(exerciseModel.exerciseData.dummySolution)
 															]))
 													]))
 											])),
 										A2(
-										$mdgriffith$elm_ui$Element$map,
+										$lucamug$elm_ui_with_context$Element$WithContext$map,
 										$author$project$Main$ExercisesMsg,
 										A2(
-											$mdgriffith$elm_ui$Element$el,
+											$lucamug$elm_ui_with_context$Element$WithContext$el,
 											_Utils_ap(
 												_List_fromArray(
 													[
-														$mdgriffith$elm_ui$Element$Border$width(1),
-														$mdgriffith$elm_ui$Element$Border$color(
-														A4($mdgriffith$elm_ui$Element$rgba, 0, 0, 0, 0.2)),
-														$mdgriffith$elm_ui$Element$width(
-														$mdgriffith$elm_ui$Element$fillPortion(3)),
-														$mdgriffith$elm_ui$Element$Border$shadow(
+														$lucamug$elm_ui_with_context$Element$WithContext$Border$width(1),
+														$lucamug$elm_ui_with_context$Element$WithContext$Border$color(
+														A4($lucamug$elm_ui_with_context$Element$WithContext$rgba, 0, 0, 0, 0.2)),
+														$lucamug$elm_ui_with_context$Element$WithContext$width(
+														$lucamug$elm_ui_with_context$Element$WithContext$fillPortion(3)),
+														$lucamug$elm_ui_with_context$Element$WithContext$Border$shadow(
 														{
 															blur: 10,
-															color: A4($mdgriffith$elm_ui$Element$rgba, 0, 0, 0, 0.2),
+															color: A4($lucamug$elm_ui_with_context$Element$WithContext$rgba, 0, 0, 0, 0.2),
 															offset: _Utils_Tuple2(0, 0),
 															size: 0
 														}),
-														$mdgriffith$elm_ui$Element$clip
+														$lucamug$elm_ui_with_context$Element$WithContext$clip
 													]),
-												$author$project$Exercises$viewElementAttrs(exerciseModel)),
-											A2(
-												$author$project$Exercises$viewElement,
-												$author$project$Main$onlyTests(
-													$elm$core$List$length(exerciseData.tests)),
-												exerciseModel)))
+												A2(
+													$elm$core$List$map,
+													$lucamug$elm_ui_with_context$Element$WithContext$attribute,
+													$author$project$Exercises$viewElementAttrs(exerciseModel))),
+											$lucamug$elm_ui_with_context$Element$WithContext$element(
+												A2(
+													$author$project$Exercises$viewElement,
+													$author$project$Main$onlyTests(
+														$elm$core$List$length(exerciseData.tests)),
+													exerciseModel))))
 									]));
 					}
 				}()
@@ -44816,7455 +50997,7 @@ var $author$project$Main$main = $elm$browser$Browser$element(
 		view: $author$project$Main$view
 	});
 _Platform_export({'Main':{'init':$author$project$Main$main(
-	$elm$json$Json$Decode$succeed(_Utils_Tuple0))({"versions":{"elm":"0.19.1"},"types":{"message":"Main.Msg","aliases":{"Exercises.Msg":{"args":["msgExercise"],"type":"Internal.Data.Msg msgExercise"},"R10.Form.Msg":{"args":[],"type":"R10.Form.Internal.Msg.Msg"},"R10.Form.Internal.Conf.Conf":{"args":[],"type":"List.List R10.Form.Internal.Conf.Entity"},"Exercises.ExerciseData":{"args":[],"type":"Internal.Data.ExerciseData"},"Internal.Data.ExerciseData":{"args":[],"type":"{ id : Basics.Int, title : String.String, difficulty : Internal.Data.Difficulty, categories : List.List String.String, ellieId : String.String, reference : String.String, problem : String.String, example : String.String, tests : List.List String.String, hints : List.List String.String, dummySolution : String.String, solutions : List.List String.String }"},"Internal.Data.FailureReason":{"args":[],"type":"Maybe.Maybe { description : String.String, given : Maybe.Maybe String.String, reason : Test.Runner.Failure.Reason }"},"R10.Form.Internal.FieldConf.FieldConf":{"args":[],"type":"{ id : R10.Form.Internal.FieldConf.FieldId, idDom : Maybe.Maybe String.String, type_ : R10.FormTypes.FieldType, label : String.String, helperText : Maybe.Maybe String.String, requiredLabel : Maybe.Maybe String.String, validationSpecs : Maybe.Maybe R10.Form.Internal.FieldConf.ValidationSpecs }"},"R10.Form.Internal.FieldConf.FieldId":{"args":[],"type":"String.String"},"Internal.Data.Index":{"args":[],"type":"{ id : Basics.Int, title : String.String, difficulty : Internal.Data.Difficulty, categories : List.List String.String, ellieId : String.String }"},"Internal.Data.LocalStorageRecord":{"args":[],"type":"{ hints : Internal.Data.Show, solutions : Internal.Data.Show, menuOpen : Basics.Bool, menuContent : Internal.Data.MenuContent, firstSeen : Time.Posix, lastSeen : Time.Posix, solved : Maybe.Maybe Time.Posix, testsTotal : Basics.Int, testsPassed : Basics.Int }"},"Exercises.Model":{"args":["modelExercise"],"type":"Internal.Data.Model modelExercise"},"Internal.Data.Model":{"args":["modelExercise"],"type":"{ index : List.List Internal.Data.Index, exerciseData : Internal.Data.ExerciseData, localStorage : Dict.Dict Basics.Int Internal.Data.LocalStorageRecord, localStorageRecord : Internal.Data.LocalStorageRecord, modelExercise : modelExercise, menuOver : Basics.Bool, failureReasons : List.List Internal.Data.FailureReason, posixNow : Time.Posix }"},"R10.Form.Internal.FieldConf.ValidationSpecs":{"args":[],"type":"{ showPassedValidationMessages : Basics.Bool, hidePassedValidationStyle : Basics.Bool, validation : List.List R10.Form.Internal.FieldConf.Validation, validationIcon : R10.FormTypes.ValidationIcon }"},"R10.Form.Internal.Conf.EntityId":{"args":[],"type":"String.String"},"R10.FormComponents.Internal.Single.Common.FieldOption":{"args":[],"type":"{ value : String.String, label : String.String }"},"R10.FormTypes.FieldOption":{"args":[],"type":"{ value : String.String, label : String.String }"},"R10.Form.Internal.Key.KeyAsString":{"args":[],"type":"String.String"},"R10.Form.Internal.Conf.TextConf":{"args":[],"type":"{ title : String.String, helperText : Maybe.Maybe String.String, validationSpecs : Maybe.Maybe R10.Form.Internal.FieldConf.ValidationSpecs }"},"R10.Form.Internal.FieldConf.ValidationMessage":{"args":[],"type":"{ ok : String.String, err : String.String }"}},"unions":{"Main.Msg":{"args":[],"tags":{"ChangePage":["Main.Page"],"ExercisesMsg":["Exercises.Msg ()"],"MsgForm":["R10.Form.Msg"]}},"Internal.Data.Msg":{"args":["msgExercise"],"tags":{"ShowHint":["Basics.Int"],"ShowHintsAll":[],"ShowHintsNone":[],"HideHint":["Basics.Int"],"ShowSolution":["Basics.Int"],"ShowSolutionsAll":[],"ShowSolutionsNone":[],"HideSolution":["Basics.Int"],"MsgTEA":["msgExercise"],"ChangeMenu":["Internal.Data.MenuContent"],"MenuOver":["Basics.Bool"],"PortLocalStoragePop":["String.String"],"PortLocalStoragePush":["Dict.Dict Basics.Int Internal.Data.LocalStorageRecord"],"UpdatePosix":["Time.Posix"],"RemoveFromHistory":["Basics.Int"],"RemoveHistory":[]}},"R10.Form.Internal.Msg.Msg":{"args":[],"tags":{"NoOp":[],"GetFocus":["R10.Form.Internal.Key.Key"],"LoseFocus":["R10.Form.Internal.Key.Key","R10.Form.Internal.FieldConf.FieldConf"],"TogglePasswordShow":["R10.Form.Internal.Key.Key"],"ChangeValue":["R10.Form.Internal.Key.Key","R10.Form.Internal.FieldConf.FieldConf","R10.Form.Internal.Conf.Conf","String.String"],"OnSingleMsg":["R10.Form.Internal.Key.Key","R10.Form.Internal.FieldConf.FieldConf","R10.Form.Internal.Conf.Conf","R10.FormComponents.Internal.Single.Common.Msg"],"ChangeTab":["R10.Form.Internal.Key.Key","String.String"],"AddEntity":["R10.Form.Internal.Key.Key"],"RemoveEntity":["R10.Form.Internal.Key.Key"],"Submit":["R10.Form.Internal.Conf.Conf"]}},"Main.Page":{"args":[],"tags":{"Top":[],"Index":[],"PageOutput":[],"ViewJson":["Exercises.ExerciseData"],"ViewEllie":["Exercises.ExerciseData"],"ViewExercise":["Exercises.ExerciseData","Exercises.Model ()"]}},"Basics.Bool":{"args":[],"tags":{"True":[],"False":[]}},"Dict.Dict":{"args":["k","v"],"tags":{"RBNode_elm_builtin":["Dict.NColor","k","v","Dict.Dict k v","Dict.Dict k v"],"RBEmpty_elm_builtin":[]}},"Internal.Data.Difficulty":{"args":[],"tags":{"Easy":[],"Medium":[],"Hard":[],"Undefined":[]}},"R10.Form.Internal.Conf.Entity":{"args":[],"tags":{"EntityNormal":["R10.Form.Internal.Conf.EntityId","List.List R10.Form.Internal.Conf.Entity"],"EntityWrappable":["R10.Form.Internal.Conf.EntityId","List.List R10.Form.Internal.Conf.Entity"],"EntityWithBorder":["R10.Form.Internal.Conf.EntityId","List.List R10.Form.Internal.Conf.Entity"],"EntityWithTabs":["R10.Form.Internal.Conf.EntityId","List.List ( String.String, R10.Form.Internal.Conf.Entity )"],"EntityMulti":["R10.Form.Internal.Conf.EntityId","List.List R10.Form.Internal.Conf.Entity"],"EntityField":["R10.Form.Internal.FieldConf.FieldConf"],"EntityTitle":["R10.Form.Internal.Conf.EntityId","R10.Form.Internal.Conf.TextConf"],"EntitySubTitle":["R10.Form.Internal.Conf.EntityId","R10.Form.Internal.Conf.TextConf"]}},"R10.FormTypes.FieldType":{"args":[],"tags":{"TypeText":["R10.FormTypes.TypeText"],"TypeSingle":["R10.FormTypes.TypeSingle","List.List R10.FormTypes.FieldOption"],"TypeMulti":["R10.FormTypes.TypeMulti","List.List R10.FormTypes.FieldOption"],"TypeBinary":["R10.FormTypes.TypeBinary"]}},"Basics.Int":{"args":[],"tags":{"Int":[]}},"R10.Form.Internal.Key.Key":{"args":[],"tags":{"Key":["List.List String.String"]}},"List.List":{"args":["a"],"tags":{}},"Maybe.Maybe":{"args":["a"],"tags":{"Just":["a"],"Nothing":[]}},"Internal.Data.MenuContent":{"args":[],"tags":{"ContentHints":[],"ContentSolutions":[],"ContentHistory":[],"ContentOtherExercises":[],"ContentHelp":[],"ContentContribute":[]}},"R10.FormComponents.Internal.Single.Common.Msg":{"args":[],"tags":{"NoOp":[],"OnFocus":["String.String"],"OnLoseFocus":["String.String"],"OnScroll":["Basics.Float"],"OnSearch":["{ selectOptionHeight : Basics.Int, maxDisplayCount : Basics.Int, key : String.String, filteredFieldOption : List.List R10.FormComponents.Internal.Single.Common.FieldOption }","String.String"],"OnOptionSelect":["String.String"],"OnArrowUp":["{ key : String.String, selectOptionHeight : Basics.Int, maxDisplayCount : Basics.Int, filteredFieldOption : List.List R10.FormComponents.Internal.Single.Common.FieldOption }"],"OnArrowDown":["{ key : String.String, selectOptionHeight : Basics.Int, maxDisplayCount : Basics.Int, filteredFieldOption : List.List R10.FormComponents.Internal.Single.Common.FieldOption }"],"OnDelBackspace":[],"OnEsc":[],"OnInputClick":["{ key : String.String, selectedY : Basics.Float }"]}},"Time.Posix":{"args":[],"tags":{"Posix":["Basics.Int"]}},"Test.Runner.Failure.Reason":{"args":[],"tags":{"Custom":[],"Equality":["String.String","String.String"],"Comparison":["String.String","String.String"],"ListDiff":["List.List String.String","List.List String.String"],"CollectionDiff":["{ expected : String.String, actual : String.String, extra : List.List String.String, missing : List.List String.String }"],"TODO":[],"Invalid":["Test.Runner.Failure.InvalidReason"]}},"Internal.Data.Show":{"args":[],"tags":{"ShowAll":[],"ShowNone":[],"Show":["Set.Set Basics.Int"]}},"String.String":{"args":[],"tags":{"String":[]}},"R10.Form.Internal.FieldConf.Validation":{"args":[],"tags":{"NoValidation":[],"WithMsg":["R10.Form.Internal.FieldConf.ValidationMessage","R10.Form.Internal.FieldConf.Validation"],"Dependant":["R10.Form.Internal.Key.KeyAsString","R10.Form.Internal.FieldConf.Validation"],"OneOf":["List.List R10.Form.Internal.FieldConf.Validation"],"AllOf":["List.List R10.Form.Internal.FieldConf.Validation"],"Not":["R10.Form.Internal.FieldConf.Validation"],"Equal":["R10.Form.Internal.Key.KeyAsString"],"Required":[],"Empty":[],"MinLength":["Basics.Int"],"MaxLength":["Basics.Int"],"Regex":["String.String"]}},"R10.FormTypes.ValidationIcon":{"args":[],"tags":{"NoIcon":[],"ClearOrCheck":[],"ErrorOrCheck":[]}},"Basics.Float":{"args":[],"tags":{"Float":[]}},"Test.Runner.Failure.InvalidReason":{"args":[],"tags":{"EmptyList":[],"NonpositiveFuzzCount":[],"InvalidFuzzer":[],"BadDescription":[],"DuplicatedName":[]}},"Dict.NColor":{"args":[],"tags":{"Red":[],"Black":[]}},"Set.Set":{"args":["t"],"tags":{"Set_elm_builtin":["Dict.Dict t ()"]}},"R10.FormTypes.TypeBinary":{"args":[],"tags":{"BinaryCheckbox":[],"BinarySwitch":[]}},"R10.FormTypes.TypeMulti":{"args":[],"tags":{"MultiCombobox":[]}},"R10.FormTypes.TypeSingle":{"args":[],"tags":{"SingleRadio":[],"SingleRadioRow":[],"SingleCombobox":[],"SingleSelect":[]}},"R10.FormTypes.TypeText":{"args":[],"tags":{"TextPlain":[],"TextEmail":[],"TextUsername":[],"TextPasswordNew":[],"TextPasswordCurrent":[],"TextMultiline":[],"TextWithPattern":["String.String"]}}}}})}});
-
-//////////////////// HMR BEGIN ////////////////////
-
-/*
-  MIT License http://www.opensource.org/licenses/mit-license.php
-  Original Author: Flux Xu @fluxxu
-*/
-
-/*
-    A note about the environment that this code runs in...
-
-    assumed globals:
-        - `module` (from Node.js module system and webpack)
-
-    assumed in scope after injection into the Elm IIFE:
-        - `scope` (has an 'Elm' property which contains the public Elm API)
-        - various functions defined by Elm which we have to hook such as `_Platform_initialize` and `_Scheduler_binding`
- */
-
-if (module.hot) {
-    (function () {
-        "use strict";
-
-        //polyfill for IE: https://github.com/fluxxu/elm-hot-loader/issues/16
-        if (typeof Object.assign != 'function') {
-            Object.assign = function (target) {
-                'use strict';
-                if (target == null) {
-                    throw new TypeError('Cannot convert undefined or null to object');
-                }
-
-                target = Object(target);
-                for (var index = 1; index < arguments.length; index++) {
-                    var source = arguments[index];
-                    if (source != null) {
-                        for (var key in source) {
-                            if (Object.prototype.hasOwnProperty.call(source, key)) {
-                                target[key] = source[key];
-                            }
-                        }
-                    }
-                }
-                return target;
-            };
-        }
-
-        // Elm 0.19.1 introduced a '$' prefix at the beginning of the symbols it emits,
-        // and we check for `Maybe.Just` because we expect it to be present in all Elm programs.
-        var elmVersion;
-        if (typeof elm$core$Maybe$Just !== 'undefined')
-            elmVersion = '0.19.0';
-        else if (typeof $elm$core$Maybe$Just !== 'undefined')
-            elmVersion = '0.19.1';
-        else
-            throw new Error("Could not determine Elm version");
-
-        function elmSymbol(symbol) {
-            try {
-                switch (elmVersion) {
-                    case '0.19.0':
-                        return eval(symbol);
-                    case '0.19.1':
-                        return eval('$' + symbol);
-                    default:
-                        throw new Error('Cannot resolve ' + symbol + '. Elm version unknown!')
-                }
-            } catch (e) {
-                if (e instanceof ReferenceError) {
-                    return undefined;
-                } else {
-                    throw e;
-                }
-            }
-        }
-
-        var instances = module.hot.data
-            ? module.hot.data.instances || {}
-            : {};
-        var uid = module.hot.data
-            ? module.hot.data.uid || 0
-            : 0;
-
-        if (Object.keys(instances).length === 0) {
-            log("[elm-hot] Enabled");
-        }
-
-        var cancellers = [];
-
-        // These 2 variables act as dynamically-scoped variables which are set only when the
-        // Elm module's hooked init function is called.
-        var initializingInstance = null;
-        var swappingInstance = null;
-
-        module.hot.accept();
-        module.hot.dispose(function (data) {
-            data.instances = instances;
-            data.uid = uid;
-
-            // Cleanup pending async tasks
-
-            // First, make sure that no new tasks can be started until we finish replacing the code
-            _Scheduler_binding = function () {
-                return _Scheduler_fail(new Error('[elm-hot] Inactive Elm instance.'))
-            };
-
-            // Second, kill pending tasks belonging to the old instance
-            if (cancellers.length) {
-                log('[elm-hot] Killing ' + cancellers.length + ' running processes...');
-                try {
-                    cancellers.forEach(function (cancel) {
-                        cancel();
-                    });
-                } catch (e) {
-                    console.warn('[elm-hot] Kill process error: ' + e.message);
-                }
-            }
-        });
-
-        function log(message) {
-            if (module.hot.verbose) {
-                console.log(message)
-            }
-        }
-
-        function getId() {
-            return ++uid;
-        }
-
-        function findPublicModules(parent, path) {
-            var modules = [];
-            for (var key in parent) {
-                var child = parent[key];
-                var currentPath = path ? path + '.' + key : key;
-                if ('init' in child) {
-                    modules.push({
-                        path: currentPath,
-                        module: child
-                    });
-                } else {
-                    modules = modules.concat(findPublicModules(child, currentPath));
-                }
-            }
-            return modules;
-        }
-
-        function registerInstance(domNode, flags, path, portSubscribes, portSends) {
-            var id = getId();
-
-            var instance = {
-                id: id,
-                path: path,
-                domNode: domNode,
-                flags: flags,
-                portSubscribes: portSubscribes,
-                portSends: portSends,
-                lastState: null // last Elm app state (root model)
-            };
-
-            return instances[id] = instance
-        }
-
-        function isFullscreenApp() {
-            // Returns true if the Elm app will take over the entire DOM body.
-            return typeof elmSymbol("elm$browser$Browser$application") !== 'undefined'
-                || typeof elmSymbol("elm$browser$Browser$document") !== 'undefined';
-        }
-
-        function wrapDomNode(node) {
-            // When embedding an Elm app into a specific DOM node, Elm will replace the provided
-            // DOM node with the Elm app's content. When the Elm app is compiled normally, the
-            // original DOM node is reused (its attributes and content changes, but the object
-            // in memory remains the same). But when compiled using `--debug`, Elm will completely
-            // destroy the original DOM node and instead replace it with 2 brand new nodes: one
-            // for your Elm app's content and the other for the Elm debugger UI. In this case,
-            // if you held a reference to the DOM node provided for embedding, it would be orphaned
-            // after Elm module initialization.
-            //
-            // So in order to make both cases consistent and isolate us from changes in how Elm
-            // does this, we will insert a dummy node to wrap the node for embedding and hold
-            // a reference to the dummy node.
-            //
-            // We will also put a tag on the dummy node so that the Elm developer knows who went
-            // behind their back and rudely put stuff in their DOM.
-            var dummyNode = document.createElement("div");
-            dummyNode.setAttribute("data-elm-hot", "true");
-            dummyNode.style.height = "inherit";
-            var parentNode = node.parentNode;
-            parentNode.replaceChild(dummyNode, node);
-            dummyNode.appendChild(node);
-            return dummyNode;
-        }
-
-        function wrapPublicModule(path, module) {
-            var originalInit = module.init;
-            if (originalInit) {
-                module.init = function (args) {
-                    var elm;
-                    var portSubscribes = {};
-                    var portSends = {};
-                    var domNode = null;
-                    var flags = null;
-                    if (typeof args !== 'undefined') {
-                        // normal case
-                        domNode = args['node'] && !isFullscreenApp()
-                            ? wrapDomNode(args['node'])
-                            : document.body;
-                        flags = args['flags'];
-                    } else {
-                        // rare case: Elm allows init to be called without any arguments at all
-                        domNode = document.body;
-                        flags = undefined
-                    }
-                    initializingInstance = registerInstance(domNode, flags, path, portSubscribes, portSends);
-                    elm = originalInit(args);
-                    wrapPorts(elm, portSubscribes, portSends);
-                    initializingInstance = null;
-                    return elm;
-                };
-            } else {
-                console.error("Could not find a public module to wrap at path " + path)
-            }
-        }
-
-        function swap(Elm, instance) {
-            log('[elm-hot] Hot-swapping module: ' + instance.path);
-
-            swappingInstance = instance;
-
-            // remove from the DOM everything that had been created by the old Elm app
-            var containerNode = instance.domNode;
-            while (containerNode.lastChild) {
-                containerNode.removeChild(containerNode.lastChild);
-            }
-
-            var m = getAt(instance.path.split('.'), Elm);
-            var elm;
-            if (m) {
-                // prepare to initialize the new Elm module
-                var args = {flags: instance.flags};
-                if (containerNode === document.body) {
-                    // fullscreen case: no additional args needed
-                } else {
-                    // embed case: provide a new node for Elm to use
-                    var nodeForEmbed = document.createElement("div");
-                    containerNode.appendChild(nodeForEmbed);
-                    args['node'] = nodeForEmbed;
-                }
-
-                elm = m.init(args);
-
-                Object.keys(instance.portSubscribes).forEach(function (portName) {
-                    if (portName in elm.ports && 'subscribe' in elm.ports[portName]) {
-                        var handlers = instance.portSubscribes[portName];
-                        if (!handlers.length) {
-                            return;
-                        }
-                        log('[elm-hot] Reconnect ' + handlers.length + ' handler(s) to port \''
-                            + portName + '\' (' + instance.path + ').');
-                        handlers.forEach(function (handler) {
-                            elm.ports[portName].subscribe(handler);
-                        });
-                    } else {
-                        delete instance.portSubscribes[portName];
-                        log('[elm-hot] Port was removed: ' + portName);
-                    }
-                });
-
-                Object.keys(instance.portSends).forEach(function (portName) {
-                    if (portName in elm.ports && 'send' in elm.ports[portName]) {
-                        log('[elm-hot] Replace old port send with the new send');
-                        instance.portSends[portName] = elm.ports[portName].send;
-                    } else {
-                        delete instance.portSends[portName];
-                        log('[elm-hot] Port was removed: ' + portName);
-                    }
-                });
-            } else {
-                log('[elm-hot] Module was removed: ' + instance.path);
-            }
-
-            swappingInstance = null;
-        }
-
-        function wrapPorts(elm, portSubscribes, portSends) {
-            var portNames = Object.keys(elm.ports || {});
-            //hook ports
-            if (portNames.length) {
-                // hook outgoing ports
-                portNames
-                    .filter(function (name) {
-                        return 'subscribe' in elm.ports[name];
-                    })
-                    .forEach(function (portName) {
-                        var port = elm.ports[portName];
-                        var subscribe = port.subscribe;
-                        var unsubscribe = port.unsubscribe;
-                        elm.ports[portName] = Object.assign(port, {
-                            subscribe: function (handler) {
-                                log('[elm-hot] ports.' + portName + '.subscribe called.');
-                                if (!portSubscribes[portName]) {
-                                    portSubscribes[portName] = [handler];
-                                } else {
-                                    //TODO handle subscribing to single handler more than once?
-                                    portSubscribes[portName].push(handler);
-                                }
-                                return subscribe.call(port, handler);
-                            },
-                            unsubscribe: function (handler) {
-                                log('[elm-hot] ports.' + portName + '.unsubscribe called.');
-                                var list = portSubscribes[portName];
-                                if (list && list.indexOf(handler) !== -1) {
-                                    list.splice(list.lastIndexOf(handler), 1);
-                                } else {
-                                    console.warn('[elm-hot] ports.' + portName + '.unsubscribe: handler not subscribed');
-                                }
-                                return unsubscribe.call(port, handler);
-                            }
-                        });
-                    });
-
-                // hook incoming ports
-                portNames
-                    .filter(function (name) {
-                        return 'send' in elm.ports[name];
-                    })
-                    .forEach(function (portName) {
-                        var port = elm.ports[portName];
-                        portSends[portName] = port.send;
-                        elm.ports[portName] = Object.assign(port, {
-                            send: function (val) {
-                                return portSends[portName].call(port, val);
-                            }
-                        });
-                    });
-            }
-            return portSubscribes;
-        }
-
-        /*
-        Breadth-first search for a `Browser.Navigation.Key` in the user's app model.
-        Returns the key and keypath or null if not found.
-        */
-        function findNavKey(rootModel) {
-            var queue = [];
-            if (isDebuggerModel(rootModel)) {
-                /*
-                 Extract the user's app model from the Elm Debugger's model. The Elm debugger
-                 can hold multiple references to the user's model (e.g. in its "history"). So
-                 we must be careful to only search within the "state" part of the Debugger.
-                */
-                queue.push({value: rootModel['state'], keypath: ['state']});
-            } else {
-                queue.push({value: rootModel, keypath: []});
-            }
-
-            while (queue.length !== 0) {
-                var item = queue.shift();
-
-                if (typeof item.value === "undefined" || item.value === null) {
-                    continue;
-                }
-
-                // The nav key is identified by a runtime tag added by the elm-hot injector.
-                if (item.value.hasOwnProperty("elm-hot-nav-key")) {
-                    // found it!
-                    return item;
-                }
-
-                if (typeof item.value !== "object") {
-                    continue;
-                }
-
-                for (var propName in item.value) {
-                    if (!item.value.hasOwnProperty(propName)) continue;
-                    var newKeypath = item.keypath.slice();
-                    newKeypath.push(propName);
-                    queue.push({value: item.value[propName], keypath: newKeypath})
-                }
-            }
-
-            return null;
-        }
-
-
-        function isDebuggerModel(model) {
-            // Up until elm/browser 1.0.2, the Elm debugger could be identified by a
-            // property named "expando". But in version 1.0.2 that was renamed to "expandoModel"
-            return model
-                && (model.hasOwnProperty("expando") || model.hasOwnProperty("expandoModel"))
-                && model.hasOwnProperty("state");
-        }
-
-        function getAt(keyPath, obj) {
-            return keyPath.reduce(function (xs, x) {
-                return (xs && xs[x]) ? xs[x] : null
-            }, obj)
-        }
-
-        function removeNavKeyListeners(navKey) {
-            window.removeEventListener('popstate', navKey.value);
-            window.navigator.userAgent.indexOf('Trident') < 0 || window.removeEventListener('hashchange', navKey.value);
-        }
-
-        // hook program creation
-        var initialize = _Platform_initialize;
-        _Platform_initialize = function (flagDecoder, args, init, update, subscriptions, stepperBuilder) {
-            var instance = initializingInstance || swappingInstance;
-            var tryFirstRender = !!swappingInstance;
-
-            var hookedInit = function (args) {
-                var initialStateTuple = init(args);
-                if (swappingInstance) {
-                    var oldModel = swappingInstance.lastState;
-                    var newModel = initialStateTuple.a;
-
-                    if (typeof elmSymbol("elm$browser$Browser$application") !== 'undefined') {
-                        var oldKeyLoc = findNavKey(oldModel);
-
-                        // attempt to find the Browser.Navigation.Key in the newly-constructed model
-                        // and bring it along with the rest of the old data.
-                        var newKeyLoc = findNavKey(newModel);
-                        var error = null;
-                        if (newKeyLoc === null) {
-                            error = "could not find Browser.Navigation.Key in the new app model";
-                        } else if (oldKeyLoc === null) {
-                            error = "could not find Browser.Navigation.Key in the old app model.";
-                        } else if (newKeyLoc.keypath.toString() !== oldKeyLoc.keypath.toString()) {
-                            error = "the location of the Browser.Navigation.Key in the model has changed.";
-                        } else {
-                            // remove event listeners attached to the old nav key
-                            removeNavKeyListeners(oldKeyLoc.value);
-
-                            // insert the new nav key into the old model in the exact same location
-                            var parentKeyPath = oldKeyLoc.keypath.slice(0, -1);
-                            var lastSegment = oldKeyLoc.keypath.slice(-1)[0];
-                            var oldParent = getAt(parentKeyPath, oldModel);
-                            oldParent[lastSegment] = newKeyLoc.value;
-                        }
-
-                        if (error !== null) {
-                            console.error("[elm-hot] Hot-swapping " + instance.path + " not possible: " + error);
-                            oldModel = newModel;
-                        }
-                    }
-
-                    // the heart of the app state hot-swap
-                    initialStateTuple.a = oldModel;
-
-                    // ignore any Cmds returned by the init during hot-swap
-                    initialStateTuple.b = elmSymbol("elm$core$Platform$Cmd$none");
-                } else {
-                    // capture the initial state for later
-                    initializingInstance.lastState = initialStateTuple.a;
-                }
-
-                return initialStateTuple
-            };
-
-            var hookedStepperBuilder = function (sendToApp, model) {
-                var result;
-                // first render may fail if shape of model changed too much
-                if (tryFirstRender) {
-                    tryFirstRender = false;
-                    try {
-                        result = stepperBuilder(sendToApp, model)
-                    } catch (e) {
-                        throw new Error('[elm-hot] Hot-swapping ' + instance.path +
-                            ' is not possible, please reload page. Error: ' + e.message)
-                    }
-                } else {
-                    result = stepperBuilder(sendToApp, model)
-                }
-
-                return function (nextModel, isSync) {
-                    if (instance) {
-                        // capture the state after every step so that later we can restore from it during a hot-swap
-                        instance.lastState = nextModel
-                    }
-                    return result(nextModel, isSync)
-                }
-            };
-
-            return initialize(flagDecoder, args, hookedInit, update, subscriptions, hookedStepperBuilder)
-        };
-
-        // hook process creation
-        var originalBinding = _Scheduler_binding;
-        _Scheduler_binding = function (originalCallback) {
-            return originalBinding(function () {
-                // start the scheduled process, which may return a cancellation function.
-                var cancel = originalCallback.apply(this, arguments);
-                if (cancel) {
-                    cancellers.push(cancel);
-                    return function () {
-                        cancellers.splice(cancellers.indexOf(cancel), 1);
-                        return cancel();
-                    };
-                }
-                return cancel;
-            });
-        };
-
-        scope['_elm_hot_loader_init'] = function (Elm) {
-            // swap instances
-            var removedInstances = [];
-            for (var id in instances) {
-                var instance = instances[id];
-                if (instance.domNode.parentNode) {
-                    swap(Elm, instance);
-                } else {
-                    removedInstances.push(id);
-                }
-            }
-
-            removedInstances.forEach(function (id) {
-                delete instance[id];
-            });
-
-            // wrap all public modules
-            var publicModules = findPublicModules(Elm);
-            publicModules.forEach(function (m) {
-                wrapPublicModule(m.path, m.module);
-            });
-        }
-    })();
-
-    scope['_elm_hot_loader_init'](scope['Elm']);
-}
-//////////////////// HMR END ////////////////////
-
-
-
-
-//////////////////// HMR BEGIN ////////////////////
-
-/*
-  MIT License http://www.opensource.org/licenses/mit-license.php
-  Original Author: Flux Xu @fluxxu
-*/
-
-/*
-    A note about the environment that this code runs in...
-
-    assumed globals:
-        - `module` (from Node.js module system and webpack)
-
-    assumed in scope after injection into the Elm IIFE:
-        - `scope` (has an 'Elm' property which contains the public Elm API)
-        - various functions defined by Elm which we have to hook such as `_Platform_initialize` and `_Scheduler_binding`
- */
-
-if (module.hot) {
-    (function () {
-        "use strict";
-
-        //polyfill for IE: https://github.com/fluxxu/elm-hot-loader/issues/16
-        if (typeof Object.assign != 'function') {
-            Object.assign = function (target) {
-                'use strict';
-                if (target == null) {
-                    throw new TypeError('Cannot convert undefined or null to object');
-                }
-
-                target = Object(target);
-                for (var index = 1; index < arguments.length; index++) {
-                    var source = arguments[index];
-                    if (source != null) {
-                        for (var key in source) {
-                            if (Object.prototype.hasOwnProperty.call(source, key)) {
-                                target[key] = source[key];
-                            }
-                        }
-                    }
-                }
-                return target;
-            };
-        }
-
-        // Elm 0.19.1 introduced a '$' prefix at the beginning of the symbols it emits,
-        // and we check for `Maybe.Just` because we expect it to be present in all Elm programs.
-        var elmVersion;
-        if (typeof elm$core$Maybe$Just !== 'undefined')
-            elmVersion = '0.19.0';
-        else if (typeof $elm$core$Maybe$Just !== 'undefined')
-            elmVersion = '0.19.1';
-        else
-            throw new Error("Could not determine Elm version");
-
-        function elmSymbol(symbol) {
-            try {
-                switch (elmVersion) {
-                    case '0.19.0':
-                        return eval(symbol);
-                    case '0.19.1':
-                        return eval('$' + symbol);
-                    default:
-                        throw new Error('Cannot resolve ' + symbol + '. Elm version unknown!')
-                }
-            } catch (e) {
-                if (e instanceof ReferenceError) {
-                    return undefined;
-                } else {
-                    throw e;
-                }
-            }
-        }
-
-        var instances = module.hot.data
-            ? module.hot.data.instances || {}
-            : {};
-        var uid = module.hot.data
-            ? module.hot.data.uid || 0
-            : 0;
-
-        if (Object.keys(instances).length === 0) {
-            log("[elm-hot] Enabled");
-        }
-
-        var cancellers = [];
-
-        // These 2 variables act as dynamically-scoped variables which are set only when the
-        // Elm module's hooked init function is called.
-        var initializingInstance = null;
-        var swappingInstance = null;
-
-        module.hot.accept();
-        module.hot.dispose(function (data) {
-            data.instances = instances;
-            data.uid = uid;
-
-            // Cleanup pending async tasks
-
-            // First, make sure that no new tasks can be started until we finish replacing the code
-            _Scheduler_binding = function () {
-                return _Scheduler_fail(new Error('[elm-hot] Inactive Elm instance.'))
-            };
-
-            // Second, kill pending tasks belonging to the old instance
-            if (cancellers.length) {
-                log('[elm-hot] Killing ' + cancellers.length + ' running processes...');
-                try {
-                    cancellers.forEach(function (cancel) {
-                        cancel();
-                    });
-                } catch (e) {
-                    console.warn('[elm-hot] Kill process error: ' + e.message);
-                }
-            }
-        });
-
-        function log(message) {
-            if (module.hot.verbose) {
-                console.log(message)
-            }
-        }
-
-        function getId() {
-            return ++uid;
-        }
-
-        function findPublicModules(parent, path) {
-            var modules = [];
-            for (var key in parent) {
-                var child = parent[key];
-                var currentPath = path ? path + '.' + key : key;
-                if ('init' in child) {
-                    modules.push({
-                        path: currentPath,
-                        module: child
-                    });
-                } else {
-                    modules = modules.concat(findPublicModules(child, currentPath));
-                }
-            }
-            return modules;
-        }
-
-        function registerInstance(domNode, flags, path, portSubscribes, portSends) {
-            var id = getId();
-
-            var instance = {
-                id: id,
-                path: path,
-                domNode: domNode,
-                flags: flags,
-                portSubscribes: portSubscribes,
-                portSends: portSends,
-                lastState: null // last Elm app state (root model)
-            };
-
-            return instances[id] = instance
-        }
-
-        function isFullscreenApp() {
-            // Returns true if the Elm app will take over the entire DOM body.
-            return typeof elmSymbol("elm$browser$Browser$application") !== 'undefined'
-                || typeof elmSymbol("elm$browser$Browser$document") !== 'undefined';
-        }
-
-        function wrapDomNode(node) {
-            // When embedding an Elm app into a specific DOM node, Elm will replace the provided
-            // DOM node with the Elm app's content. When the Elm app is compiled normally, the
-            // original DOM node is reused (its attributes and content changes, but the object
-            // in memory remains the same). But when compiled using `--debug`, Elm will completely
-            // destroy the original DOM node and instead replace it with 2 brand new nodes: one
-            // for your Elm app's content and the other for the Elm debugger UI. In this case,
-            // if you held a reference to the DOM node provided for embedding, it would be orphaned
-            // after Elm module initialization.
-            //
-            // So in order to make both cases consistent and isolate us from changes in how Elm
-            // does this, we will insert a dummy node to wrap the node for embedding and hold
-            // a reference to the dummy node.
-            //
-            // We will also put a tag on the dummy node so that the Elm developer knows who went
-            // behind their back and rudely put stuff in their DOM.
-            var dummyNode = document.createElement("div");
-            dummyNode.setAttribute("data-elm-hot", "true");
-            dummyNode.style.height = "inherit";
-            var parentNode = node.parentNode;
-            parentNode.replaceChild(dummyNode, node);
-            dummyNode.appendChild(node);
-            return dummyNode;
-        }
-
-        function wrapPublicModule(path, module) {
-            var originalInit = module.init;
-            if (originalInit) {
-                module.init = function (args) {
-                    var elm;
-                    var portSubscribes = {};
-                    var portSends = {};
-                    var domNode = null;
-                    var flags = null;
-                    if (typeof args !== 'undefined') {
-                        // normal case
-                        domNode = args['node'] && !isFullscreenApp()
-                            ? wrapDomNode(args['node'])
-                            : document.body;
-                        flags = args['flags'];
-                    } else {
-                        // rare case: Elm allows init to be called without any arguments at all
-                        domNode = document.body;
-                        flags = undefined
-                    }
-                    initializingInstance = registerInstance(domNode, flags, path, portSubscribes, portSends);
-                    elm = originalInit(args);
-                    wrapPorts(elm, portSubscribes, portSends);
-                    initializingInstance = null;
-                    return elm;
-                };
-            } else {
-                console.error("Could not find a public module to wrap at path " + path)
-            }
-        }
-
-        function swap(Elm, instance) {
-            log('[elm-hot] Hot-swapping module: ' + instance.path);
-
-            swappingInstance = instance;
-
-            // remove from the DOM everything that had been created by the old Elm app
-            var containerNode = instance.domNode;
-            while (containerNode.lastChild) {
-                containerNode.removeChild(containerNode.lastChild);
-            }
-
-            var m = getAt(instance.path.split('.'), Elm);
-            var elm;
-            if (m) {
-                // prepare to initialize the new Elm module
-                var args = {flags: instance.flags};
-                if (containerNode === document.body) {
-                    // fullscreen case: no additional args needed
-                } else {
-                    // embed case: provide a new node for Elm to use
-                    var nodeForEmbed = document.createElement("div");
-                    containerNode.appendChild(nodeForEmbed);
-                    args['node'] = nodeForEmbed;
-                }
-
-                elm = m.init(args);
-
-                Object.keys(instance.portSubscribes).forEach(function (portName) {
-                    if (portName in elm.ports && 'subscribe' in elm.ports[portName]) {
-                        var handlers = instance.portSubscribes[portName];
-                        if (!handlers.length) {
-                            return;
-                        }
-                        log('[elm-hot] Reconnect ' + handlers.length + ' handler(s) to port \''
-                            + portName + '\' (' + instance.path + ').');
-                        handlers.forEach(function (handler) {
-                            elm.ports[portName].subscribe(handler);
-                        });
-                    } else {
-                        delete instance.portSubscribes[portName];
-                        log('[elm-hot] Port was removed: ' + portName);
-                    }
-                });
-
-                Object.keys(instance.portSends).forEach(function (portName) {
-                    if (portName in elm.ports && 'send' in elm.ports[portName]) {
-                        log('[elm-hot] Replace old port send with the new send');
-                        instance.portSends[portName] = elm.ports[portName].send;
-                    } else {
-                        delete instance.portSends[portName];
-                        log('[elm-hot] Port was removed: ' + portName);
-                    }
-                });
-            } else {
-                log('[elm-hot] Module was removed: ' + instance.path);
-            }
-
-            swappingInstance = null;
-        }
-
-        function wrapPorts(elm, portSubscribes, portSends) {
-            var portNames = Object.keys(elm.ports || {});
-            //hook ports
-            if (portNames.length) {
-                // hook outgoing ports
-                portNames
-                    .filter(function (name) {
-                        return 'subscribe' in elm.ports[name];
-                    })
-                    .forEach(function (portName) {
-                        var port = elm.ports[portName];
-                        var subscribe = port.subscribe;
-                        var unsubscribe = port.unsubscribe;
-                        elm.ports[portName] = Object.assign(port, {
-                            subscribe: function (handler) {
-                                log('[elm-hot] ports.' + portName + '.subscribe called.');
-                                if (!portSubscribes[portName]) {
-                                    portSubscribes[portName] = [handler];
-                                } else {
-                                    //TODO handle subscribing to single handler more than once?
-                                    portSubscribes[portName].push(handler);
-                                }
-                                return subscribe.call(port, handler);
-                            },
-                            unsubscribe: function (handler) {
-                                log('[elm-hot] ports.' + portName + '.unsubscribe called.');
-                                var list = portSubscribes[portName];
-                                if (list && list.indexOf(handler) !== -1) {
-                                    list.splice(list.lastIndexOf(handler), 1);
-                                } else {
-                                    console.warn('[elm-hot] ports.' + portName + '.unsubscribe: handler not subscribed');
-                                }
-                                return unsubscribe.call(port, handler);
-                            }
-                        });
-                    });
-
-                // hook incoming ports
-                portNames
-                    .filter(function (name) {
-                        return 'send' in elm.ports[name];
-                    })
-                    .forEach(function (portName) {
-                        var port = elm.ports[portName];
-                        portSends[portName] = port.send;
-                        elm.ports[portName] = Object.assign(port, {
-                            send: function (val) {
-                                return portSends[portName].call(port, val);
-                            }
-                        });
-                    });
-            }
-            return portSubscribes;
-        }
-
-        /*
-        Breadth-first search for a `Browser.Navigation.Key` in the user's app model.
-        Returns the key and keypath or null if not found.
-        */
-        function findNavKey(rootModel) {
-            var queue = [];
-            if (isDebuggerModel(rootModel)) {
-                /*
-                 Extract the user's app model from the Elm Debugger's model. The Elm debugger
-                 can hold multiple references to the user's model (e.g. in its "history"). So
-                 we must be careful to only search within the "state" part of the Debugger.
-                */
-                queue.push({value: rootModel['state'], keypath: ['state']});
-            } else {
-                queue.push({value: rootModel, keypath: []});
-            }
-
-            while (queue.length !== 0) {
-                var item = queue.shift();
-
-                if (typeof item.value === "undefined" || item.value === null) {
-                    continue;
-                }
-
-                // The nav key is identified by a runtime tag added by the elm-hot injector.
-                if (item.value.hasOwnProperty("elm-hot-nav-key")) {
-                    // found it!
-                    return item;
-                }
-
-                if (typeof item.value !== "object") {
-                    continue;
-                }
-
-                for (var propName in item.value) {
-                    if (!item.value.hasOwnProperty(propName)) continue;
-                    var newKeypath = item.keypath.slice();
-                    newKeypath.push(propName);
-                    queue.push({value: item.value[propName], keypath: newKeypath})
-                }
-            }
-
-            return null;
-        }
-
-
-        function isDebuggerModel(model) {
-            // Up until elm/browser 1.0.2, the Elm debugger could be identified by a
-            // property named "expando". But in version 1.0.2 that was renamed to "expandoModel"
-            return model
-                && (model.hasOwnProperty("expando") || model.hasOwnProperty("expandoModel"))
-                && model.hasOwnProperty("state");
-        }
-
-        function getAt(keyPath, obj) {
-            return keyPath.reduce(function (xs, x) {
-                return (xs && xs[x]) ? xs[x] : null
-            }, obj)
-        }
-
-        function removeNavKeyListeners(navKey) {
-            window.removeEventListener('popstate', navKey.value);
-            window.navigator.userAgent.indexOf('Trident') < 0 || window.removeEventListener('hashchange', navKey.value);
-        }
-
-        // hook program creation
-        var initialize = _Platform_initialize;
-        _Platform_initialize = function (flagDecoder, args, init, update, subscriptions, stepperBuilder) {
-            var instance = initializingInstance || swappingInstance;
-            var tryFirstRender = !!swappingInstance;
-
-            var hookedInit = function (args) {
-                var initialStateTuple = init(args);
-                if (swappingInstance) {
-                    var oldModel = swappingInstance.lastState;
-                    var newModel = initialStateTuple.a;
-
-                    if (typeof elmSymbol("elm$browser$Browser$application") !== 'undefined') {
-                        var oldKeyLoc = findNavKey(oldModel);
-
-                        // attempt to find the Browser.Navigation.Key in the newly-constructed model
-                        // and bring it along with the rest of the old data.
-                        var newKeyLoc = findNavKey(newModel);
-                        var error = null;
-                        if (newKeyLoc === null) {
-                            error = "could not find Browser.Navigation.Key in the new app model";
-                        } else if (oldKeyLoc === null) {
-                            error = "could not find Browser.Navigation.Key in the old app model.";
-                        } else if (newKeyLoc.keypath.toString() !== oldKeyLoc.keypath.toString()) {
-                            error = "the location of the Browser.Navigation.Key in the model has changed.";
-                        } else {
-                            // remove event listeners attached to the old nav key
-                            removeNavKeyListeners(oldKeyLoc.value);
-
-                            // insert the new nav key into the old model in the exact same location
-                            var parentKeyPath = oldKeyLoc.keypath.slice(0, -1);
-                            var lastSegment = oldKeyLoc.keypath.slice(-1)[0];
-                            var oldParent = getAt(parentKeyPath, oldModel);
-                            oldParent[lastSegment] = newKeyLoc.value;
-                        }
-
-                        if (error !== null) {
-                            console.error("[elm-hot] Hot-swapping " + instance.path + " not possible: " + error);
-                            oldModel = newModel;
-                        }
-                    }
-
-                    // the heart of the app state hot-swap
-                    initialStateTuple.a = oldModel;
-
-                    // ignore any Cmds returned by the init during hot-swap
-                    initialStateTuple.b = elmSymbol("elm$core$Platform$Cmd$none");
-                } else {
-                    // capture the initial state for later
-                    initializingInstance.lastState = initialStateTuple.a;
-                }
-
-                return initialStateTuple
-            };
-
-            var hookedStepperBuilder = function (sendToApp, model) {
-                var result;
-                // first render may fail if shape of model changed too much
-                if (tryFirstRender) {
-                    tryFirstRender = false;
-                    try {
-                        result = stepperBuilder(sendToApp, model)
-                    } catch (e) {
-                        throw new Error('[elm-hot] Hot-swapping ' + instance.path +
-                            ' is not possible, please reload page. Error: ' + e.message)
-                    }
-                } else {
-                    result = stepperBuilder(sendToApp, model)
-                }
-
-                return function (nextModel, isSync) {
-                    if (instance) {
-                        // capture the state after every step so that later we can restore from it during a hot-swap
-                        instance.lastState = nextModel
-                    }
-                    return result(nextModel, isSync)
-                }
-            };
-
-            return initialize(flagDecoder, args, hookedInit, update, subscriptions, hookedStepperBuilder)
-        };
-
-        // hook process creation
-        var originalBinding = _Scheduler_binding;
-        _Scheduler_binding = function (originalCallback) {
-            return originalBinding(function () {
-                // start the scheduled process, which may return a cancellation function.
-                var cancel = originalCallback.apply(this, arguments);
-                if (cancel) {
-                    cancellers.push(cancel);
-                    return function () {
-                        cancellers.splice(cancellers.indexOf(cancel), 1);
-                        return cancel();
-                    };
-                }
-                return cancel;
-            });
-        };
-
-        scope['_elm_hot_loader_init'] = function (Elm) {
-            // swap instances
-            var removedInstances = [];
-            for (var id in instances) {
-                var instance = instances[id];
-                if (instance.domNode.parentNode) {
-                    swap(Elm, instance);
-                } else {
-                    removedInstances.push(id);
-                }
-            }
-
-            removedInstances.forEach(function (id) {
-                delete instance[id];
-            });
-
-            // wrap all public modules
-            var publicModules = findPublicModules(Elm);
-            publicModules.forEach(function (m) {
-                wrapPublicModule(m.path, m.module);
-            });
-        }
-    })();
-
-    scope['_elm_hot_loader_init'](scope['Elm']);
-}
-//////////////////// HMR END ////////////////////
-
-
-
-
-//////////////////// HMR BEGIN ////////////////////
-
-/*
-  MIT License http://www.opensource.org/licenses/mit-license.php
-  Original Author: Flux Xu @fluxxu
-*/
-
-/*
-    A note about the environment that this code runs in...
-
-    assumed globals:
-        - `module` (from Node.js module system and webpack)
-
-    assumed in scope after injection into the Elm IIFE:
-        - `scope` (has an 'Elm' property which contains the public Elm API)
-        - various functions defined by Elm which we have to hook such as `_Platform_initialize` and `_Scheduler_binding`
- */
-
-if (module.hot) {
-    (function () {
-        "use strict";
-
-        //polyfill for IE: https://github.com/fluxxu/elm-hot-loader/issues/16
-        if (typeof Object.assign != 'function') {
-            Object.assign = function (target) {
-                'use strict';
-                if (target == null) {
-                    throw new TypeError('Cannot convert undefined or null to object');
-                }
-
-                target = Object(target);
-                for (var index = 1; index < arguments.length; index++) {
-                    var source = arguments[index];
-                    if (source != null) {
-                        for (var key in source) {
-                            if (Object.prototype.hasOwnProperty.call(source, key)) {
-                                target[key] = source[key];
-                            }
-                        }
-                    }
-                }
-                return target;
-            };
-        }
-
-        // Elm 0.19.1 introduced a '$' prefix at the beginning of the symbols it emits,
-        // and we check for `Maybe.Just` because we expect it to be present in all Elm programs.
-        var elmVersion;
-        if (typeof elm$core$Maybe$Just !== 'undefined')
-            elmVersion = '0.19.0';
-        else if (typeof $elm$core$Maybe$Just !== 'undefined')
-            elmVersion = '0.19.1';
-        else
-            throw new Error("Could not determine Elm version");
-
-        function elmSymbol(symbol) {
-            try {
-                switch (elmVersion) {
-                    case '0.19.0':
-                        return eval(symbol);
-                    case '0.19.1':
-                        return eval('$' + symbol);
-                    default:
-                        throw new Error('Cannot resolve ' + symbol + '. Elm version unknown!')
-                }
-            } catch (e) {
-                if (e instanceof ReferenceError) {
-                    return undefined;
-                } else {
-                    throw e;
-                }
-            }
-        }
-
-        var instances = module.hot.data
-            ? module.hot.data.instances || {}
-            : {};
-        var uid = module.hot.data
-            ? module.hot.data.uid || 0
-            : 0;
-
-        if (Object.keys(instances).length === 0) {
-            log("[elm-hot] Enabled");
-        }
-
-        var cancellers = [];
-
-        // These 2 variables act as dynamically-scoped variables which are set only when the
-        // Elm module's hooked init function is called.
-        var initializingInstance = null;
-        var swappingInstance = null;
-
-        module.hot.accept();
-        module.hot.dispose(function (data) {
-            data.instances = instances;
-            data.uid = uid;
-
-            // Cleanup pending async tasks
-
-            // First, make sure that no new tasks can be started until we finish replacing the code
-            _Scheduler_binding = function () {
-                return _Scheduler_fail(new Error('[elm-hot] Inactive Elm instance.'))
-            };
-
-            // Second, kill pending tasks belonging to the old instance
-            if (cancellers.length) {
-                log('[elm-hot] Killing ' + cancellers.length + ' running processes...');
-                try {
-                    cancellers.forEach(function (cancel) {
-                        cancel();
-                    });
-                } catch (e) {
-                    console.warn('[elm-hot] Kill process error: ' + e.message);
-                }
-            }
-        });
-
-        function log(message) {
-            if (module.hot.verbose) {
-                console.log(message)
-            }
-        }
-
-        function getId() {
-            return ++uid;
-        }
-
-        function findPublicModules(parent, path) {
-            var modules = [];
-            for (var key in parent) {
-                var child = parent[key];
-                var currentPath = path ? path + '.' + key : key;
-                if ('init' in child) {
-                    modules.push({
-                        path: currentPath,
-                        module: child
-                    });
-                } else {
-                    modules = modules.concat(findPublicModules(child, currentPath));
-                }
-            }
-            return modules;
-        }
-
-        function registerInstance(domNode, flags, path, portSubscribes, portSends) {
-            var id = getId();
-
-            var instance = {
-                id: id,
-                path: path,
-                domNode: domNode,
-                flags: flags,
-                portSubscribes: portSubscribes,
-                portSends: portSends,
-                lastState: null // last Elm app state (root model)
-            };
-
-            return instances[id] = instance
-        }
-
-        function isFullscreenApp() {
-            // Returns true if the Elm app will take over the entire DOM body.
-            return typeof elmSymbol("elm$browser$Browser$application") !== 'undefined'
-                || typeof elmSymbol("elm$browser$Browser$document") !== 'undefined';
-        }
-
-        function wrapDomNode(node) {
-            // When embedding an Elm app into a specific DOM node, Elm will replace the provided
-            // DOM node with the Elm app's content. When the Elm app is compiled normally, the
-            // original DOM node is reused (its attributes and content changes, but the object
-            // in memory remains the same). But when compiled using `--debug`, Elm will completely
-            // destroy the original DOM node and instead replace it with 2 brand new nodes: one
-            // for your Elm app's content and the other for the Elm debugger UI. In this case,
-            // if you held a reference to the DOM node provided for embedding, it would be orphaned
-            // after Elm module initialization.
-            //
-            // So in order to make both cases consistent and isolate us from changes in how Elm
-            // does this, we will insert a dummy node to wrap the node for embedding and hold
-            // a reference to the dummy node.
-            //
-            // We will also put a tag on the dummy node so that the Elm developer knows who went
-            // behind their back and rudely put stuff in their DOM.
-            var dummyNode = document.createElement("div");
-            dummyNode.setAttribute("data-elm-hot", "true");
-            dummyNode.style.height = "inherit";
-            var parentNode = node.parentNode;
-            parentNode.replaceChild(dummyNode, node);
-            dummyNode.appendChild(node);
-            return dummyNode;
-        }
-
-        function wrapPublicModule(path, module) {
-            var originalInit = module.init;
-            if (originalInit) {
-                module.init = function (args) {
-                    var elm;
-                    var portSubscribes = {};
-                    var portSends = {};
-                    var domNode = null;
-                    var flags = null;
-                    if (typeof args !== 'undefined') {
-                        // normal case
-                        domNode = args['node'] && !isFullscreenApp()
-                            ? wrapDomNode(args['node'])
-                            : document.body;
-                        flags = args['flags'];
-                    } else {
-                        // rare case: Elm allows init to be called without any arguments at all
-                        domNode = document.body;
-                        flags = undefined
-                    }
-                    initializingInstance = registerInstance(domNode, flags, path, portSubscribes, portSends);
-                    elm = originalInit(args);
-                    wrapPorts(elm, portSubscribes, portSends);
-                    initializingInstance = null;
-                    return elm;
-                };
-            } else {
-                console.error("Could not find a public module to wrap at path " + path)
-            }
-        }
-
-        function swap(Elm, instance) {
-            log('[elm-hot] Hot-swapping module: ' + instance.path);
-
-            swappingInstance = instance;
-
-            // remove from the DOM everything that had been created by the old Elm app
-            var containerNode = instance.domNode;
-            while (containerNode.lastChild) {
-                containerNode.removeChild(containerNode.lastChild);
-            }
-
-            var m = getAt(instance.path.split('.'), Elm);
-            var elm;
-            if (m) {
-                // prepare to initialize the new Elm module
-                var args = {flags: instance.flags};
-                if (containerNode === document.body) {
-                    // fullscreen case: no additional args needed
-                } else {
-                    // embed case: provide a new node for Elm to use
-                    var nodeForEmbed = document.createElement("div");
-                    containerNode.appendChild(nodeForEmbed);
-                    args['node'] = nodeForEmbed;
-                }
-
-                elm = m.init(args);
-
-                Object.keys(instance.portSubscribes).forEach(function (portName) {
-                    if (portName in elm.ports && 'subscribe' in elm.ports[portName]) {
-                        var handlers = instance.portSubscribes[portName];
-                        if (!handlers.length) {
-                            return;
-                        }
-                        log('[elm-hot] Reconnect ' + handlers.length + ' handler(s) to port \''
-                            + portName + '\' (' + instance.path + ').');
-                        handlers.forEach(function (handler) {
-                            elm.ports[portName].subscribe(handler);
-                        });
-                    } else {
-                        delete instance.portSubscribes[portName];
-                        log('[elm-hot] Port was removed: ' + portName);
-                    }
-                });
-
-                Object.keys(instance.portSends).forEach(function (portName) {
-                    if (portName in elm.ports && 'send' in elm.ports[portName]) {
-                        log('[elm-hot] Replace old port send with the new send');
-                        instance.portSends[portName] = elm.ports[portName].send;
-                    } else {
-                        delete instance.portSends[portName];
-                        log('[elm-hot] Port was removed: ' + portName);
-                    }
-                });
-            } else {
-                log('[elm-hot] Module was removed: ' + instance.path);
-            }
-
-            swappingInstance = null;
-        }
-
-        function wrapPorts(elm, portSubscribes, portSends) {
-            var portNames = Object.keys(elm.ports || {});
-            //hook ports
-            if (portNames.length) {
-                // hook outgoing ports
-                portNames
-                    .filter(function (name) {
-                        return 'subscribe' in elm.ports[name];
-                    })
-                    .forEach(function (portName) {
-                        var port = elm.ports[portName];
-                        var subscribe = port.subscribe;
-                        var unsubscribe = port.unsubscribe;
-                        elm.ports[portName] = Object.assign(port, {
-                            subscribe: function (handler) {
-                                log('[elm-hot] ports.' + portName + '.subscribe called.');
-                                if (!portSubscribes[portName]) {
-                                    portSubscribes[portName] = [handler];
-                                } else {
-                                    //TODO handle subscribing to single handler more than once?
-                                    portSubscribes[portName].push(handler);
-                                }
-                                return subscribe.call(port, handler);
-                            },
-                            unsubscribe: function (handler) {
-                                log('[elm-hot] ports.' + portName + '.unsubscribe called.');
-                                var list = portSubscribes[portName];
-                                if (list && list.indexOf(handler) !== -1) {
-                                    list.splice(list.lastIndexOf(handler), 1);
-                                } else {
-                                    console.warn('[elm-hot] ports.' + portName + '.unsubscribe: handler not subscribed');
-                                }
-                                return unsubscribe.call(port, handler);
-                            }
-                        });
-                    });
-
-                // hook incoming ports
-                portNames
-                    .filter(function (name) {
-                        return 'send' in elm.ports[name];
-                    })
-                    .forEach(function (portName) {
-                        var port = elm.ports[portName];
-                        portSends[portName] = port.send;
-                        elm.ports[portName] = Object.assign(port, {
-                            send: function (val) {
-                                return portSends[portName].call(port, val);
-                            }
-                        });
-                    });
-            }
-            return portSubscribes;
-        }
-
-        /*
-        Breadth-first search for a `Browser.Navigation.Key` in the user's app model.
-        Returns the key and keypath or null if not found.
-        */
-        function findNavKey(rootModel) {
-            var queue = [];
-            if (isDebuggerModel(rootModel)) {
-                /*
-                 Extract the user's app model from the Elm Debugger's model. The Elm debugger
-                 can hold multiple references to the user's model (e.g. in its "history"). So
-                 we must be careful to only search within the "state" part of the Debugger.
-                */
-                queue.push({value: rootModel['state'], keypath: ['state']});
-            } else {
-                queue.push({value: rootModel, keypath: []});
-            }
-
-            while (queue.length !== 0) {
-                var item = queue.shift();
-
-                if (typeof item.value === "undefined" || item.value === null) {
-                    continue;
-                }
-
-                // The nav key is identified by a runtime tag added by the elm-hot injector.
-                if (item.value.hasOwnProperty("elm-hot-nav-key")) {
-                    // found it!
-                    return item;
-                }
-
-                if (typeof item.value !== "object") {
-                    continue;
-                }
-
-                for (var propName in item.value) {
-                    if (!item.value.hasOwnProperty(propName)) continue;
-                    var newKeypath = item.keypath.slice();
-                    newKeypath.push(propName);
-                    queue.push({value: item.value[propName], keypath: newKeypath})
-                }
-            }
-
-            return null;
-        }
-
-
-        function isDebuggerModel(model) {
-            // Up until elm/browser 1.0.2, the Elm debugger could be identified by a
-            // property named "expando". But in version 1.0.2 that was renamed to "expandoModel"
-            return model
-                && (model.hasOwnProperty("expando") || model.hasOwnProperty("expandoModel"))
-                && model.hasOwnProperty("state");
-        }
-
-        function getAt(keyPath, obj) {
-            return keyPath.reduce(function (xs, x) {
-                return (xs && xs[x]) ? xs[x] : null
-            }, obj)
-        }
-
-        function removeNavKeyListeners(navKey) {
-            window.removeEventListener('popstate', navKey.value);
-            window.navigator.userAgent.indexOf('Trident') < 0 || window.removeEventListener('hashchange', navKey.value);
-        }
-
-        // hook program creation
-        var initialize = _Platform_initialize;
-        _Platform_initialize = function (flagDecoder, args, init, update, subscriptions, stepperBuilder) {
-            var instance = initializingInstance || swappingInstance;
-            var tryFirstRender = !!swappingInstance;
-
-            var hookedInit = function (args) {
-                var initialStateTuple = init(args);
-                if (swappingInstance) {
-                    var oldModel = swappingInstance.lastState;
-                    var newModel = initialStateTuple.a;
-
-                    if (typeof elmSymbol("elm$browser$Browser$application") !== 'undefined') {
-                        var oldKeyLoc = findNavKey(oldModel);
-
-                        // attempt to find the Browser.Navigation.Key in the newly-constructed model
-                        // and bring it along with the rest of the old data.
-                        var newKeyLoc = findNavKey(newModel);
-                        var error = null;
-                        if (newKeyLoc === null) {
-                            error = "could not find Browser.Navigation.Key in the new app model";
-                        } else if (oldKeyLoc === null) {
-                            error = "could not find Browser.Navigation.Key in the old app model.";
-                        } else if (newKeyLoc.keypath.toString() !== oldKeyLoc.keypath.toString()) {
-                            error = "the location of the Browser.Navigation.Key in the model has changed.";
-                        } else {
-                            // remove event listeners attached to the old nav key
-                            removeNavKeyListeners(oldKeyLoc.value);
-
-                            // insert the new nav key into the old model in the exact same location
-                            var parentKeyPath = oldKeyLoc.keypath.slice(0, -1);
-                            var lastSegment = oldKeyLoc.keypath.slice(-1)[0];
-                            var oldParent = getAt(parentKeyPath, oldModel);
-                            oldParent[lastSegment] = newKeyLoc.value;
-                        }
-
-                        if (error !== null) {
-                            console.error("[elm-hot] Hot-swapping " + instance.path + " not possible: " + error);
-                            oldModel = newModel;
-                        }
-                    }
-
-                    // the heart of the app state hot-swap
-                    initialStateTuple.a = oldModel;
-
-                    // ignore any Cmds returned by the init during hot-swap
-                    initialStateTuple.b = elmSymbol("elm$core$Platform$Cmd$none");
-                } else {
-                    // capture the initial state for later
-                    initializingInstance.lastState = initialStateTuple.a;
-                }
-
-                return initialStateTuple
-            };
-
-            var hookedStepperBuilder = function (sendToApp, model) {
-                var result;
-                // first render may fail if shape of model changed too much
-                if (tryFirstRender) {
-                    tryFirstRender = false;
-                    try {
-                        result = stepperBuilder(sendToApp, model)
-                    } catch (e) {
-                        throw new Error('[elm-hot] Hot-swapping ' + instance.path +
-                            ' is not possible, please reload page. Error: ' + e.message)
-                    }
-                } else {
-                    result = stepperBuilder(sendToApp, model)
-                }
-
-                return function (nextModel, isSync) {
-                    if (instance) {
-                        // capture the state after every step so that later we can restore from it during a hot-swap
-                        instance.lastState = nextModel
-                    }
-                    return result(nextModel, isSync)
-                }
-            };
-
-            return initialize(flagDecoder, args, hookedInit, update, subscriptions, hookedStepperBuilder)
-        };
-
-        // hook process creation
-        var originalBinding = _Scheduler_binding;
-        _Scheduler_binding = function (originalCallback) {
-            return originalBinding(function () {
-                // start the scheduled process, which may return a cancellation function.
-                var cancel = originalCallback.apply(this, arguments);
-                if (cancel) {
-                    cancellers.push(cancel);
-                    return function () {
-                        cancellers.splice(cancellers.indexOf(cancel), 1);
-                        return cancel();
-                    };
-                }
-                return cancel;
-            });
-        };
-
-        scope['_elm_hot_loader_init'] = function (Elm) {
-            // swap instances
-            var removedInstances = [];
-            for (var id in instances) {
-                var instance = instances[id];
-                if (instance.domNode.parentNode) {
-                    swap(Elm, instance);
-                } else {
-                    removedInstances.push(id);
-                }
-            }
-
-            removedInstances.forEach(function (id) {
-                delete instance[id];
-            });
-
-            // wrap all public modules
-            var publicModules = findPublicModules(Elm);
-            publicModules.forEach(function (m) {
-                wrapPublicModule(m.path, m.module);
-            });
-        }
-    })();
-
-    scope['_elm_hot_loader_init'](scope['Elm']);
-}
-//////////////////// HMR END ////////////////////
-
-
-
-
-//////////////////// HMR BEGIN ////////////////////
-
-/*
-  MIT License http://www.opensource.org/licenses/mit-license.php
-  Original Author: Flux Xu @fluxxu
-*/
-
-/*
-    A note about the environment that this code runs in...
-
-    assumed globals:
-        - `module` (from Node.js module system and webpack)
-
-    assumed in scope after injection into the Elm IIFE:
-        - `scope` (has an 'Elm' property which contains the public Elm API)
-        - various functions defined by Elm which we have to hook such as `_Platform_initialize` and `_Scheduler_binding`
- */
-
-if (module.hot) {
-    (function () {
-        "use strict";
-
-        //polyfill for IE: https://github.com/fluxxu/elm-hot-loader/issues/16
-        if (typeof Object.assign != 'function') {
-            Object.assign = function (target) {
-                'use strict';
-                if (target == null) {
-                    throw new TypeError('Cannot convert undefined or null to object');
-                }
-
-                target = Object(target);
-                for (var index = 1; index < arguments.length; index++) {
-                    var source = arguments[index];
-                    if (source != null) {
-                        for (var key in source) {
-                            if (Object.prototype.hasOwnProperty.call(source, key)) {
-                                target[key] = source[key];
-                            }
-                        }
-                    }
-                }
-                return target;
-            };
-        }
-
-        // Elm 0.19.1 introduced a '$' prefix at the beginning of the symbols it emits,
-        // and we check for `Maybe.Just` because we expect it to be present in all Elm programs.
-        var elmVersion;
-        if (typeof elm$core$Maybe$Just !== 'undefined')
-            elmVersion = '0.19.0';
-        else if (typeof $elm$core$Maybe$Just !== 'undefined')
-            elmVersion = '0.19.1';
-        else
-            throw new Error("Could not determine Elm version");
-
-        function elmSymbol(symbol) {
-            try {
-                switch (elmVersion) {
-                    case '0.19.0':
-                        return eval(symbol);
-                    case '0.19.1':
-                        return eval('$' + symbol);
-                    default:
-                        throw new Error('Cannot resolve ' + symbol + '. Elm version unknown!')
-                }
-            } catch (e) {
-                if (e instanceof ReferenceError) {
-                    return undefined;
-                } else {
-                    throw e;
-                }
-            }
-        }
-
-        var instances = module.hot.data
-            ? module.hot.data.instances || {}
-            : {};
-        var uid = module.hot.data
-            ? module.hot.data.uid || 0
-            : 0;
-
-        if (Object.keys(instances).length === 0) {
-            log("[elm-hot] Enabled");
-        }
-
-        var cancellers = [];
-
-        // These 2 variables act as dynamically-scoped variables which are set only when the
-        // Elm module's hooked init function is called.
-        var initializingInstance = null;
-        var swappingInstance = null;
-
-        module.hot.accept();
-        module.hot.dispose(function (data) {
-            data.instances = instances;
-            data.uid = uid;
-
-            // Cleanup pending async tasks
-
-            // First, make sure that no new tasks can be started until we finish replacing the code
-            _Scheduler_binding = function () {
-                return _Scheduler_fail(new Error('[elm-hot] Inactive Elm instance.'))
-            };
-
-            // Second, kill pending tasks belonging to the old instance
-            if (cancellers.length) {
-                log('[elm-hot] Killing ' + cancellers.length + ' running processes...');
-                try {
-                    cancellers.forEach(function (cancel) {
-                        cancel();
-                    });
-                } catch (e) {
-                    console.warn('[elm-hot] Kill process error: ' + e.message);
-                }
-            }
-        });
-
-        function log(message) {
-            if (module.hot.verbose) {
-                console.log(message)
-            }
-        }
-
-        function getId() {
-            return ++uid;
-        }
-
-        function findPublicModules(parent, path) {
-            var modules = [];
-            for (var key in parent) {
-                var child = parent[key];
-                var currentPath = path ? path + '.' + key : key;
-                if ('init' in child) {
-                    modules.push({
-                        path: currentPath,
-                        module: child
-                    });
-                } else {
-                    modules = modules.concat(findPublicModules(child, currentPath));
-                }
-            }
-            return modules;
-        }
-
-        function registerInstance(domNode, flags, path, portSubscribes, portSends) {
-            var id = getId();
-
-            var instance = {
-                id: id,
-                path: path,
-                domNode: domNode,
-                flags: flags,
-                portSubscribes: portSubscribes,
-                portSends: portSends,
-                lastState: null // last Elm app state (root model)
-            };
-
-            return instances[id] = instance
-        }
-
-        function isFullscreenApp() {
-            // Returns true if the Elm app will take over the entire DOM body.
-            return typeof elmSymbol("elm$browser$Browser$application") !== 'undefined'
-                || typeof elmSymbol("elm$browser$Browser$document") !== 'undefined';
-        }
-
-        function wrapDomNode(node) {
-            // When embedding an Elm app into a specific DOM node, Elm will replace the provided
-            // DOM node with the Elm app's content. When the Elm app is compiled normally, the
-            // original DOM node is reused (its attributes and content changes, but the object
-            // in memory remains the same). But when compiled using `--debug`, Elm will completely
-            // destroy the original DOM node and instead replace it with 2 brand new nodes: one
-            // for your Elm app's content and the other for the Elm debugger UI. In this case,
-            // if you held a reference to the DOM node provided for embedding, it would be orphaned
-            // after Elm module initialization.
-            //
-            // So in order to make both cases consistent and isolate us from changes in how Elm
-            // does this, we will insert a dummy node to wrap the node for embedding and hold
-            // a reference to the dummy node.
-            //
-            // We will also put a tag on the dummy node so that the Elm developer knows who went
-            // behind their back and rudely put stuff in their DOM.
-            var dummyNode = document.createElement("div");
-            dummyNode.setAttribute("data-elm-hot", "true");
-            dummyNode.style.height = "inherit";
-            var parentNode = node.parentNode;
-            parentNode.replaceChild(dummyNode, node);
-            dummyNode.appendChild(node);
-            return dummyNode;
-        }
-
-        function wrapPublicModule(path, module) {
-            var originalInit = module.init;
-            if (originalInit) {
-                module.init = function (args) {
-                    var elm;
-                    var portSubscribes = {};
-                    var portSends = {};
-                    var domNode = null;
-                    var flags = null;
-                    if (typeof args !== 'undefined') {
-                        // normal case
-                        domNode = args['node'] && !isFullscreenApp()
-                            ? wrapDomNode(args['node'])
-                            : document.body;
-                        flags = args['flags'];
-                    } else {
-                        // rare case: Elm allows init to be called without any arguments at all
-                        domNode = document.body;
-                        flags = undefined
-                    }
-                    initializingInstance = registerInstance(domNode, flags, path, portSubscribes, portSends);
-                    elm = originalInit(args);
-                    wrapPorts(elm, portSubscribes, portSends);
-                    initializingInstance = null;
-                    return elm;
-                };
-            } else {
-                console.error("Could not find a public module to wrap at path " + path)
-            }
-        }
-
-        function swap(Elm, instance) {
-            log('[elm-hot] Hot-swapping module: ' + instance.path);
-
-            swappingInstance = instance;
-
-            // remove from the DOM everything that had been created by the old Elm app
-            var containerNode = instance.domNode;
-            while (containerNode.lastChild) {
-                containerNode.removeChild(containerNode.lastChild);
-            }
-
-            var m = getAt(instance.path.split('.'), Elm);
-            var elm;
-            if (m) {
-                // prepare to initialize the new Elm module
-                var args = {flags: instance.flags};
-                if (containerNode === document.body) {
-                    // fullscreen case: no additional args needed
-                } else {
-                    // embed case: provide a new node for Elm to use
-                    var nodeForEmbed = document.createElement("div");
-                    containerNode.appendChild(nodeForEmbed);
-                    args['node'] = nodeForEmbed;
-                }
-
-                elm = m.init(args);
-
-                Object.keys(instance.portSubscribes).forEach(function (portName) {
-                    if (portName in elm.ports && 'subscribe' in elm.ports[portName]) {
-                        var handlers = instance.portSubscribes[portName];
-                        if (!handlers.length) {
-                            return;
-                        }
-                        log('[elm-hot] Reconnect ' + handlers.length + ' handler(s) to port \''
-                            + portName + '\' (' + instance.path + ').');
-                        handlers.forEach(function (handler) {
-                            elm.ports[portName].subscribe(handler);
-                        });
-                    } else {
-                        delete instance.portSubscribes[portName];
-                        log('[elm-hot] Port was removed: ' + portName);
-                    }
-                });
-
-                Object.keys(instance.portSends).forEach(function (portName) {
-                    if (portName in elm.ports && 'send' in elm.ports[portName]) {
-                        log('[elm-hot] Replace old port send with the new send');
-                        instance.portSends[portName] = elm.ports[portName].send;
-                    } else {
-                        delete instance.portSends[portName];
-                        log('[elm-hot] Port was removed: ' + portName);
-                    }
-                });
-            } else {
-                log('[elm-hot] Module was removed: ' + instance.path);
-            }
-
-            swappingInstance = null;
-        }
-
-        function wrapPorts(elm, portSubscribes, portSends) {
-            var portNames = Object.keys(elm.ports || {});
-            //hook ports
-            if (portNames.length) {
-                // hook outgoing ports
-                portNames
-                    .filter(function (name) {
-                        return 'subscribe' in elm.ports[name];
-                    })
-                    .forEach(function (portName) {
-                        var port = elm.ports[portName];
-                        var subscribe = port.subscribe;
-                        var unsubscribe = port.unsubscribe;
-                        elm.ports[portName] = Object.assign(port, {
-                            subscribe: function (handler) {
-                                log('[elm-hot] ports.' + portName + '.subscribe called.');
-                                if (!portSubscribes[portName]) {
-                                    portSubscribes[portName] = [handler];
-                                } else {
-                                    //TODO handle subscribing to single handler more than once?
-                                    portSubscribes[portName].push(handler);
-                                }
-                                return subscribe.call(port, handler);
-                            },
-                            unsubscribe: function (handler) {
-                                log('[elm-hot] ports.' + portName + '.unsubscribe called.');
-                                var list = portSubscribes[portName];
-                                if (list && list.indexOf(handler) !== -1) {
-                                    list.splice(list.lastIndexOf(handler), 1);
-                                } else {
-                                    console.warn('[elm-hot] ports.' + portName + '.unsubscribe: handler not subscribed');
-                                }
-                                return unsubscribe.call(port, handler);
-                            }
-                        });
-                    });
-
-                // hook incoming ports
-                portNames
-                    .filter(function (name) {
-                        return 'send' in elm.ports[name];
-                    })
-                    .forEach(function (portName) {
-                        var port = elm.ports[portName];
-                        portSends[portName] = port.send;
-                        elm.ports[portName] = Object.assign(port, {
-                            send: function (val) {
-                                return portSends[portName].call(port, val);
-                            }
-                        });
-                    });
-            }
-            return portSubscribes;
-        }
-
-        /*
-        Breadth-first search for a `Browser.Navigation.Key` in the user's app model.
-        Returns the key and keypath or null if not found.
-        */
-        function findNavKey(rootModel) {
-            var queue = [];
-            if (isDebuggerModel(rootModel)) {
-                /*
-                 Extract the user's app model from the Elm Debugger's model. The Elm debugger
-                 can hold multiple references to the user's model (e.g. in its "history"). So
-                 we must be careful to only search within the "state" part of the Debugger.
-                */
-                queue.push({value: rootModel['state'], keypath: ['state']});
-            } else {
-                queue.push({value: rootModel, keypath: []});
-            }
-
-            while (queue.length !== 0) {
-                var item = queue.shift();
-
-                if (typeof item.value === "undefined" || item.value === null) {
-                    continue;
-                }
-
-                // The nav key is identified by a runtime tag added by the elm-hot injector.
-                if (item.value.hasOwnProperty("elm-hot-nav-key")) {
-                    // found it!
-                    return item;
-                }
-
-                if (typeof item.value !== "object") {
-                    continue;
-                }
-
-                for (var propName in item.value) {
-                    if (!item.value.hasOwnProperty(propName)) continue;
-                    var newKeypath = item.keypath.slice();
-                    newKeypath.push(propName);
-                    queue.push({value: item.value[propName], keypath: newKeypath})
-                }
-            }
-
-            return null;
-        }
-
-
-        function isDebuggerModel(model) {
-            // Up until elm/browser 1.0.2, the Elm debugger could be identified by a
-            // property named "expando". But in version 1.0.2 that was renamed to "expandoModel"
-            return model
-                && (model.hasOwnProperty("expando") || model.hasOwnProperty("expandoModel"))
-                && model.hasOwnProperty("state");
-        }
-
-        function getAt(keyPath, obj) {
-            return keyPath.reduce(function (xs, x) {
-                return (xs && xs[x]) ? xs[x] : null
-            }, obj)
-        }
-
-        function removeNavKeyListeners(navKey) {
-            window.removeEventListener('popstate', navKey.value);
-            window.navigator.userAgent.indexOf('Trident') < 0 || window.removeEventListener('hashchange', navKey.value);
-        }
-
-        // hook program creation
-        var initialize = _Platform_initialize;
-        _Platform_initialize = function (flagDecoder, args, init, update, subscriptions, stepperBuilder) {
-            var instance = initializingInstance || swappingInstance;
-            var tryFirstRender = !!swappingInstance;
-
-            var hookedInit = function (args) {
-                var initialStateTuple = init(args);
-                if (swappingInstance) {
-                    var oldModel = swappingInstance.lastState;
-                    var newModel = initialStateTuple.a;
-
-                    if (typeof elmSymbol("elm$browser$Browser$application") !== 'undefined') {
-                        var oldKeyLoc = findNavKey(oldModel);
-
-                        // attempt to find the Browser.Navigation.Key in the newly-constructed model
-                        // and bring it along with the rest of the old data.
-                        var newKeyLoc = findNavKey(newModel);
-                        var error = null;
-                        if (newKeyLoc === null) {
-                            error = "could not find Browser.Navigation.Key in the new app model";
-                        } else if (oldKeyLoc === null) {
-                            error = "could not find Browser.Navigation.Key in the old app model.";
-                        } else if (newKeyLoc.keypath.toString() !== oldKeyLoc.keypath.toString()) {
-                            error = "the location of the Browser.Navigation.Key in the model has changed.";
-                        } else {
-                            // remove event listeners attached to the old nav key
-                            removeNavKeyListeners(oldKeyLoc.value);
-
-                            // insert the new nav key into the old model in the exact same location
-                            var parentKeyPath = oldKeyLoc.keypath.slice(0, -1);
-                            var lastSegment = oldKeyLoc.keypath.slice(-1)[0];
-                            var oldParent = getAt(parentKeyPath, oldModel);
-                            oldParent[lastSegment] = newKeyLoc.value;
-                        }
-
-                        if (error !== null) {
-                            console.error("[elm-hot] Hot-swapping " + instance.path + " not possible: " + error);
-                            oldModel = newModel;
-                        }
-                    }
-
-                    // the heart of the app state hot-swap
-                    initialStateTuple.a = oldModel;
-
-                    // ignore any Cmds returned by the init during hot-swap
-                    initialStateTuple.b = elmSymbol("elm$core$Platform$Cmd$none");
-                } else {
-                    // capture the initial state for later
-                    initializingInstance.lastState = initialStateTuple.a;
-                }
-
-                return initialStateTuple
-            };
-
-            var hookedStepperBuilder = function (sendToApp, model) {
-                var result;
-                // first render may fail if shape of model changed too much
-                if (tryFirstRender) {
-                    tryFirstRender = false;
-                    try {
-                        result = stepperBuilder(sendToApp, model)
-                    } catch (e) {
-                        throw new Error('[elm-hot] Hot-swapping ' + instance.path +
-                            ' is not possible, please reload page. Error: ' + e.message)
-                    }
-                } else {
-                    result = stepperBuilder(sendToApp, model)
-                }
-
-                return function (nextModel, isSync) {
-                    if (instance) {
-                        // capture the state after every step so that later we can restore from it during a hot-swap
-                        instance.lastState = nextModel
-                    }
-                    return result(nextModel, isSync)
-                }
-            };
-
-            return initialize(flagDecoder, args, hookedInit, update, subscriptions, hookedStepperBuilder)
-        };
-
-        // hook process creation
-        var originalBinding = _Scheduler_binding;
-        _Scheduler_binding = function (originalCallback) {
-            return originalBinding(function () {
-                // start the scheduled process, which may return a cancellation function.
-                var cancel = originalCallback.apply(this, arguments);
-                if (cancel) {
-                    cancellers.push(cancel);
-                    return function () {
-                        cancellers.splice(cancellers.indexOf(cancel), 1);
-                        return cancel();
-                    };
-                }
-                return cancel;
-            });
-        };
-
-        scope['_elm_hot_loader_init'] = function (Elm) {
-            // swap instances
-            var removedInstances = [];
-            for (var id in instances) {
-                var instance = instances[id];
-                if (instance.domNode.parentNode) {
-                    swap(Elm, instance);
-                } else {
-                    removedInstances.push(id);
-                }
-            }
-
-            removedInstances.forEach(function (id) {
-                delete instance[id];
-            });
-
-            // wrap all public modules
-            var publicModules = findPublicModules(Elm);
-            publicModules.forEach(function (m) {
-                wrapPublicModule(m.path, m.module);
-            });
-        }
-    })();
-
-    scope['_elm_hot_loader_init'](scope['Elm']);
-}
-//////////////////// HMR END ////////////////////
-
-
-
-
-//////////////////// HMR BEGIN ////////////////////
-
-/*
-  MIT License http://www.opensource.org/licenses/mit-license.php
-  Original Author: Flux Xu @fluxxu
-*/
-
-/*
-    A note about the environment that this code runs in...
-
-    assumed globals:
-        - `module` (from Node.js module system and webpack)
-
-    assumed in scope after injection into the Elm IIFE:
-        - `scope` (has an 'Elm' property which contains the public Elm API)
-        - various functions defined by Elm which we have to hook such as `_Platform_initialize` and `_Scheduler_binding`
- */
-
-if (module.hot) {
-    (function () {
-        "use strict";
-
-        //polyfill for IE: https://github.com/fluxxu/elm-hot-loader/issues/16
-        if (typeof Object.assign != 'function') {
-            Object.assign = function (target) {
-                'use strict';
-                if (target == null) {
-                    throw new TypeError('Cannot convert undefined or null to object');
-                }
-
-                target = Object(target);
-                for (var index = 1; index < arguments.length; index++) {
-                    var source = arguments[index];
-                    if (source != null) {
-                        for (var key in source) {
-                            if (Object.prototype.hasOwnProperty.call(source, key)) {
-                                target[key] = source[key];
-                            }
-                        }
-                    }
-                }
-                return target;
-            };
-        }
-
-        // Elm 0.19.1 introduced a '$' prefix at the beginning of the symbols it emits,
-        // and we check for `Maybe.Just` because we expect it to be present in all Elm programs.
-        var elmVersion;
-        if (typeof elm$core$Maybe$Just !== 'undefined')
-            elmVersion = '0.19.0';
-        else if (typeof $elm$core$Maybe$Just !== 'undefined')
-            elmVersion = '0.19.1';
-        else
-            throw new Error("Could not determine Elm version");
-
-        function elmSymbol(symbol) {
-            try {
-                switch (elmVersion) {
-                    case '0.19.0':
-                        return eval(symbol);
-                    case '0.19.1':
-                        return eval('$' + symbol);
-                    default:
-                        throw new Error('Cannot resolve ' + symbol + '. Elm version unknown!')
-                }
-            } catch (e) {
-                if (e instanceof ReferenceError) {
-                    return undefined;
-                } else {
-                    throw e;
-                }
-            }
-        }
-
-        var instances = module.hot.data
-            ? module.hot.data.instances || {}
-            : {};
-        var uid = module.hot.data
-            ? module.hot.data.uid || 0
-            : 0;
-
-        if (Object.keys(instances).length === 0) {
-            log("[elm-hot] Enabled");
-        }
-
-        var cancellers = [];
-
-        // These 2 variables act as dynamically-scoped variables which are set only when the
-        // Elm module's hooked init function is called.
-        var initializingInstance = null;
-        var swappingInstance = null;
-
-        module.hot.accept();
-        module.hot.dispose(function (data) {
-            data.instances = instances;
-            data.uid = uid;
-
-            // Cleanup pending async tasks
-
-            // First, make sure that no new tasks can be started until we finish replacing the code
-            _Scheduler_binding = function () {
-                return _Scheduler_fail(new Error('[elm-hot] Inactive Elm instance.'))
-            };
-
-            // Second, kill pending tasks belonging to the old instance
-            if (cancellers.length) {
-                log('[elm-hot] Killing ' + cancellers.length + ' running processes...');
-                try {
-                    cancellers.forEach(function (cancel) {
-                        cancel();
-                    });
-                } catch (e) {
-                    console.warn('[elm-hot] Kill process error: ' + e.message);
-                }
-            }
-        });
-
-        function log(message) {
-            if (module.hot.verbose) {
-                console.log(message)
-            }
-        }
-
-        function getId() {
-            return ++uid;
-        }
-
-        function findPublicModules(parent, path) {
-            var modules = [];
-            for (var key in parent) {
-                var child = parent[key];
-                var currentPath = path ? path + '.' + key : key;
-                if ('init' in child) {
-                    modules.push({
-                        path: currentPath,
-                        module: child
-                    });
-                } else {
-                    modules = modules.concat(findPublicModules(child, currentPath));
-                }
-            }
-            return modules;
-        }
-
-        function registerInstance(domNode, flags, path, portSubscribes, portSends) {
-            var id = getId();
-
-            var instance = {
-                id: id,
-                path: path,
-                domNode: domNode,
-                flags: flags,
-                portSubscribes: portSubscribes,
-                portSends: portSends,
-                lastState: null // last Elm app state (root model)
-            };
-
-            return instances[id] = instance
-        }
-
-        function isFullscreenApp() {
-            // Returns true if the Elm app will take over the entire DOM body.
-            return typeof elmSymbol("elm$browser$Browser$application") !== 'undefined'
-                || typeof elmSymbol("elm$browser$Browser$document") !== 'undefined';
-        }
-
-        function wrapDomNode(node) {
-            // When embedding an Elm app into a specific DOM node, Elm will replace the provided
-            // DOM node with the Elm app's content. When the Elm app is compiled normally, the
-            // original DOM node is reused (its attributes and content changes, but the object
-            // in memory remains the same). But when compiled using `--debug`, Elm will completely
-            // destroy the original DOM node and instead replace it with 2 brand new nodes: one
-            // for your Elm app's content and the other for the Elm debugger UI. In this case,
-            // if you held a reference to the DOM node provided for embedding, it would be orphaned
-            // after Elm module initialization.
-            //
-            // So in order to make both cases consistent and isolate us from changes in how Elm
-            // does this, we will insert a dummy node to wrap the node for embedding and hold
-            // a reference to the dummy node.
-            //
-            // We will also put a tag on the dummy node so that the Elm developer knows who went
-            // behind their back and rudely put stuff in their DOM.
-            var dummyNode = document.createElement("div");
-            dummyNode.setAttribute("data-elm-hot", "true");
-            dummyNode.style.height = "inherit";
-            var parentNode = node.parentNode;
-            parentNode.replaceChild(dummyNode, node);
-            dummyNode.appendChild(node);
-            return dummyNode;
-        }
-
-        function wrapPublicModule(path, module) {
-            var originalInit = module.init;
-            if (originalInit) {
-                module.init = function (args) {
-                    var elm;
-                    var portSubscribes = {};
-                    var portSends = {};
-                    var domNode = null;
-                    var flags = null;
-                    if (typeof args !== 'undefined') {
-                        // normal case
-                        domNode = args['node'] && !isFullscreenApp()
-                            ? wrapDomNode(args['node'])
-                            : document.body;
-                        flags = args['flags'];
-                    } else {
-                        // rare case: Elm allows init to be called without any arguments at all
-                        domNode = document.body;
-                        flags = undefined
-                    }
-                    initializingInstance = registerInstance(domNode, flags, path, portSubscribes, portSends);
-                    elm = originalInit(args);
-                    wrapPorts(elm, portSubscribes, portSends);
-                    initializingInstance = null;
-                    return elm;
-                };
-            } else {
-                console.error("Could not find a public module to wrap at path " + path)
-            }
-        }
-
-        function swap(Elm, instance) {
-            log('[elm-hot] Hot-swapping module: ' + instance.path);
-
-            swappingInstance = instance;
-
-            // remove from the DOM everything that had been created by the old Elm app
-            var containerNode = instance.domNode;
-            while (containerNode.lastChild) {
-                containerNode.removeChild(containerNode.lastChild);
-            }
-
-            var m = getAt(instance.path.split('.'), Elm);
-            var elm;
-            if (m) {
-                // prepare to initialize the new Elm module
-                var args = {flags: instance.flags};
-                if (containerNode === document.body) {
-                    // fullscreen case: no additional args needed
-                } else {
-                    // embed case: provide a new node for Elm to use
-                    var nodeForEmbed = document.createElement("div");
-                    containerNode.appendChild(nodeForEmbed);
-                    args['node'] = nodeForEmbed;
-                }
-
-                elm = m.init(args);
-
-                Object.keys(instance.portSubscribes).forEach(function (portName) {
-                    if (portName in elm.ports && 'subscribe' in elm.ports[portName]) {
-                        var handlers = instance.portSubscribes[portName];
-                        if (!handlers.length) {
-                            return;
-                        }
-                        log('[elm-hot] Reconnect ' + handlers.length + ' handler(s) to port \''
-                            + portName + '\' (' + instance.path + ').');
-                        handlers.forEach(function (handler) {
-                            elm.ports[portName].subscribe(handler);
-                        });
-                    } else {
-                        delete instance.portSubscribes[portName];
-                        log('[elm-hot] Port was removed: ' + portName);
-                    }
-                });
-
-                Object.keys(instance.portSends).forEach(function (portName) {
-                    if (portName in elm.ports && 'send' in elm.ports[portName]) {
-                        log('[elm-hot] Replace old port send with the new send');
-                        instance.portSends[portName] = elm.ports[portName].send;
-                    } else {
-                        delete instance.portSends[portName];
-                        log('[elm-hot] Port was removed: ' + portName);
-                    }
-                });
-            } else {
-                log('[elm-hot] Module was removed: ' + instance.path);
-            }
-
-            swappingInstance = null;
-        }
-
-        function wrapPorts(elm, portSubscribes, portSends) {
-            var portNames = Object.keys(elm.ports || {});
-            //hook ports
-            if (portNames.length) {
-                // hook outgoing ports
-                portNames
-                    .filter(function (name) {
-                        return 'subscribe' in elm.ports[name];
-                    })
-                    .forEach(function (portName) {
-                        var port = elm.ports[portName];
-                        var subscribe = port.subscribe;
-                        var unsubscribe = port.unsubscribe;
-                        elm.ports[portName] = Object.assign(port, {
-                            subscribe: function (handler) {
-                                log('[elm-hot] ports.' + portName + '.subscribe called.');
-                                if (!portSubscribes[portName]) {
-                                    portSubscribes[portName] = [handler];
-                                } else {
-                                    //TODO handle subscribing to single handler more than once?
-                                    portSubscribes[portName].push(handler);
-                                }
-                                return subscribe.call(port, handler);
-                            },
-                            unsubscribe: function (handler) {
-                                log('[elm-hot] ports.' + portName + '.unsubscribe called.');
-                                var list = portSubscribes[portName];
-                                if (list && list.indexOf(handler) !== -1) {
-                                    list.splice(list.lastIndexOf(handler), 1);
-                                } else {
-                                    console.warn('[elm-hot] ports.' + portName + '.unsubscribe: handler not subscribed');
-                                }
-                                return unsubscribe.call(port, handler);
-                            }
-                        });
-                    });
-
-                // hook incoming ports
-                portNames
-                    .filter(function (name) {
-                        return 'send' in elm.ports[name];
-                    })
-                    .forEach(function (portName) {
-                        var port = elm.ports[portName];
-                        portSends[portName] = port.send;
-                        elm.ports[portName] = Object.assign(port, {
-                            send: function (val) {
-                                return portSends[portName].call(port, val);
-                            }
-                        });
-                    });
-            }
-            return portSubscribes;
-        }
-
-        /*
-        Breadth-first search for a `Browser.Navigation.Key` in the user's app model.
-        Returns the key and keypath or null if not found.
-        */
-        function findNavKey(rootModel) {
-            var queue = [];
-            if (isDebuggerModel(rootModel)) {
-                /*
-                 Extract the user's app model from the Elm Debugger's model. The Elm debugger
-                 can hold multiple references to the user's model (e.g. in its "history"). So
-                 we must be careful to only search within the "state" part of the Debugger.
-                */
-                queue.push({value: rootModel['state'], keypath: ['state']});
-            } else {
-                queue.push({value: rootModel, keypath: []});
-            }
-
-            while (queue.length !== 0) {
-                var item = queue.shift();
-
-                if (typeof item.value === "undefined" || item.value === null) {
-                    continue;
-                }
-
-                // The nav key is identified by a runtime tag added by the elm-hot injector.
-                if (item.value.hasOwnProperty("elm-hot-nav-key")) {
-                    // found it!
-                    return item;
-                }
-
-                if (typeof item.value !== "object") {
-                    continue;
-                }
-
-                for (var propName in item.value) {
-                    if (!item.value.hasOwnProperty(propName)) continue;
-                    var newKeypath = item.keypath.slice();
-                    newKeypath.push(propName);
-                    queue.push({value: item.value[propName], keypath: newKeypath})
-                }
-            }
-
-            return null;
-        }
-
-
-        function isDebuggerModel(model) {
-            // Up until elm/browser 1.0.2, the Elm debugger could be identified by a
-            // property named "expando". But in version 1.0.2 that was renamed to "expandoModel"
-            return model
-                && (model.hasOwnProperty("expando") || model.hasOwnProperty("expandoModel"))
-                && model.hasOwnProperty("state");
-        }
-
-        function getAt(keyPath, obj) {
-            return keyPath.reduce(function (xs, x) {
-                return (xs && xs[x]) ? xs[x] : null
-            }, obj)
-        }
-
-        function removeNavKeyListeners(navKey) {
-            window.removeEventListener('popstate', navKey.value);
-            window.navigator.userAgent.indexOf('Trident') < 0 || window.removeEventListener('hashchange', navKey.value);
-        }
-
-        // hook program creation
-        var initialize = _Platform_initialize;
-        _Platform_initialize = function (flagDecoder, args, init, update, subscriptions, stepperBuilder) {
-            var instance = initializingInstance || swappingInstance;
-            var tryFirstRender = !!swappingInstance;
-
-            var hookedInit = function (args) {
-                var initialStateTuple = init(args);
-                if (swappingInstance) {
-                    var oldModel = swappingInstance.lastState;
-                    var newModel = initialStateTuple.a;
-
-                    if (typeof elmSymbol("elm$browser$Browser$application") !== 'undefined') {
-                        var oldKeyLoc = findNavKey(oldModel);
-
-                        // attempt to find the Browser.Navigation.Key in the newly-constructed model
-                        // and bring it along with the rest of the old data.
-                        var newKeyLoc = findNavKey(newModel);
-                        var error = null;
-                        if (newKeyLoc === null) {
-                            error = "could not find Browser.Navigation.Key in the new app model";
-                        } else if (oldKeyLoc === null) {
-                            error = "could not find Browser.Navigation.Key in the old app model.";
-                        } else if (newKeyLoc.keypath.toString() !== oldKeyLoc.keypath.toString()) {
-                            error = "the location of the Browser.Navigation.Key in the model has changed.";
-                        } else {
-                            // remove event listeners attached to the old nav key
-                            removeNavKeyListeners(oldKeyLoc.value);
-
-                            // insert the new nav key into the old model in the exact same location
-                            var parentKeyPath = oldKeyLoc.keypath.slice(0, -1);
-                            var lastSegment = oldKeyLoc.keypath.slice(-1)[0];
-                            var oldParent = getAt(parentKeyPath, oldModel);
-                            oldParent[lastSegment] = newKeyLoc.value;
-                        }
-
-                        if (error !== null) {
-                            console.error("[elm-hot] Hot-swapping " + instance.path + " not possible: " + error);
-                            oldModel = newModel;
-                        }
-                    }
-
-                    // the heart of the app state hot-swap
-                    initialStateTuple.a = oldModel;
-
-                    // ignore any Cmds returned by the init during hot-swap
-                    initialStateTuple.b = elmSymbol("elm$core$Platform$Cmd$none");
-                } else {
-                    // capture the initial state for later
-                    initializingInstance.lastState = initialStateTuple.a;
-                }
-
-                return initialStateTuple
-            };
-
-            var hookedStepperBuilder = function (sendToApp, model) {
-                var result;
-                // first render may fail if shape of model changed too much
-                if (tryFirstRender) {
-                    tryFirstRender = false;
-                    try {
-                        result = stepperBuilder(sendToApp, model)
-                    } catch (e) {
-                        throw new Error('[elm-hot] Hot-swapping ' + instance.path +
-                            ' is not possible, please reload page. Error: ' + e.message)
-                    }
-                } else {
-                    result = stepperBuilder(sendToApp, model)
-                }
-
-                return function (nextModel, isSync) {
-                    if (instance) {
-                        // capture the state after every step so that later we can restore from it during a hot-swap
-                        instance.lastState = nextModel
-                    }
-                    return result(nextModel, isSync)
-                }
-            };
-
-            return initialize(flagDecoder, args, hookedInit, update, subscriptions, hookedStepperBuilder)
-        };
-
-        // hook process creation
-        var originalBinding = _Scheduler_binding;
-        _Scheduler_binding = function (originalCallback) {
-            return originalBinding(function () {
-                // start the scheduled process, which may return a cancellation function.
-                var cancel = originalCallback.apply(this, arguments);
-                if (cancel) {
-                    cancellers.push(cancel);
-                    return function () {
-                        cancellers.splice(cancellers.indexOf(cancel), 1);
-                        return cancel();
-                    };
-                }
-                return cancel;
-            });
-        };
-
-        scope['_elm_hot_loader_init'] = function (Elm) {
-            // swap instances
-            var removedInstances = [];
-            for (var id in instances) {
-                var instance = instances[id];
-                if (instance.domNode.parentNode) {
-                    swap(Elm, instance);
-                } else {
-                    removedInstances.push(id);
-                }
-            }
-
-            removedInstances.forEach(function (id) {
-                delete instance[id];
-            });
-
-            // wrap all public modules
-            var publicModules = findPublicModules(Elm);
-            publicModules.forEach(function (m) {
-                wrapPublicModule(m.path, m.module);
-            });
-        }
-    })();
-
-    scope['_elm_hot_loader_init'](scope['Elm']);
-}
-//////////////////// HMR END ////////////////////
-
-
-
-
-//////////////////// HMR BEGIN ////////////////////
-
-/*
-  MIT License http://www.opensource.org/licenses/mit-license.php
-  Original Author: Flux Xu @fluxxu
-*/
-
-/*
-    A note about the environment that this code runs in...
-
-    assumed globals:
-        - `module` (from Node.js module system and webpack)
-
-    assumed in scope after injection into the Elm IIFE:
-        - `scope` (has an 'Elm' property which contains the public Elm API)
-        - various functions defined by Elm which we have to hook such as `_Platform_initialize` and `_Scheduler_binding`
- */
-
-if (module.hot) {
-    (function () {
-        "use strict";
-
-        //polyfill for IE: https://github.com/fluxxu/elm-hot-loader/issues/16
-        if (typeof Object.assign != 'function') {
-            Object.assign = function (target) {
-                'use strict';
-                if (target == null) {
-                    throw new TypeError('Cannot convert undefined or null to object');
-                }
-
-                target = Object(target);
-                for (var index = 1; index < arguments.length; index++) {
-                    var source = arguments[index];
-                    if (source != null) {
-                        for (var key in source) {
-                            if (Object.prototype.hasOwnProperty.call(source, key)) {
-                                target[key] = source[key];
-                            }
-                        }
-                    }
-                }
-                return target;
-            };
-        }
-
-        // Elm 0.19.1 introduced a '$' prefix at the beginning of the symbols it emits,
-        // and we check for `Maybe.Just` because we expect it to be present in all Elm programs.
-        var elmVersion;
-        if (typeof elm$core$Maybe$Just !== 'undefined')
-            elmVersion = '0.19.0';
-        else if (typeof $elm$core$Maybe$Just !== 'undefined')
-            elmVersion = '0.19.1';
-        else
-            throw new Error("Could not determine Elm version");
-
-        function elmSymbol(symbol) {
-            try {
-                switch (elmVersion) {
-                    case '0.19.0':
-                        return eval(symbol);
-                    case '0.19.1':
-                        return eval('$' + symbol);
-                    default:
-                        throw new Error('Cannot resolve ' + symbol + '. Elm version unknown!')
-                }
-            } catch (e) {
-                if (e instanceof ReferenceError) {
-                    return undefined;
-                } else {
-                    throw e;
-                }
-            }
-        }
-
-        var instances = module.hot.data
-            ? module.hot.data.instances || {}
-            : {};
-        var uid = module.hot.data
-            ? module.hot.data.uid || 0
-            : 0;
-
-        if (Object.keys(instances).length === 0) {
-            log("[elm-hot] Enabled");
-        }
-
-        var cancellers = [];
-
-        // These 2 variables act as dynamically-scoped variables which are set only when the
-        // Elm module's hooked init function is called.
-        var initializingInstance = null;
-        var swappingInstance = null;
-
-        module.hot.accept();
-        module.hot.dispose(function (data) {
-            data.instances = instances;
-            data.uid = uid;
-
-            // Cleanup pending async tasks
-
-            // First, make sure that no new tasks can be started until we finish replacing the code
-            _Scheduler_binding = function () {
-                return _Scheduler_fail(new Error('[elm-hot] Inactive Elm instance.'))
-            };
-
-            // Second, kill pending tasks belonging to the old instance
-            if (cancellers.length) {
-                log('[elm-hot] Killing ' + cancellers.length + ' running processes...');
-                try {
-                    cancellers.forEach(function (cancel) {
-                        cancel();
-                    });
-                } catch (e) {
-                    console.warn('[elm-hot] Kill process error: ' + e.message);
-                }
-            }
-        });
-
-        function log(message) {
-            if (module.hot.verbose) {
-                console.log(message)
-            }
-        }
-
-        function getId() {
-            return ++uid;
-        }
-
-        function findPublicModules(parent, path) {
-            var modules = [];
-            for (var key in parent) {
-                var child = parent[key];
-                var currentPath = path ? path + '.' + key : key;
-                if ('init' in child) {
-                    modules.push({
-                        path: currentPath,
-                        module: child
-                    });
-                } else {
-                    modules = modules.concat(findPublicModules(child, currentPath));
-                }
-            }
-            return modules;
-        }
-
-        function registerInstance(domNode, flags, path, portSubscribes, portSends) {
-            var id = getId();
-
-            var instance = {
-                id: id,
-                path: path,
-                domNode: domNode,
-                flags: flags,
-                portSubscribes: portSubscribes,
-                portSends: portSends,
-                lastState: null // last Elm app state (root model)
-            };
-
-            return instances[id] = instance
-        }
-
-        function isFullscreenApp() {
-            // Returns true if the Elm app will take over the entire DOM body.
-            return typeof elmSymbol("elm$browser$Browser$application") !== 'undefined'
-                || typeof elmSymbol("elm$browser$Browser$document") !== 'undefined';
-        }
-
-        function wrapDomNode(node) {
-            // When embedding an Elm app into a specific DOM node, Elm will replace the provided
-            // DOM node with the Elm app's content. When the Elm app is compiled normally, the
-            // original DOM node is reused (its attributes and content changes, but the object
-            // in memory remains the same). But when compiled using `--debug`, Elm will completely
-            // destroy the original DOM node and instead replace it with 2 brand new nodes: one
-            // for your Elm app's content and the other for the Elm debugger UI. In this case,
-            // if you held a reference to the DOM node provided for embedding, it would be orphaned
-            // after Elm module initialization.
-            //
-            // So in order to make both cases consistent and isolate us from changes in how Elm
-            // does this, we will insert a dummy node to wrap the node for embedding and hold
-            // a reference to the dummy node.
-            //
-            // We will also put a tag on the dummy node so that the Elm developer knows who went
-            // behind their back and rudely put stuff in their DOM.
-            var dummyNode = document.createElement("div");
-            dummyNode.setAttribute("data-elm-hot", "true");
-            dummyNode.style.height = "inherit";
-            var parentNode = node.parentNode;
-            parentNode.replaceChild(dummyNode, node);
-            dummyNode.appendChild(node);
-            return dummyNode;
-        }
-
-        function wrapPublicModule(path, module) {
-            var originalInit = module.init;
-            if (originalInit) {
-                module.init = function (args) {
-                    var elm;
-                    var portSubscribes = {};
-                    var portSends = {};
-                    var domNode = null;
-                    var flags = null;
-                    if (typeof args !== 'undefined') {
-                        // normal case
-                        domNode = args['node'] && !isFullscreenApp()
-                            ? wrapDomNode(args['node'])
-                            : document.body;
-                        flags = args['flags'];
-                    } else {
-                        // rare case: Elm allows init to be called without any arguments at all
-                        domNode = document.body;
-                        flags = undefined
-                    }
-                    initializingInstance = registerInstance(domNode, flags, path, portSubscribes, portSends);
-                    elm = originalInit(args);
-                    wrapPorts(elm, portSubscribes, portSends);
-                    initializingInstance = null;
-                    return elm;
-                };
-            } else {
-                console.error("Could not find a public module to wrap at path " + path)
-            }
-        }
-
-        function swap(Elm, instance) {
-            log('[elm-hot] Hot-swapping module: ' + instance.path);
-
-            swappingInstance = instance;
-
-            // remove from the DOM everything that had been created by the old Elm app
-            var containerNode = instance.domNode;
-            while (containerNode.lastChild) {
-                containerNode.removeChild(containerNode.lastChild);
-            }
-
-            var m = getAt(instance.path.split('.'), Elm);
-            var elm;
-            if (m) {
-                // prepare to initialize the new Elm module
-                var args = {flags: instance.flags};
-                if (containerNode === document.body) {
-                    // fullscreen case: no additional args needed
-                } else {
-                    // embed case: provide a new node for Elm to use
-                    var nodeForEmbed = document.createElement("div");
-                    containerNode.appendChild(nodeForEmbed);
-                    args['node'] = nodeForEmbed;
-                }
-
-                elm = m.init(args);
-
-                Object.keys(instance.portSubscribes).forEach(function (portName) {
-                    if (portName in elm.ports && 'subscribe' in elm.ports[portName]) {
-                        var handlers = instance.portSubscribes[portName];
-                        if (!handlers.length) {
-                            return;
-                        }
-                        log('[elm-hot] Reconnect ' + handlers.length + ' handler(s) to port \''
-                            + portName + '\' (' + instance.path + ').');
-                        handlers.forEach(function (handler) {
-                            elm.ports[portName].subscribe(handler);
-                        });
-                    } else {
-                        delete instance.portSubscribes[portName];
-                        log('[elm-hot] Port was removed: ' + portName);
-                    }
-                });
-
-                Object.keys(instance.portSends).forEach(function (portName) {
-                    if (portName in elm.ports && 'send' in elm.ports[portName]) {
-                        log('[elm-hot] Replace old port send with the new send');
-                        instance.portSends[portName] = elm.ports[portName].send;
-                    } else {
-                        delete instance.portSends[portName];
-                        log('[elm-hot] Port was removed: ' + portName);
-                    }
-                });
-            } else {
-                log('[elm-hot] Module was removed: ' + instance.path);
-            }
-
-            swappingInstance = null;
-        }
-
-        function wrapPorts(elm, portSubscribes, portSends) {
-            var portNames = Object.keys(elm.ports || {});
-            //hook ports
-            if (portNames.length) {
-                // hook outgoing ports
-                portNames
-                    .filter(function (name) {
-                        return 'subscribe' in elm.ports[name];
-                    })
-                    .forEach(function (portName) {
-                        var port = elm.ports[portName];
-                        var subscribe = port.subscribe;
-                        var unsubscribe = port.unsubscribe;
-                        elm.ports[portName] = Object.assign(port, {
-                            subscribe: function (handler) {
-                                log('[elm-hot] ports.' + portName + '.subscribe called.');
-                                if (!portSubscribes[portName]) {
-                                    portSubscribes[portName] = [handler];
-                                } else {
-                                    //TODO handle subscribing to single handler more than once?
-                                    portSubscribes[portName].push(handler);
-                                }
-                                return subscribe.call(port, handler);
-                            },
-                            unsubscribe: function (handler) {
-                                log('[elm-hot] ports.' + portName + '.unsubscribe called.');
-                                var list = portSubscribes[portName];
-                                if (list && list.indexOf(handler) !== -1) {
-                                    list.splice(list.lastIndexOf(handler), 1);
-                                } else {
-                                    console.warn('[elm-hot] ports.' + portName + '.unsubscribe: handler not subscribed');
-                                }
-                                return unsubscribe.call(port, handler);
-                            }
-                        });
-                    });
-
-                // hook incoming ports
-                portNames
-                    .filter(function (name) {
-                        return 'send' in elm.ports[name];
-                    })
-                    .forEach(function (portName) {
-                        var port = elm.ports[portName];
-                        portSends[portName] = port.send;
-                        elm.ports[portName] = Object.assign(port, {
-                            send: function (val) {
-                                return portSends[portName].call(port, val);
-                            }
-                        });
-                    });
-            }
-            return portSubscribes;
-        }
-
-        /*
-        Breadth-first search for a `Browser.Navigation.Key` in the user's app model.
-        Returns the key and keypath or null if not found.
-        */
-        function findNavKey(rootModel) {
-            var queue = [];
-            if (isDebuggerModel(rootModel)) {
-                /*
-                 Extract the user's app model from the Elm Debugger's model. The Elm debugger
-                 can hold multiple references to the user's model (e.g. in its "history"). So
-                 we must be careful to only search within the "state" part of the Debugger.
-                */
-                queue.push({value: rootModel['state'], keypath: ['state']});
-            } else {
-                queue.push({value: rootModel, keypath: []});
-            }
-
-            while (queue.length !== 0) {
-                var item = queue.shift();
-
-                if (typeof item.value === "undefined" || item.value === null) {
-                    continue;
-                }
-
-                // The nav key is identified by a runtime tag added by the elm-hot injector.
-                if (item.value.hasOwnProperty("elm-hot-nav-key")) {
-                    // found it!
-                    return item;
-                }
-
-                if (typeof item.value !== "object") {
-                    continue;
-                }
-
-                for (var propName in item.value) {
-                    if (!item.value.hasOwnProperty(propName)) continue;
-                    var newKeypath = item.keypath.slice();
-                    newKeypath.push(propName);
-                    queue.push({value: item.value[propName], keypath: newKeypath})
-                }
-            }
-
-            return null;
-        }
-
-
-        function isDebuggerModel(model) {
-            // Up until elm/browser 1.0.2, the Elm debugger could be identified by a
-            // property named "expando". But in version 1.0.2 that was renamed to "expandoModel"
-            return model
-                && (model.hasOwnProperty("expando") || model.hasOwnProperty("expandoModel"))
-                && model.hasOwnProperty("state");
-        }
-
-        function getAt(keyPath, obj) {
-            return keyPath.reduce(function (xs, x) {
-                return (xs && xs[x]) ? xs[x] : null
-            }, obj)
-        }
-
-        function removeNavKeyListeners(navKey) {
-            window.removeEventListener('popstate', navKey.value);
-            window.navigator.userAgent.indexOf('Trident') < 0 || window.removeEventListener('hashchange', navKey.value);
-        }
-
-        // hook program creation
-        var initialize = _Platform_initialize;
-        _Platform_initialize = function (flagDecoder, args, init, update, subscriptions, stepperBuilder) {
-            var instance = initializingInstance || swappingInstance;
-            var tryFirstRender = !!swappingInstance;
-
-            var hookedInit = function (args) {
-                var initialStateTuple = init(args);
-                if (swappingInstance) {
-                    var oldModel = swappingInstance.lastState;
-                    var newModel = initialStateTuple.a;
-
-                    if (typeof elmSymbol("elm$browser$Browser$application") !== 'undefined') {
-                        var oldKeyLoc = findNavKey(oldModel);
-
-                        // attempt to find the Browser.Navigation.Key in the newly-constructed model
-                        // and bring it along with the rest of the old data.
-                        var newKeyLoc = findNavKey(newModel);
-                        var error = null;
-                        if (newKeyLoc === null) {
-                            error = "could not find Browser.Navigation.Key in the new app model";
-                        } else if (oldKeyLoc === null) {
-                            error = "could not find Browser.Navigation.Key in the old app model.";
-                        } else if (newKeyLoc.keypath.toString() !== oldKeyLoc.keypath.toString()) {
-                            error = "the location of the Browser.Navigation.Key in the model has changed.";
-                        } else {
-                            // remove event listeners attached to the old nav key
-                            removeNavKeyListeners(oldKeyLoc.value);
-
-                            // insert the new nav key into the old model in the exact same location
-                            var parentKeyPath = oldKeyLoc.keypath.slice(0, -1);
-                            var lastSegment = oldKeyLoc.keypath.slice(-1)[0];
-                            var oldParent = getAt(parentKeyPath, oldModel);
-                            oldParent[lastSegment] = newKeyLoc.value;
-                        }
-
-                        if (error !== null) {
-                            console.error("[elm-hot] Hot-swapping " + instance.path + " not possible: " + error);
-                            oldModel = newModel;
-                        }
-                    }
-
-                    // the heart of the app state hot-swap
-                    initialStateTuple.a = oldModel;
-
-                    // ignore any Cmds returned by the init during hot-swap
-                    initialStateTuple.b = elmSymbol("elm$core$Platform$Cmd$none");
-                } else {
-                    // capture the initial state for later
-                    initializingInstance.lastState = initialStateTuple.a;
-                }
-
-                return initialStateTuple
-            };
-
-            var hookedStepperBuilder = function (sendToApp, model) {
-                var result;
-                // first render may fail if shape of model changed too much
-                if (tryFirstRender) {
-                    tryFirstRender = false;
-                    try {
-                        result = stepperBuilder(sendToApp, model)
-                    } catch (e) {
-                        throw new Error('[elm-hot] Hot-swapping ' + instance.path +
-                            ' is not possible, please reload page. Error: ' + e.message)
-                    }
-                } else {
-                    result = stepperBuilder(sendToApp, model)
-                }
-
-                return function (nextModel, isSync) {
-                    if (instance) {
-                        // capture the state after every step so that later we can restore from it during a hot-swap
-                        instance.lastState = nextModel
-                    }
-                    return result(nextModel, isSync)
-                }
-            };
-
-            return initialize(flagDecoder, args, hookedInit, update, subscriptions, hookedStepperBuilder)
-        };
-
-        // hook process creation
-        var originalBinding = _Scheduler_binding;
-        _Scheduler_binding = function (originalCallback) {
-            return originalBinding(function () {
-                // start the scheduled process, which may return a cancellation function.
-                var cancel = originalCallback.apply(this, arguments);
-                if (cancel) {
-                    cancellers.push(cancel);
-                    return function () {
-                        cancellers.splice(cancellers.indexOf(cancel), 1);
-                        return cancel();
-                    };
-                }
-                return cancel;
-            });
-        };
-
-        scope['_elm_hot_loader_init'] = function (Elm) {
-            // swap instances
-            var removedInstances = [];
-            for (var id in instances) {
-                var instance = instances[id];
-                if (instance.domNode.parentNode) {
-                    swap(Elm, instance);
-                } else {
-                    removedInstances.push(id);
-                }
-            }
-
-            removedInstances.forEach(function (id) {
-                delete instance[id];
-            });
-
-            // wrap all public modules
-            var publicModules = findPublicModules(Elm);
-            publicModules.forEach(function (m) {
-                wrapPublicModule(m.path, m.module);
-            });
-        }
-    })();
-
-    scope['_elm_hot_loader_init'](scope['Elm']);
-}
-//////////////////// HMR END ////////////////////
-
-
-
-
-//////////////////// HMR BEGIN ////////////////////
-
-/*
-  MIT License http://www.opensource.org/licenses/mit-license.php
-  Original Author: Flux Xu @fluxxu
-*/
-
-/*
-    A note about the environment that this code runs in...
-
-    assumed globals:
-        - `module` (from Node.js module system and webpack)
-
-    assumed in scope after injection into the Elm IIFE:
-        - `scope` (has an 'Elm' property which contains the public Elm API)
-        - various functions defined by Elm which we have to hook such as `_Platform_initialize` and `_Scheduler_binding`
- */
-
-if (module.hot) {
-    (function () {
-        "use strict";
-
-        //polyfill for IE: https://github.com/fluxxu/elm-hot-loader/issues/16
-        if (typeof Object.assign != 'function') {
-            Object.assign = function (target) {
-                'use strict';
-                if (target == null) {
-                    throw new TypeError('Cannot convert undefined or null to object');
-                }
-
-                target = Object(target);
-                for (var index = 1; index < arguments.length; index++) {
-                    var source = arguments[index];
-                    if (source != null) {
-                        for (var key in source) {
-                            if (Object.prototype.hasOwnProperty.call(source, key)) {
-                                target[key] = source[key];
-                            }
-                        }
-                    }
-                }
-                return target;
-            };
-        }
-
-        // Elm 0.19.1 introduced a '$' prefix at the beginning of the symbols it emits,
-        // and we check for `Maybe.Just` because we expect it to be present in all Elm programs.
-        var elmVersion;
-        if (typeof elm$core$Maybe$Just !== 'undefined')
-            elmVersion = '0.19.0';
-        else if (typeof $elm$core$Maybe$Just !== 'undefined')
-            elmVersion = '0.19.1';
-        else
-            throw new Error("Could not determine Elm version");
-
-        function elmSymbol(symbol) {
-            try {
-                switch (elmVersion) {
-                    case '0.19.0':
-                        return eval(symbol);
-                    case '0.19.1':
-                        return eval('$' + symbol);
-                    default:
-                        throw new Error('Cannot resolve ' + symbol + '. Elm version unknown!')
-                }
-            } catch (e) {
-                if (e instanceof ReferenceError) {
-                    return undefined;
-                } else {
-                    throw e;
-                }
-            }
-        }
-
-        var instances = module.hot.data
-            ? module.hot.data.instances || {}
-            : {};
-        var uid = module.hot.data
-            ? module.hot.data.uid || 0
-            : 0;
-
-        if (Object.keys(instances).length === 0) {
-            log("[elm-hot] Enabled");
-        }
-
-        var cancellers = [];
-
-        // These 2 variables act as dynamically-scoped variables which are set only when the
-        // Elm module's hooked init function is called.
-        var initializingInstance = null;
-        var swappingInstance = null;
-
-        module.hot.accept();
-        module.hot.dispose(function (data) {
-            data.instances = instances;
-            data.uid = uid;
-
-            // Cleanup pending async tasks
-
-            // First, make sure that no new tasks can be started until we finish replacing the code
-            _Scheduler_binding = function () {
-                return _Scheduler_fail(new Error('[elm-hot] Inactive Elm instance.'))
-            };
-
-            // Second, kill pending tasks belonging to the old instance
-            if (cancellers.length) {
-                log('[elm-hot] Killing ' + cancellers.length + ' running processes...');
-                try {
-                    cancellers.forEach(function (cancel) {
-                        cancel();
-                    });
-                } catch (e) {
-                    console.warn('[elm-hot] Kill process error: ' + e.message);
-                }
-            }
-        });
-
-        function log(message) {
-            if (module.hot.verbose) {
-                console.log(message)
-            }
-        }
-
-        function getId() {
-            return ++uid;
-        }
-
-        function findPublicModules(parent, path) {
-            var modules = [];
-            for (var key in parent) {
-                var child = parent[key];
-                var currentPath = path ? path + '.' + key : key;
-                if ('init' in child) {
-                    modules.push({
-                        path: currentPath,
-                        module: child
-                    });
-                } else {
-                    modules = modules.concat(findPublicModules(child, currentPath));
-                }
-            }
-            return modules;
-        }
-
-        function registerInstance(domNode, flags, path, portSubscribes, portSends) {
-            var id = getId();
-
-            var instance = {
-                id: id,
-                path: path,
-                domNode: domNode,
-                flags: flags,
-                portSubscribes: portSubscribes,
-                portSends: portSends,
-                lastState: null // last Elm app state (root model)
-            };
-
-            return instances[id] = instance
-        }
-
-        function isFullscreenApp() {
-            // Returns true if the Elm app will take over the entire DOM body.
-            return typeof elmSymbol("elm$browser$Browser$application") !== 'undefined'
-                || typeof elmSymbol("elm$browser$Browser$document") !== 'undefined';
-        }
-
-        function wrapDomNode(node) {
-            // When embedding an Elm app into a specific DOM node, Elm will replace the provided
-            // DOM node with the Elm app's content. When the Elm app is compiled normally, the
-            // original DOM node is reused (its attributes and content changes, but the object
-            // in memory remains the same). But when compiled using `--debug`, Elm will completely
-            // destroy the original DOM node and instead replace it with 2 brand new nodes: one
-            // for your Elm app's content and the other for the Elm debugger UI. In this case,
-            // if you held a reference to the DOM node provided for embedding, it would be orphaned
-            // after Elm module initialization.
-            //
-            // So in order to make both cases consistent and isolate us from changes in how Elm
-            // does this, we will insert a dummy node to wrap the node for embedding and hold
-            // a reference to the dummy node.
-            //
-            // We will also put a tag on the dummy node so that the Elm developer knows who went
-            // behind their back and rudely put stuff in their DOM.
-            var dummyNode = document.createElement("div");
-            dummyNode.setAttribute("data-elm-hot", "true");
-            dummyNode.style.height = "inherit";
-            var parentNode = node.parentNode;
-            parentNode.replaceChild(dummyNode, node);
-            dummyNode.appendChild(node);
-            return dummyNode;
-        }
-
-        function wrapPublicModule(path, module) {
-            var originalInit = module.init;
-            if (originalInit) {
-                module.init = function (args) {
-                    var elm;
-                    var portSubscribes = {};
-                    var portSends = {};
-                    var domNode = null;
-                    var flags = null;
-                    if (typeof args !== 'undefined') {
-                        // normal case
-                        domNode = args['node'] && !isFullscreenApp()
-                            ? wrapDomNode(args['node'])
-                            : document.body;
-                        flags = args['flags'];
-                    } else {
-                        // rare case: Elm allows init to be called without any arguments at all
-                        domNode = document.body;
-                        flags = undefined
-                    }
-                    initializingInstance = registerInstance(domNode, flags, path, portSubscribes, portSends);
-                    elm = originalInit(args);
-                    wrapPorts(elm, portSubscribes, portSends);
-                    initializingInstance = null;
-                    return elm;
-                };
-            } else {
-                console.error("Could not find a public module to wrap at path " + path)
-            }
-        }
-
-        function swap(Elm, instance) {
-            log('[elm-hot] Hot-swapping module: ' + instance.path);
-
-            swappingInstance = instance;
-
-            // remove from the DOM everything that had been created by the old Elm app
-            var containerNode = instance.domNode;
-            while (containerNode.lastChild) {
-                containerNode.removeChild(containerNode.lastChild);
-            }
-
-            var m = getAt(instance.path.split('.'), Elm);
-            var elm;
-            if (m) {
-                // prepare to initialize the new Elm module
-                var args = {flags: instance.flags};
-                if (containerNode === document.body) {
-                    // fullscreen case: no additional args needed
-                } else {
-                    // embed case: provide a new node for Elm to use
-                    var nodeForEmbed = document.createElement("div");
-                    containerNode.appendChild(nodeForEmbed);
-                    args['node'] = nodeForEmbed;
-                }
-
-                elm = m.init(args);
-
-                Object.keys(instance.portSubscribes).forEach(function (portName) {
-                    if (portName in elm.ports && 'subscribe' in elm.ports[portName]) {
-                        var handlers = instance.portSubscribes[portName];
-                        if (!handlers.length) {
-                            return;
-                        }
-                        log('[elm-hot] Reconnect ' + handlers.length + ' handler(s) to port \''
-                            + portName + '\' (' + instance.path + ').');
-                        handlers.forEach(function (handler) {
-                            elm.ports[portName].subscribe(handler);
-                        });
-                    } else {
-                        delete instance.portSubscribes[portName];
-                        log('[elm-hot] Port was removed: ' + portName);
-                    }
-                });
-
-                Object.keys(instance.portSends).forEach(function (portName) {
-                    if (portName in elm.ports && 'send' in elm.ports[portName]) {
-                        log('[elm-hot] Replace old port send with the new send');
-                        instance.portSends[portName] = elm.ports[portName].send;
-                    } else {
-                        delete instance.portSends[portName];
-                        log('[elm-hot] Port was removed: ' + portName);
-                    }
-                });
-            } else {
-                log('[elm-hot] Module was removed: ' + instance.path);
-            }
-
-            swappingInstance = null;
-        }
-
-        function wrapPorts(elm, portSubscribes, portSends) {
-            var portNames = Object.keys(elm.ports || {});
-            //hook ports
-            if (portNames.length) {
-                // hook outgoing ports
-                portNames
-                    .filter(function (name) {
-                        return 'subscribe' in elm.ports[name];
-                    })
-                    .forEach(function (portName) {
-                        var port = elm.ports[portName];
-                        var subscribe = port.subscribe;
-                        var unsubscribe = port.unsubscribe;
-                        elm.ports[portName] = Object.assign(port, {
-                            subscribe: function (handler) {
-                                log('[elm-hot] ports.' + portName + '.subscribe called.');
-                                if (!portSubscribes[portName]) {
-                                    portSubscribes[portName] = [handler];
-                                } else {
-                                    //TODO handle subscribing to single handler more than once?
-                                    portSubscribes[portName].push(handler);
-                                }
-                                return subscribe.call(port, handler);
-                            },
-                            unsubscribe: function (handler) {
-                                log('[elm-hot] ports.' + portName + '.unsubscribe called.');
-                                var list = portSubscribes[portName];
-                                if (list && list.indexOf(handler) !== -1) {
-                                    list.splice(list.lastIndexOf(handler), 1);
-                                } else {
-                                    console.warn('[elm-hot] ports.' + portName + '.unsubscribe: handler not subscribed');
-                                }
-                                return unsubscribe.call(port, handler);
-                            }
-                        });
-                    });
-
-                // hook incoming ports
-                portNames
-                    .filter(function (name) {
-                        return 'send' in elm.ports[name];
-                    })
-                    .forEach(function (portName) {
-                        var port = elm.ports[portName];
-                        portSends[portName] = port.send;
-                        elm.ports[portName] = Object.assign(port, {
-                            send: function (val) {
-                                return portSends[portName].call(port, val);
-                            }
-                        });
-                    });
-            }
-            return portSubscribes;
-        }
-
-        /*
-        Breadth-first search for a `Browser.Navigation.Key` in the user's app model.
-        Returns the key and keypath or null if not found.
-        */
-        function findNavKey(rootModel) {
-            var queue = [];
-            if (isDebuggerModel(rootModel)) {
-                /*
-                 Extract the user's app model from the Elm Debugger's model. The Elm debugger
-                 can hold multiple references to the user's model (e.g. in its "history"). So
-                 we must be careful to only search within the "state" part of the Debugger.
-                */
-                queue.push({value: rootModel['state'], keypath: ['state']});
-            } else {
-                queue.push({value: rootModel, keypath: []});
-            }
-
-            while (queue.length !== 0) {
-                var item = queue.shift();
-
-                if (typeof item.value === "undefined" || item.value === null) {
-                    continue;
-                }
-
-                // The nav key is identified by a runtime tag added by the elm-hot injector.
-                if (item.value.hasOwnProperty("elm-hot-nav-key")) {
-                    // found it!
-                    return item;
-                }
-
-                if (typeof item.value !== "object") {
-                    continue;
-                }
-
-                for (var propName in item.value) {
-                    if (!item.value.hasOwnProperty(propName)) continue;
-                    var newKeypath = item.keypath.slice();
-                    newKeypath.push(propName);
-                    queue.push({value: item.value[propName], keypath: newKeypath})
-                }
-            }
-
-            return null;
-        }
-
-
-        function isDebuggerModel(model) {
-            // Up until elm/browser 1.0.2, the Elm debugger could be identified by a
-            // property named "expando". But in version 1.0.2 that was renamed to "expandoModel"
-            return model
-                && (model.hasOwnProperty("expando") || model.hasOwnProperty("expandoModel"))
-                && model.hasOwnProperty("state");
-        }
-
-        function getAt(keyPath, obj) {
-            return keyPath.reduce(function (xs, x) {
-                return (xs && xs[x]) ? xs[x] : null
-            }, obj)
-        }
-
-        function removeNavKeyListeners(navKey) {
-            window.removeEventListener('popstate', navKey.value);
-            window.navigator.userAgent.indexOf('Trident') < 0 || window.removeEventListener('hashchange', navKey.value);
-        }
-
-        // hook program creation
-        var initialize = _Platform_initialize;
-        _Platform_initialize = function (flagDecoder, args, init, update, subscriptions, stepperBuilder) {
-            var instance = initializingInstance || swappingInstance;
-            var tryFirstRender = !!swappingInstance;
-
-            var hookedInit = function (args) {
-                var initialStateTuple = init(args);
-                if (swappingInstance) {
-                    var oldModel = swappingInstance.lastState;
-                    var newModel = initialStateTuple.a;
-
-                    if (typeof elmSymbol("elm$browser$Browser$application") !== 'undefined') {
-                        var oldKeyLoc = findNavKey(oldModel);
-
-                        // attempt to find the Browser.Navigation.Key in the newly-constructed model
-                        // and bring it along with the rest of the old data.
-                        var newKeyLoc = findNavKey(newModel);
-                        var error = null;
-                        if (newKeyLoc === null) {
-                            error = "could not find Browser.Navigation.Key in the new app model";
-                        } else if (oldKeyLoc === null) {
-                            error = "could not find Browser.Navigation.Key in the old app model.";
-                        } else if (newKeyLoc.keypath.toString() !== oldKeyLoc.keypath.toString()) {
-                            error = "the location of the Browser.Navigation.Key in the model has changed.";
-                        } else {
-                            // remove event listeners attached to the old nav key
-                            removeNavKeyListeners(oldKeyLoc.value);
-
-                            // insert the new nav key into the old model in the exact same location
-                            var parentKeyPath = oldKeyLoc.keypath.slice(0, -1);
-                            var lastSegment = oldKeyLoc.keypath.slice(-1)[0];
-                            var oldParent = getAt(parentKeyPath, oldModel);
-                            oldParent[lastSegment] = newKeyLoc.value;
-                        }
-
-                        if (error !== null) {
-                            console.error("[elm-hot] Hot-swapping " + instance.path + " not possible: " + error);
-                            oldModel = newModel;
-                        }
-                    }
-
-                    // the heart of the app state hot-swap
-                    initialStateTuple.a = oldModel;
-
-                    // ignore any Cmds returned by the init during hot-swap
-                    initialStateTuple.b = elmSymbol("elm$core$Platform$Cmd$none");
-                } else {
-                    // capture the initial state for later
-                    initializingInstance.lastState = initialStateTuple.a;
-                }
-
-                return initialStateTuple
-            };
-
-            var hookedStepperBuilder = function (sendToApp, model) {
-                var result;
-                // first render may fail if shape of model changed too much
-                if (tryFirstRender) {
-                    tryFirstRender = false;
-                    try {
-                        result = stepperBuilder(sendToApp, model)
-                    } catch (e) {
-                        throw new Error('[elm-hot] Hot-swapping ' + instance.path +
-                            ' is not possible, please reload page. Error: ' + e.message)
-                    }
-                } else {
-                    result = stepperBuilder(sendToApp, model)
-                }
-
-                return function (nextModel, isSync) {
-                    if (instance) {
-                        // capture the state after every step so that later we can restore from it during a hot-swap
-                        instance.lastState = nextModel
-                    }
-                    return result(nextModel, isSync)
-                }
-            };
-
-            return initialize(flagDecoder, args, hookedInit, update, subscriptions, hookedStepperBuilder)
-        };
-
-        // hook process creation
-        var originalBinding = _Scheduler_binding;
-        _Scheduler_binding = function (originalCallback) {
-            return originalBinding(function () {
-                // start the scheduled process, which may return a cancellation function.
-                var cancel = originalCallback.apply(this, arguments);
-                if (cancel) {
-                    cancellers.push(cancel);
-                    return function () {
-                        cancellers.splice(cancellers.indexOf(cancel), 1);
-                        return cancel();
-                    };
-                }
-                return cancel;
-            });
-        };
-
-        scope['_elm_hot_loader_init'] = function (Elm) {
-            // swap instances
-            var removedInstances = [];
-            for (var id in instances) {
-                var instance = instances[id];
-                if (instance.domNode.parentNode) {
-                    swap(Elm, instance);
-                } else {
-                    removedInstances.push(id);
-                }
-            }
-
-            removedInstances.forEach(function (id) {
-                delete instance[id];
-            });
-
-            // wrap all public modules
-            var publicModules = findPublicModules(Elm);
-            publicModules.forEach(function (m) {
-                wrapPublicModule(m.path, m.module);
-            });
-        }
-    })();
-
-    scope['_elm_hot_loader_init'](scope['Elm']);
-}
-//////////////////// HMR END ////////////////////
-
-
-
-
-//////////////////// HMR BEGIN ////////////////////
-
-/*
-  MIT License http://www.opensource.org/licenses/mit-license.php
-  Original Author: Flux Xu @fluxxu
-*/
-
-/*
-    A note about the environment that this code runs in...
-
-    assumed globals:
-        - `module` (from Node.js module system and webpack)
-
-    assumed in scope after injection into the Elm IIFE:
-        - `scope` (has an 'Elm' property which contains the public Elm API)
-        - various functions defined by Elm which we have to hook such as `_Platform_initialize` and `_Scheduler_binding`
- */
-
-if (module.hot) {
-    (function () {
-        "use strict";
-
-        //polyfill for IE: https://github.com/fluxxu/elm-hot-loader/issues/16
-        if (typeof Object.assign != 'function') {
-            Object.assign = function (target) {
-                'use strict';
-                if (target == null) {
-                    throw new TypeError('Cannot convert undefined or null to object');
-                }
-
-                target = Object(target);
-                for (var index = 1; index < arguments.length; index++) {
-                    var source = arguments[index];
-                    if (source != null) {
-                        for (var key in source) {
-                            if (Object.prototype.hasOwnProperty.call(source, key)) {
-                                target[key] = source[key];
-                            }
-                        }
-                    }
-                }
-                return target;
-            };
-        }
-
-        // Elm 0.19.1 introduced a '$' prefix at the beginning of the symbols it emits,
-        // and we check for `Maybe.Just` because we expect it to be present in all Elm programs.
-        var elmVersion;
-        if (typeof elm$core$Maybe$Just !== 'undefined')
-            elmVersion = '0.19.0';
-        else if (typeof $elm$core$Maybe$Just !== 'undefined')
-            elmVersion = '0.19.1';
-        else
-            throw new Error("Could not determine Elm version");
-
-        function elmSymbol(symbol) {
-            try {
-                switch (elmVersion) {
-                    case '0.19.0':
-                        return eval(symbol);
-                    case '0.19.1':
-                        return eval('$' + symbol);
-                    default:
-                        throw new Error('Cannot resolve ' + symbol + '. Elm version unknown!')
-                }
-            } catch (e) {
-                if (e instanceof ReferenceError) {
-                    return undefined;
-                } else {
-                    throw e;
-                }
-            }
-        }
-
-        var instances = module.hot.data
-            ? module.hot.data.instances || {}
-            : {};
-        var uid = module.hot.data
-            ? module.hot.data.uid || 0
-            : 0;
-
-        if (Object.keys(instances).length === 0) {
-            log("[elm-hot] Enabled");
-        }
-
-        var cancellers = [];
-
-        // These 2 variables act as dynamically-scoped variables which are set only when the
-        // Elm module's hooked init function is called.
-        var initializingInstance = null;
-        var swappingInstance = null;
-
-        module.hot.accept();
-        module.hot.dispose(function (data) {
-            data.instances = instances;
-            data.uid = uid;
-
-            // Cleanup pending async tasks
-
-            // First, make sure that no new tasks can be started until we finish replacing the code
-            _Scheduler_binding = function () {
-                return _Scheduler_fail(new Error('[elm-hot] Inactive Elm instance.'))
-            };
-
-            // Second, kill pending tasks belonging to the old instance
-            if (cancellers.length) {
-                log('[elm-hot] Killing ' + cancellers.length + ' running processes...');
-                try {
-                    cancellers.forEach(function (cancel) {
-                        cancel();
-                    });
-                } catch (e) {
-                    console.warn('[elm-hot] Kill process error: ' + e.message);
-                }
-            }
-        });
-
-        function log(message) {
-            if (module.hot.verbose) {
-                console.log(message)
-            }
-        }
-
-        function getId() {
-            return ++uid;
-        }
-
-        function findPublicModules(parent, path) {
-            var modules = [];
-            for (var key in parent) {
-                var child = parent[key];
-                var currentPath = path ? path + '.' + key : key;
-                if ('init' in child) {
-                    modules.push({
-                        path: currentPath,
-                        module: child
-                    });
-                } else {
-                    modules = modules.concat(findPublicModules(child, currentPath));
-                }
-            }
-            return modules;
-        }
-
-        function registerInstance(domNode, flags, path, portSubscribes, portSends) {
-            var id = getId();
-
-            var instance = {
-                id: id,
-                path: path,
-                domNode: domNode,
-                flags: flags,
-                portSubscribes: portSubscribes,
-                portSends: portSends,
-                lastState: null // last Elm app state (root model)
-            };
-
-            return instances[id] = instance
-        }
-
-        function isFullscreenApp() {
-            // Returns true if the Elm app will take over the entire DOM body.
-            return typeof elmSymbol("elm$browser$Browser$application") !== 'undefined'
-                || typeof elmSymbol("elm$browser$Browser$document") !== 'undefined';
-        }
-
-        function wrapDomNode(node) {
-            // When embedding an Elm app into a specific DOM node, Elm will replace the provided
-            // DOM node with the Elm app's content. When the Elm app is compiled normally, the
-            // original DOM node is reused (its attributes and content changes, but the object
-            // in memory remains the same). But when compiled using `--debug`, Elm will completely
-            // destroy the original DOM node and instead replace it with 2 brand new nodes: one
-            // for your Elm app's content and the other for the Elm debugger UI. In this case,
-            // if you held a reference to the DOM node provided for embedding, it would be orphaned
-            // after Elm module initialization.
-            //
-            // So in order to make both cases consistent and isolate us from changes in how Elm
-            // does this, we will insert a dummy node to wrap the node for embedding and hold
-            // a reference to the dummy node.
-            //
-            // We will also put a tag on the dummy node so that the Elm developer knows who went
-            // behind their back and rudely put stuff in their DOM.
-            var dummyNode = document.createElement("div");
-            dummyNode.setAttribute("data-elm-hot", "true");
-            dummyNode.style.height = "inherit";
-            var parentNode = node.parentNode;
-            parentNode.replaceChild(dummyNode, node);
-            dummyNode.appendChild(node);
-            return dummyNode;
-        }
-
-        function wrapPublicModule(path, module) {
-            var originalInit = module.init;
-            if (originalInit) {
-                module.init = function (args) {
-                    var elm;
-                    var portSubscribes = {};
-                    var portSends = {};
-                    var domNode = null;
-                    var flags = null;
-                    if (typeof args !== 'undefined') {
-                        // normal case
-                        domNode = args['node'] && !isFullscreenApp()
-                            ? wrapDomNode(args['node'])
-                            : document.body;
-                        flags = args['flags'];
-                    } else {
-                        // rare case: Elm allows init to be called without any arguments at all
-                        domNode = document.body;
-                        flags = undefined
-                    }
-                    initializingInstance = registerInstance(domNode, flags, path, portSubscribes, portSends);
-                    elm = originalInit(args);
-                    wrapPorts(elm, portSubscribes, portSends);
-                    initializingInstance = null;
-                    return elm;
-                };
-            } else {
-                console.error("Could not find a public module to wrap at path " + path)
-            }
-        }
-
-        function swap(Elm, instance) {
-            log('[elm-hot] Hot-swapping module: ' + instance.path);
-
-            swappingInstance = instance;
-
-            // remove from the DOM everything that had been created by the old Elm app
-            var containerNode = instance.domNode;
-            while (containerNode.lastChild) {
-                containerNode.removeChild(containerNode.lastChild);
-            }
-
-            var m = getAt(instance.path.split('.'), Elm);
-            var elm;
-            if (m) {
-                // prepare to initialize the new Elm module
-                var args = {flags: instance.flags};
-                if (containerNode === document.body) {
-                    // fullscreen case: no additional args needed
-                } else {
-                    // embed case: provide a new node for Elm to use
-                    var nodeForEmbed = document.createElement("div");
-                    containerNode.appendChild(nodeForEmbed);
-                    args['node'] = nodeForEmbed;
-                }
-
-                elm = m.init(args);
-
-                Object.keys(instance.portSubscribes).forEach(function (portName) {
-                    if (portName in elm.ports && 'subscribe' in elm.ports[portName]) {
-                        var handlers = instance.portSubscribes[portName];
-                        if (!handlers.length) {
-                            return;
-                        }
-                        log('[elm-hot] Reconnect ' + handlers.length + ' handler(s) to port \''
-                            + portName + '\' (' + instance.path + ').');
-                        handlers.forEach(function (handler) {
-                            elm.ports[portName].subscribe(handler);
-                        });
-                    } else {
-                        delete instance.portSubscribes[portName];
-                        log('[elm-hot] Port was removed: ' + portName);
-                    }
-                });
-
-                Object.keys(instance.portSends).forEach(function (portName) {
-                    if (portName in elm.ports && 'send' in elm.ports[portName]) {
-                        log('[elm-hot] Replace old port send with the new send');
-                        instance.portSends[portName] = elm.ports[portName].send;
-                    } else {
-                        delete instance.portSends[portName];
-                        log('[elm-hot] Port was removed: ' + portName);
-                    }
-                });
-            } else {
-                log('[elm-hot] Module was removed: ' + instance.path);
-            }
-
-            swappingInstance = null;
-        }
-
-        function wrapPorts(elm, portSubscribes, portSends) {
-            var portNames = Object.keys(elm.ports || {});
-            //hook ports
-            if (portNames.length) {
-                // hook outgoing ports
-                portNames
-                    .filter(function (name) {
-                        return 'subscribe' in elm.ports[name];
-                    })
-                    .forEach(function (portName) {
-                        var port = elm.ports[portName];
-                        var subscribe = port.subscribe;
-                        var unsubscribe = port.unsubscribe;
-                        elm.ports[portName] = Object.assign(port, {
-                            subscribe: function (handler) {
-                                log('[elm-hot] ports.' + portName + '.subscribe called.');
-                                if (!portSubscribes[portName]) {
-                                    portSubscribes[portName] = [handler];
-                                } else {
-                                    //TODO handle subscribing to single handler more than once?
-                                    portSubscribes[portName].push(handler);
-                                }
-                                return subscribe.call(port, handler);
-                            },
-                            unsubscribe: function (handler) {
-                                log('[elm-hot] ports.' + portName + '.unsubscribe called.');
-                                var list = portSubscribes[portName];
-                                if (list && list.indexOf(handler) !== -1) {
-                                    list.splice(list.lastIndexOf(handler), 1);
-                                } else {
-                                    console.warn('[elm-hot] ports.' + portName + '.unsubscribe: handler not subscribed');
-                                }
-                                return unsubscribe.call(port, handler);
-                            }
-                        });
-                    });
-
-                // hook incoming ports
-                portNames
-                    .filter(function (name) {
-                        return 'send' in elm.ports[name];
-                    })
-                    .forEach(function (portName) {
-                        var port = elm.ports[portName];
-                        portSends[portName] = port.send;
-                        elm.ports[portName] = Object.assign(port, {
-                            send: function (val) {
-                                return portSends[portName].call(port, val);
-                            }
-                        });
-                    });
-            }
-            return portSubscribes;
-        }
-
-        /*
-        Breadth-first search for a `Browser.Navigation.Key` in the user's app model.
-        Returns the key and keypath or null if not found.
-        */
-        function findNavKey(rootModel) {
-            var queue = [];
-            if (isDebuggerModel(rootModel)) {
-                /*
-                 Extract the user's app model from the Elm Debugger's model. The Elm debugger
-                 can hold multiple references to the user's model (e.g. in its "history"). So
-                 we must be careful to only search within the "state" part of the Debugger.
-                */
-                queue.push({value: rootModel['state'], keypath: ['state']});
-            } else {
-                queue.push({value: rootModel, keypath: []});
-            }
-
-            while (queue.length !== 0) {
-                var item = queue.shift();
-
-                if (typeof item.value === "undefined" || item.value === null) {
-                    continue;
-                }
-
-                // The nav key is identified by a runtime tag added by the elm-hot injector.
-                if (item.value.hasOwnProperty("elm-hot-nav-key")) {
-                    // found it!
-                    return item;
-                }
-
-                if (typeof item.value !== "object") {
-                    continue;
-                }
-
-                for (var propName in item.value) {
-                    if (!item.value.hasOwnProperty(propName)) continue;
-                    var newKeypath = item.keypath.slice();
-                    newKeypath.push(propName);
-                    queue.push({value: item.value[propName], keypath: newKeypath})
-                }
-            }
-
-            return null;
-        }
-
-
-        function isDebuggerModel(model) {
-            // Up until elm/browser 1.0.2, the Elm debugger could be identified by a
-            // property named "expando". But in version 1.0.2 that was renamed to "expandoModel"
-            return model
-                && (model.hasOwnProperty("expando") || model.hasOwnProperty("expandoModel"))
-                && model.hasOwnProperty("state");
-        }
-
-        function getAt(keyPath, obj) {
-            return keyPath.reduce(function (xs, x) {
-                return (xs && xs[x]) ? xs[x] : null
-            }, obj)
-        }
-
-        function removeNavKeyListeners(navKey) {
-            window.removeEventListener('popstate', navKey.value);
-            window.navigator.userAgent.indexOf('Trident') < 0 || window.removeEventListener('hashchange', navKey.value);
-        }
-
-        // hook program creation
-        var initialize = _Platform_initialize;
-        _Platform_initialize = function (flagDecoder, args, init, update, subscriptions, stepperBuilder) {
-            var instance = initializingInstance || swappingInstance;
-            var tryFirstRender = !!swappingInstance;
-
-            var hookedInit = function (args) {
-                var initialStateTuple = init(args);
-                if (swappingInstance) {
-                    var oldModel = swappingInstance.lastState;
-                    var newModel = initialStateTuple.a;
-
-                    if (typeof elmSymbol("elm$browser$Browser$application") !== 'undefined') {
-                        var oldKeyLoc = findNavKey(oldModel);
-
-                        // attempt to find the Browser.Navigation.Key in the newly-constructed model
-                        // and bring it along with the rest of the old data.
-                        var newKeyLoc = findNavKey(newModel);
-                        var error = null;
-                        if (newKeyLoc === null) {
-                            error = "could not find Browser.Navigation.Key in the new app model";
-                        } else if (oldKeyLoc === null) {
-                            error = "could not find Browser.Navigation.Key in the old app model.";
-                        } else if (newKeyLoc.keypath.toString() !== oldKeyLoc.keypath.toString()) {
-                            error = "the location of the Browser.Navigation.Key in the model has changed.";
-                        } else {
-                            // remove event listeners attached to the old nav key
-                            removeNavKeyListeners(oldKeyLoc.value);
-
-                            // insert the new nav key into the old model in the exact same location
-                            var parentKeyPath = oldKeyLoc.keypath.slice(0, -1);
-                            var lastSegment = oldKeyLoc.keypath.slice(-1)[0];
-                            var oldParent = getAt(parentKeyPath, oldModel);
-                            oldParent[lastSegment] = newKeyLoc.value;
-                        }
-
-                        if (error !== null) {
-                            console.error("[elm-hot] Hot-swapping " + instance.path + " not possible: " + error);
-                            oldModel = newModel;
-                        }
-                    }
-
-                    // the heart of the app state hot-swap
-                    initialStateTuple.a = oldModel;
-
-                    // ignore any Cmds returned by the init during hot-swap
-                    initialStateTuple.b = elmSymbol("elm$core$Platform$Cmd$none");
-                } else {
-                    // capture the initial state for later
-                    initializingInstance.lastState = initialStateTuple.a;
-                }
-
-                return initialStateTuple
-            };
-
-            var hookedStepperBuilder = function (sendToApp, model) {
-                var result;
-                // first render may fail if shape of model changed too much
-                if (tryFirstRender) {
-                    tryFirstRender = false;
-                    try {
-                        result = stepperBuilder(sendToApp, model)
-                    } catch (e) {
-                        throw new Error('[elm-hot] Hot-swapping ' + instance.path +
-                            ' is not possible, please reload page. Error: ' + e.message)
-                    }
-                } else {
-                    result = stepperBuilder(sendToApp, model)
-                }
-
-                return function (nextModel, isSync) {
-                    if (instance) {
-                        // capture the state after every step so that later we can restore from it during a hot-swap
-                        instance.lastState = nextModel
-                    }
-                    return result(nextModel, isSync)
-                }
-            };
-
-            return initialize(flagDecoder, args, hookedInit, update, subscriptions, hookedStepperBuilder)
-        };
-
-        // hook process creation
-        var originalBinding = _Scheduler_binding;
-        _Scheduler_binding = function (originalCallback) {
-            return originalBinding(function () {
-                // start the scheduled process, which may return a cancellation function.
-                var cancel = originalCallback.apply(this, arguments);
-                if (cancel) {
-                    cancellers.push(cancel);
-                    return function () {
-                        cancellers.splice(cancellers.indexOf(cancel), 1);
-                        return cancel();
-                    };
-                }
-                return cancel;
-            });
-        };
-
-        scope['_elm_hot_loader_init'] = function (Elm) {
-            // swap instances
-            var removedInstances = [];
-            for (var id in instances) {
-                var instance = instances[id];
-                if (instance.domNode.parentNode) {
-                    swap(Elm, instance);
-                } else {
-                    removedInstances.push(id);
-                }
-            }
-
-            removedInstances.forEach(function (id) {
-                delete instance[id];
-            });
-
-            // wrap all public modules
-            var publicModules = findPublicModules(Elm);
-            publicModules.forEach(function (m) {
-                wrapPublicModule(m.path, m.module);
-            });
-        }
-    })();
-
-    scope['_elm_hot_loader_init'](scope['Elm']);
-}
-//////////////////// HMR END ////////////////////
-
-
-
-
-//////////////////// HMR BEGIN ////////////////////
-
-/*
-  MIT License http://www.opensource.org/licenses/mit-license.php
-  Original Author: Flux Xu @fluxxu
-*/
-
-/*
-    A note about the environment that this code runs in...
-
-    assumed globals:
-        - `module` (from Node.js module system and webpack)
-
-    assumed in scope after injection into the Elm IIFE:
-        - `scope` (has an 'Elm' property which contains the public Elm API)
-        - various functions defined by Elm which we have to hook such as `_Platform_initialize` and `_Scheduler_binding`
- */
-
-if (module.hot) {
-    (function () {
-        "use strict";
-
-        //polyfill for IE: https://github.com/fluxxu/elm-hot-loader/issues/16
-        if (typeof Object.assign != 'function') {
-            Object.assign = function (target) {
-                'use strict';
-                if (target == null) {
-                    throw new TypeError('Cannot convert undefined or null to object');
-                }
-
-                target = Object(target);
-                for (var index = 1; index < arguments.length; index++) {
-                    var source = arguments[index];
-                    if (source != null) {
-                        for (var key in source) {
-                            if (Object.prototype.hasOwnProperty.call(source, key)) {
-                                target[key] = source[key];
-                            }
-                        }
-                    }
-                }
-                return target;
-            };
-        }
-
-        // Elm 0.19.1 introduced a '$' prefix at the beginning of the symbols it emits,
-        // and we check for `Maybe.Just` because we expect it to be present in all Elm programs.
-        var elmVersion;
-        if (typeof elm$core$Maybe$Just !== 'undefined')
-            elmVersion = '0.19.0';
-        else if (typeof $elm$core$Maybe$Just !== 'undefined')
-            elmVersion = '0.19.1';
-        else
-            throw new Error("Could not determine Elm version");
-
-        function elmSymbol(symbol) {
-            try {
-                switch (elmVersion) {
-                    case '0.19.0':
-                        return eval(symbol);
-                    case '0.19.1':
-                        return eval('$' + symbol);
-                    default:
-                        throw new Error('Cannot resolve ' + symbol + '. Elm version unknown!')
-                }
-            } catch (e) {
-                if (e instanceof ReferenceError) {
-                    return undefined;
-                } else {
-                    throw e;
-                }
-            }
-        }
-
-        var instances = module.hot.data
-            ? module.hot.data.instances || {}
-            : {};
-        var uid = module.hot.data
-            ? module.hot.data.uid || 0
-            : 0;
-
-        if (Object.keys(instances).length === 0) {
-            log("[elm-hot] Enabled");
-        }
-
-        var cancellers = [];
-
-        // These 2 variables act as dynamically-scoped variables which are set only when the
-        // Elm module's hooked init function is called.
-        var initializingInstance = null;
-        var swappingInstance = null;
-
-        module.hot.accept();
-        module.hot.dispose(function (data) {
-            data.instances = instances;
-            data.uid = uid;
-
-            // Cleanup pending async tasks
-
-            // First, make sure that no new tasks can be started until we finish replacing the code
-            _Scheduler_binding = function () {
-                return _Scheduler_fail(new Error('[elm-hot] Inactive Elm instance.'))
-            };
-
-            // Second, kill pending tasks belonging to the old instance
-            if (cancellers.length) {
-                log('[elm-hot] Killing ' + cancellers.length + ' running processes...');
-                try {
-                    cancellers.forEach(function (cancel) {
-                        cancel();
-                    });
-                } catch (e) {
-                    console.warn('[elm-hot] Kill process error: ' + e.message);
-                }
-            }
-        });
-
-        function log(message) {
-            if (module.hot.verbose) {
-                console.log(message)
-            }
-        }
-
-        function getId() {
-            return ++uid;
-        }
-
-        function findPublicModules(parent, path) {
-            var modules = [];
-            for (var key in parent) {
-                var child = parent[key];
-                var currentPath = path ? path + '.' + key : key;
-                if ('init' in child) {
-                    modules.push({
-                        path: currentPath,
-                        module: child
-                    });
-                } else {
-                    modules = modules.concat(findPublicModules(child, currentPath));
-                }
-            }
-            return modules;
-        }
-
-        function registerInstance(domNode, flags, path, portSubscribes, portSends) {
-            var id = getId();
-
-            var instance = {
-                id: id,
-                path: path,
-                domNode: domNode,
-                flags: flags,
-                portSubscribes: portSubscribes,
-                portSends: portSends,
-                lastState: null // last Elm app state (root model)
-            };
-
-            return instances[id] = instance
-        }
-
-        function isFullscreenApp() {
-            // Returns true if the Elm app will take over the entire DOM body.
-            return typeof elmSymbol("elm$browser$Browser$application") !== 'undefined'
-                || typeof elmSymbol("elm$browser$Browser$document") !== 'undefined';
-        }
-
-        function wrapDomNode(node) {
-            // When embedding an Elm app into a specific DOM node, Elm will replace the provided
-            // DOM node with the Elm app's content. When the Elm app is compiled normally, the
-            // original DOM node is reused (its attributes and content changes, but the object
-            // in memory remains the same). But when compiled using `--debug`, Elm will completely
-            // destroy the original DOM node and instead replace it with 2 brand new nodes: one
-            // for your Elm app's content and the other for the Elm debugger UI. In this case,
-            // if you held a reference to the DOM node provided for embedding, it would be orphaned
-            // after Elm module initialization.
-            //
-            // So in order to make both cases consistent and isolate us from changes in how Elm
-            // does this, we will insert a dummy node to wrap the node for embedding and hold
-            // a reference to the dummy node.
-            //
-            // We will also put a tag on the dummy node so that the Elm developer knows who went
-            // behind their back and rudely put stuff in their DOM.
-            var dummyNode = document.createElement("div");
-            dummyNode.setAttribute("data-elm-hot", "true");
-            dummyNode.style.height = "inherit";
-            var parentNode = node.parentNode;
-            parentNode.replaceChild(dummyNode, node);
-            dummyNode.appendChild(node);
-            return dummyNode;
-        }
-
-        function wrapPublicModule(path, module) {
-            var originalInit = module.init;
-            if (originalInit) {
-                module.init = function (args) {
-                    var elm;
-                    var portSubscribes = {};
-                    var portSends = {};
-                    var domNode = null;
-                    var flags = null;
-                    if (typeof args !== 'undefined') {
-                        // normal case
-                        domNode = args['node'] && !isFullscreenApp()
-                            ? wrapDomNode(args['node'])
-                            : document.body;
-                        flags = args['flags'];
-                    } else {
-                        // rare case: Elm allows init to be called without any arguments at all
-                        domNode = document.body;
-                        flags = undefined
-                    }
-                    initializingInstance = registerInstance(domNode, flags, path, portSubscribes, portSends);
-                    elm = originalInit(args);
-                    wrapPorts(elm, portSubscribes, portSends);
-                    initializingInstance = null;
-                    return elm;
-                };
-            } else {
-                console.error("Could not find a public module to wrap at path " + path)
-            }
-        }
-
-        function swap(Elm, instance) {
-            log('[elm-hot] Hot-swapping module: ' + instance.path);
-
-            swappingInstance = instance;
-
-            // remove from the DOM everything that had been created by the old Elm app
-            var containerNode = instance.domNode;
-            while (containerNode.lastChild) {
-                containerNode.removeChild(containerNode.lastChild);
-            }
-
-            var m = getAt(instance.path.split('.'), Elm);
-            var elm;
-            if (m) {
-                // prepare to initialize the new Elm module
-                var args = {flags: instance.flags};
-                if (containerNode === document.body) {
-                    // fullscreen case: no additional args needed
-                } else {
-                    // embed case: provide a new node for Elm to use
-                    var nodeForEmbed = document.createElement("div");
-                    containerNode.appendChild(nodeForEmbed);
-                    args['node'] = nodeForEmbed;
-                }
-
-                elm = m.init(args);
-
-                Object.keys(instance.portSubscribes).forEach(function (portName) {
-                    if (portName in elm.ports && 'subscribe' in elm.ports[portName]) {
-                        var handlers = instance.portSubscribes[portName];
-                        if (!handlers.length) {
-                            return;
-                        }
-                        log('[elm-hot] Reconnect ' + handlers.length + ' handler(s) to port \''
-                            + portName + '\' (' + instance.path + ').');
-                        handlers.forEach(function (handler) {
-                            elm.ports[portName].subscribe(handler);
-                        });
-                    } else {
-                        delete instance.portSubscribes[portName];
-                        log('[elm-hot] Port was removed: ' + portName);
-                    }
-                });
-
-                Object.keys(instance.portSends).forEach(function (portName) {
-                    if (portName in elm.ports && 'send' in elm.ports[portName]) {
-                        log('[elm-hot] Replace old port send with the new send');
-                        instance.portSends[portName] = elm.ports[portName].send;
-                    } else {
-                        delete instance.portSends[portName];
-                        log('[elm-hot] Port was removed: ' + portName);
-                    }
-                });
-            } else {
-                log('[elm-hot] Module was removed: ' + instance.path);
-            }
-
-            swappingInstance = null;
-        }
-
-        function wrapPorts(elm, portSubscribes, portSends) {
-            var portNames = Object.keys(elm.ports || {});
-            //hook ports
-            if (portNames.length) {
-                // hook outgoing ports
-                portNames
-                    .filter(function (name) {
-                        return 'subscribe' in elm.ports[name];
-                    })
-                    .forEach(function (portName) {
-                        var port = elm.ports[portName];
-                        var subscribe = port.subscribe;
-                        var unsubscribe = port.unsubscribe;
-                        elm.ports[portName] = Object.assign(port, {
-                            subscribe: function (handler) {
-                                log('[elm-hot] ports.' + portName + '.subscribe called.');
-                                if (!portSubscribes[portName]) {
-                                    portSubscribes[portName] = [handler];
-                                } else {
-                                    //TODO handle subscribing to single handler more than once?
-                                    portSubscribes[portName].push(handler);
-                                }
-                                return subscribe.call(port, handler);
-                            },
-                            unsubscribe: function (handler) {
-                                log('[elm-hot] ports.' + portName + '.unsubscribe called.');
-                                var list = portSubscribes[portName];
-                                if (list && list.indexOf(handler) !== -1) {
-                                    list.splice(list.lastIndexOf(handler), 1);
-                                } else {
-                                    console.warn('[elm-hot] ports.' + portName + '.unsubscribe: handler not subscribed');
-                                }
-                                return unsubscribe.call(port, handler);
-                            }
-                        });
-                    });
-
-                // hook incoming ports
-                portNames
-                    .filter(function (name) {
-                        return 'send' in elm.ports[name];
-                    })
-                    .forEach(function (portName) {
-                        var port = elm.ports[portName];
-                        portSends[portName] = port.send;
-                        elm.ports[portName] = Object.assign(port, {
-                            send: function (val) {
-                                return portSends[portName].call(port, val);
-                            }
-                        });
-                    });
-            }
-            return portSubscribes;
-        }
-
-        /*
-        Breadth-first search for a `Browser.Navigation.Key` in the user's app model.
-        Returns the key and keypath or null if not found.
-        */
-        function findNavKey(rootModel) {
-            var queue = [];
-            if (isDebuggerModel(rootModel)) {
-                /*
-                 Extract the user's app model from the Elm Debugger's model. The Elm debugger
-                 can hold multiple references to the user's model (e.g. in its "history"). So
-                 we must be careful to only search within the "state" part of the Debugger.
-                */
-                queue.push({value: rootModel['state'], keypath: ['state']});
-            } else {
-                queue.push({value: rootModel, keypath: []});
-            }
-
-            while (queue.length !== 0) {
-                var item = queue.shift();
-
-                if (typeof item.value === "undefined" || item.value === null) {
-                    continue;
-                }
-
-                // The nav key is identified by a runtime tag added by the elm-hot injector.
-                if (item.value.hasOwnProperty("elm-hot-nav-key")) {
-                    // found it!
-                    return item;
-                }
-
-                if (typeof item.value !== "object") {
-                    continue;
-                }
-
-                for (var propName in item.value) {
-                    if (!item.value.hasOwnProperty(propName)) continue;
-                    var newKeypath = item.keypath.slice();
-                    newKeypath.push(propName);
-                    queue.push({value: item.value[propName], keypath: newKeypath})
-                }
-            }
-
-            return null;
-        }
-
-
-        function isDebuggerModel(model) {
-            // Up until elm/browser 1.0.2, the Elm debugger could be identified by a
-            // property named "expando". But in version 1.0.2 that was renamed to "expandoModel"
-            return model
-                && (model.hasOwnProperty("expando") || model.hasOwnProperty("expandoModel"))
-                && model.hasOwnProperty("state");
-        }
-
-        function getAt(keyPath, obj) {
-            return keyPath.reduce(function (xs, x) {
-                return (xs && xs[x]) ? xs[x] : null
-            }, obj)
-        }
-
-        function removeNavKeyListeners(navKey) {
-            window.removeEventListener('popstate', navKey.value);
-            window.navigator.userAgent.indexOf('Trident') < 0 || window.removeEventListener('hashchange', navKey.value);
-        }
-
-        // hook program creation
-        var initialize = _Platform_initialize;
-        _Platform_initialize = function (flagDecoder, args, init, update, subscriptions, stepperBuilder) {
-            var instance = initializingInstance || swappingInstance;
-            var tryFirstRender = !!swappingInstance;
-
-            var hookedInit = function (args) {
-                var initialStateTuple = init(args);
-                if (swappingInstance) {
-                    var oldModel = swappingInstance.lastState;
-                    var newModel = initialStateTuple.a;
-
-                    if (typeof elmSymbol("elm$browser$Browser$application") !== 'undefined') {
-                        var oldKeyLoc = findNavKey(oldModel);
-
-                        // attempt to find the Browser.Navigation.Key in the newly-constructed model
-                        // and bring it along with the rest of the old data.
-                        var newKeyLoc = findNavKey(newModel);
-                        var error = null;
-                        if (newKeyLoc === null) {
-                            error = "could not find Browser.Navigation.Key in the new app model";
-                        } else if (oldKeyLoc === null) {
-                            error = "could not find Browser.Navigation.Key in the old app model.";
-                        } else if (newKeyLoc.keypath.toString() !== oldKeyLoc.keypath.toString()) {
-                            error = "the location of the Browser.Navigation.Key in the model has changed.";
-                        } else {
-                            // remove event listeners attached to the old nav key
-                            removeNavKeyListeners(oldKeyLoc.value);
-
-                            // insert the new nav key into the old model in the exact same location
-                            var parentKeyPath = oldKeyLoc.keypath.slice(0, -1);
-                            var lastSegment = oldKeyLoc.keypath.slice(-1)[0];
-                            var oldParent = getAt(parentKeyPath, oldModel);
-                            oldParent[lastSegment] = newKeyLoc.value;
-                        }
-
-                        if (error !== null) {
-                            console.error("[elm-hot] Hot-swapping " + instance.path + " not possible: " + error);
-                            oldModel = newModel;
-                        }
-                    }
-
-                    // the heart of the app state hot-swap
-                    initialStateTuple.a = oldModel;
-
-                    // ignore any Cmds returned by the init during hot-swap
-                    initialStateTuple.b = elmSymbol("elm$core$Platform$Cmd$none");
-                } else {
-                    // capture the initial state for later
-                    initializingInstance.lastState = initialStateTuple.a;
-                }
-
-                return initialStateTuple
-            };
-
-            var hookedStepperBuilder = function (sendToApp, model) {
-                var result;
-                // first render may fail if shape of model changed too much
-                if (tryFirstRender) {
-                    tryFirstRender = false;
-                    try {
-                        result = stepperBuilder(sendToApp, model)
-                    } catch (e) {
-                        throw new Error('[elm-hot] Hot-swapping ' + instance.path +
-                            ' is not possible, please reload page. Error: ' + e.message)
-                    }
-                } else {
-                    result = stepperBuilder(sendToApp, model)
-                }
-
-                return function (nextModel, isSync) {
-                    if (instance) {
-                        // capture the state after every step so that later we can restore from it during a hot-swap
-                        instance.lastState = nextModel
-                    }
-                    return result(nextModel, isSync)
-                }
-            };
-
-            return initialize(flagDecoder, args, hookedInit, update, subscriptions, hookedStepperBuilder)
-        };
-
-        // hook process creation
-        var originalBinding = _Scheduler_binding;
-        _Scheduler_binding = function (originalCallback) {
-            return originalBinding(function () {
-                // start the scheduled process, which may return a cancellation function.
-                var cancel = originalCallback.apply(this, arguments);
-                if (cancel) {
-                    cancellers.push(cancel);
-                    return function () {
-                        cancellers.splice(cancellers.indexOf(cancel), 1);
-                        return cancel();
-                    };
-                }
-                return cancel;
-            });
-        };
-
-        scope['_elm_hot_loader_init'] = function (Elm) {
-            // swap instances
-            var removedInstances = [];
-            for (var id in instances) {
-                var instance = instances[id];
-                if (instance.domNode.parentNode) {
-                    swap(Elm, instance);
-                } else {
-                    removedInstances.push(id);
-                }
-            }
-
-            removedInstances.forEach(function (id) {
-                delete instance[id];
-            });
-
-            // wrap all public modules
-            var publicModules = findPublicModules(Elm);
-            publicModules.forEach(function (m) {
-                wrapPublicModule(m.path, m.module);
-            });
-        }
-    })();
-
-    scope['_elm_hot_loader_init'](scope['Elm']);
-}
-//////////////////// HMR END ////////////////////
-
-
-
-
-//////////////////// HMR BEGIN ////////////////////
-
-/*
-  MIT License http://www.opensource.org/licenses/mit-license.php
-  Original Author: Flux Xu @fluxxu
-*/
-
-/*
-    A note about the environment that this code runs in...
-
-    assumed globals:
-        - `module` (from Node.js module system and webpack)
-
-    assumed in scope after injection into the Elm IIFE:
-        - `scope` (has an 'Elm' property which contains the public Elm API)
-        - various functions defined by Elm which we have to hook such as `_Platform_initialize` and `_Scheduler_binding`
- */
-
-if (module.hot) {
-    (function () {
-        "use strict";
-
-        //polyfill for IE: https://github.com/fluxxu/elm-hot-loader/issues/16
-        if (typeof Object.assign != 'function') {
-            Object.assign = function (target) {
-                'use strict';
-                if (target == null) {
-                    throw new TypeError('Cannot convert undefined or null to object');
-                }
-
-                target = Object(target);
-                for (var index = 1; index < arguments.length; index++) {
-                    var source = arguments[index];
-                    if (source != null) {
-                        for (var key in source) {
-                            if (Object.prototype.hasOwnProperty.call(source, key)) {
-                                target[key] = source[key];
-                            }
-                        }
-                    }
-                }
-                return target;
-            };
-        }
-
-        // Elm 0.19.1 introduced a '$' prefix at the beginning of the symbols it emits,
-        // and we check for `Maybe.Just` because we expect it to be present in all Elm programs.
-        var elmVersion;
-        if (typeof elm$core$Maybe$Just !== 'undefined')
-            elmVersion = '0.19.0';
-        else if (typeof $elm$core$Maybe$Just !== 'undefined')
-            elmVersion = '0.19.1';
-        else
-            throw new Error("Could not determine Elm version");
-
-        function elmSymbol(symbol) {
-            try {
-                switch (elmVersion) {
-                    case '0.19.0':
-                        return eval(symbol);
-                    case '0.19.1':
-                        return eval('$' + symbol);
-                    default:
-                        throw new Error('Cannot resolve ' + symbol + '. Elm version unknown!')
-                }
-            } catch (e) {
-                if (e instanceof ReferenceError) {
-                    return undefined;
-                } else {
-                    throw e;
-                }
-            }
-        }
-
-        var instances = module.hot.data
-            ? module.hot.data.instances || {}
-            : {};
-        var uid = module.hot.data
-            ? module.hot.data.uid || 0
-            : 0;
-
-        if (Object.keys(instances).length === 0) {
-            log("[elm-hot] Enabled");
-        }
-
-        var cancellers = [];
-
-        // These 2 variables act as dynamically-scoped variables which are set only when the
-        // Elm module's hooked init function is called.
-        var initializingInstance = null;
-        var swappingInstance = null;
-
-        module.hot.accept();
-        module.hot.dispose(function (data) {
-            data.instances = instances;
-            data.uid = uid;
-
-            // Cleanup pending async tasks
-
-            // First, make sure that no new tasks can be started until we finish replacing the code
-            _Scheduler_binding = function () {
-                return _Scheduler_fail(new Error('[elm-hot] Inactive Elm instance.'))
-            };
-
-            // Second, kill pending tasks belonging to the old instance
-            if (cancellers.length) {
-                log('[elm-hot] Killing ' + cancellers.length + ' running processes...');
-                try {
-                    cancellers.forEach(function (cancel) {
-                        cancel();
-                    });
-                } catch (e) {
-                    console.warn('[elm-hot] Kill process error: ' + e.message);
-                }
-            }
-        });
-
-        function log(message) {
-            if (module.hot.verbose) {
-                console.log(message)
-            }
-        }
-
-        function getId() {
-            return ++uid;
-        }
-
-        function findPublicModules(parent, path) {
-            var modules = [];
-            for (var key in parent) {
-                var child = parent[key];
-                var currentPath = path ? path + '.' + key : key;
-                if ('init' in child) {
-                    modules.push({
-                        path: currentPath,
-                        module: child
-                    });
-                } else {
-                    modules = modules.concat(findPublicModules(child, currentPath));
-                }
-            }
-            return modules;
-        }
-
-        function registerInstance(domNode, flags, path, portSubscribes, portSends) {
-            var id = getId();
-
-            var instance = {
-                id: id,
-                path: path,
-                domNode: domNode,
-                flags: flags,
-                portSubscribes: portSubscribes,
-                portSends: portSends,
-                lastState: null // last Elm app state (root model)
-            };
-
-            return instances[id] = instance
-        }
-
-        function isFullscreenApp() {
-            // Returns true if the Elm app will take over the entire DOM body.
-            return typeof elmSymbol("elm$browser$Browser$application") !== 'undefined'
-                || typeof elmSymbol("elm$browser$Browser$document") !== 'undefined';
-        }
-
-        function wrapDomNode(node) {
-            // When embedding an Elm app into a specific DOM node, Elm will replace the provided
-            // DOM node with the Elm app's content. When the Elm app is compiled normally, the
-            // original DOM node is reused (its attributes and content changes, but the object
-            // in memory remains the same). But when compiled using `--debug`, Elm will completely
-            // destroy the original DOM node and instead replace it with 2 brand new nodes: one
-            // for your Elm app's content and the other for the Elm debugger UI. In this case,
-            // if you held a reference to the DOM node provided for embedding, it would be orphaned
-            // after Elm module initialization.
-            //
-            // So in order to make both cases consistent and isolate us from changes in how Elm
-            // does this, we will insert a dummy node to wrap the node for embedding and hold
-            // a reference to the dummy node.
-            //
-            // We will also put a tag on the dummy node so that the Elm developer knows who went
-            // behind their back and rudely put stuff in their DOM.
-            var dummyNode = document.createElement("div");
-            dummyNode.setAttribute("data-elm-hot", "true");
-            dummyNode.style.height = "inherit";
-            var parentNode = node.parentNode;
-            parentNode.replaceChild(dummyNode, node);
-            dummyNode.appendChild(node);
-            return dummyNode;
-        }
-
-        function wrapPublicModule(path, module) {
-            var originalInit = module.init;
-            if (originalInit) {
-                module.init = function (args) {
-                    var elm;
-                    var portSubscribes = {};
-                    var portSends = {};
-                    var domNode = null;
-                    var flags = null;
-                    if (typeof args !== 'undefined') {
-                        // normal case
-                        domNode = args['node'] && !isFullscreenApp()
-                            ? wrapDomNode(args['node'])
-                            : document.body;
-                        flags = args['flags'];
-                    } else {
-                        // rare case: Elm allows init to be called without any arguments at all
-                        domNode = document.body;
-                        flags = undefined
-                    }
-                    initializingInstance = registerInstance(domNode, flags, path, portSubscribes, portSends);
-                    elm = originalInit(args);
-                    wrapPorts(elm, portSubscribes, portSends);
-                    initializingInstance = null;
-                    return elm;
-                };
-            } else {
-                console.error("Could not find a public module to wrap at path " + path)
-            }
-        }
-
-        function swap(Elm, instance) {
-            log('[elm-hot] Hot-swapping module: ' + instance.path);
-
-            swappingInstance = instance;
-
-            // remove from the DOM everything that had been created by the old Elm app
-            var containerNode = instance.domNode;
-            while (containerNode.lastChild) {
-                containerNode.removeChild(containerNode.lastChild);
-            }
-
-            var m = getAt(instance.path.split('.'), Elm);
-            var elm;
-            if (m) {
-                // prepare to initialize the new Elm module
-                var args = {flags: instance.flags};
-                if (containerNode === document.body) {
-                    // fullscreen case: no additional args needed
-                } else {
-                    // embed case: provide a new node for Elm to use
-                    var nodeForEmbed = document.createElement("div");
-                    containerNode.appendChild(nodeForEmbed);
-                    args['node'] = nodeForEmbed;
-                }
-
-                elm = m.init(args);
-
-                Object.keys(instance.portSubscribes).forEach(function (portName) {
-                    if (portName in elm.ports && 'subscribe' in elm.ports[portName]) {
-                        var handlers = instance.portSubscribes[portName];
-                        if (!handlers.length) {
-                            return;
-                        }
-                        log('[elm-hot] Reconnect ' + handlers.length + ' handler(s) to port \''
-                            + portName + '\' (' + instance.path + ').');
-                        handlers.forEach(function (handler) {
-                            elm.ports[portName].subscribe(handler);
-                        });
-                    } else {
-                        delete instance.portSubscribes[portName];
-                        log('[elm-hot] Port was removed: ' + portName);
-                    }
-                });
-
-                Object.keys(instance.portSends).forEach(function (portName) {
-                    if (portName in elm.ports && 'send' in elm.ports[portName]) {
-                        log('[elm-hot] Replace old port send with the new send');
-                        instance.portSends[portName] = elm.ports[portName].send;
-                    } else {
-                        delete instance.portSends[portName];
-                        log('[elm-hot] Port was removed: ' + portName);
-                    }
-                });
-            } else {
-                log('[elm-hot] Module was removed: ' + instance.path);
-            }
-
-            swappingInstance = null;
-        }
-
-        function wrapPorts(elm, portSubscribes, portSends) {
-            var portNames = Object.keys(elm.ports || {});
-            //hook ports
-            if (portNames.length) {
-                // hook outgoing ports
-                portNames
-                    .filter(function (name) {
-                        return 'subscribe' in elm.ports[name];
-                    })
-                    .forEach(function (portName) {
-                        var port = elm.ports[portName];
-                        var subscribe = port.subscribe;
-                        var unsubscribe = port.unsubscribe;
-                        elm.ports[portName] = Object.assign(port, {
-                            subscribe: function (handler) {
-                                log('[elm-hot] ports.' + portName + '.subscribe called.');
-                                if (!portSubscribes[portName]) {
-                                    portSubscribes[portName] = [handler];
-                                } else {
-                                    //TODO handle subscribing to single handler more than once?
-                                    portSubscribes[portName].push(handler);
-                                }
-                                return subscribe.call(port, handler);
-                            },
-                            unsubscribe: function (handler) {
-                                log('[elm-hot] ports.' + portName + '.unsubscribe called.');
-                                var list = portSubscribes[portName];
-                                if (list && list.indexOf(handler) !== -1) {
-                                    list.splice(list.lastIndexOf(handler), 1);
-                                } else {
-                                    console.warn('[elm-hot] ports.' + portName + '.unsubscribe: handler not subscribed');
-                                }
-                                return unsubscribe.call(port, handler);
-                            }
-                        });
-                    });
-
-                // hook incoming ports
-                portNames
-                    .filter(function (name) {
-                        return 'send' in elm.ports[name];
-                    })
-                    .forEach(function (portName) {
-                        var port = elm.ports[portName];
-                        portSends[portName] = port.send;
-                        elm.ports[portName] = Object.assign(port, {
-                            send: function (val) {
-                                return portSends[portName].call(port, val);
-                            }
-                        });
-                    });
-            }
-            return portSubscribes;
-        }
-
-        /*
-        Breadth-first search for a `Browser.Navigation.Key` in the user's app model.
-        Returns the key and keypath or null if not found.
-        */
-        function findNavKey(rootModel) {
-            var queue = [];
-            if (isDebuggerModel(rootModel)) {
-                /*
-                 Extract the user's app model from the Elm Debugger's model. The Elm debugger
-                 can hold multiple references to the user's model (e.g. in its "history"). So
-                 we must be careful to only search within the "state" part of the Debugger.
-                */
-                queue.push({value: rootModel['state'], keypath: ['state']});
-            } else {
-                queue.push({value: rootModel, keypath: []});
-            }
-
-            while (queue.length !== 0) {
-                var item = queue.shift();
-
-                if (typeof item.value === "undefined" || item.value === null) {
-                    continue;
-                }
-
-                // The nav key is identified by a runtime tag added by the elm-hot injector.
-                if (item.value.hasOwnProperty("elm-hot-nav-key")) {
-                    // found it!
-                    return item;
-                }
-
-                if (typeof item.value !== "object") {
-                    continue;
-                }
-
-                for (var propName in item.value) {
-                    if (!item.value.hasOwnProperty(propName)) continue;
-                    var newKeypath = item.keypath.slice();
-                    newKeypath.push(propName);
-                    queue.push({value: item.value[propName], keypath: newKeypath})
-                }
-            }
-
-            return null;
-        }
-
-
-        function isDebuggerModel(model) {
-            // Up until elm/browser 1.0.2, the Elm debugger could be identified by a
-            // property named "expando". But in version 1.0.2 that was renamed to "expandoModel"
-            return model
-                && (model.hasOwnProperty("expando") || model.hasOwnProperty("expandoModel"))
-                && model.hasOwnProperty("state");
-        }
-
-        function getAt(keyPath, obj) {
-            return keyPath.reduce(function (xs, x) {
-                return (xs && xs[x]) ? xs[x] : null
-            }, obj)
-        }
-
-        function removeNavKeyListeners(navKey) {
-            window.removeEventListener('popstate', navKey.value);
-            window.navigator.userAgent.indexOf('Trident') < 0 || window.removeEventListener('hashchange', navKey.value);
-        }
-
-        // hook program creation
-        var initialize = _Platform_initialize;
-        _Platform_initialize = function (flagDecoder, args, init, update, subscriptions, stepperBuilder) {
-            var instance = initializingInstance || swappingInstance;
-            var tryFirstRender = !!swappingInstance;
-
-            var hookedInit = function (args) {
-                var initialStateTuple = init(args);
-                if (swappingInstance) {
-                    var oldModel = swappingInstance.lastState;
-                    var newModel = initialStateTuple.a;
-
-                    if (typeof elmSymbol("elm$browser$Browser$application") !== 'undefined') {
-                        var oldKeyLoc = findNavKey(oldModel);
-
-                        // attempt to find the Browser.Navigation.Key in the newly-constructed model
-                        // and bring it along with the rest of the old data.
-                        var newKeyLoc = findNavKey(newModel);
-                        var error = null;
-                        if (newKeyLoc === null) {
-                            error = "could not find Browser.Navigation.Key in the new app model";
-                        } else if (oldKeyLoc === null) {
-                            error = "could not find Browser.Navigation.Key in the old app model.";
-                        } else if (newKeyLoc.keypath.toString() !== oldKeyLoc.keypath.toString()) {
-                            error = "the location of the Browser.Navigation.Key in the model has changed.";
-                        } else {
-                            // remove event listeners attached to the old nav key
-                            removeNavKeyListeners(oldKeyLoc.value);
-
-                            // insert the new nav key into the old model in the exact same location
-                            var parentKeyPath = oldKeyLoc.keypath.slice(0, -1);
-                            var lastSegment = oldKeyLoc.keypath.slice(-1)[0];
-                            var oldParent = getAt(parentKeyPath, oldModel);
-                            oldParent[lastSegment] = newKeyLoc.value;
-                        }
-
-                        if (error !== null) {
-                            console.error("[elm-hot] Hot-swapping " + instance.path + " not possible: " + error);
-                            oldModel = newModel;
-                        }
-                    }
-
-                    // the heart of the app state hot-swap
-                    initialStateTuple.a = oldModel;
-
-                    // ignore any Cmds returned by the init during hot-swap
-                    initialStateTuple.b = elmSymbol("elm$core$Platform$Cmd$none");
-                } else {
-                    // capture the initial state for later
-                    initializingInstance.lastState = initialStateTuple.a;
-                }
-
-                return initialStateTuple
-            };
-
-            var hookedStepperBuilder = function (sendToApp, model) {
-                var result;
-                // first render may fail if shape of model changed too much
-                if (tryFirstRender) {
-                    tryFirstRender = false;
-                    try {
-                        result = stepperBuilder(sendToApp, model)
-                    } catch (e) {
-                        throw new Error('[elm-hot] Hot-swapping ' + instance.path +
-                            ' is not possible, please reload page. Error: ' + e.message)
-                    }
-                } else {
-                    result = stepperBuilder(sendToApp, model)
-                }
-
-                return function (nextModel, isSync) {
-                    if (instance) {
-                        // capture the state after every step so that later we can restore from it during a hot-swap
-                        instance.lastState = nextModel
-                    }
-                    return result(nextModel, isSync)
-                }
-            };
-
-            return initialize(flagDecoder, args, hookedInit, update, subscriptions, hookedStepperBuilder)
-        };
-
-        // hook process creation
-        var originalBinding = _Scheduler_binding;
-        _Scheduler_binding = function (originalCallback) {
-            return originalBinding(function () {
-                // start the scheduled process, which may return a cancellation function.
-                var cancel = originalCallback.apply(this, arguments);
-                if (cancel) {
-                    cancellers.push(cancel);
-                    return function () {
-                        cancellers.splice(cancellers.indexOf(cancel), 1);
-                        return cancel();
-                    };
-                }
-                return cancel;
-            });
-        };
-
-        scope['_elm_hot_loader_init'] = function (Elm) {
-            // swap instances
-            var removedInstances = [];
-            for (var id in instances) {
-                var instance = instances[id];
-                if (instance.domNode.parentNode) {
-                    swap(Elm, instance);
-                } else {
-                    removedInstances.push(id);
-                }
-            }
-
-            removedInstances.forEach(function (id) {
-                delete instance[id];
-            });
-
-            // wrap all public modules
-            var publicModules = findPublicModules(Elm);
-            publicModules.forEach(function (m) {
-                wrapPublicModule(m.path, m.module);
-            });
-        }
-    })();
-
-    scope['_elm_hot_loader_init'](scope['Elm']);
-}
-//////////////////// HMR END ////////////////////
-
-
-
-
-//////////////////// HMR BEGIN ////////////////////
-
-/*
-  MIT License http://www.opensource.org/licenses/mit-license.php
-  Original Author: Flux Xu @fluxxu
-*/
-
-/*
-    A note about the environment that this code runs in...
-
-    assumed globals:
-        - `module` (from Node.js module system and webpack)
-
-    assumed in scope after injection into the Elm IIFE:
-        - `scope` (has an 'Elm' property which contains the public Elm API)
-        - various functions defined by Elm which we have to hook such as `_Platform_initialize` and `_Scheduler_binding`
- */
-
-if (module.hot) {
-    (function () {
-        "use strict";
-
-        //polyfill for IE: https://github.com/fluxxu/elm-hot-loader/issues/16
-        if (typeof Object.assign != 'function') {
-            Object.assign = function (target) {
-                'use strict';
-                if (target == null) {
-                    throw new TypeError('Cannot convert undefined or null to object');
-                }
-
-                target = Object(target);
-                for (var index = 1; index < arguments.length; index++) {
-                    var source = arguments[index];
-                    if (source != null) {
-                        for (var key in source) {
-                            if (Object.prototype.hasOwnProperty.call(source, key)) {
-                                target[key] = source[key];
-                            }
-                        }
-                    }
-                }
-                return target;
-            };
-        }
-
-        // Elm 0.19.1 introduced a '$' prefix at the beginning of the symbols it emits,
-        // and we check for `Maybe.Just` because we expect it to be present in all Elm programs.
-        var elmVersion;
-        if (typeof elm$core$Maybe$Just !== 'undefined')
-            elmVersion = '0.19.0';
-        else if (typeof $elm$core$Maybe$Just !== 'undefined')
-            elmVersion = '0.19.1';
-        else
-            throw new Error("Could not determine Elm version");
-
-        function elmSymbol(symbol) {
-            try {
-                switch (elmVersion) {
-                    case '0.19.0':
-                        return eval(symbol);
-                    case '0.19.1':
-                        return eval('$' + symbol);
-                    default:
-                        throw new Error('Cannot resolve ' + symbol + '. Elm version unknown!')
-                }
-            } catch (e) {
-                if (e instanceof ReferenceError) {
-                    return undefined;
-                } else {
-                    throw e;
-                }
-            }
-        }
-
-        var instances = module.hot.data
-            ? module.hot.data.instances || {}
-            : {};
-        var uid = module.hot.data
-            ? module.hot.data.uid || 0
-            : 0;
-
-        if (Object.keys(instances).length === 0) {
-            log("[elm-hot] Enabled");
-        }
-
-        var cancellers = [];
-
-        // These 2 variables act as dynamically-scoped variables which are set only when the
-        // Elm module's hooked init function is called.
-        var initializingInstance = null;
-        var swappingInstance = null;
-
-        module.hot.accept();
-        module.hot.dispose(function (data) {
-            data.instances = instances;
-            data.uid = uid;
-
-            // Cleanup pending async tasks
-
-            // First, make sure that no new tasks can be started until we finish replacing the code
-            _Scheduler_binding = function () {
-                return _Scheduler_fail(new Error('[elm-hot] Inactive Elm instance.'))
-            };
-
-            // Second, kill pending tasks belonging to the old instance
-            if (cancellers.length) {
-                log('[elm-hot] Killing ' + cancellers.length + ' running processes...');
-                try {
-                    cancellers.forEach(function (cancel) {
-                        cancel();
-                    });
-                } catch (e) {
-                    console.warn('[elm-hot] Kill process error: ' + e.message);
-                }
-            }
-        });
-
-        function log(message) {
-            if (module.hot.verbose) {
-                console.log(message)
-            }
-        }
-
-        function getId() {
-            return ++uid;
-        }
-
-        function findPublicModules(parent, path) {
-            var modules = [];
-            for (var key in parent) {
-                var child = parent[key];
-                var currentPath = path ? path + '.' + key : key;
-                if ('init' in child) {
-                    modules.push({
-                        path: currentPath,
-                        module: child
-                    });
-                } else {
-                    modules = modules.concat(findPublicModules(child, currentPath));
-                }
-            }
-            return modules;
-        }
-
-        function registerInstance(domNode, flags, path, portSubscribes, portSends) {
-            var id = getId();
-
-            var instance = {
-                id: id,
-                path: path,
-                domNode: domNode,
-                flags: flags,
-                portSubscribes: portSubscribes,
-                portSends: portSends,
-                lastState: null // last Elm app state (root model)
-            };
-
-            return instances[id] = instance
-        }
-
-        function isFullscreenApp() {
-            // Returns true if the Elm app will take over the entire DOM body.
-            return typeof elmSymbol("elm$browser$Browser$application") !== 'undefined'
-                || typeof elmSymbol("elm$browser$Browser$document") !== 'undefined';
-        }
-
-        function wrapDomNode(node) {
-            // When embedding an Elm app into a specific DOM node, Elm will replace the provided
-            // DOM node with the Elm app's content. When the Elm app is compiled normally, the
-            // original DOM node is reused (its attributes and content changes, but the object
-            // in memory remains the same). But when compiled using `--debug`, Elm will completely
-            // destroy the original DOM node and instead replace it with 2 brand new nodes: one
-            // for your Elm app's content and the other for the Elm debugger UI. In this case,
-            // if you held a reference to the DOM node provided for embedding, it would be orphaned
-            // after Elm module initialization.
-            //
-            // So in order to make both cases consistent and isolate us from changes in how Elm
-            // does this, we will insert a dummy node to wrap the node for embedding and hold
-            // a reference to the dummy node.
-            //
-            // We will also put a tag on the dummy node so that the Elm developer knows who went
-            // behind their back and rudely put stuff in their DOM.
-            var dummyNode = document.createElement("div");
-            dummyNode.setAttribute("data-elm-hot", "true");
-            dummyNode.style.height = "inherit";
-            var parentNode = node.parentNode;
-            parentNode.replaceChild(dummyNode, node);
-            dummyNode.appendChild(node);
-            return dummyNode;
-        }
-
-        function wrapPublicModule(path, module) {
-            var originalInit = module.init;
-            if (originalInit) {
-                module.init = function (args) {
-                    var elm;
-                    var portSubscribes = {};
-                    var portSends = {};
-                    var domNode = null;
-                    var flags = null;
-                    if (typeof args !== 'undefined') {
-                        // normal case
-                        domNode = args['node'] && !isFullscreenApp()
-                            ? wrapDomNode(args['node'])
-                            : document.body;
-                        flags = args['flags'];
-                    } else {
-                        // rare case: Elm allows init to be called without any arguments at all
-                        domNode = document.body;
-                        flags = undefined
-                    }
-                    initializingInstance = registerInstance(domNode, flags, path, portSubscribes, portSends);
-                    elm = originalInit(args);
-                    wrapPorts(elm, portSubscribes, portSends);
-                    initializingInstance = null;
-                    return elm;
-                };
-            } else {
-                console.error("Could not find a public module to wrap at path " + path)
-            }
-        }
-
-        function swap(Elm, instance) {
-            log('[elm-hot] Hot-swapping module: ' + instance.path);
-
-            swappingInstance = instance;
-
-            // remove from the DOM everything that had been created by the old Elm app
-            var containerNode = instance.domNode;
-            while (containerNode.lastChild) {
-                containerNode.removeChild(containerNode.lastChild);
-            }
-
-            var m = getAt(instance.path.split('.'), Elm);
-            var elm;
-            if (m) {
-                // prepare to initialize the new Elm module
-                var args = {flags: instance.flags};
-                if (containerNode === document.body) {
-                    // fullscreen case: no additional args needed
-                } else {
-                    // embed case: provide a new node for Elm to use
-                    var nodeForEmbed = document.createElement("div");
-                    containerNode.appendChild(nodeForEmbed);
-                    args['node'] = nodeForEmbed;
-                }
-
-                elm = m.init(args);
-
-                Object.keys(instance.portSubscribes).forEach(function (portName) {
-                    if (portName in elm.ports && 'subscribe' in elm.ports[portName]) {
-                        var handlers = instance.portSubscribes[portName];
-                        if (!handlers.length) {
-                            return;
-                        }
-                        log('[elm-hot] Reconnect ' + handlers.length + ' handler(s) to port \''
-                            + portName + '\' (' + instance.path + ').');
-                        handlers.forEach(function (handler) {
-                            elm.ports[portName].subscribe(handler);
-                        });
-                    } else {
-                        delete instance.portSubscribes[portName];
-                        log('[elm-hot] Port was removed: ' + portName);
-                    }
-                });
-
-                Object.keys(instance.portSends).forEach(function (portName) {
-                    if (portName in elm.ports && 'send' in elm.ports[portName]) {
-                        log('[elm-hot] Replace old port send with the new send');
-                        instance.portSends[portName] = elm.ports[portName].send;
-                    } else {
-                        delete instance.portSends[portName];
-                        log('[elm-hot] Port was removed: ' + portName);
-                    }
-                });
-            } else {
-                log('[elm-hot] Module was removed: ' + instance.path);
-            }
-
-            swappingInstance = null;
-        }
-
-        function wrapPorts(elm, portSubscribes, portSends) {
-            var portNames = Object.keys(elm.ports || {});
-            //hook ports
-            if (portNames.length) {
-                // hook outgoing ports
-                portNames
-                    .filter(function (name) {
-                        return 'subscribe' in elm.ports[name];
-                    })
-                    .forEach(function (portName) {
-                        var port = elm.ports[portName];
-                        var subscribe = port.subscribe;
-                        var unsubscribe = port.unsubscribe;
-                        elm.ports[portName] = Object.assign(port, {
-                            subscribe: function (handler) {
-                                log('[elm-hot] ports.' + portName + '.subscribe called.');
-                                if (!portSubscribes[portName]) {
-                                    portSubscribes[portName] = [handler];
-                                } else {
-                                    //TODO handle subscribing to single handler more than once?
-                                    portSubscribes[portName].push(handler);
-                                }
-                                return subscribe.call(port, handler);
-                            },
-                            unsubscribe: function (handler) {
-                                log('[elm-hot] ports.' + portName + '.unsubscribe called.');
-                                var list = portSubscribes[portName];
-                                if (list && list.indexOf(handler) !== -1) {
-                                    list.splice(list.lastIndexOf(handler), 1);
-                                } else {
-                                    console.warn('[elm-hot] ports.' + portName + '.unsubscribe: handler not subscribed');
-                                }
-                                return unsubscribe.call(port, handler);
-                            }
-                        });
-                    });
-
-                // hook incoming ports
-                portNames
-                    .filter(function (name) {
-                        return 'send' in elm.ports[name];
-                    })
-                    .forEach(function (portName) {
-                        var port = elm.ports[portName];
-                        portSends[portName] = port.send;
-                        elm.ports[portName] = Object.assign(port, {
-                            send: function (val) {
-                                return portSends[portName].call(port, val);
-                            }
-                        });
-                    });
-            }
-            return portSubscribes;
-        }
-
-        /*
-        Breadth-first search for a `Browser.Navigation.Key` in the user's app model.
-        Returns the key and keypath or null if not found.
-        */
-        function findNavKey(rootModel) {
-            var queue = [];
-            if (isDebuggerModel(rootModel)) {
-                /*
-                 Extract the user's app model from the Elm Debugger's model. The Elm debugger
-                 can hold multiple references to the user's model (e.g. in its "history"). So
-                 we must be careful to only search within the "state" part of the Debugger.
-                */
-                queue.push({value: rootModel['state'], keypath: ['state']});
-            } else {
-                queue.push({value: rootModel, keypath: []});
-            }
-
-            while (queue.length !== 0) {
-                var item = queue.shift();
-
-                if (typeof item.value === "undefined" || item.value === null) {
-                    continue;
-                }
-
-                // The nav key is identified by a runtime tag added by the elm-hot injector.
-                if (item.value.hasOwnProperty("elm-hot-nav-key")) {
-                    // found it!
-                    return item;
-                }
-
-                if (typeof item.value !== "object") {
-                    continue;
-                }
-
-                for (var propName in item.value) {
-                    if (!item.value.hasOwnProperty(propName)) continue;
-                    var newKeypath = item.keypath.slice();
-                    newKeypath.push(propName);
-                    queue.push({value: item.value[propName], keypath: newKeypath})
-                }
-            }
-
-            return null;
-        }
-
-
-        function isDebuggerModel(model) {
-            // Up until elm/browser 1.0.2, the Elm debugger could be identified by a
-            // property named "expando". But in version 1.0.2 that was renamed to "expandoModel"
-            return model
-                && (model.hasOwnProperty("expando") || model.hasOwnProperty("expandoModel"))
-                && model.hasOwnProperty("state");
-        }
-
-        function getAt(keyPath, obj) {
-            return keyPath.reduce(function (xs, x) {
-                return (xs && xs[x]) ? xs[x] : null
-            }, obj)
-        }
-
-        function removeNavKeyListeners(navKey) {
-            window.removeEventListener('popstate', navKey.value);
-            window.navigator.userAgent.indexOf('Trident') < 0 || window.removeEventListener('hashchange', navKey.value);
-        }
-
-        // hook program creation
-        var initialize = _Platform_initialize;
-        _Platform_initialize = function (flagDecoder, args, init, update, subscriptions, stepperBuilder) {
-            var instance = initializingInstance || swappingInstance;
-            var tryFirstRender = !!swappingInstance;
-
-            var hookedInit = function (args) {
-                var initialStateTuple = init(args);
-                if (swappingInstance) {
-                    var oldModel = swappingInstance.lastState;
-                    var newModel = initialStateTuple.a;
-
-                    if (typeof elmSymbol("elm$browser$Browser$application") !== 'undefined') {
-                        var oldKeyLoc = findNavKey(oldModel);
-
-                        // attempt to find the Browser.Navigation.Key in the newly-constructed model
-                        // and bring it along with the rest of the old data.
-                        var newKeyLoc = findNavKey(newModel);
-                        var error = null;
-                        if (newKeyLoc === null) {
-                            error = "could not find Browser.Navigation.Key in the new app model";
-                        } else if (oldKeyLoc === null) {
-                            error = "could not find Browser.Navigation.Key in the old app model.";
-                        } else if (newKeyLoc.keypath.toString() !== oldKeyLoc.keypath.toString()) {
-                            error = "the location of the Browser.Navigation.Key in the model has changed.";
-                        } else {
-                            // remove event listeners attached to the old nav key
-                            removeNavKeyListeners(oldKeyLoc.value);
-
-                            // insert the new nav key into the old model in the exact same location
-                            var parentKeyPath = oldKeyLoc.keypath.slice(0, -1);
-                            var lastSegment = oldKeyLoc.keypath.slice(-1)[0];
-                            var oldParent = getAt(parentKeyPath, oldModel);
-                            oldParent[lastSegment] = newKeyLoc.value;
-                        }
-
-                        if (error !== null) {
-                            console.error("[elm-hot] Hot-swapping " + instance.path + " not possible: " + error);
-                            oldModel = newModel;
-                        }
-                    }
-
-                    // the heart of the app state hot-swap
-                    initialStateTuple.a = oldModel;
-
-                    // ignore any Cmds returned by the init during hot-swap
-                    initialStateTuple.b = elmSymbol("elm$core$Platform$Cmd$none");
-                } else {
-                    // capture the initial state for later
-                    initializingInstance.lastState = initialStateTuple.a;
-                }
-
-                return initialStateTuple
-            };
-
-            var hookedStepperBuilder = function (sendToApp, model) {
-                var result;
-                // first render may fail if shape of model changed too much
-                if (tryFirstRender) {
-                    tryFirstRender = false;
-                    try {
-                        result = stepperBuilder(sendToApp, model)
-                    } catch (e) {
-                        throw new Error('[elm-hot] Hot-swapping ' + instance.path +
-                            ' is not possible, please reload page. Error: ' + e.message)
-                    }
-                } else {
-                    result = stepperBuilder(sendToApp, model)
-                }
-
-                return function (nextModel, isSync) {
-                    if (instance) {
-                        // capture the state after every step so that later we can restore from it during a hot-swap
-                        instance.lastState = nextModel
-                    }
-                    return result(nextModel, isSync)
-                }
-            };
-
-            return initialize(flagDecoder, args, hookedInit, update, subscriptions, hookedStepperBuilder)
-        };
-
-        // hook process creation
-        var originalBinding = _Scheduler_binding;
-        _Scheduler_binding = function (originalCallback) {
-            return originalBinding(function () {
-                // start the scheduled process, which may return a cancellation function.
-                var cancel = originalCallback.apply(this, arguments);
-                if (cancel) {
-                    cancellers.push(cancel);
-                    return function () {
-                        cancellers.splice(cancellers.indexOf(cancel), 1);
-                        return cancel();
-                    };
-                }
-                return cancel;
-            });
-        };
-
-        scope['_elm_hot_loader_init'] = function (Elm) {
-            // swap instances
-            var removedInstances = [];
-            for (var id in instances) {
-                var instance = instances[id];
-                if (instance.domNode.parentNode) {
-                    swap(Elm, instance);
-                } else {
-                    removedInstances.push(id);
-                }
-            }
-
-            removedInstances.forEach(function (id) {
-                delete instance[id];
-            });
-
-            // wrap all public modules
-            var publicModules = findPublicModules(Elm);
-            publicModules.forEach(function (m) {
-                wrapPublicModule(m.path, m.module);
-            });
-        }
-    })();
-
-    scope['_elm_hot_loader_init'](scope['Elm']);
-}
-//////////////////// HMR END ////////////////////
-
-
-
-
-//////////////////// HMR BEGIN ////////////////////
-
-/*
-  MIT License http://www.opensource.org/licenses/mit-license.php
-  Original Author: Flux Xu @fluxxu
-*/
-
-/*
-    A note about the environment that this code runs in...
-
-    assumed globals:
-        - `module` (from Node.js module system and webpack)
-
-    assumed in scope after injection into the Elm IIFE:
-        - `scope` (has an 'Elm' property which contains the public Elm API)
-        - various functions defined by Elm which we have to hook such as `_Platform_initialize` and `_Scheduler_binding`
- */
-
-if (module.hot) {
-    (function () {
-        "use strict";
-
-        //polyfill for IE: https://github.com/fluxxu/elm-hot-loader/issues/16
-        if (typeof Object.assign != 'function') {
-            Object.assign = function (target) {
-                'use strict';
-                if (target == null) {
-                    throw new TypeError('Cannot convert undefined or null to object');
-                }
-
-                target = Object(target);
-                for (var index = 1; index < arguments.length; index++) {
-                    var source = arguments[index];
-                    if (source != null) {
-                        for (var key in source) {
-                            if (Object.prototype.hasOwnProperty.call(source, key)) {
-                                target[key] = source[key];
-                            }
-                        }
-                    }
-                }
-                return target;
-            };
-        }
-
-        // Elm 0.19.1 introduced a '$' prefix at the beginning of the symbols it emits,
-        // and we check for `Maybe.Just` because we expect it to be present in all Elm programs.
-        var elmVersion;
-        if (typeof elm$core$Maybe$Just !== 'undefined')
-            elmVersion = '0.19.0';
-        else if (typeof $elm$core$Maybe$Just !== 'undefined')
-            elmVersion = '0.19.1';
-        else
-            throw new Error("Could not determine Elm version");
-
-        function elmSymbol(symbol) {
-            try {
-                switch (elmVersion) {
-                    case '0.19.0':
-                        return eval(symbol);
-                    case '0.19.1':
-                        return eval('$' + symbol);
-                    default:
-                        throw new Error('Cannot resolve ' + symbol + '. Elm version unknown!')
-                }
-            } catch (e) {
-                if (e instanceof ReferenceError) {
-                    return undefined;
-                } else {
-                    throw e;
-                }
-            }
-        }
-
-        var instances = module.hot.data
-            ? module.hot.data.instances || {}
-            : {};
-        var uid = module.hot.data
-            ? module.hot.data.uid || 0
-            : 0;
-
-        if (Object.keys(instances).length === 0) {
-            log("[elm-hot] Enabled");
-        }
-
-        var cancellers = [];
-
-        // These 2 variables act as dynamically-scoped variables which are set only when the
-        // Elm module's hooked init function is called.
-        var initializingInstance = null;
-        var swappingInstance = null;
-
-        module.hot.accept();
-        module.hot.dispose(function (data) {
-            data.instances = instances;
-            data.uid = uid;
-
-            // Cleanup pending async tasks
-
-            // First, make sure that no new tasks can be started until we finish replacing the code
-            _Scheduler_binding = function () {
-                return _Scheduler_fail(new Error('[elm-hot] Inactive Elm instance.'))
-            };
-
-            // Second, kill pending tasks belonging to the old instance
-            if (cancellers.length) {
-                log('[elm-hot] Killing ' + cancellers.length + ' running processes...');
-                try {
-                    cancellers.forEach(function (cancel) {
-                        cancel();
-                    });
-                } catch (e) {
-                    console.warn('[elm-hot] Kill process error: ' + e.message);
-                }
-            }
-        });
-
-        function log(message) {
-            if (module.hot.verbose) {
-                console.log(message)
-            }
-        }
-
-        function getId() {
-            return ++uid;
-        }
-
-        function findPublicModules(parent, path) {
-            var modules = [];
-            for (var key in parent) {
-                var child = parent[key];
-                var currentPath = path ? path + '.' + key : key;
-                if ('init' in child) {
-                    modules.push({
-                        path: currentPath,
-                        module: child
-                    });
-                } else {
-                    modules = modules.concat(findPublicModules(child, currentPath));
-                }
-            }
-            return modules;
-        }
-
-        function registerInstance(domNode, flags, path, portSubscribes, portSends) {
-            var id = getId();
-
-            var instance = {
-                id: id,
-                path: path,
-                domNode: domNode,
-                flags: flags,
-                portSubscribes: portSubscribes,
-                portSends: portSends,
-                lastState: null // last Elm app state (root model)
-            };
-
-            return instances[id] = instance
-        }
-
-        function isFullscreenApp() {
-            // Returns true if the Elm app will take over the entire DOM body.
-            return typeof elmSymbol("elm$browser$Browser$application") !== 'undefined'
-                || typeof elmSymbol("elm$browser$Browser$document") !== 'undefined';
-        }
-
-        function wrapDomNode(node) {
-            // When embedding an Elm app into a specific DOM node, Elm will replace the provided
-            // DOM node with the Elm app's content. When the Elm app is compiled normally, the
-            // original DOM node is reused (its attributes and content changes, but the object
-            // in memory remains the same). But when compiled using `--debug`, Elm will completely
-            // destroy the original DOM node and instead replace it with 2 brand new nodes: one
-            // for your Elm app's content and the other for the Elm debugger UI. In this case,
-            // if you held a reference to the DOM node provided for embedding, it would be orphaned
-            // after Elm module initialization.
-            //
-            // So in order to make both cases consistent and isolate us from changes in how Elm
-            // does this, we will insert a dummy node to wrap the node for embedding and hold
-            // a reference to the dummy node.
-            //
-            // We will also put a tag on the dummy node so that the Elm developer knows who went
-            // behind their back and rudely put stuff in their DOM.
-            var dummyNode = document.createElement("div");
-            dummyNode.setAttribute("data-elm-hot", "true");
-            dummyNode.style.height = "inherit";
-            var parentNode = node.parentNode;
-            parentNode.replaceChild(dummyNode, node);
-            dummyNode.appendChild(node);
-            return dummyNode;
-        }
-
-        function wrapPublicModule(path, module) {
-            var originalInit = module.init;
-            if (originalInit) {
-                module.init = function (args) {
-                    var elm;
-                    var portSubscribes = {};
-                    var portSends = {};
-                    var domNode = null;
-                    var flags = null;
-                    if (typeof args !== 'undefined') {
-                        // normal case
-                        domNode = args['node'] && !isFullscreenApp()
-                            ? wrapDomNode(args['node'])
-                            : document.body;
-                        flags = args['flags'];
-                    } else {
-                        // rare case: Elm allows init to be called without any arguments at all
-                        domNode = document.body;
-                        flags = undefined
-                    }
-                    initializingInstance = registerInstance(domNode, flags, path, portSubscribes, portSends);
-                    elm = originalInit(args);
-                    wrapPorts(elm, portSubscribes, portSends);
-                    initializingInstance = null;
-                    return elm;
-                };
-            } else {
-                console.error("Could not find a public module to wrap at path " + path)
-            }
-        }
-
-        function swap(Elm, instance) {
-            log('[elm-hot] Hot-swapping module: ' + instance.path);
-
-            swappingInstance = instance;
-
-            // remove from the DOM everything that had been created by the old Elm app
-            var containerNode = instance.domNode;
-            while (containerNode.lastChild) {
-                containerNode.removeChild(containerNode.lastChild);
-            }
-
-            var m = getAt(instance.path.split('.'), Elm);
-            var elm;
-            if (m) {
-                // prepare to initialize the new Elm module
-                var args = {flags: instance.flags};
-                if (containerNode === document.body) {
-                    // fullscreen case: no additional args needed
-                } else {
-                    // embed case: provide a new node for Elm to use
-                    var nodeForEmbed = document.createElement("div");
-                    containerNode.appendChild(nodeForEmbed);
-                    args['node'] = nodeForEmbed;
-                }
-
-                elm = m.init(args);
-
-                Object.keys(instance.portSubscribes).forEach(function (portName) {
-                    if (portName in elm.ports && 'subscribe' in elm.ports[portName]) {
-                        var handlers = instance.portSubscribes[portName];
-                        if (!handlers.length) {
-                            return;
-                        }
-                        log('[elm-hot] Reconnect ' + handlers.length + ' handler(s) to port \''
-                            + portName + '\' (' + instance.path + ').');
-                        handlers.forEach(function (handler) {
-                            elm.ports[portName].subscribe(handler);
-                        });
-                    } else {
-                        delete instance.portSubscribes[portName];
-                        log('[elm-hot] Port was removed: ' + portName);
-                    }
-                });
-
-                Object.keys(instance.portSends).forEach(function (portName) {
-                    if (portName in elm.ports && 'send' in elm.ports[portName]) {
-                        log('[elm-hot] Replace old port send with the new send');
-                        instance.portSends[portName] = elm.ports[portName].send;
-                    } else {
-                        delete instance.portSends[portName];
-                        log('[elm-hot] Port was removed: ' + portName);
-                    }
-                });
-            } else {
-                log('[elm-hot] Module was removed: ' + instance.path);
-            }
-
-            swappingInstance = null;
-        }
-
-        function wrapPorts(elm, portSubscribes, portSends) {
-            var portNames = Object.keys(elm.ports || {});
-            //hook ports
-            if (portNames.length) {
-                // hook outgoing ports
-                portNames
-                    .filter(function (name) {
-                        return 'subscribe' in elm.ports[name];
-                    })
-                    .forEach(function (portName) {
-                        var port = elm.ports[portName];
-                        var subscribe = port.subscribe;
-                        var unsubscribe = port.unsubscribe;
-                        elm.ports[portName] = Object.assign(port, {
-                            subscribe: function (handler) {
-                                log('[elm-hot] ports.' + portName + '.subscribe called.');
-                                if (!portSubscribes[portName]) {
-                                    portSubscribes[portName] = [handler];
-                                } else {
-                                    //TODO handle subscribing to single handler more than once?
-                                    portSubscribes[portName].push(handler);
-                                }
-                                return subscribe.call(port, handler);
-                            },
-                            unsubscribe: function (handler) {
-                                log('[elm-hot] ports.' + portName + '.unsubscribe called.');
-                                var list = portSubscribes[portName];
-                                if (list && list.indexOf(handler) !== -1) {
-                                    list.splice(list.lastIndexOf(handler), 1);
-                                } else {
-                                    console.warn('[elm-hot] ports.' + portName + '.unsubscribe: handler not subscribed');
-                                }
-                                return unsubscribe.call(port, handler);
-                            }
-                        });
-                    });
-
-                // hook incoming ports
-                portNames
-                    .filter(function (name) {
-                        return 'send' in elm.ports[name];
-                    })
-                    .forEach(function (portName) {
-                        var port = elm.ports[portName];
-                        portSends[portName] = port.send;
-                        elm.ports[portName] = Object.assign(port, {
-                            send: function (val) {
-                                return portSends[portName].call(port, val);
-                            }
-                        });
-                    });
-            }
-            return portSubscribes;
-        }
-
-        /*
-        Breadth-first search for a `Browser.Navigation.Key` in the user's app model.
-        Returns the key and keypath or null if not found.
-        */
-        function findNavKey(rootModel) {
-            var queue = [];
-            if (isDebuggerModel(rootModel)) {
-                /*
-                 Extract the user's app model from the Elm Debugger's model. The Elm debugger
-                 can hold multiple references to the user's model (e.g. in its "history"). So
-                 we must be careful to only search within the "state" part of the Debugger.
-                */
-                queue.push({value: rootModel['state'], keypath: ['state']});
-            } else {
-                queue.push({value: rootModel, keypath: []});
-            }
-
-            while (queue.length !== 0) {
-                var item = queue.shift();
-
-                if (typeof item.value === "undefined" || item.value === null) {
-                    continue;
-                }
-
-                // The nav key is identified by a runtime tag added by the elm-hot injector.
-                if (item.value.hasOwnProperty("elm-hot-nav-key")) {
-                    // found it!
-                    return item;
-                }
-
-                if (typeof item.value !== "object") {
-                    continue;
-                }
-
-                for (var propName in item.value) {
-                    if (!item.value.hasOwnProperty(propName)) continue;
-                    var newKeypath = item.keypath.slice();
-                    newKeypath.push(propName);
-                    queue.push({value: item.value[propName], keypath: newKeypath})
-                }
-            }
-
-            return null;
-        }
-
-
-        function isDebuggerModel(model) {
-            // Up until elm/browser 1.0.2, the Elm debugger could be identified by a
-            // property named "expando". But in version 1.0.2 that was renamed to "expandoModel"
-            return model
-                && (model.hasOwnProperty("expando") || model.hasOwnProperty("expandoModel"))
-                && model.hasOwnProperty("state");
-        }
-
-        function getAt(keyPath, obj) {
-            return keyPath.reduce(function (xs, x) {
-                return (xs && xs[x]) ? xs[x] : null
-            }, obj)
-        }
-
-        function removeNavKeyListeners(navKey) {
-            window.removeEventListener('popstate', navKey.value);
-            window.navigator.userAgent.indexOf('Trident') < 0 || window.removeEventListener('hashchange', navKey.value);
-        }
-
-        // hook program creation
-        var initialize = _Platform_initialize;
-        _Platform_initialize = function (flagDecoder, args, init, update, subscriptions, stepperBuilder) {
-            var instance = initializingInstance || swappingInstance;
-            var tryFirstRender = !!swappingInstance;
-
-            var hookedInit = function (args) {
-                var initialStateTuple = init(args);
-                if (swappingInstance) {
-                    var oldModel = swappingInstance.lastState;
-                    var newModel = initialStateTuple.a;
-
-                    if (typeof elmSymbol("elm$browser$Browser$application") !== 'undefined') {
-                        var oldKeyLoc = findNavKey(oldModel);
-
-                        // attempt to find the Browser.Navigation.Key in the newly-constructed model
-                        // and bring it along with the rest of the old data.
-                        var newKeyLoc = findNavKey(newModel);
-                        var error = null;
-                        if (newKeyLoc === null) {
-                            error = "could not find Browser.Navigation.Key in the new app model";
-                        } else if (oldKeyLoc === null) {
-                            error = "could not find Browser.Navigation.Key in the old app model.";
-                        } else if (newKeyLoc.keypath.toString() !== oldKeyLoc.keypath.toString()) {
-                            error = "the location of the Browser.Navigation.Key in the model has changed.";
-                        } else {
-                            // remove event listeners attached to the old nav key
-                            removeNavKeyListeners(oldKeyLoc.value);
-
-                            // insert the new nav key into the old model in the exact same location
-                            var parentKeyPath = oldKeyLoc.keypath.slice(0, -1);
-                            var lastSegment = oldKeyLoc.keypath.slice(-1)[0];
-                            var oldParent = getAt(parentKeyPath, oldModel);
-                            oldParent[lastSegment] = newKeyLoc.value;
-                        }
-
-                        if (error !== null) {
-                            console.error("[elm-hot] Hot-swapping " + instance.path + " not possible: " + error);
-                            oldModel = newModel;
-                        }
-                    }
-
-                    // the heart of the app state hot-swap
-                    initialStateTuple.a = oldModel;
-
-                    // ignore any Cmds returned by the init during hot-swap
-                    initialStateTuple.b = elmSymbol("elm$core$Platform$Cmd$none");
-                } else {
-                    // capture the initial state for later
-                    initializingInstance.lastState = initialStateTuple.a;
-                }
-
-                return initialStateTuple
-            };
-
-            var hookedStepperBuilder = function (sendToApp, model) {
-                var result;
-                // first render may fail if shape of model changed too much
-                if (tryFirstRender) {
-                    tryFirstRender = false;
-                    try {
-                        result = stepperBuilder(sendToApp, model)
-                    } catch (e) {
-                        throw new Error('[elm-hot] Hot-swapping ' + instance.path +
-                            ' is not possible, please reload page. Error: ' + e.message)
-                    }
-                } else {
-                    result = stepperBuilder(sendToApp, model)
-                }
-
-                return function (nextModel, isSync) {
-                    if (instance) {
-                        // capture the state after every step so that later we can restore from it during a hot-swap
-                        instance.lastState = nextModel
-                    }
-                    return result(nextModel, isSync)
-                }
-            };
-
-            return initialize(flagDecoder, args, hookedInit, update, subscriptions, hookedStepperBuilder)
-        };
-
-        // hook process creation
-        var originalBinding = _Scheduler_binding;
-        _Scheduler_binding = function (originalCallback) {
-            return originalBinding(function () {
-                // start the scheduled process, which may return a cancellation function.
-                var cancel = originalCallback.apply(this, arguments);
-                if (cancel) {
-                    cancellers.push(cancel);
-                    return function () {
-                        cancellers.splice(cancellers.indexOf(cancel), 1);
-                        return cancel();
-                    };
-                }
-                return cancel;
-            });
-        };
-
-        scope['_elm_hot_loader_init'] = function (Elm) {
-            // swap instances
-            var removedInstances = [];
-            for (var id in instances) {
-                var instance = instances[id];
-                if (instance.domNode.parentNode) {
-                    swap(Elm, instance);
-                } else {
-                    removedInstances.push(id);
-                }
-            }
-
-            removedInstances.forEach(function (id) {
-                delete instance[id];
-            });
-
-            // wrap all public modules
-            var publicModules = findPublicModules(Elm);
-            publicModules.forEach(function (m) {
-                wrapPublicModule(m.path, m.module);
-            });
-        }
-    })();
-
-    scope['_elm_hot_loader_init'](scope['Elm']);
-}
-//////////////////// HMR END ////////////////////
-
-
-
-
-//////////////////// HMR BEGIN ////////////////////
-
-/*
-  MIT License http://www.opensource.org/licenses/mit-license.php
-  Original Author: Flux Xu @fluxxu
-*/
-
-/*
-    A note about the environment that this code runs in...
-
-    assumed globals:
-        - `module` (from Node.js module system and webpack)
-
-    assumed in scope after injection into the Elm IIFE:
-        - `scope` (has an 'Elm' property which contains the public Elm API)
-        - various functions defined by Elm which we have to hook such as `_Platform_initialize` and `_Scheduler_binding`
- */
-
-if (module.hot) {
-    (function () {
-        "use strict";
-
-        //polyfill for IE: https://github.com/fluxxu/elm-hot-loader/issues/16
-        if (typeof Object.assign != 'function') {
-            Object.assign = function (target) {
-                'use strict';
-                if (target == null) {
-                    throw new TypeError('Cannot convert undefined or null to object');
-                }
-
-                target = Object(target);
-                for (var index = 1; index < arguments.length; index++) {
-                    var source = arguments[index];
-                    if (source != null) {
-                        for (var key in source) {
-                            if (Object.prototype.hasOwnProperty.call(source, key)) {
-                                target[key] = source[key];
-                            }
-                        }
-                    }
-                }
-                return target;
-            };
-        }
-
-        // Elm 0.19.1 introduced a '$' prefix at the beginning of the symbols it emits,
-        // and we check for `Maybe.Just` because we expect it to be present in all Elm programs.
-        var elmVersion;
-        if (typeof elm$core$Maybe$Just !== 'undefined')
-            elmVersion = '0.19.0';
-        else if (typeof $elm$core$Maybe$Just !== 'undefined')
-            elmVersion = '0.19.1';
-        else
-            throw new Error("Could not determine Elm version");
-
-        function elmSymbol(symbol) {
-            try {
-                switch (elmVersion) {
-                    case '0.19.0':
-                        return eval(symbol);
-                    case '0.19.1':
-                        return eval('$' + symbol);
-                    default:
-                        throw new Error('Cannot resolve ' + symbol + '. Elm version unknown!')
-                }
-            } catch (e) {
-                if (e instanceof ReferenceError) {
-                    return undefined;
-                } else {
-                    throw e;
-                }
-            }
-        }
-
-        var instances = module.hot.data
-            ? module.hot.data.instances || {}
-            : {};
-        var uid = module.hot.data
-            ? module.hot.data.uid || 0
-            : 0;
-
-        if (Object.keys(instances).length === 0) {
-            log("[elm-hot] Enabled");
-        }
-
-        var cancellers = [];
-
-        // These 2 variables act as dynamically-scoped variables which are set only when the
-        // Elm module's hooked init function is called.
-        var initializingInstance = null;
-        var swappingInstance = null;
-
-        module.hot.accept();
-        module.hot.dispose(function (data) {
-            data.instances = instances;
-            data.uid = uid;
-
-            // Cleanup pending async tasks
-
-            // First, make sure that no new tasks can be started until we finish replacing the code
-            _Scheduler_binding = function () {
-                return _Scheduler_fail(new Error('[elm-hot] Inactive Elm instance.'))
-            };
-
-            // Second, kill pending tasks belonging to the old instance
-            if (cancellers.length) {
-                log('[elm-hot] Killing ' + cancellers.length + ' running processes...');
-                try {
-                    cancellers.forEach(function (cancel) {
-                        cancel();
-                    });
-                } catch (e) {
-                    console.warn('[elm-hot] Kill process error: ' + e.message);
-                }
-            }
-        });
-
-        function log(message) {
-            if (module.hot.verbose) {
-                console.log(message)
-            }
-        }
-
-        function getId() {
-            return ++uid;
-        }
-
-        function findPublicModules(parent, path) {
-            var modules = [];
-            for (var key in parent) {
-                var child = parent[key];
-                var currentPath = path ? path + '.' + key : key;
-                if ('init' in child) {
-                    modules.push({
-                        path: currentPath,
-                        module: child
-                    });
-                } else {
-                    modules = modules.concat(findPublicModules(child, currentPath));
-                }
-            }
-            return modules;
-        }
-
-        function registerInstance(domNode, flags, path, portSubscribes, portSends) {
-            var id = getId();
-
-            var instance = {
-                id: id,
-                path: path,
-                domNode: domNode,
-                flags: flags,
-                portSubscribes: portSubscribes,
-                portSends: portSends,
-                lastState: null // last Elm app state (root model)
-            };
-
-            return instances[id] = instance
-        }
-
-        function isFullscreenApp() {
-            // Returns true if the Elm app will take over the entire DOM body.
-            return typeof elmSymbol("elm$browser$Browser$application") !== 'undefined'
-                || typeof elmSymbol("elm$browser$Browser$document") !== 'undefined';
-        }
-
-        function wrapDomNode(node) {
-            // When embedding an Elm app into a specific DOM node, Elm will replace the provided
-            // DOM node with the Elm app's content. When the Elm app is compiled normally, the
-            // original DOM node is reused (its attributes and content changes, but the object
-            // in memory remains the same). But when compiled using `--debug`, Elm will completely
-            // destroy the original DOM node and instead replace it with 2 brand new nodes: one
-            // for your Elm app's content and the other for the Elm debugger UI. In this case,
-            // if you held a reference to the DOM node provided for embedding, it would be orphaned
-            // after Elm module initialization.
-            //
-            // So in order to make both cases consistent and isolate us from changes in how Elm
-            // does this, we will insert a dummy node to wrap the node for embedding and hold
-            // a reference to the dummy node.
-            //
-            // We will also put a tag on the dummy node so that the Elm developer knows who went
-            // behind their back and rudely put stuff in their DOM.
-            var dummyNode = document.createElement("div");
-            dummyNode.setAttribute("data-elm-hot", "true");
-            dummyNode.style.height = "inherit";
-            var parentNode = node.parentNode;
-            parentNode.replaceChild(dummyNode, node);
-            dummyNode.appendChild(node);
-            return dummyNode;
-        }
-
-        function wrapPublicModule(path, module) {
-            var originalInit = module.init;
-            if (originalInit) {
-                module.init = function (args) {
-                    var elm;
-                    var portSubscribes = {};
-                    var portSends = {};
-                    var domNode = null;
-                    var flags = null;
-                    if (typeof args !== 'undefined') {
-                        // normal case
-                        domNode = args['node'] && !isFullscreenApp()
-                            ? wrapDomNode(args['node'])
-                            : document.body;
-                        flags = args['flags'];
-                    } else {
-                        // rare case: Elm allows init to be called without any arguments at all
-                        domNode = document.body;
-                        flags = undefined
-                    }
-                    initializingInstance = registerInstance(domNode, flags, path, portSubscribes, portSends);
-                    elm = originalInit(args);
-                    wrapPorts(elm, portSubscribes, portSends);
-                    initializingInstance = null;
-                    return elm;
-                };
-            } else {
-                console.error("Could not find a public module to wrap at path " + path)
-            }
-        }
-
-        function swap(Elm, instance) {
-            log('[elm-hot] Hot-swapping module: ' + instance.path);
-
-            swappingInstance = instance;
-
-            // remove from the DOM everything that had been created by the old Elm app
-            var containerNode = instance.domNode;
-            while (containerNode.lastChild) {
-                containerNode.removeChild(containerNode.lastChild);
-            }
-
-            var m = getAt(instance.path.split('.'), Elm);
-            var elm;
-            if (m) {
-                // prepare to initialize the new Elm module
-                var args = {flags: instance.flags};
-                if (containerNode === document.body) {
-                    // fullscreen case: no additional args needed
-                } else {
-                    // embed case: provide a new node for Elm to use
-                    var nodeForEmbed = document.createElement("div");
-                    containerNode.appendChild(nodeForEmbed);
-                    args['node'] = nodeForEmbed;
-                }
-
-                elm = m.init(args);
-
-                Object.keys(instance.portSubscribes).forEach(function (portName) {
-                    if (portName in elm.ports && 'subscribe' in elm.ports[portName]) {
-                        var handlers = instance.portSubscribes[portName];
-                        if (!handlers.length) {
-                            return;
-                        }
-                        log('[elm-hot] Reconnect ' + handlers.length + ' handler(s) to port \''
-                            + portName + '\' (' + instance.path + ').');
-                        handlers.forEach(function (handler) {
-                            elm.ports[portName].subscribe(handler);
-                        });
-                    } else {
-                        delete instance.portSubscribes[portName];
-                        log('[elm-hot] Port was removed: ' + portName);
-                    }
-                });
-
-                Object.keys(instance.portSends).forEach(function (portName) {
-                    if (portName in elm.ports && 'send' in elm.ports[portName]) {
-                        log('[elm-hot] Replace old port send with the new send');
-                        instance.portSends[portName] = elm.ports[portName].send;
-                    } else {
-                        delete instance.portSends[portName];
-                        log('[elm-hot] Port was removed: ' + portName);
-                    }
-                });
-            } else {
-                log('[elm-hot] Module was removed: ' + instance.path);
-            }
-
-            swappingInstance = null;
-        }
-
-        function wrapPorts(elm, portSubscribes, portSends) {
-            var portNames = Object.keys(elm.ports || {});
-            //hook ports
-            if (portNames.length) {
-                // hook outgoing ports
-                portNames
-                    .filter(function (name) {
-                        return 'subscribe' in elm.ports[name];
-                    })
-                    .forEach(function (portName) {
-                        var port = elm.ports[portName];
-                        var subscribe = port.subscribe;
-                        var unsubscribe = port.unsubscribe;
-                        elm.ports[portName] = Object.assign(port, {
-                            subscribe: function (handler) {
-                                log('[elm-hot] ports.' + portName + '.subscribe called.');
-                                if (!portSubscribes[portName]) {
-                                    portSubscribes[portName] = [handler];
-                                } else {
-                                    //TODO handle subscribing to single handler more than once?
-                                    portSubscribes[portName].push(handler);
-                                }
-                                return subscribe.call(port, handler);
-                            },
-                            unsubscribe: function (handler) {
-                                log('[elm-hot] ports.' + portName + '.unsubscribe called.');
-                                var list = portSubscribes[portName];
-                                if (list && list.indexOf(handler) !== -1) {
-                                    list.splice(list.lastIndexOf(handler), 1);
-                                } else {
-                                    console.warn('[elm-hot] ports.' + portName + '.unsubscribe: handler not subscribed');
-                                }
-                                return unsubscribe.call(port, handler);
-                            }
-                        });
-                    });
-
-                // hook incoming ports
-                portNames
-                    .filter(function (name) {
-                        return 'send' in elm.ports[name];
-                    })
-                    .forEach(function (portName) {
-                        var port = elm.ports[portName];
-                        portSends[portName] = port.send;
-                        elm.ports[portName] = Object.assign(port, {
-                            send: function (val) {
-                                return portSends[portName].call(port, val);
-                            }
-                        });
-                    });
-            }
-            return portSubscribes;
-        }
-
-        /*
-        Breadth-first search for a `Browser.Navigation.Key` in the user's app model.
-        Returns the key and keypath or null if not found.
-        */
-        function findNavKey(rootModel) {
-            var queue = [];
-            if (isDebuggerModel(rootModel)) {
-                /*
-                 Extract the user's app model from the Elm Debugger's model. The Elm debugger
-                 can hold multiple references to the user's model (e.g. in its "history"). So
-                 we must be careful to only search within the "state" part of the Debugger.
-                */
-                queue.push({value: rootModel['state'], keypath: ['state']});
-            } else {
-                queue.push({value: rootModel, keypath: []});
-            }
-
-            while (queue.length !== 0) {
-                var item = queue.shift();
-
-                if (typeof item.value === "undefined" || item.value === null) {
-                    continue;
-                }
-
-                // The nav key is identified by a runtime tag added by the elm-hot injector.
-                if (item.value.hasOwnProperty("elm-hot-nav-key")) {
-                    // found it!
-                    return item;
-                }
-
-                if (typeof item.value !== "object") {
-                    continue;
-                }
-
-                for (var propName in item.value) {
-                    if (!item.value.hasOwnProperty(propName)) continue;
-                    var newKeypath = item.keypath.slice();
-                    newKeypath.push(propName);
-                    queue.push({value: item.value[propName], keypath: newKeypath})
-                }
-            }
-
-            return null;
-        }
-
-
-        function isDebuggerModel(model) {
-            // Up until elm/browser 1.0.2, the Elm debugger could be identified by a
-            // property named "expando". But in version 1.0.2 that was renamed to "expandoModel"
-            return model
-                && (model.hasOwnProperty("expando") || model.hasOwnProperty("expandoModel"))
-                && model.hasOwnProperty("state");
-        }
-
-        function getAt(keyPath, obj) {
-            return keyPath.reduce(function (xs, x) {
-                return (xs && xs[x]) ? xs[x] : null
-            }, obj)
-        }
-
-        function removeNavKeyListeners(navKey) {
-            window.removeEventListener('popstate', navKey.value);
-            window.navigator.userAgent.indexOf('Trident') < 0 || window.removeEventListener('hashchange', navKey.value);
-        }
-
-        // hook program creation
-        var initialize = _Platform_initialize;
-        _Platform_initialize = function (flagDecoder, args, init, update, subscriptions, stepperBuilder) {
-            var instance = initializingInstance || swappingInstance;
-            var tryFirstRender = !!swappingInstance;
-
-            var hookedInit = function (args) {
-                var initialStateTuple = init(args);
-                if (swappingInstance) {
-                    var oldModel = swappingInstance.lastState;
-                    var newModel = initialStateTuple.a;
-
-                    if (typeof elmSymbol("elm$browser$Browser$application") !== 'undefined') {
-                        var oldKeyLoc = findNavKey(oldModel);
-
-                        // attempt to find the Browser.Navigation.Key in the newly-constructed model
-                        // and bring it along with the rest of the old data.
-                        var newKeyLoc = findNavKey(newModel);
-                        var error = null;
-                        if (newKeyLoc === null) {
-                            error = "could not find Browser.Navigation.Key in the new app model";
-                        } else if (oldKeyLoc === null) {
-                            error = "could not find Browser.Navigation.Key in the old app model.";
-                        } else if (newKeyLoc.keypath.toString() !== oldKeyLoc.keypath.toString()) {
-                            error = "the location of the Browser.Navigation.Key in the model has changed.";
-                        } else {
-                            // remove event listeners attached to the old nav key
-                            removeNavKeyListeners(oldKeyLoc.value);
-
-                            // insert the new nav key into the old model in the exact same location
-                            var parentKeyPath = oldKeyLoc.keypath.slice(0, -1);
-                            var lastSegment = oldKeyLoc.keypath.slice(-1)[0];
-                            var oldParent = getAt(parentKeyPath, oldModel);
-                            oldParent[lastSegment] = newKeyLoc.value;
-                        }
-
-                        if (error !== null) {
-                            console.error("[elm-hot] Hot-swapping " + instance.path + " not possible: " + error);
-                            oldModel = newModel;
-                        }
-                    }
-
-                    // the heart of the app state hot-swap
-                    initialStateTuple.a = oldModel;
-
-                    // ignore any Cmds returned by the init during hot-swap
-                    initialStateTuple.b = elmSymbol("elm$core$Platform$Cmd$none");
-                } else {
-                    // capture the initial state for later
-                    initializingInstance.lastState = initialStateTuple.a;
-                }
-
-                return initialStateTuple
-            };
-
-            var hookedStepperBuilder = function (sendToApp, model) {
-                var result;
-                // first render may fail if shape of model changed too much
-                if (tryFirstRender) {
-                    tryFirstRender = false;
-                    try {
-                        result = stepperBuilder(sendToApp, model)
-                    } catch (e) {
-                        throw new Error('[elm-hot] Hot-swapping ' + instance.path +
-                            ' is not possible, please reload page. Error: ' + e.message)
-                    }
-                } else {
-                    result = stepperBuilder(sendToApp, model)
-                }
-
-                return function (nextModel, isSync) {
-                    if (instance) {
-                        // capture the state after every step so that later we can restore from it during a hot-swap
-                        instance.lastState = nextModel
-                    }
-                    return result(nextModel, isSync)
-                }
-            };
-
-            return initialize(flagDecoder, args, hookedInit, update, subscriptions, hookedStepperBuilder)
-        };
-
-        // hook process creation
-        var originalBinding = _Scheduler_binding;
-        _Scheduler_binding = function (originalCallback) {
-            return originalBinding(function () {
-                // start the scheduled process, which may return a cancellation function.
-                var cancel = originalCallback.apply(this, arguments);
-                if (cancel) {
-                    cancellers.push(cancel);
-                    return function () {
-                        cancellers.splice(cancellers.indexOf(cancel), 1);
-                        return cancel();
-                    };
-                }
-                return cancel;
-            });
-        };
-
-        scope['_elm_hot_loader_init'] = function (Elm) {
-            // swap instances
-            var removedInstances = [];
-            for (var id in instances) {
-                var instance = instances[id];
-                if (instance.domNode.parentNode) {
-                    swap(Elm, instance);
-                } else {
-                    removedInstances.push(id);
-                }
-            }
-
-            removedInstances.forEach(function (id) {
-                delete instance[id];
-            });
-
-            // wrap all public modules
-            var publicModules = findPublicModules(Elm);
-            publicModules.forEach(function (m) {
-                wrapPublicModule(m.path, m.module);
-            });
-        }
-    })();
-
-    scope['_elm_hot_loader_init'](scope['Elm']);
-}
-//////////////////// HMR END ////////////////////
-
-
-
-
-//////////////////// HMR BEGIN ////////////////////
-
-/*
-  MIT License http://www.opensource.org/licenses/mit-license.php
-  Original Author: Flux Xu @fluxxu
-*/
-
-/*
-    A note about the environment that this code runs in...
-
-    assumed globals:
-        - `module` (from Node.js module system and webpack)
-
-    assumed in scope after injection into the Elm IIFE:
-        - `scope` (has an 'Elm' property which contains the public Elm API)
-        - various functions defined by Elm which we have to hook such as `_Platform_initialize` and `_Scheduler_binding`
- */
-
-if (module.hot) {
-    (function () {
-        "use strict";
-
-        //polyfill for IE: https://github.com/fluxxu/elm-hot-loader/issues/16
-        if (typeof Object.assign != 'function') {
-            Object.assign = function (target) {
-                'use strict';
-                if (target == null) {
-                    throw new TypeError('Cannot convert undefined or null to object');
-                }
-
-                target = Object(target);
-                for (var index = 1; index < arguments.length; index++) {
-                    var source = arguments[index];
-                    if (source != null) {
-                        for (var key in source) {
-                            if (Object.prototype.hasOwnProperty.call(source, key)) {
-                                target[key] = source[key];
-                            }
-                        }
-                    }
-                }
-                return target;
-            };
-        }
-
-        // Elm 0.19.1 introduced a '$' prefix at the beginning of the symbols it emits,
-        // and we check for `Maybe.Just` because we expect it to be present in all Elm programs.
-        var elmVersion;
-        if (typeof elm$core$Maybe$Just !== 'undefined')
-            elmVersion = '0.19.0';
-        else if (typeof $elm$core$Maybe$Just !== 'undefined')
-            elmVersion = '0.19.1';
-        else
-            throw new Error("Could not determine Elm version");
-
-        function elmSymbol(symbol) {
-            try {
-                switch (elmVersion) {
-                    case '0.19.0':
-                        return eval(symbol);
-                    case '0.19.1':
-                        return eval('$' + symbol);
-                    default:
-                        throw new Error('Cannot resolve ' + symbol + '. Elm version unknown!')
-                }
-            } catch (e) {
-                if (e instanceof ReferenceError) {
-                    return undefined;
-                } else {
-                    throw e;
-                }
-            }
-        }
-
-        var instances = module.hot.data
-            ? module.hot.data.instances || {}
-            : {};
-        var uid = module.hot.data
-            ? module.hot.data.uid || 0
-            : 0;
-
-        if (Object.keys(instances).length === 0) {
-            log("[elm-hot] Enabled");
-        }
-
-        var cancellers = [];
-
-        // These 2 variables act as dynamically-scoped variables which are set only when the
-        // Elm module's hooked init function is called.
-        var initializingInstance = null;
-        var swappingInstance = null;
-
-        module.hot.accept();
-        module.hot.dispose(function (data) {
-            data.instances = instances;
-            data.uid = uid;
-
-            // Cleanup pending async tasks
-
-            // First, make sure that no new tasks can be started until we finish replacing the code
-            _Scheduler_binding = function () {
-                return _Scheduler_fail(new Error('[elm-hot] Inactive Elm instance.'))
-            };
-
-            // Second, kill pending tasks belonging to the old instance
-            if (cancellers.length) {
-                log('[elm-hot] Killing ' + cancellers.length + ' running processes...');
-                try {
-                    cancellers.forEach(function (cancel) {
-                        cancel();
-                    });
-                } catch (e) {
-                    console.warn('[elm-hot] Kill process error: ' + e.message);
-                }
-            }
-        });
-
-        function log(message) {
-            if (module.hot.verbose) {
-                console.log(message)
-            }
-        }
-
-        function getId() {
-            return ++uid;
-        }
-
-        function findPublicModules(parent, path) {
-            var modules = [];
-            for (var key in parent) {
-                var child = parent[key];
-                var currentPath = path ? path + '.' + key : key;
-                if ('init' in child) {
-                    modules.push({
-                        path: currentPath,
-                        module: child
-                    });
-                } else {
-                    modules = modules.concat(findPublicModules(child, currentPath));
-                }
-            }
-            return modules;
-        }
-
-        function registerInstance(domNode, flags, path, portSubscribes, portSends) {
-            var id = getId();
-
-            var instance = {
-                id: id,
-                path: path,
-                domNode: domNode,
-                flags: flags,
-                portSubscribes: portSubscribes,
-                portSends: portSends,
-                lastState: null // last Elm app state (root model)
-            };
-
-            return instances[id] = instance
-        }
-
-        function isFullscreenApp() {
-            // Returns true if the Elm app will take over the entire DOM body.
-            return typeof elmSymbol("elm$browser$Browser$application") !== 'undefined'
-                || typeof elmSymbol("elm$browser$Browser$document") !== 'undefined';
-        }
-
-        function wrapDomNode(node) {
-            // When embedding an Elm app into a specific DOM node, Elm will replace the provided
-            // DOM node with the Elm app's content. When the Elm app is compiled normally, the
-            // original DOM node is reused (its attributes and content changes, but the object
-            // in memory remains the same). But when compiled using `--debug`, Elm will completely
-            // destroy the original DOM node and instead replace it with 2 brand new nodes: one
-            // for your Elm app's content and the other for the Elm debugger UI. In this case,
-            // if you held a reference to the DOM node provided for embedding, it would be orphaned
-            // after Elm module initialization.
-            //
-            // So in order to make both cases consistent and isolate us from changes in how Elm
-            // does this, we will insert a dummy node to wrap the node for embedding and hold
-            // a reference to the dummy node.
-            //
-            // We will also put a tag on the dummy node so that the Elm developer knows who went
-            // behind their back and rudely put stuff in their DOM.
-            var dummyNode = document.createElement("div");
-            dummyNode.setAttribute("data-elm-hot", "true");
-            dummyNode.style.height = "inherit";
-            var parentNode = node.parentNode;
-            parentNode.replaceChild(dummyNode, node);
-            dummyNode.appendChild(node);
-            return dummyNode;
-        }
-
-        function wrapPublicModule(path, module) {
-            var originalInit = module.init;
-            if (originalInit) {
-                module.init = function (args) {
-                    var elm;
-                    var portSubscribes = {};
-                    var portSends = {};
-                    var domNode = null;
-                    var flags = null;
-                    if (typeof args !== 'undefined') {
-                        // normal case
-                        domNode = args['node'] && !isFullscreenApp()
-                            ? wrapDomNode(args['node'])
-                            : document.body;
-                        flags = args['flags'];
-                    } else {
-                        // rare case: Elm allows init to be called without any arguments at all
-                        domNode = document.body;
-                        flags = undefined
-                    }
-                    initializingInstance = registerInstance(domNode, flags, path, portSubscribes, portSends);
-                    elm = originalInit(args);
-                    wrapPorts(elm, portSubscribes, portSends);
-                    initializingInstance = null;
-                    return elm;
-                };
-            } else {
-                console.error("Could not find a public module to wrap at path " + path)
-            }
-        }
-
-        function swap(Elm, instance) {
-            log('[elm-hot] Hot-swapping module: ' + instance.path);
-
-            swappingInstance = instance;
-
-            // remove from the DOM everything that had been created by the old Elm app
-            var containerNode = instance.domNode;
-            while (containerNode.lastChild) {
-                containerNode.removeChild(containerNode.lastChild);
-            }
-
-            var m = getAt(instance.path.split('.'), Elm);
-            var elm;
-            if (m) {
-                // prepare to initialize the new Elm module
-                var args = {flags: instance.flags};
-                if (containerNode === document.body) {
-                    // fullscreen case: no additional args needed
-                } else {
-                    // embed case: provide a new node for Elm to use
-                    var nodeForEmbed = document.createElement("div");
-                    containerNode.appendChild(nodeForEmbed);
-                    args['node'] = nodeForEmbed;
-                }
-
-                elm = m.init(args);
-
-                Object.keys(instance.portSubscribes).forEach(function (portName) {
-                    if (portName in elm.ports && 'subscribe' in elm.ports[portName]) {
-                        var handlers = instance.portSubscribes[portName];
-                        if (!handlers.length) {
-                            return;
-                        }
-                        log('[elm-hot] Reconnect ' + handlers.length + ' handler(s) to port \''
-                            + portName + '\' (' + instance.path + ').');
-                        handlers.forEach(function (handler) {
-                            elm.ports[portName].subscribe(handler);
-                        });
-                    } else {
-                        delete instance.portSubscribes[portName];
-                        log('[elm-hot] Port was removed: ' + portName);
-                    }
-                });
-
-                Object.keys(instance.portSends).forEach(function (portName) {
-                    if (portName in elm.ports && 'send' in elm.ports[portName]) {
-                        log('[elm-hot] Replace old port send with the new send');
-                        instance.portSends[portName] = elm.ports[portName].send;
-                    } else {
-                        delete instance.portSends[portName];
-                        log('[elm-hot] Port was removed: ' + portName);
-                    }
-                });
-            } else {
-                log('[elm-hot] Module was removed: ' + instance.path);
-            }
-
-            swappingInstance = null;
-        }
-
-        function wrapPorts(elm, portSubscribes, portSends) {
-            var portNames = Object.keys(elm.ports || {});
-            //hook ports
-            if (portNames.length) {
-                // hook outgoing ports
-                portNames
-                    .filter(function (name) {
-                        return 'subscribe' in elm.ports[name];
-                    })
-                    .forEach(function (portName) {
-                        var port = elm.ports[portName];
-                        var subscribe = port.subscribe;
-                        var unsubscribe = port.unsubscribe;
-                        elm.ports[portName] = Object.assign(port, {
-                            subscribe: function (handler) {
-                                log('[elm-hot] ports.' + portName + '.subscribe called.');
-                                if (!portSubscribes[portName]) {
-                                    portSubscribes[portName] = [handler];
-                                } else {
-                                    //TODO handle subscribing to single handler more than once?
-                                    portSubscribes[portName].push(handler);
-                                }
-                                return subscribe.call(port, handler);
-                            },
-                            unsubscribe: function (handler) {
-                                log('[elm-hot] ports.' + portName + '.unsubscribe called.');
-                                var list = portSubscribes[portName];
-                                if (list && list.indexOf(handler) !== -1) {
-                                    list.splice(list.lastIndexOf(handler), 1);
-                                } else {
-                                    console.warn('[elm-hot] ports.' + portName + '.unsubscribe: handler not subscribed');
-                                }
-                                return unsubscribe.call(port, handler);
-                            }
-                        });
-                    });
-
-                // hook incoming ports
-                portNames
-                    .filter(function (name) {
-                        return 'send' in elm.ports[name];
-                    })
-                    .forEach(function (portName) {
-                        var port = elm.ports[portName];
-                        portSends[portName] = port.send;
-                        elm.ports[portName] = Object.assign(port, {
-                            send: function (val) {
-                                return portSends[portName].call(port, val);
-                            }
-                        });
-                    });
-            }
-            return portSubscribes;
-        }
-
-        /*
-        Breadth-first search for a `Browser.Navigation.Key` in the user's app model.
-        Returns the key and keypath or null if not found.
-        */
-        function findNavKey(rootModel) {
-            var queue = [];
-            if (isDebuggerModel(rootModel)) {
-                /*
-                 Extract the user's app model from the Elm Debugger's model. The Elm debugger
-                 can hold multiple references to the user's model (e.g. in its "history"). So
-                 we must be careful to only search within the "state" part of the Debugger.
-                */
-                queue.push({value: rootModel['state'], keypath: ['state']});
-            } else {
-                queue.push({value: rootModel, keypath: []});
-            }
-
-            while (queue.length !== 0) {
-                var item = queue.shift();
-
-                if (typeof item.value === "undefined" || item.value === null) {
-                    continue;
-                }
-
-                // The nav key is identified by a runtime tag added by the elm-hot injector.
-                if (item.value.hasOwnProperty("elm-hot-nav-key")) {
-                    // found it!
-                    return item;
-                }
-
-                if (typeof item.value !== "object") {
-                    continue;
-                }
-
-                for (var propName in item.value) {
-                    if (!item.value.hasOwnProperty(propName)) continue;
-                    var newKeypath = item.keypath.slice();
-                    newKeypath.push(propName);
-                    queue.push({value: item.value[propName], keypath: newKeypath})
-                }
-            }
-
-            return null;
-        }
-
-
-        function isDebuggerModel(model) {
-            // Up until elm/browser 1.0.2, the Elm debugger could be identified by a
-            // property named "expando". But in version 1.0.2 that was renamed to "expandoModel"
-            return model
-                && (model.hasOwnProperty("expando") || model.hasOwnProperty("expandoModel"))
-                && model.hasOwnProperty("state");
-        }
-
-        function getAt(keyPath, obj) {
-            return keyPath.reduce(function (xs, x) {
-                return (xs && xs[x]) ? xs[x] : null
-            }, obj)
-        }
-
-        function removeNavKeyListeners(navKey) {
-            window.removeEventListener('popstate', navKey.value);
-            window.navigator.userAgent.indexOf('Trident') < 0 || window.removeEventListener('hashchange', navKey.value);
-        }
-
-        // hook program creation
-        var initialize = _Platform_initialize;
-        _Platform_initialize = function (flagDecoder, args, init, update, subscriptions, stepperBuilder) {
-            var instance = initializingInstance || swappingInstance;
-            var tryFirstRender = !!swappingInstance;
-
-            var hookedInit = function (args) {
-                var initialStateTuple = init(args);
-                if (swappingInstance) {
-                    var oldModel = swappingInstance.lastState;
-                    var newModel = initialStateTuple.a;
-
-                    if (typeof elmSymbol("elm$browser$Browser$application") !== 'undefined') {
-                        var oldKeyLoc = findNavKey(oldModel);
-
-                        // attempt to find the Browser.Navigation.Key in the newly-constructed model
-                        // and bring it along with the rest of the old data.
-                        var newKeyLoc = findNavKey(newModel);
-                        var error = null;
-                        if (newKeyLoc === null) {
-                            error = "could not find Browser.Navigation.Key in the new app model";
-                        } else if (oldKeyLoc === null) {
-                            error = "could not find Browser.Navigation.Key in the old app model.";
-                        } else if (newKeyLoc.keypath.toString() !== oldKeyLoc.keypath.toString()) {
-                            error = "the location of the Browser.Navigation.Key in the model has changed.";
-                        } else {
-                            // remove event listeners attached to the old nav key
-                            removeNavKeyListeners(oldKeyLoc.value);
-
-                            // insert the new nav key into the old model in the exact same location
-                            var parentKeyPath = oldKeyLoc.keypath.slice(0, -1);
-                            var lastSegment = oldKeyLoc.keypath.slice(-1)[0];
-                            var oldParent = getAt(parentKeyPath, oldModel);
-                            oldParent[lastSegment] = newKeyLoc.value;
-                        }
-
-                        if (error !== null) {
-                            console.error("[elm-hot] Hot-swapping " + instance.path + " not possible: " + error);
-                            oldModel = newModel;
-                        }
-                    }
-
-                    // the heart of the app state hot-swap
-                    initialStateTuple.a = oldModel;
-
-                    // ignore any Cmds returned by the init during hot-swap
-                    initialStateTuple.b = elmSymbol("elm$core$Platform$Cmd$none");
-                } else {
-                    // capture the initial state for later
-                    initializingInstance.lastState = initialStateTuple.a;
-                }
-
-                return initialStateTuple
-            };
-
-            var hookedStepperBuilder = function (sendToApp, model) {
-                var result;
-                // first render may fail if shape of model changed too much
-                if (tryFirstRender) {
-                    tryFirstRender = false;
-                    try {
-                        result = stepperBuilder(sendToApp, model)
-                    } catch (e) {
-                        throw new Error('[elm-hot] Hot-swapping ' + instance.path +
-                            ' is not possible, please reload page. Error: ' + e.message)
-                    }
-                } else {
-                    result = stepperBuilder(sendToApp, model)
-                }
-
-                return function (nextModel, isSync) {
-                    if (instance) {
-                        // capture the state after every step so that later we can restore from it during a hot-swap
-                        instance.lastState = nextModel
-                    }
-                    return result(nextModel, isSync)
-                }
-            };
-
-            return initialize(flagDecoder, args, hookedInit, update, subscriptions, hookedStepperBuilder)
-        };
-
-        // hook process creation
-        var originalBinding = _Scheduler_binding;
-        _Scheduler_binding = function (originalCallback) {
-            return originalBinding(function () {
-                // start the scheduled process, which may return a cancellation function.
-                var cancel = originalCallback.apply(this, arguments);
-                if (cancel) {
-                    cancellers.push(cancel);
-                    return function () {
-                        cancellers.splice(cancellers.indexOf(cancel), 1);
-                        return cancel();
-                    };
-                }
-                return cancel;
-            });
-        };
-
-        scope['_elm_hot_loader_init'] = function (Elm) {
-            // swap instances
-            var removedInstances = [];
-            for (var id in instances) {
-                var instance = instances[id];
-                if (instance.domNode.parentNode) {
-                    swap(Elm, instance);
-                } else {
-                    removedInstances.push(id);
-                }
-            }
-
-            removedInstances.forEach(function (id) {
-                delete instance[id];
-            });
-
-            // wrap all public modules
-            var publicModules = findPublicModules(Elm);
-            publicModules.forEach(function (m) {
-                wrapPublicModule(m.path, m.module);
-            });
-        }
-    })();
-
-    scope['_elm_hot_loader_init'](scope['Elm']);
-}
-//////////////////// HMR END ////////////////////
-
-
-
+	$elm$json$Json$Decode$succeed(_Utils_Tuple0))({"versions":{"elm":"0.19.1"},"types":{"message":"Main.Msg","aliases":{"Exercises.Msg":{"args":["msgExercise"],"type":"Internal.Data.Msg msgExercise"},"R10.Form.Msg":{"args":[],"type":"R10.Form.Internal.Msg.Msg"},"R10.Form.Internal.Conf.Conf":{"args":[],"type":"List.List R10.Form.Internal.Conf.Entity"},"Exercises.ExerciseData":{"args":[],"type":"Internal.Data.ExerciseData"},"Internal.Data.ExerciseData":{"args":[],"type":"{ id : Basics.Int, title : String.String, difficulty : Internal.Data.Difficulty, categories : List.List String.String, ellieId : String.String, reference : String.String, problem : String.String, example : String.String, tests : List.List String.String, hints : List.List String.String, dummySolution : String.String, solutions : List.List String.String }"},"Internal.Data.FailureReason":{"args":[],"type":"Maybe.Maybe { description : String.String, given : Maybe.Maybe String.String, reason : Test.Runner.Failure.Reason }"},"R10.Form.Internal.FieldConf.FieldConf":{"args":[],"type":"{ id : R10.Form.Internal.FieldConf.FieldId, idDom : Maybe.Maybe String.String, type_ : R10.FormTypes.FieldType, label : String.String, clickableLabel : Basics.Bool, helperText : Maybe.Maybe String.String, requiredLabel : Maybe.Maybe String.String, validationSpecs : Maybe.Maybe R10.Form.Internal.FieldConf.ValidationSpecs, minWidth : Maybe.Maybe Basics.Int, maxWidth : Maybe.Maybe Basics.Int, autocomplete : Maybe.Maybe String.String }"},"R10.Form.Internal.FieldConf.FieldId":{"args":[],"type":"String.String"},"Internal.Data.Index":{"args":[],"type":"{ id : Basics.Int, title : String.String, difficulty : Internal.Data.Difficulty, categories : List.List String.String, ellieId : String.String }"},"Internal.Data.LocalStorageRecord":{"args":[],"type":"{ hints : Internal.Data.Show, solutions : Internal.Data.Show, menuOpen : Basics.Bool, menuContent : Internal.Data.MenuContent, firstSeen : Time.Posix, lastSeen : Time.Posix, solved : Maybe.Maybe Time.Posix, testsTotal : Basics.Int, testsPassed : Basics.Int }"},"Exercises.Model":{"args":["modelExercise"],"type":"Internal.Data.Model modelExercise"},"Internal.Data.Model":{"args":["modelExercise"],"type":"{ index : List.List Internal.Data.Index, exerciseData : Internal.Data.ExerciseData, localStorage : Dict.Dict Basics.Int Internal.Data.LocalStorageRecord, localStorageRecord : Internal.Data.LocalStorageRecord, modelExercise : modelExercise, menuOver : Basics.Bool, failureReasons : List.List Internal.Data.FailureReason, posixNow : Time.Posix }"},"R10.Form.Internal.FieldConf.ValidationSpecs":{"args":[],"type":"{ showAlsoPassedValidation : Basics.Bool, pretendIsNotValidatedIfValid : Basics.Bool, validation : List.List R10.Form.Internal.FieldConf.Validation, validationIcon : R10.FormTypes.ValidationIcon }"},"R10.Form.Internal.Conf.EntityId":{"args":[],"type":"String.String"},"R10.FormComponents.Internal.Single.Common.FieldOption":{"args":[],"type":"{ value : String.String, label : String.String }"},"R10.FormTypes.FieldOption":{"args":[],"type":"{ value : String.String, label : String.String }"},"R10.Form.Internal.Key.KeyAsString":{"args":[],"type":"String.String"},"R10.Form.Internal.Conf.TextConf":{"args":[],"type":"{ title : String.String, helperText : Maybe.Maybe String.String, validationSpecs : Maybe.Maybe R10.Form.Internal.FieldConf.ValidationSpecs }"},"R10.Form.Internal.FieldConf.ValidationMessage":{"args":[],"type":"{ ok : String.String, err : String.String }"}},"unions":{"Main.Msg":{"args":[],"tags":{"ChangePage":["Main.Page"],"ExercisesMsg":["Exercises.Msg ()"],"MsgForm":["R10.Form.Msg"]}},"Internal.Data.Msg":{"args":["msgExercise"],"tags":{"ShowHint":["Basics.Int"],"ShowHintsAll":[],"ShowHintsNone":[],"HideHint":["Basics.Int"],"ShowSolution":["Basics.Int"],"ShowSolutionsAll":[],"ShowSolutionsNone":[],"HideSolution":["Basics.Int"],"MsgTEA":["msgExercise"],"ChangeMenu":["Internal.Data.MenuContent"],"MenuOver":["Basics.Bool"],"PortLocalStoragePop":["String.String"],"PortLocalStoragePush":["Dict.Dict Basics.Int Internal.Data.LocalStorageRecord"],"UpdatePosix":["Time.Posix"],"RemoveFromHistory":["Basics.Int"],"RemoveHistory":[]}},"R10.Form.Internal.Msg.Msg":{"args":[],"tags":{"NoOp":[],"GetFocus":["R10.Form.Internal.Key.Key"],"LoseFocus":["R10.Form.Internal.Key.Key","R10.Form.Internal.FieldConf.FieldConf"],"TogglePasswordShow":["R10.Form.Internal.Key.Key"],"ChangeValue":["R10.Form.Internal.Key.Key","R10.Form.Internal.FieldConf.FieldConf","R10.Form.Internal.Conf.Conf","String.String"],"ChangeTab":["R10.Form.Internal.Key.Key","String.String"],"AddEntity":["R10.Form.Internal.Key.Key"],"RemoveEntity":["R10.Form.Internal.Key.Key"],"Submit":["R10.Form.Internal.Conf.Conf"],"OnSingleMsg":["R10.Form.Internal.Key.Key","R10.Form.Internal.FieldConf.FieldConf","R10.Form.Internal.Conf.Conf","R10.FormComponents.Internal.Single.Common.Msg"],"OnPhoneMsg":["R10.Form.Internal.Key.Key","R10.Form.Internal.FieldConf.FieldConf","R10.Form.Internal.Conf.Conf","R10.FormComponents.Internal.Phone.Common.Msg"]}},"Main.Page":{"args":[],"tags":{"Top":[],"Index":[],"PageOutput":[],"ViewJson":["Exercises.ExerciseData"],"ViewEllie":["Exercises.ExerciseData"],"ViewExercise":["Exercises.ExerciseData","Exercises.Model ()"]}},"Basics.Bool":{"args":[],"tags":{"True":[],"False":[]}},"Dict.Dict":{"args":["k","v"],"tags":{"RBNode_elm_builtin":["Dict.NColor","k","v","Dict.Dict k v","Dict.Dict k v"],"RBEmpty_elm_builtin":[]}},"Internal.Data.Difficulty":{"args":[],"tags":{"Easy":[],"Medium":[],"Hard":[],"Undefined":[]}},"R10.Form.Internal.Conf.Entity":{"args":[],"tags":{"EntityNormal":["R10.Form.Internal.Conf.EntityId","List.List R10.Form.Internal.Conf.Entity"],"EntityWrappable":["R10.Form.Internal.Conf.EntityId","List.List R10.Form.Internal.Conf.Entity"],"EntityWithBorder":["R10.Form.Internal.Conf.EntityId","List.List R10.Form.Internal.Conf.Entity"],"EntityWithTabs":["R10.Form.Internal.Conf.EntityId","List.List ( String.String, R10.Form.Internal.Conf.Entity )"],"EntityMulti":["R10.Form.Internal.Conf.EntityId","List.List R10.Form.Internal.Conf.Entity"],"EntityField":["R10.Form.Internal.FieldConf.FieldConf"],"EntityTitle":["R10.Form.Internal.Conf.EntityId","R10.Form.Internal.Conf.TextConf"],"EntitySubTitle":["R10.Form.Internal.Conf.EntityId","R10.Form.Internal.Conf.TextConf"]}},"R10.FormTypes.FieldType":{"args":[],"tags":{"TypeText":["R10.FormTypes.TypeText"],"TypeSingle":["R10.FormTypes.TypeSingle","List.List R10.FormTypes.FieldOption"],"TypeMulti":["R10.FormTypes.TypeMulti","List.List R10.FormTypes.FieldOption"],"TypeBinary":["R10.FormTypes.TypeBinary"],"TypeSpecial":["R10.FormTypes.TypeSpecial"]}},"Basics.Int":{"args":[],"tags":{"Int":[]}},"R10.Form.Internal.Key.Key":{"args":[],"tags":{"Key":["List.List String.String"]}},"List.List":{"args":["a"],"tags":{}},"Maybe.Maybe":{"args":["a"],"tags":{"Just":["a"],"Nothing":[]}},"Internal.Data.MenuContent":{"args":[],"tags":{"ContentHints":[],"ContentSolutions":[],"ContentHistory":[],"ContentOtherExercises":[],"ContentHelp":[],"ContentContribute":[]}},"R10.FormComponents.Internal.Phone.Common.Msg":{"args":[],"tags":{"NoOp":[],"OnFocus":["String.String"],"OnLoseFocus":["String.String"],"OnScroll":["Basics.Float"],"OnEsc":[],"OnInputClick":["{ key : String.String, selectedY : Basics.Float }"],"OnOptionSelect":["R10.Country.Country"],"OnSearch":["{ key : String.String, selectOptionHeight : Basics.Int, maxDisplayCount : Basics.Int, filteredFieldOption : List.List R10.Country.Country }","String.String"],"OnArrowUp":["{ key : String.String, selectOptionHeight : Basics.Int, maxDisplayCount : Basics.Int, filteredFieldOption : List.List R10.Country.Country }"],"OnArrowDown":["{ key : String.String, selectOptionHeight : Basics.Int, maxDisplayCount : Basics.Int, filteredFieldOption : List.List R10.Country.Country }"],"OnValueChange":["String.String","{ selectOptionHeight : Basics.Int, maxDisplayCount : Basics.Int, filteredFieldOption : List.List R10.Country.Country }","String.String"]}},"R10.FormComponents.Internal.Single.Common.Msg":{"args":[],"tags":{"NoOp":[],"OnFocus":["String.String"],"OnLoseFocus":["String.String"],"OnScroll":["Basics.Float"],"OnEsc":[],"OnInputClick":["{ key : String.String, selectedY : Basics.Float }"],"OnOptionSelect":["String.String"],"OnSearch":["{ key : String.String, selectOptionHeight : Basics.Int, maxDisplayCount : Basics.Int, filteredFieldOption : List.List R10.FormComponents.Internal.Single.Common.FieldOption }","String.String"],"OnArrowUp":["{ key : String.String, selectOptionHeight : Basics.Int, maxDisplayCount : Basics.Int, filteredFieldOption : List.List R10.FormComponents.Internal.Single.Common.FieldOption }"],"OnArrowDown":["{ key : String.String, selectOptionHeight : Basics.Int, maxDisplayCount : Basics.Int, filteredFieldOption : List.List R10.FormComponents.Internal.Single.Common.FieldOption }"],"OnDelBackspace":[]}},"Time.Posix":{"args":[],"tags":{"Posix":["Basics.Int"]}},"Test.Runner.Failure.Reason":{"args":[],"tags":{"Custom":[],"Equality":["String.String","String.String"],"Comparison":["String.String","String.String"],"ListDiff":["List.List String.String","List.List String.String"],"CollectionDiff":["{ expected : String.String, actual : String.String, extra : List.List String.String, missing : List.List String.String }"],"TODO":[],"Invalid":["Test.Runner.Failure.InvalidReason"]}},"Internal.Data.Show":{"args":[],"tags":{"ShowAll":[],"ShowNone":[],"Show":["Set.Set Basics.Int"]}},"String.String":{"args":[],"tags":{"String":[]}},"R10.Form.Internal.FieldConf.Validation":{"args":[],"tags":{"NoValidation":[],"WithMsg":["R10.Form.Internal.FieldConf.ValidationMessage","R10.Form.Internal.FieldConf.Validation"],"Dependant":["R10.Form.Internal.Key.KeyAsString","R10.Form.Internal.FieldConf.Validation"],"OneOf":["List.List R10.Form.Internal.FieldConf.Validation"],"AllOf":["List.List R10.Form.Internal.FieldConf.Validation"],"Not":["R10.Form.Internal.FieldConf.Validation"],"Equal":["R10.Form.Internal.Key.KeyAsString"],"Required":[],"Empty":[],"MinLength":["Basics.Int"],"MaxLength":["Basics.Int"],"Regex":["String.String"]}},"R10.FormTypes.ValidationIcon":{"args":[],"tags":{"NoIcon":[],"ClearOrCheck":[],"ErrorOrCheck":[]}},"R10.Country.Country":{"args":[],"tags":{"Afghanistan":[],"Albania":[],"Algeria":[],"AmericanSamoa":[],"Andorra":[],"Angola":[],"Anguilla":[],"Antarctica":[],"AntiguaandBarbuda":[],"Argentina":[],"Armenia":[],"Aruba":[],"Australia":[],"Austria":[],"Azerbaijan":[],"Bahamas":[],"Bahrain":[],"Bangladesh":[],"Barbados":[],"Belarus":[],"Belgium":[],"Belize":[],"Benin":[],"Bermuda":[],"Bhutan":[],"Bolivia":[],"BosniaandHerzegovina":[],"Botswana":[],"Brazil":[],"BritishIndianOceanTerritory":[],"BritishVirginIslands":[],"Brunei":[],"Bulgaria":[],"BurkinaFaso":[],"Burundi":[],"Cambodia":[],"Cameroon":[],"Canada":[],"CapeVerde":[],"CaymanIslands":[],"CentralAfricanRepublic":[],"Chad":[],"Chile":[],"China":[],"ChristmasIsland":[],"CocosIslands":[],"Colombia":[],"Comoros":[],"CookIslands":[],"CostaRica":[],"Croatia":[],"Cuba":[],"Curacao":[],"Cyprus":[],"CzechRepublic":[],"DemocraticRepublicoftheCongo":[],"Denmark":[],"Djibouti":[],"Dominica":[],"DominicanRepublic":[],"EastTimor":[],"Ecuador":[],"Egypt":[],"ElSalvador":[],"EquatorialGuinea":[],"Eritrea":[],"Estonia":[],"Ethiopia":[],"FalklandIslands":[],"FaroeIslands":[],"Fiji":[],"Finland":[],"France":[],"FrenchPolynesia":[],"Gabon":[],"Gambia":[],"Georgia":[],"Germany":[],"Ghana":[],"Gibraltar":[],"Greece":[],"Greenland":[],"Grenada":[],"Guam":[],"Guatemala":[],"Guernsey":[],"Guinea":[],"GuineaBissau":[],"Guyana":[],"Haiti":[],"Honduras":[],"HongKong":[],"Hungary":[],"Iceland":[],"India":[],"Indonesia":[],"Iran":[],"Iraq":[],"Ireland":[],"IsleofMan":[],"Israel":[],"Italy":[],"IvoryCoast":[],"Jamaica":[],"Japan":[],"Jersey":[],"Jordan":[],"Kazakhstan":[],"Kenya":[],"Kiribati":[],"Kosovo":[],"Kuwait":[],"Kyrgyzstan":[],"Laos":[],"Latvia":[],"Lebanon":[],"Lesotho":[],"Liberia":[],"Libya":[],"Liechtenstein":[],"Lithuania":[],"Luxembourg":[],"Macau":[],"Macedonia":[],"Madagascar":[],"Malawi":[],"Malaysia":[],"Maldives":[],"Mali":[],"Malta":[],"MarshallIslands":[],"Mauritania":[],"Mauritius":[],"Mayotte":[],"Mexico":[],"Micronesia":[],"Moldova":[],"Monaco":[],"Mongolia":[],"Montenegro":[],"Montserrat":[],"Morocco":[],"Mozambique":[],"Myanmar":[],"Namibia":[],"Nauru":[],"Nepal":[],"Netherlands":[],"NewCaledonia":[],"NewZealand":[],"Nicaragua":[],"Niger":[],"Nigeria":[],"Niue":[],"NorthKorea":[],"NorthernMarianaIslands":[],"Norway":[],"Oman":[],"Pakistan":[],"Palau":[],"Palestine":[],"Panama":[],"PapuaNewGuinea":[],"Paraguay":[],"Peru":[],"Philippines":[],"Pitcairn":[],"Poland":[],"Portugal":[],"PuertoRico":[],"Qatar":[],"RepublicoftheCongo":[],"Reunion":[],"Romania":[],"Russia":[],"Rwanda":[],"SaintBarthelemy":[],"SaintHelena":[],"SaintKittsandNevis":[],"SaintLucia":[],"SaintMartin":[],"SaintPierreandMiquelon":[],"SaintVincentandTheGrenadines":[],"Samoa":[],"SanMarino":[],"SaoTomeandPrincipe":[],"SaudiArabia":[],"Senegal":[],"Serbia":[],"Seychelles":[],"SierraLeone":[],"Singapore":[],"SintMaarten":[],"Slovakia":[],"Slovenia":[],"SolomonIslands":[],"Somalia":[],"SouthAfrica":[],"SouthKorea":[],"SouthSudan":[],"Spain":[],"SriLanka":[],"Sudan":[],"Suriname":[],"SvalbardandJanMayen":[],"Swaziland":[],"Sweden":[],"Switzerland":[],"Syria":[],"Taiwan":[],"Tajikistan":[],"Tanzania":[],"Thailand":[],"Togo":[],"Tokelau":[],"Tonga":[],"TrinidadandTobago":[],"Tunisia":[],"Turkey":[],"Turkmenistan":[],"TurksandCaicosIslands":[],"Tuvalu":[],"USVirginIslands":[],"Uganda":[],"Ukraine":[],"UnitedArabEmirates":[],"UnitedKingdom":[],"UnitedStates":[],"Uruguay":[],"Uzbekistan":[],"Vanuatu":[],"Vatican":[],"Venezuela":[],"Vietnam":[],"WallisandFutuna":[],"WesternSahara":[],"Yemen":[],"Zambia":[],"Zimbabwe":[]}},"Basics.Float":{"args":[],"tags":{"Float":[]}},"Test.Runner.Failure.InvalidReason":{"args":[],"tags":{"EmptyList":[],"NonpositiveFuzzCount":[],"InvalidFuzzer":[],"BadDescription":[],"DuplicatedName":[]}},"Dict.NColor":{"args":[],"tags":{"Red":[],"Black":[]}},"Set.Set":{"args":["t"],"tags":{"Set_elm_builtin":["Dict.Dict t ()"]}},"R10.FormTypes.TypeBinary":{"args":[],"tags":{"BinaryCheckbox":[],"BinarySwitch":[]}},"R10.FormTypes.TypeMulti":{"args":[],"tags":{"MultiCombobox":[]}},"R10.FormTypes.TypeSingle":{"args":[],"tags":{"SingleRadio":[],"SingleRadioRow":[],"SingleCombobox":[],"SingleSelect":[]}},"R10.FormTypes.TypeSpecial":{"args":[],"tags":{"SpecialPhone":[]}},"R10.FormTypes.TypeText":{"args":[],"tags":{"TextPlain":[],"TextEmail":[],"TextEmailWithSuggestions":["List.List String.String"],"TextUsername":[],"TextPasswordNew":[],"TextPasswordCurrent":[],"TextMultiline":[],"TextWithPattern":["String.String"],"TextWithPatternLarge":["String.String"]}}}}})}});
 
 //////////////////// HMR BEGIN ////////////////////
 

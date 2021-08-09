@@ -142,7 +142,7 @@ update msg model =
                     { form
                         | state =
                             form.state
-                                |> R10.Form.update msgForm
+                                |> R10.Form.update (\_ s -> s) msgForm
                                 |> Tuple.first
                     }
             in
@@ -173,6 +173,7 @@ type Msg
 view : Model -> Html.Html Msg
 view model =
     layoutWith
+        R10.Context.empty
         { options = [ focusStyle { borderColor = Nothing, backgroundColor = Nothing, shadow = Nothing } ] }
         [ Font.size 16 ]
     <|
@@ -309,10 +310,11 @@ view model =
                                  , Border.shadow { offset = ( 0, 0 ), size = 0, blur = 10, color = rgba 0 0 0 0.2 }
                                  , clip
                                  ]
-                                    ++ Exercises.viewElementAttrs exerciseModel
+                                    ++ List.map attribute (Exercises.viewElementAttrs exerciseModel)
                                 )
                             <|
-                                Exercises.viewElement (onlyTests (List.length exerciseData.tests)) exerciseModel
+                                element <|
+                                    Exercises.viewElement (onlyTests (List.length exerciseData.tests)) exerciseModel
                         ]
             ]
 
@@ -337,7 +339,7 @@ port portLocalStoragePop : (String -> msg) -> Sub msg
 port portLocalStoragePush : String -> Cmd msg
 
 
-textarea : List (Attribute msg) -> String -> Element msg
+textarea : List (AttributeC msg) -> String -> ElementC msg
 textarea attrs string =
     el attrs <|
         html <|
