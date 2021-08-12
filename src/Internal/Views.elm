@@ -560,7 +560,6 @@ chart2 model =
                                     :: acc
                     )
                     []
-                |> Debug.log "xxx"
 
         minSecs : Int
         minSecs =
@@ -616,7 +615,6 @@ chart2 model =
                      -- ( toFloat index * rangeInterval, toFloat (index + 1) * rangeInterval ) :: acc
                     )
                     []
-                |> Debug.log "xxx2"
 
         solved : Int
         solved =

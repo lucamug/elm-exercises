@@ -15,13 +15,13 @@ child_process.exec(command, (error, out) => {
         // callback(data);
         const parsedData = JSON.parse(data);
         // console.log(parsedData);
-        removeDir(`../ellie/docs/js`, false);
-        mkdir(`../ellie/docs/js`);
+        removeDir(`../exercises/docs/js`, false);
+        mkdir(`../exercises/docs/js`);
 
         parsedData.map(
             (file) => {
-                console.log(`Wrtiting ../ellie/docs/js/${file.fileName}`);
-                fs.writeFileSync(`../ellie/docs/js/${file.fileName}`, file.content);
+                console.log(`Wrtiting ../exercises/docs/js/${file.fileName}`);
+                fs.writeFileSync(`../exercises/docs/js/${file.fileName}`, file.content);
             }
         )
     });
