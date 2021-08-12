@@ -13,7 +13,7 @@ exerciseData =
     , reference = "https://johncrane.gitbooks.io/ninety-nine-elm-problems/content/p/p90.html"
     , problem = """The [Eight queens puzzle](https://en.wikipedia.org/wiki/Eight_queens_puzzle) is a classical puzzle in computer science. The objective is to place eight queens on a chessboard so that no two queens are attacking each other; that is no two queens are in the same row, the same column, or on the same diagonal. For example:
 
-![8 Queens Puzzle](/images/8-queens-puzzle.png)        
+![8 Queens Puzzle](https://elm-exercises.netlify.app/images/8-queens-puzzle.png)        
         
 Represent the positions of the queens as a list of numbers 1..N. Example: [4,2,7,3,6,8,5,1] means that the queen in the first column is in row 4, the queen in the second column is in row 2, etc.
 """
