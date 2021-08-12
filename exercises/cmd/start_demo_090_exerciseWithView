@@ -1,0 +1,4 @@
+#!/bin/bash
+set -eu
+
+npx elm-go demos/D090_exerciseWithView.elm --port=8004 --dir=docs --start-page=D090_exerciseWithView.html -- --output=docs/elm.js --debug

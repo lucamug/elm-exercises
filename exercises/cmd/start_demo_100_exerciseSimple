@@ -1,0 +1,4 @@
+#!/bin/bash
+set -eu
+
+npx elm-go demos/D100_exerciseSimple.elm --port=8004 --dir=docs --start-page=D100_exerciseSimple.html -- --output=docs/elm.js --debug

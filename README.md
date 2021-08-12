@@ -2,7 +2,7 @@
 
 =====
 
-NOTE: This package is not ready yet to be used.
+NOTE: This package is a working in progress.
 
 =====
 

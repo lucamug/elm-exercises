@@ -1,4 +1,4 @@
-port module Test100_exercise exposing (main)
+port module D100_exerciseSimple exposing (main)
 
 import Exercises exposing (..)
 

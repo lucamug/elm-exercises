@@ -1,4 +1,4 @@
-port module Test023_exerciseWithTea exposing (..)
+port module D023_exerciseWithTea exposing (..)
 
 import Element exposing (..)
 import Element.Border as Border
