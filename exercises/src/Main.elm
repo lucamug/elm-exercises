@@ -216,6 +216,7 @@ view model =
                                                         { index = createIndex 0 ListExercises.exercises
                                                         , exerciseData = Codec.encodeToString 0 Exercises.codecExerciseData exerciseData
                                                         , localStorage = ""
+                                                        , width = 800
                                                         }
                                                 )
                                 , label = text <| String.fromInt exerciseData.id
