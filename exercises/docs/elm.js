@@ -5232,7 +5232,10 @@ function _Url_percentDecode(string)
 	{
 		return $elm$core$Maybe$Nothing;
 	}
-}var $elm$core$List$cons = _List_cons;
+}var $elm$core$Maybe$Just = function (a) {
+	return {$: 'Just', a: a};
+};
+var $elm$core$List$cons = _List_cons;
 var $elm$core$Elm$JsArray$foldr = _JsArray_foldr;
 var $elm$core$Array$foldr = F3(
 	function (func, baseCase, _v0) {
@@ -5335,9 +5338,6 @@ var $elm$json$Json$Decode$OneOf = function (a) {
 };
 var $elm$core$Basics$False = {$: 'False'};
 var $elm$core$Basics$add = _Basics_add;
-var $elm$core$Maybe$Just = function (a) {
-	return {$: 'Just', a: a};
-};
 var $elm$core$Maybe$Nothing = {$: 'Nothing'};
 var $elm$core$String$all = _String_all;
 var $elm$core$Basics$and = _Basics_and;
@@ -11568,7 +11568,8 @@ var $author$project$Exercises$init = F2(
 			localStorageRecord: localStorageRecord,
 			menuOver: false,
 			modelExercise: modelExercise,
-			posixNow: $elm$time$Time$millisToPosix(0)
+			posixNow: $elm$time$Time$millisToPosix(0),
+			width: flags.width
 		};
 		return _Utils_Tuple2(
 			model,
@@ -11577,9 +11578,206 @@ var $author$project$Exercises$init = F2(
 var $author$project$Internal$Data$PortLocalStoragePop = function (a) {
 	return {$: 'PortLocalStoragePop', a: a};
 };
+var $author$project$Internal$Data$Resize = F2(
+	function (a, b) {
+		return {$: 'Resize', a: a, b: b};
+	});
+var $elm$core$Platform$Sub$batch = _Platform_batch;
+var $elm$browser$Browser$Events$Window = {$: 'Window'};
+var $elm$browser$Browser$Events$MySub = F3(
+	function (a, b, c) {
+		return {$: 'MySub', a: a, b: b, c: c};
+	});
+var $elm$browser$Browser$Events$State = F2(
+	function (subs, pids) {
+		return {pids: pids, subs: subs};
+	});
+var $elm$browser$Browser$Events$init = $elm$core$Task$succeed(
+	A2($elm$browser$Browser$Events$State, _List_Nil, $elm$core$Dict$empty));
+var $elm$browser$Browser$Events$nodeToKey = function (node) {
+	if (node.$ === 'Document') {
+		return 'd_';
+	} else {
+		return 'w_';
+	}
+};
+var $elm$browser$Browser$Events$addKey = function (sub) {
+	var node = sub.a;
+	var name = sub.b;
+	return _Utils_Tuple2(
+		_Utils_ap(
+			$elm$browser$Browser$Events$nodeToKey(node),
+			name),
+		sub);
+};
+var $elm$core$Process$kill = _Scheduler_kill;
+var $elm$browser$Browser$Events$Event = F2(
+	function (key, event) {
+		return {event: event, key: key};
+	});
+var $elm$core$Platform$sendToSelf = _Platform_sendToSelf;
+var $elm$browser$Browser$Events$spawn = F3(
+	function (router, key, _v0) {
+		var node = _v0.a;
+		var name = _v0.b;
+		var actualNode = function () {
+			if (node.$ === 'Document') {
+				return _Browser_doc;
+			} else {
+				return _Browser_window;
+			}
+		}();
+		return A2(
+			$elm$core$Task$map,
+			function (value) {
+				return _Utils_Tuple2(key, value);
+			},
+			A3(
+				_Browser_on,
+				actualNode,
+				name,
+				function (event) {
+					return A2(
+						$elm$core$Platform$sendToSelf,
+						router,
+						A2($elm$browser$Browser$Events$Event, key, event));
+				}));
+	});
+var $elm$core$Dict$union = F2(
+	function (t1, t2) {
+		return A3($elm$core$Dict$foldl, $elm$core$Dict$insert, t2, t1);
+	});
+var $elm$browser$Browser$Events$onEffects = F3(
+	function (router, subs, state) {
+		var stepRight = F3(
+			function (key, sub, _v6) {
+				var deads = _v6.a;
+				var lives = _v6.b;
+				var news = _v6.c;
+				return _Utils_Tuple3(
+					deads,
+					lives,
+					A2(
+						$elm$core$List$cons,
+						A3($elm$browser$Browser$Events$spawn, router, key, sub),
+						news));
+			});
+		var stepLeft = F3(
+			function (_v4, pid, _v5) {
+				var deads = _v5.a;
+				var lives = _v5.b;
+				var news = _v5.c;
+				return _Utils_Tuple3(
+					A2($elm$core$List$cons, pid, deads),
+					lives,
+					news);
+			});
+		var stepBoth = F4(
+			function (key, pid, _v2, _v3) {
+				var deads = _v3.a;
+				var lives = _v3.b;
+				var news = _v3.c;
+				return _Utils_Tuple3(
+					deads,
+					A3($elm$core$Dict$insert, key, pid, lives),
+					news);
+			});
+		var newSubs = A2($elm$core$List$map, $elm$browser$Browser$Events$addKey, subs);
+		var _v0 = A6(
+			$elm$core$Dict$merge,
+			stepLeft,
+			stepBoth,
+			stepRight,
+			state.pids,
+			$elm$core$Dict$fromList(newSubs),
+			_Utils_Tuple3(_List_Nil, $elm$core$Dict$empty, _List_Nil));
+		var deadPids = _v0.a;
+		var livePids = _v0.b;
+		var makeNewPids = _v0.c;
+		return A2(
+			$elm$core$Task$andThen,
+			function (pids) {
+				return $elm$core$Task$succeed(
+					A2(
+						$elm$browser$Browser$Events$State,
+						newSubs,
+						A2(
+							$elm$core$Dict$union,
+							livePids,
+							$elm$core$Dict$fromList(pids))));
+			},
+			A2(
+				$elm$core$Task$andThen,
+				function (_v1) {
+					return $elm$core$Task$sequence(makeNewPids);
+				},
+				$elm$core$Task$sequence(
+					A2($elm$core$List$map, $elm$core$Process$kill, deadPids))));
+	});
+var $elm$browser$Browser$Events$onSelfMsg = F3(
+	function (router, _v0, state) {
+		var key = _v0.key;
+		var event = _v0.event;
+		var toMessage = function (_v2) {
+			var subKey = _v2.a;
+			var _v3 = _v2.b;
+			var node = _v3.a;
+			var name = _v3.b;
+			var decoder = _v3.c;
+			return _Utils_eq(subKey, key) ? A2(_Browser_decodeEvent, decoder, event) : $elm$core$Maybe$Nothing;
+		};
+		var messages = A2($elm$core$List$filterMap, toMessage, state.subs);
+		return A2(
+			$elm$core$Task$andThen,
+			function (_v1) {
+				return $elm$core$Task$succeed(state);
+			},
+			$elm$core$Task$sequence(
+				A2(
+					$elm$core$List$map,
+					$elm$core$Platform$sendToApp(router),
+					messages)));
+	});
+var $elm$browser$Browser$Events$subMap = F2(
+	function (func, _v0) {
+		var node = _v0.a;
+		var name = _v0.b;
+		var decoder = _v0.c;
+		return A3(
+			$elm$browser$Browser$Events$MySub,
+			node,
+			name,
+			A2($elm$json$Json$Decode$map, func, decoder));
+	});
+_Platform_effectManagers['Browser.Events'] = _Platform_createManager($elm$browser$Browser$Events$init, $elm$browser$Browser$Events$onEffects, $elm$browser$Browser$Events$onSelfMsg, 0, $elm$browser$Browser$Events$subMap);
+var $elm$browser$Browser$Events$subscription = _Platform_leaf('Browser.Events');
+var $elm$browser$Browser$Events$on = F3(
+	function (node, name, decoder) {
+		return $elm$browser$Browser$Events$subscription(
+			A3($elm$browser$Browser$Events$MySub, node, name, decoder));
+	});
+var $elm$browser$Browser$Events$onResize = function (func) {
+	return A3(
+		$elm$browser$Browser$Events$on,
+		$elm$browser$Browser$Events$Window,
+		'resize',
+		A2(
+			$elm$json$Json$Decode$field,
+			'target',
+			A3(
+				$elm$json$Json$Decode$map2,
+				func,
+				A2($elm$json$Json$Decode$field, 'innerWidth', $elm$json$Json$Decode$int),
+				A2($elm$json$Json$Decode$field, 'innerHeight', $elm$json$Json$Decode$int))));
+};
 var $author$project$Exercises$subscriptions = F2(
 	function (tea, _v0) {
-		return tea.portLocalStoragePop($author$project$Internal$Data$PortLocalStoragePop);
+		return $elm$core$Platform$Sub$batch(
+			_List_fromArray(
+				[
+					$elm$browser$Browser$Events$onResize($author$project$Internal$Data$Resize),
+					tea.portLocalStoragePop($author$project$Internal$Data$PortLocalStoragePop)
+				]));
 	});
 var $author$project$Exercises$andThen = F3(
 	function (updater, msg, _v0) {
@@ -11837,11 +12035,18 @@ var $author$project$Exercises$updateMain = F3(
 							}()
 						}),
 					$elm$core$Platform$Cmd$none);
-			default:
+			case 'RemoveHistory':
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
 						{localStorage: $elm$core$Dict$empty}),
+					$elm$core$Platform$Cmd$none);
+			default:
+				var width = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{width: width}),
 					$elm$core$Platform$Cmd$none);
 		}
 	});
@@ -27769,14 +27974,6 @@ var $author$project$Internal$Markdown$markdown = function (string) {
 			]);
 	}
 };
-var $mdgriffith$elm_ui$Internal$Model$Min = F2(
-	function (a, b) {
-		return {$: 'Min', a: a, b: b};
-	});
-var $mdgriffith$elm_ui$Element$minimum = F2(
-	function (i, l) {
-		return A2($mdgriffith$elm_ui$Internal$Model$Min, i, l);
-	});
 var $elm_community$string_extra$String$Extra$changeCase = F2(
 	function (mutator, word) {
 		return A2(
@@ -28459,13 +28656,20 @@ var $author$project$Internal$Views$viewTests = function (model) {
 };
 var $author$project$Internal$Views$viewBody = F2(
 	function (tea, model) {
+		var paddingRight = 60;
+		var paddingLeft = 40;
+		var isLargeWindow = function (width) {
+			return width > 700;
+		};
+		var columnSpacing = 20;
+		var widthColumn = isLargeWindow(model.width) ? (((((model.width - paddingLeft) - paddingRight) - columnSpacing) / 2) | 0) : ((model.width - paddingLeft) - paddingRight);
 		return A2(
 			$mdgriffith$elm_ui$Element$column,
 			_List_fromArray(
 				[
 					$mdgriffith$elm_ui$Element$spacing(40),
 					$mdgriffith$elm_ui$Element$paddingEach(
-					{bottom: 20, left: 40, right: 60, top: 20}),
+					{bottom: 20, left: paddingLeft, right: paddingRight, top: 20}),
 					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
 				]),
 			_Utils_ap(
@@ -28474,10 +28678,10 @@ var $author$project$Internal$Views$viewBody = F2(
 					_List_fromArray(
 						[
 							A2(
-							$mdgriffith$elm_ui$Element$wrappedRow,
+							isLargeWindow(model.width) ? $mdgriffith$elm_ui$Element$row : $mdgriffith$elm_ui$Element$column,
 							_List_fromArray(
 								[
-									$mdgriffith$elm_ui$Element$spacing(40)
+									$mdgriffith$elm_ui$Element$spacing(columnSpacing)
 								]),
 							_List_fromArray(
 								[
@@ -28486,10 +28690,9 @@ var $author$project$Internal$Views$viewBody = F2(
 									_List_fromArray(
 										[
 											$mdgriffith$elm_ui$Element$spacing(40),
-											$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
 											$mdgriffith$elm_ui$Element$alignTop,
 											$mdgriffith$elm_ui$Element$width(
-											A2($mdgriffith$elm_ui$Element$minimum, 240, $mdgriffith$elm_ui$Element$fill))
+											$mdgriffith$elm_ui$Element$px(widthColumn))
 										]),
 									_Utils_ap(
 										_List_Nil,
@@ -28513,7 +28716,7 @@ var $author$project$Internal$Views$viewBody = F2(
 															$author$project$Internal$Markdown$markdown(
 																_Utils_ap(
 																	model.exerciseData.problem,
-																	$elm$core$String$isEmpty(model.exerciseData.example) ? '' : ('\n## Examples\n```elm\n' + (model.exerciseData.example + '\n```\n')))),
+																	$elm$core$String$isEmpty(model.exerciseData.example) ? '' : ('\n## Examples\n```elm\n' + (model.exerciseData.example + '\n```\n\n')))),
 															_Utils_ap(
 																_List_fromArray(
 																	[
@@ -28563,7 +28766,7 @@ var $author$project$Internal$Views$viewBody = F2(
 											$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
 											$mdgriffith$elm_ui$Element$alignTop,
 											$mdgriffith$elm_ui$Element$width(
-											A2($mdgriffith$elm_ui$Element$minimum, 240, $mdgriffith$elm_ui$Element$fill))
+											$mdgriffith$elm_ui$Element$px(widthColumn))
 										]),
 									_Utils_ap(
 										_List_Nil,
@@ -29413,7 +29616,7 @@ var $author$project$Internal$Views$viewElement = F2(
 							_List_Nil,
 							_List_fromArray(
 								[
-									$elm$html$Html$text('\n            /* unvisited link */\n            a:link {\n                color: rgb(18, 147, 216);\n            }\n\n            /* visited link */\n            a:visited {\n                color: rgb(0, 100, 180);\n            }\n\n            /* mouse over link */\n            a:hover {\n                color: rgb(0, 100, 180);\n            }\n\n            /* selected link */\n            a:active {\n                color: rgb(0, 100, 180);\n            }\n\n            a.linkInTheHeader:link {\n                color: rgba(255, 255, 255, 0.5);\n                transition: .2s;\n            }\n\n            a.linkInTheHeader:hover {\n                color: rgb(255, 255, 255);\n            }\n            \n            .fail {\n                stroke: rgb(204, 0, 0);\n            }\n            \n            .pass { \n                stroke: rgb(0, 153, 0);\n            }\n\n            .elmsh {\n                background-color: rgba(0,0,0,0);\n                font-size: 14px;\n                line-height: 18px;\n                font-family: \'Source Code Pro\', monospace;\n            }\n            \n            \n            pre {margin: 0px; padding: 10px}\n            \n            .s.r > s:first-of-type.accx { flex-grow: 0 !important; }\n            .s.r > s:last-of-type.accx { flex-grow: 0 !important; }\n            .cx > .wrp { justify-content: center !important; }\n            ')
+									$elm$html$Html$text('\n            /* unvisited link */\n            a:link {\n                color: rgb(18, 147, 216);\n            }\n\n            /* visited link */\n            a:visited {\n                color: rgb(0, 100, 180);\n            }\n\n            /* mouse over link */\n            a:hover {\n                color: rgb(0, 100, 180);\n            }\n\n            /* selected link */\n            a:active {\n                color: rgb(0, 100, 180);\n            }\n\n            a.linkInTheHeader:link {\n                color: rgba(255, 255, 255, 0.5);\n                transition: .2s;\n            }\n\n            a.linkInTheHeader:hover {\n                color: rgb(255, 255, 255);\n            }\n            \n            .fail {\n                stroke: rgb(204, 0, 0);\n            }\n            \n            .pass { \n                stroke: rgb(0, 153, 0);\n            }\n\n            .elmsh {\n                background-color: rgba(0,0,0,0);\n                font-size: 14px;\n                line-height: 18px;\n                font-family: \'Source Code Pro\', monospace;\n            }\n            \n            \n            pre {margin: 0px; padding: 10px}\n            \n            .s.r > s:first-of-type.accx { flex-grow: 0 !important; }\n            .s.r > s:last-of-type.accx { flex-grow: 0 !important; }\n            .cx > .wrp { justify-content: center !important; }\n            \n            ')
 								]))))
 				]),
 			_Utils_ap(
@@ -37072,42 +37275,146 @@ var $author$project$Exercises$exerciseWithTea = function (tea) {
 			view: $author$project$Internal$Views$view(tea2)
 		});
 };
-var $elm$core$Platform$Sub$batch = _Platform_batch;
-var $elm$core$Platform$Sub$none = $elm$core$Platform$Sub$batch(_List_Nil);
-var $author$project$Exercises$onlyTests = F2(
-	function (args, view) {
-		return {
-			init: _Utils_Tuple2(_Utils_Tuple0, $elm$core$Platform$Cmd$none),
-			portLocalStoragePop: args.portLocalStoragePop,
-			portLocalStoragePush: args.portLocalStoragePush,
-			subscriptions: function (_v0) {
-				return $elm$core$Platform$Sub$none;
-			},
-			tests: function (_v1) {
-				return args.tests;
-			},
-			update: F2(
-				function (_v2, _v3) {
-					return _Utils_Tuple2(_Utils_Tuple0, $elm$core$Platform$Cmd$none);
-				}),
-			view: A2(
-				$elm$core$Maybe$map,
-				function (v) {
-					return function (_v4) {
-						return v;
-					};
-				},
-				view)
-		};
-	});
-var $author$project$Exercises$exercise = function (args) {
-	return $author$project$Exercises$exerciseWithTea(
-		A2($author$project$Exercises$onlyTests, args, $elm$core$Maybe$Nothing));
+var $author$project$D023_exerciseWithTea$NewFace = function (a) {
+	return {$: 'NewFace', a: a};
 };
-var $author$project$D100_exerciseSimple$portLocalStoragePop = _Platform_incomingPort('portLocalStoragePop', $elm$json$Json$Decode$string);
-var $author$project$D100_exerciseSimple$portLocalStoragePush = _Platform_outgoingPort('portLocalStoragePush', $elm$json$Json$Encode$string);
-var $author$project$D100_exerciseSimple$al = function (s) {
-	return s + 'al';
+var $elm$random$Random$Generate = function (a) {
+	return {$: 'Generate', a: a};
+};
+var $elm$random$Random$Seed = F2(
+	function (a, b) {
+		return {$: 'Seed', a: a, b: b};
+	});
+var $elm$random$Random$next = function (_v0) {
+	var state0 = _v0.a;
+	var incr = _v0.b;
+	return A2($elm$random$Random$Seed, ((state0 * 1664525) + incr) >>> 0, incr);
+};
+var $elm$random$Random$initialSeed = function (x) {
+	var _v0 = $elm$random$Random$next(
+		A2($elm$random$Random$Seed, 0, 1013904223));
+	var state1 = _v0.a;
+	var incr = _v0.b;
+	var state2 = (state1 + x) >>> 0;
+	return $elm$random$Random$next(
+		A2($elm$random$Random$Seed, state2, incr));
+};
+var $elm$random$Random$init = A2(
+	$elm$core$Task$andThen,
+	function (time) {
+		return $elm$core$Task$succeed(
+			$elm$random$Random$initialSeed(
+				$elm$time$Time$posixToMillis(time)));
+	},
+	$elm$time$Time$now);
+var $elm$random$Random$step = F2(
+	function (_v0, seed) {
+		var generator = _v0.a;
+		return generator(seed);
+	});
+var $elm$random$Random$onEffects = F3(
+	function (router, commands, seed) {
+		if (!commands.b) {
+			return $elm$core$Task$succeed(seed);
+		} else {
+			var generator = commands.a.a;
+			var rest = commands.b;
+			var _v1 = A2($elm$random$Random$step, generator, seed);
+			var value = _v1.a;
+			var newSeed = _v1.b;
+			return A2(
+				$elm$core$Task$andThen,
+				function (_v2) {
+					return A3($elm$random$Random$onEffects, router, rest, newSeed);
+				},
+				A2($elm$core$Platform$sendToApp, router, value));
+		}
+	});
+var $elm$random$Random$onSelfMsg = F3(
+	function (_v0, _v1, seed) {
+		return $elm$core$Task$succeed(seed);
+	});
+var $elm$random$Random$Generator = function (a) {
+	return {$: 'Generator', a: a};
+};
+var $elm$random$Random$map = F2(
+	function (func, _v0) {
+		var genA = _v0.a;
+		return $elm$random$Random$Generator(
+			function (seed0) {
+				var _v1 = genA(seed0);
+				var a = _v1.a;
+				var seed1 = _v1.b;
+				return _Utils_Tuple2(
+					func(a),
+					seed1);
+			});
+	});
+var $elm$random$Random$cmdMap = F2(
+	function (func, _v0) {
+		var generator = _v0.a;
+		return $elm$random$Random$Generate(
+			A2($elm$random$Random$map, func, generator));
+	});
+_Platform_effectManagers['Random'] = _Platform_createManager($elm$random$Random$init, $elm$random$Random$onEffects, $elm$random$Random$onSelfMsg, $elm$random$Random$cmdMap);
+var $elm$random$Random$command = _Platform_leaf('Random');
+var $elm$random$Random$generate = F2(
+	function (tagger, generator) {
+		return $elm$random$Random$command(
+			$elm$random$Random$Generate(
+				A2($elm$random$Random$map, tagger, generator)));
+	});
+var $elm$core$Bitwise$xor = _Bitwise_xor;
+var $elm$random$Random$peel = function (_v0) {
+	var state = _v0.a;
+	var word = (state ^ (state >>> ((state >>> 28) + 4))) * 277803737;
+	return ((word >>> 22) ^ word) >>> 0;
+};
+var $elm$random$Random$int = F2(
+	function (a, b) {
+		return $elm$random$Random$Generator(
+			function (seed0) {
+				var _v0 = (_Utils_cmp(a, b) < 0) ? _Utils_Tuple2(a, b) : _Utils_Tuple2(b, a);
+				var lo = _v0.a;
+				var hi = _v0.b;
+				var range = (hi - lo) + 1;
+				if (!((range - 1) & range)) {
+					return _Utils_Tuple2(
+						(((range - 1) & $elm$random$Random$peel(seed0)) >>> 0) + lo,
+						$elm$random$Random$next(seed0));
+				} else {
+					var threshhold = (((-range) >>> 0) % range) >>> 0;
+					var accountForBias = function (seed) {
+						accountForBias:
+						while (true) {
+							var x = $elm$random$Random$peel(seed);
+							var seedN = $elm$random$Random$next(seed);
+							if (_Utils_cmp(x, threshhold) < 0) {
+								var $temp$seed = seedN;
+								seed = $temp$seed;
+								continue accountForBias;
+							} else {
+								return _Utils_Tuple2((x % range) + lo, seedN);
+							}
+						}
+					};
+					return accountForBias(seed0);
+				}
+			});
+	});
+var $elm$random$Random$maxInt = 2147483647;
+var $elm$random$Random$minInt = -2147483648;
+var $author$project$D023_exerciseWithTea$init = _Utils_Tuple2(
+	{intSeed: 1},
+	A2(
+		$elm$random$Random$generate,
+		$author$project$D023_exerciseWithTea$NewFace,
+		A2($elm$random$Random$int, $elm$random$Random$minInt, $elm$random$Random$maxInt)));
+var $author$project$D023_exerciseWithTea$portLocalStoragePop = _Platform_incomingPort('portLocalStoragePop', $elm$json$Json$Decode$string);
+var $author$project$D023_exerciseWithTea$portLocalStoragePush = _Platform_outgoingPort('portLocalStoragePush', $elm$json$Json$Encode$string);
+var $elm$core$Platform$Sub$none = $elm$core$Platform$Sub$batch(_List_Nil);
+var $author$project$D023_exerciseWithTea$subscriptions = function (model) {
+	return $elm$core$Platform$Sub$none;
 };
 var $elm_explorations$test$Test$Runner$Failure$Equality = F2(
 	function (a, b) {
@@ -37163,45 +37470,194 @@ var $elm_explorations$test$Expect$equateWith = F4(
 	});
 var $elm_explorations$test$Expect$equal = A2($elm_explorations$test$Expect$equateWith, 'Expect.equal', $elm$core$Basics$eq);
 var $author$project$Exercises$equal = $elm_explorations$test$Expect$equal;
-var $author$project$D100_exerciseSimple$g = function (f) {
-	return f('g');
-};
-var $author$project$D100_exerciseSimple$o = F2(
-	function (s, f) {
-		return f(s + 'o');
+var $elm_explorations$test$Expect$notEqual = A2($elm_explorations$test$Expect$equateWith, 'Expect.notEqual', $elm$core$Basics$neq);
+var $author$project$Exercises$notEqual = $elm_explorations$test$Expect$notEqual;
+var $author$project$D023_exerciseWithTea$randomSelect = F3(
+	function (seed, n, list) {
+		return _Utils_Tuple2(_List_Nil, seed);
 	});
-var $author$project$D100_exerciseSimple$tests = _List_fromArray(
-	[
-		A2(
-		$author$project$Exercises$equal,
-		'goooooooal',
-		A8($author$project$D100_exerciseSimple$g, $author$project$D100_exerciseSimple$o, $author$project$D100_exerciseSimple$o, $author$project$D100_exerciseSimple$o, $author$project$D100_exerciseSimple$o, $author$project$D100_exerciseSimple$o, $author$project$D100_exerciseSimple$o, $author$project$D100_exerciseSimple$o, $author$project$D100_exerciseSimple$al)),
-		A2(
-		$author$project$Exercises$equal,
-		'goal',
-		A2($author$project$D100_exerciseSimple$g, $author$project$D100_exerciseSimple$o, $author$project$D100_exerciseSimple$al)),
-		A2(
-		$author$project$Exercises$equal,
-		'gal',
-		$author$project$D100_exerciseSimple$g($author$project$D100_exerciseSimple$al))
-	]);
-var $author$project$D100_exerciseSimple$main = $author$project$Exercises$exercise(
-	{portLocalStoragePop: $author$project$D100_exerciseSimple$portLocalStoragePop, portLocalStoragePush: $author$project$D100_exerciseSimple$portLocalStoragePush, tests: $author$project$D100_exerciseSimple$tests});
-_Platform_export({'D100_exerciseSimple':{'init':$author$project$D100_exerciseSimple$main(
+var $elm$core$List$sort = function (xs) {
+	return A2($elm$core$List$sortBy, $elm$core$Basics$identity, xs);
+};
+var $author$project$D023_exerciseWithTea$tests = function (modelExercise) {
+	var seed = $elm$random$Random$initialSeed(modelExercise.intSeed);
+	var _v0 = A3(
+		$author$project$D023_exerciseWithTea$randomSelect,
+		seed,
+		3,
+		A2($elm$core$List$range, 1, 1000));
+	var list2 = _v0.a;
+	var seed2 = _v0.b;
+	var _v1 = A3(
+		$author$project$D023_exerciseWithTea$randomSelect,
+		seed2,
+		3,
+		A2($elm$core$List$range, 1, 1000));
+	var list3 = _v1.a;
+	var seed3 = _v1.b;
+	var _v2 = A3(
+		$author$project$D023_exerciseWithTea$randomSelect,
+		seed3,
+		9,
+		A2($elm$core$List$range, 1, 9));
+	var list4 = _v2.a;
+	var seed4 = _v2.b;
+	var _v3 = A3(
+		$author$project$D023_exerciseWithTea$randomSelect,
+		seed4,
+		3,
+		_List_fromArray(
+			['a', 'b']));
+	var list5 = _v3.a;
+	var seed5 = _v3.b;
+	var _v4 = A3(
+		$author$project$D023_exerciseWithTea$randomSelect,
+		seed5,
+		0,
+		_List_fromArray(
+			[
+				_Utils_chr('a'),
+				_Utils_chr('b')
+			]));
+	var list6 = _v4.a;
+	var seed6 = _v4.b;
+	var _v5 = A3(
+		$author$project$D023_exerciseWithTea$randomSelect,
+		seed6,
+		-1,
+		_List_fromArray(
+			[
+				_Utils_chr('a'),
+				_Utils_chr('b')
+			]));
+	var list7 = _v5.a;
+	var seed7 = _v5.b;
+	var _v6 = A3($author$project$D023_exerciseWithTea$randomSelect, seed6, 1, _List_Nil);
+	var list8 = _v6.a;
+	var seed8 = _v6.b;
+	var _v7 = A3(
+		$author$project$D023_exerciseWithTea$randomSelect,
+		seed,
+		3,
+		A2($elm$core$List$range, 1, 1000));
+	var list1 = _v7.a;
+	var seed1 = _v7.b;
+	return _List_fromArray(
+		[
+			A2(
+			$author$project$Exercises$equal,
+			$elm$core$List$sort(list2),
+			$elm$core$List$sort(list1)),
+			A2($author$project$Exercises$notEqual, list3, list2),
+			A2(
+			$author$project$Exercises$equal,
+			A2($elm$core$List$range, 1, 9),
+			$elm$core$List$sort(list4)),
+			A2(
+			$author$project$Exercises$equal,
+			_List_fromArray(
+				['a', 'b']),
+			$elm$core$List$sort(list5)),
+			A2($author$project$Exercises$equal, _List_Nil, list6),
+			A2($author$project$Exercises$equal, _List_Nil, list7),
+			A2($author$project$Exercises$equal, _List_Nil, list8)
+		]);
+};
+var $author$project$D023_exerciseWithTea$update = F2(
+	function (msg, model) {
+		if (msg.$ === 'Test') {
+			return _Utils_Tuple2(
+				model,
+				A2(
+					$elm$random$Random$generate,
+					$author$project$D023_exerciseWithTea$NewFace,
+					A2($elm$random$Random$int, $elm$random$Random$minInt, $elm$random$Random$maxInt)));
+		} else {
+			var newSeed = msg.a;
+			return _Utils_Tuple2(
+				_Utils_update(
+					model,
+					{intSeed: newSeed}),
+				$elm$core$Platform$Cmd$none);
+		}
+	});
+var $author$project$D023_exerciseWithTea$Test = {$: 'Test'};
+var $author$project$Exercises$attrsButton = $author$project$Internal$Views$attrsButton;
+var $author$project$D023_exerciseWithTea$view = function (model) {
+	return A2(
+		$mdgriffith$elm_ui$Element$column,
+		_List_fromArray(
+			[
+				$mdgriffith$elm_ui$Element$spacing(10)
+			]),
+		_List_fromArray(
+			[
+				A2(
+				$mdgriffith$elm_ui$Element$paragraph,
+				_List_Nil,
+				_List_fromArray(
+					[
+						$mdgriffith$elm_ui$Element$text(
+						'Seed value: ' + $elm$core$String$fromInt(model.intSeed))
+					])),
+				A2(
+				$mdgriffith$elm_ui$Element$paragraph,
+				_List_Nil,
+				_List_fromArray(
+					[
+						$mdgriffith$elm_ui$Element$text(
+						'Your die roll is ' + A2(
+							$elm$core$Maybe$withDefault,
+							'',
+							A2(
+								$elm$core$Maybe$map,
+								$elm$core$String$fromInt,
+								$elm$core$List$head(
+									A3(
+										$author$project$D023_exerciseWithTea$randomSelect,
+										$elm$random$Random$initialSeed(model.intSeed),
+										1,
+										A2($elm$core$List$range, 1, 6)).a))))
+					])),
+				A2(
+				$mdgriffith$elm_ui$Element$Input$button,
+				$author$project$Exercises$attrsButton,
+				{
+					label: $mdgriffith$elm_ui$Element$text('Test again'),
+					onPress: $elm$core$Maybe$Just($author$project$D023_exerciseWithTea$Test)
+				})
+			]));
+};
+var $author$project$D023_exerciseWithTea$main = $author$project$Exercises$exerciseWithTea(
+	{
+		init: $author$project$D023_exerciseWithTea$init,
+		portLocalStoragePop: $author$project$D023_exerciseWithTea$portLocalStoragePop,
+		portLocalStoragePush: $author$project$D023_exerciseWithTea$portLocalStoragePush,
+		subscriptions: $author$project$D023_exerciseWithTea$subscriptions,
+		tests: $author$project$D023_exerciseWithTea$tests,
+		update: $author$project$D023_exerciseWithTea$update,
+		view: $elm$core$Maybe$Just($author$project$D023_exerciseWithTea$view)
+	});
+_Platform_export({'D023_exerciseWithTea':{'init':$author$project$D023_exerciseWithTea$main(
 	A2(
 		$elm$json$Json$Decode$andThen,
-		function (localStorage) {
+		function (width) {
 			return A2(
 				$elm$json$Json$Decode$andThen,
-				function (index) {
+				function (localStorage) {
 					return A2(
 						$elm$json$Json$Decode$andThen,
-						function (exerciseData) {
-							return $elm$json$Json$Decode$succeed(
-								{exerciseData: exerciseData, index: index, localStorage: localStorage});
+						function (index) {
+							return A2(
+								$elm$json$Json$Decode$andThen,
+								function (exerciseData) {
+									return $elm$json$Json$Decode$succeed(
+										{exerciseData: exerciseData, index: index, localStorage: localStorage, width: width});
+								},
+								A2($elm$json$Json$Decode$field, 'exerciseData', $elm$json$Json$Decode$string));
 						},
-						A2($elm$json$Json$Decode$field, 'exerciseData', $elm$json$Json$Decode$string));
+						A2($elm$json$Json$Decode$field, 'index', $elm$json$Json$Decode$string));
 				},
-				A2($elm$json$Json$Decode$field, 'index', $elm$json$Json$Decode$string));
+				A2($elm$json$Json$Decode$field, 'localStorage', $elm$json$Json$Decode$string));
 		},
-		A2($elm$json$Json$Decode$field, 'localStorage', $elm$json$Json$Decode$string)))({"versions":{"elm":"0.19.1"},"types":{"message":"Internal.Data.Msg ()","aliases":{"Internal.Data.LocalStorageRecord":{"args":[],"type":"{ hints : Internal.Data.Show, solutions : Internal.Data.Show, menuOpen : Basics.Bool, menuContent : Internal.Data.MenuContent, firstSeen : Time.Posix, lastSeen : Time.Posix, solved : Maybe.Maybe Time.Posix, testsTotal : Basics.Int, testsPassed : Basics.Int }"}},"unions":{"Internal.Data.Msg":{"args":["msgExercise"],"tags":{"ShowHint":["Basics.Int"],"ShowHintsAll":[],"ShowHintsNone":[],"HideHint":["Basics.Int"],"ShowSolution":["Basics.Int"],"ShowSolutionsAll":[],"ShowSolutionsNone":[],"HideSolution":["Basics.Int"],"MsgTEA":["msgExercise"],"ChangeMenu":["Internal.Data.MenuContent"],"MenuOver":["Basics.Bool"],"PortLocalStoragePop":["String.String"],"PortLocalStoragePush":["Dict.Dict Basics.Int Internal.Data.LocalStorageRecord"],"UpdatePosix":["Time.Posix"],"RemoveFromHistory":["Basics.Int"],"RemoveHistory":[]}},"Basics.Bool":{"args":[],"tags":{"True":[],"False":[]}},"Dict.Dict":{"args":["k","v"],"tags":{"RBNode_elm_builtin":["Dict.NColor","k","v","Dict.Dict k v","Dict.Dict k v"],"RBEmpty_elm_builtin":[]}},"Basics.Int":{"args":[],"tags":{"Int":[]}},"Maybe.Maybe":{"args":["a"],"tags":{"Just":["a"],"Nothing":[]}},"Internal.Data.MenuContent":{"args":[],"tags":{"ContentHints":[],"ContentSolutions":[],"ContentHistory":[],"ContentOtherExercises":[],"ContentHelp":[],"ContentContribute":[]}},"Time.Posix":{"args":[],"tags":{"Posix":["Basics.Int"]}},"Internal.Data.Show":{"args":[],"tags":{"ShowAll":[],"ShowNone":[],"Show":["Set.Set Basics.Int"]}},"String.String":{"args":[],"tags":{"String":[]}},"Dict.NColor":{"args":[],"tags":{"Red":[],"Black":[]}},"Set.Set":{"args":["t"],"tags":{"Set_elm_builtin":["Dict.Dict t ()"]}}}}})}});}(this));
+		A2($elm$json$Json$Decode$field, 'width', $elm$json$Json$Decode$int)))({"versions":{"elm":"0.19.1"},"types":{"message":"Internal.Data.Msg D023_exerciseWithTea.MsgExercise","aliases":{"Internal.Data.LocalStorageRecord":{"args":[],"type":"{ hints : Internal.Data.Show, solutions : Internal.Data.Show, menuOpen : Basics.Bool, menuContent : Internal.Data.MenuContent, firstSeen : Time.Posix, lastSeen : Time.Posix, solved : Maybe.Maybe Time.Posix, testsTotal : Basics.Int, testsPassed : Basics.Int }"}},"unions":{"Internal.Data.Msg":{"args":["msgExercise"],"tags":{"ShowHint":["Basics.Int"],"ShowHintsAll":[],"ShowHintsNone":[],"HideHint":["Basics.Int"],"ShowSolution":["Basics.Int"],"ShowSolutionsAll":[],"ShowSolutionsNone":[],"HideSolution":["Basics.Int"],"MsgTEA":["msgExercise"],"ChangeMenu":["Internal.Data.MenuContent"],"MenuOver":["Basics.Bool"],"PortLocalStoragePop":["String.String"],"PortLocalStoragePush":["Dict.Dict Basics.Int Internal.Data.LocalStorageRecord"],"UpdatePosix":["Time.Posix"],"RemoveFromHistory":["Basics.Int"],"RemoveHistory":[],"Resize":["Basics.Int","Basics.Int"]}},"D023_exerciseWithTea.MsgExercise":{"args":[],"tags":{"Test":[],"NewFace":["Basics.Int"]}},"Basics.Bool":{"args":[],"tags":{"True":[],"False":[]}},"Dict.Dict":{"args":["k","v"],"tags":{"RBNode_elm_builtin":["Dict.NColor","k","v","Dict.Dict k v","Dict.Dict k v"],"RBEmpty_elm_builtin":[]}},"Basics.Int":{"args":[],"tags":{"Int":[]}},"Maybe.Maybe":{"args":["a"],"tags":{"Just":["a"],"Nothing":[]}},"Internal.Data.MenuContent":{"args":[],"tags":{"ContentHints":[],"ContentSolutions":[],"ContentHistory":[],"ContentOtherExercises":[],"ContentHelp":[],"ContentContribute":[]}},"Time.Posix":{"args":[],"tags":{"Posix":["Basics.Int"]}},"Internal.Data.Show":{"args":[],"tags":{"ShowAll":[],"ShowNone":[],"Show":["Set.Set Basics.Int"]}},"String.String":{"args":[],"tags":{"String":[]}},"Dict.NColor":{"args":[],"tags":{"Red":[],"Black":[]}},"Set.Set":{"args":["t"],"tags":{"Set_elm_builtin":["Dict.Dict t ()"]}}}}})}});}(this));

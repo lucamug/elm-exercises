@@ -33,6 +33,8 @@ type Msg msgExercise
       --
     | RemoveFromHistory Int
     | RemoveHistory
+      --
+    | Resize Int Int
 
 
 type alias Model modelExercise =
@@ -44,6 +46,7 @@ type alias Model modelExercise =
     , menuOver : Bool
     , failureReasons : List FailureReason
     , posixNow : Time.Posix
+    , width : Int
     }
 
 
@@ -352,4 +355,5 @@ type alias Flags =
     { index : String
     , exerciseData : String
     , localStorage : String
+    , width : Int
     }

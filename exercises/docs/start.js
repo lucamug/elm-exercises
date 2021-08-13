@@ -7,6 +7,7 @@ var app = Elm[Object.keys(Elm)[0]].init({
         index: JSON.stringify(typeof index === notDefined ? null : index),
         exerciseData: JSON.stringify(typeof exerciseData === notDefined ? null : exerciseData),
         localStorage: ls === null ? "[]" : ls,
+        width: window.innerWidth,
     }
 });
 if (app && app.ports && app.ports.portLocalStoragePush) {

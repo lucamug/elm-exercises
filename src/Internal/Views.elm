@@ -281,7 +281,11 @@ viewElement tea model =
             .s.r > s:first-of-type.accx { flex-grow: 0 !important; }
             .s.r > s:last-of-type.accx { flex-grow: 0 !important; }
             .cx > .wrp { justify-content: center !important; }
+            
             """ ]
+
+        -- .elmsh-line {white-space: pre-wrap}
+        -- .elmsh-line {display: flex; flex-wrap: wrap;}
         ]
         ([]
             ++ [ viewHeader model ]
@@ -1091,13 +1095,60 @@ viewBody :
     -> Internal.Data.Model modelExercise
     -> Element (Internal.Data.Msg msgExercise)
 viewBody tea model =
-    column [ spacing 40, paddingEach { top = 20, right = 60, bottom = 20, left = 40 }, width fill ] <|
+    let
+        paddingLeft : Int
+        paddingLeft =
+            40
+
+        paddingRight : Int
+        paddingRight =
+            60
+
+        columnSpacing : Int
+        columnSpacing =
+            20
+
+        isLargeWindow width =
+            width > 700
+
+        widthColumn =
+            if isLargeWindow model.width then
+                (model.width - paddingLeft - paddingRight - columnSpacing) // 2
+
+            else
+                model.width - paddingLeft - paddingRight
+    in
+    column
+        [ spacing 40
+        , paddingEach
+            { top = 20
+            , right = paddingRight
+            , bottom = 20
+            , left = paddingLeft
+            }
+        , width fill
+        ]
+    <|
         []
-            ++ [ wrappedRow [ spacing 40 ]
-                    [ column [ spacing 40, width fill, alignTop, width (fill |> minimum 240) ]
+            ++ [ (if isLargeWindow model.width then
+                    row
+
+                  else
+                    column
+                 )
+                    [ spacing columnSpacing ]
+                    [ column
+                        [ spacing 40
+                        , alignTop
+                        , width <| px widthColumn
+                        ]
                         ([]
                             ++ [ viewMainTitle "Problem" ]
-                            ++ [ column [ spacing 16, width fill ] <|
+                            ++ [ column
+                                    [ spacing 16
+                                    , width fill
+                                    ]
+                                 <|
                                     []
                                         ++ Internal.Markdown.markdown
                                             (model.exerciseData.problem
@@ -1105,7 +1156,7 @@ viewBody tea model =
                                                         ""
 
                                                     else
-                                                        "\n## Examples\n```elm\n" ++ model.exerciseData.example ++ "\n```\n"
+                                                        "\n## Examples\n```elm\n" ++ model.exerciseData.example ++ "\n```\n\n"
                                                    )
                                             )
                                         ++ [ paragraph [ alpha 0.5 ]
@@ -1128,7 +1179,12 @@ viewBody tea model =
                                            )
                                ]
                         )
-                    , column [ spacing 40, width fill, alignTop, width (fill |> minimum 240) ]
+                    , column
+                        [ spacing 40
+                        , width fill
+                        , alignTop
+                        , width <| px widthColumn
+                        ]
                         ([]
                             ++ [ viewMainTitle "Tests" ]
                             ++ [ viewTests model ]

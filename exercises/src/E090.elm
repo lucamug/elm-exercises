@@ -9,7 +9,9 @@ exerciseData =
     , title = "The \"Eight queens puzzle\""
     , difficulty = difficulty.hard
     , categories = [ "Puzzles", "Recursion" ]
-    , ellieId = "dFdF4NRQPVSa1"
+
+    -- , ellieId = "dFdF4NRQPVSa1"
+    , ellieId = "dYT5zPyXwJra1"
     , reference = "https://johncrane.gitbooks.io/ninety-nine-elm-problems/content/p/p90.html"
     , problem = """The [Eight queens puzzle](https://en.wikipedia.org/wiki/Eight_queens_puzzle) is a classical puzzle in computer science. The objective is to place eight queens on a chessboard so that no two queens are attacking each other; that is no two queens are in the same row, the same column, or on the same diagonal. For example:
 

@@ -338,18 +338,6 @@ code snippet =
 
 codeBlock : { body : String, language : Maybe String } -> Element msg
 codeBlock details =
-    -- el
-    --     [ Background.color (rgba 0 0 0 0.03)
-    --     , htmlAttribute (Html.Attributes.style "white-space" "pre")
-    --     , padding 20
-    --     , Font.family
-    --         [ Font.external
-    --             { url = "https://fonts.googleapis.com/css?family=Source+Code+Pro"
-    --             , name = "Source Code Pro"
-    --             }
-    --         ]
-    --     ]
-    --     (text details.body)
     el [ paddingXY 0 10, width fill ] <|
         el
             [ scrollbars
@@ -368,10 +356,6 @@ codeBlock details =
                     |> Result.withDefault
                         (Html.pre [] [ Html.code [] [ Html.text details.body ] ])
                 )
-
-
-
--- text details.body
 
 
 heading : { level : Markdown.Block.HeadingLevel, rawText : String, children : List (Element msg) } -> Element msg

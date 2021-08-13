@@ -46,6 +46,7 @@ These are the same tests of [elm-explorations/test](https://package.elm-lang.org
 -}
 
 import Browser
+import Browser.Events
 import Codec
 import Dict
 import Element exposing (..)
@@ -459,7 +460,10 @@ exerciseWithTea tea =
 
 subscriptions : TEA modelExercise msgExercise -> Model modelExercise -> Sub (Msg msgExercise)
 subscriptions tea _ =
-    tea.portLocalStoragePop Internal.Data.PortLocalStoragePop
+    Sub.batch
+        [ Browser.Events.onResize Internal.Data.Resize
+        , tea.portLocalStoragePop Internal.Data.PortLocalStoragePop
+        ]
 
 
 {-| -}
@@ -518,6 +522,7 @@ init tea flags =
 
             -- The first posix could come from flags if necessary
             , posixNow = Time.millisToPosix 0
+            , width = flags.width
             }
     in
     ( model
@@ -739,6 +744,9 @@ updateMain tea msg model =
 
         Internal.Data.RemoveHistory ->
             ( { model | localStorage = Dict.empty }, Cmd.none )
+
+        Internal.Data.Resize width _ ->
+            ( { model | width = width }, Cmd.none )
 
 
 
