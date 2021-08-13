@@ -29323,7 +29323,7 @@ var $feathericons$elm_feather$FeatherIcons$list = A2(
 			_List_Nil)
 		]));
 var $author$project$Internal$Views$icons = {contribute: $feathericons$elm_feather$FeatherIcons$heart, help: $feathericons$elm_feather$FeatherIcons$helpCircle, hints: $feathericons$elm_feather$FeatherIcons$crosshair, history: $feathericons$elm_feather$FeatherIcons$calendar, otherExercises: $feathericons$elm_feather$FeatherIcons$list, solutions: $feathericons$elm_feather$FeatherIcons$bookOpen};
-var $author$project$Internal$Views$version = '2.0.2';
+var $author$project$Internal$Views$version = '2.0.3';
 var $author$project$Internal$Views$viewFooter = A2(
 	$mdgriffith$elm_ui$Element$column,
 	_List_fromArray(
@@ -29481,7 +29481,14 @@ var $author$project$Internal$Views$viewHeader = function (model) {
 				$mdgriffith$elm_ui$Element$Background$color(
 				A3($mdgriffith$elm_ui$Element$rgb255, 0, 127, 196)),
 				$mdgriffith$elm_ui$Element$Font$color(
-				A3($mdgriffith$elm_ui$Element$rgb, 1, 1, 1))
+				A3($mdgriffith$elm_ui$Element$rgb, 1, 1, 1)),
+				$mdgriffith$elm_ui$Element$Font$size(16),
+				$mdgriffith$elm_ui$Element$Font$family(
+				_List_fromArray(
+					[
+						$mdgriffith$elm_ui$Element$Font$typeface('Source Sans Pro'),
+						$mdgriffith$elm_ui$Element$Font$sansSerif
+					]))
 			]),
 		_Utils_ap(
 			_List_Nil,
@@ -29823,6 +29830,22 @@ var $author$project$Internal$Views$viewSideButtons = function (model) {
 				A4($author$project$Internal$Views$sideButton, $author$project$Internal$Data$ContentContribute, $author$project$Internal$Views$icons.contribute, 'Contribute', $elm$core$Maybe$Nothing)
 			]));
 };
+var $elm$core$String$padLeft = F3(
+	function (n, _char, string) {
+		return _Utils_ap(
+			A2(
+				$elm$core$String$repeat,
+				n - $elm$core$String$length(string),
+				$elm$core$String$fromChar(_char)),
+			string);
+	});
+var $author$project$Internal$Views$gitHubDirectLink = function (id) {
+	return 'https://github.com/lucamug/elm-exercises/edit/master/exercises/src/E' + (A3(
+		$elm$core$String$padLeft,
+		3,
+		_Utils_chr('0'),
+		$elm$core$String$fromInt(id)) + '.elm');
+};
 var $author$project$Internal$Views$viewTitle = function (string) {
 	return A2(
 		$mdgriffith$elm_ui$Element$paragraph,
@@ -29861,7 +29884,7 @@ var $author$project$Internal$Views$contentContribute = function (id) {
 									$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
 								]),
 							$author$project$Internal$Markdown$markdown(
-								'If you find some mistake or you have some goot hint or a nice solution to add to this exercise, you can [edit it directly](https://github.com/lucamug/elm-exercises/edit/master/exercises/src/E' + ($elm$core$String$fromInt(id) + '.elm).')))
+								'If you find some mistake or you have some goot hint or a nice solution to add to this exercise, you can [edit it directly](' + ($author$project$Internal$Views$gitHubDirectLink(id) + ').')))
 						]),
 					_Utils_ap(
 						_List_fromArray(
@@ -30172,7 +30195,7 @@ var $author$project$Internal$Views$contentHints = function (model) {
 							$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
 						]),
 					$author$project$Internal$Markdown$markdown(
-						'Sorry, no hints for this exercise yet. If you have a hint, [please add it here](https://github.com/lucamug/elm-exercises/edit/master/exercises/src/E' + ($elm$core$String$fromInt(model.exerciseData.id) + '.elm).'))))
+						'Sorry, no hints for this exercise yet. If you have a hint, [please add it here](' + ($author$project$Internal$Views$gitHubDirectLink(model.exerciseData.id) + ').'))))
 			]) : _Utils_ap(
 			_List_Nil,
 			_Utils_ap(
@@ -37062,7 +37085,7 @@ var $author$project$Internal$Views$contentSolutions = function (model) {
 							$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
 						]),
 					$author$project$Internal$Markdown$markdown(
-						'Sorry, no solutions for this exercise yet. If you have a solution, [please add it here](https://github.com/lucamug/elm-exercises/edit/master/exercises/src/E' + ($elm$core$String$fromInt(model.exerciseData.id) + '.elm).'))))
+						'Sorry, no solutions for this exercise yet. If you have a solution, [please add it here](' + ($author$project$Internal$Views$gitHubDirectLink(model.exerciseData.id) + ').'))))
 			]));
 };
 var $mdgriffith$elm_ui$Element$scrollbarY = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$overflow, $mdgriffith$elm_ui$Internal$Style$classes.scrollbarsY);

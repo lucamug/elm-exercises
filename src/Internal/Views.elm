@@ -34,7 +34,7 @@ import Time
 
 version : String
 version =
-    "2.0.2"
+    "2.0.3"
 
 
 subtitle : String -> Element msg
@@ -95,6 +95,8 @@ viewHeader model =
         , Background.color <| rgb255 18 147 216
         , Background.color <| rgb255 0 127 196
         , Font.color <| rgb 1 1 1
+        , Font.size 16
+        , Font.family [ Font.typeface "Source Sans Pro", Font.sansSerif ]
         ]
         ([]
             ++ [ el [ alignTop ] <| html <| logo
@@ -365,6 +367,13 @@ isOpen show index =
             Set.member index set
 
 
+gitHubDirectLink : Int -> String
+gitHubDirectLink id =
+    "https://github.com/lucamug/elm-exercises/edit/master/exercises/src/E"
+        ++ String.padLeft 3 '0' (String.fromInt id)
+        ++ ".elm"
+
+
 contentHints :
     Internal.Data.Model modelExercise
     -> ( String, FeatherIcons.Icon, List (Element (Internal.Data.Msg msgExercise)) )
@@ -387,9 +396,9 @@ contentHints model =
                 ]
             <|
                 Internal.Markdown.markdown
-                    ("Sorry, no hints for this exercise yet. If you have a hint, [please add it here](https://github.com/lucamug/elm-exercises/edit/master/exercises/src/E"
-                        ++ String.fromInt model.exerciseData.id
-                        ++ ".elm)."
+                    ("Sorry, no hints for this exercise yet. If you have a hint, [please add it here]("
+                        ++ gitHubDirectLink model.exerciseData.id
+                        ++ ")."
                     )
         ]
 
@@ -452,9 +461,9 @@ contentSolutions model =
                 ]
             <|
                 Internal.Markdown.markdown
-                    ("Sorry, no solutions for this exercise yet. If you have a solution, [please add it here](https://github.com/lucamug/elm-exercises/edit/master/exercises/src/E"
-                        ++ String.fromInt model.exerciseData.id
-                        ++ ".elm)."
+                    ("Sorry, no solutions for this exercise yet. If you have a solution, [please add it here]("
+                        ++ gitHubDirectLink model.exerciseData.id
+                        ++ ")."
                     )
         ]
     )
@@ -929,9 +938,9 @@ contentContribute id =
         ++ [ viewTitle "Improve this exercise" ]
         ++ [ column [ spacing 16, width fill ] <|
                 Internal.Markdown.markdown <|
-                    "If you find some mistake or you have some goot hint or a nice solution to add to this exercise, you can [edit it directly](https://github.com/lucamug/elm-exercises/edit/master/exercises/src/E"
-                        ++ String.fromInt id
-                        ++ ".elm)."
+                    "If you find some mistake or you have some goot hint or a nice solution to add to this exercise, you can [edit it directly]("
+                        ++ gitHubDirectLink id
+                        ++ ")."
            ]
         ++ [ viewTitle "Crate new exercises" ]
         ++ [ column [ spacing 16, width fill ] <|
