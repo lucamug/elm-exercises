@@ -9,7 +9,7 @@ exerciseData =
     , title = "Fútbol announcer goal functions"
     , difficulty = difficulty.hard
     , categories = [ "Puzzles" ]
-    , ellieId = ""
+    , ellieId = "dZk36Lv5h4ca1"
     , reference = "https://github.com/carbonfive/functional-programming-weekly-challenge/tree/master/Week002"
     , problem = """Write three functions, `g`, `o`, and `al`, that can be called like in the example below to produce an appropriately enthusiastic goal announcement."""
     , example = """g o o o o o o o al == "goooooooal"

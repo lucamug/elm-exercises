@@ -3,36 +3,35 @@ port module D100_exerciseSimple exposing (main)
 import Exercises exposing (..)
 
 
-g : (String -> a) -> a
+
+-- g : (String -> a) -> a
+-- g f =
+--     f "g"
+--
+--
+-- o : String -> (String -> a) -> a
+-- o s f =
+--     f (s ++ "o")
+--
+--
+-- al : String -> String
+-- al s =
+--     s ++ "al"
+
+
 g f =
-    f "g"
+    -- Your implementation goes here
+    f ""
 
 
-o : String -> (String -> a) -> a
 o s f =
-    f (s ++ "o")
+    -- Your implementation goes here
+    f ""
 
 
-al : String -> String
 al s =
-    s ++ "al"
-
-
-
---
--- g f1 =
---     -- Your implementation goes here
---     f1 ""
---
---
--- o s1 f2 =
---     -- Your implementation goes here
---     f2 ""
---
---
--- al s2 =
---     -- Your implementation goes here
---     ""
+    -- Your implementation goes here
+    ""
 
 
 tests : List Test
