@@ -34,7 +34,7 @@ import Time
 
 version : String
 version =
-    "2.0.4"
+    "2.0.5"
 
 
 subtitle : String -> Element msg

@@ -9,7 +9,9 @@ exerciseData =
     , title = "Find the next to last element of a list"
     , difficulty = difficulty.easy
     , categories = [ "Lists", "Recursion" ]
-    , ellieId = "dFdvdf7wKmQa1"
+
+    -- , ellieId = "dFdvdf7wKmQa1"
+    , ellieId = "dZnRhJBf27Qa1"
     , reference = "https://johncrane.gitbooks.io/ninety-nine-elm-problems/content/p/p02.html"
     , problem = "Implement the function `penultimate` to find the next to last element of a list."
     , example = "penultimate [ 1, 2, 3, 4 ] == Just 3\n\npenultimate [ \"a\" ] == Nothing"
