@@ -3,7 +3,7 @@
     "name": "lucamug/elm-exercises",
     "summary": "A library to create Elm exercises in Ellie",
     "license": "BSD-3-Clause",
-    "version": "2.0.3",
+    "version": "2.0.4",
     "exposed-modules": [
         "Exercises"
     ],

@@ -34,7 +34,7 @@ import Time
 
 version : String
 version =
-    "2.0.3"
+    "2.0.4"
 
 
 subtitle : String -> Element msg
@@ -1353,8 +1353,8 @@ view :
 view tea model =
     layoutWith
         { options = [ focusStyle { borderColor = Nothing, backgroundColor = Nothing, shadow = Nothing } ] }
-        (viewElementAttrs model
-            ++ [ inFront <| viewHeader model ]
+        ([ inFront <| viewHeader model ]
+            ++ viewElementAttrs model
         )
         (viewElement tea model)
 

@@ -29323,7 +29323,7 @@ var $feathericons$elm_feather$FeatherIcons$list = A2(
 			_List_Nil)
 		]));
 var $author$project$Internal$Views$icons = {contribute: $feathericons$elm_feather$FeatherIcons$heart, help: $feathericons$elm_feather$FeatherIcons$helpCircle, hints: $feathericons$elm_feather$FeatherIcons$crosshair, history: $feathericons$elm_feather$FeatherIcons$calendar, otherExercises: $feathericons$elm_feather$FeatherIcons$list, solutions: $feathericons$elm_feather$FeatherIcons$bookOpen};
-var $author$project$Internal$Views$version = '2.0.3';
+var $author$project$Internal$Views$version = '2.0.4';
 var $author$project$Internal$Views$viewFooter = A2(
 	$mdgriffith$elm_ui$Element$column,
 	_List_fromArray(
@@ -37286,12 +37286,12 @@ var $author$project$Internal$Views$view = F2(
 					])
 			},
 			_Utils_ap(
-				$author$project$Internal$Views$viewElementAttrs(model),
 				_List_fromArray(
 					[
 						$mdgriffith$elm_ui$Element$inFront(
 						$author$project$Internal$Views$viewHeader(model))
-					])),
+					]),
+				$author$project$Internal$Views$viewElementAttrs(model)),
 			A2($author$project$Internal$Views$viewElement, tea, model));
 	});
 var $author$project$Exercises$exerciseWithTea = function (tea) {
