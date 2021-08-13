@@ -21,7 +21,6 @@ g al               == "gal\""""
         , "g al |> equal \"gal\""
         ]
     , hints =
-        -- Add this: /riddle100/
         [ """Would these type signatures be of any help?
 ```
 g : (String -> a) -> a
@@ -32,14 +31,22 @@ al : String -> String
 ```"""
         , """There was some discussion in the Elm Slack channel about this puzzle, maybe you can get some [inspiration from that](https://elm-exercises.netlify.app/100/)."""
         ]
-    , dummySolution = """queens : Int -> List (List Int)
-queens n = 
+    , dummySolution = """g f =
     -- """ ++ yourImplementationGoesHere ++ """
-    []"""
+    f ""
+
+
+o s f =
+    -- """ ++ yourImplementationGoesHere ++ """
+    f ""
+
+
+al s =
+    -- """ ++ yourImplementationGoesHere ++ """
+    ""
+"""
     , solutions =
-        [ """By [hayleigh](https://elm-exercises.netlify.app/100/withsolution):
-
-
+        [ """By [hayleigh](https://elm-exercises.netlify.app/100/withsolution)
 
 ```
 g : (String -> a) -> a
