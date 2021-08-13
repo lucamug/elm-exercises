@@ -1103,7 +1103,7 @@ viewBody tea model =
             20
 
         isLargeWindow width =
-            width > 700
+            width > 600
 
         widthColumn =
             if isLargeWindow model.width then
