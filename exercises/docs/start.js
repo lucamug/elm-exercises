@@ -17,6 +17,8 @@ if (app && app.ports && app.ports.portLocalStoragePush) {
 }
 if (app && app.ports && app.ports.portLocalStoragePop) {
     window.onstorage = function(event) {
-        app.ports.portLocalStoragePop.send(event.newValue);
+        if (event.key === lsName) {
+            app.ports.portLocalStoragePop.send(event.newValue);
+        }
     };
 }

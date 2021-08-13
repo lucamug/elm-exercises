@@ -89,12 +89,12 @@ viewHeader model =
     row
         [ width fill
         , spacing 20
+        , padding 20
         , Background.color <| rgb255 53 71 92
         , Background.color <| rgb255 38 121 165
         , Background.color <| rgb255 18 147 216
         , Background.color <| rgb255 0 127 196
         , Font.color <| rgb 1 1 1
-        , padding 20
         ]
         ([]
             ++ [ el [ alignTop ] <| html <| logo
@@ -132,18 +132,6 @@ viewHeader model =
                            )
                     )
                ]
-         -- ++ [ Input.button
-         --         (attrsButton
-         --             ++ [ alignRight
-         --                , Font.size 24
-         --                , padding 10
-         --                , Border.width 0
-         --                ]
-         --         )
-         --         { label = text "☰"
-         --         , onPress = Just <| Internal.Data.ChangeMenu Internal.Data.ContentOtherExercises
-         --         }
-         --    ]
         )
 
 
@@ -283,9 +271,6 @@ viewElement tea model =
             .cx > .wrp { justify-content: center !important; }
             
             """ ]
-
-        -- .elmsh-line {white-space: pre-wrap}
-        -- .elmsh-line {display: flex; flex-wrap: wrap;}
         ]
         ([]
             ++ [ viewHeader model ]
@@ -1098,7 +1083,7 @@ viewBody tea model =
     let
         paddingLeft : Int
         paddingLeft =
-            40
+            20
 
         paddingRight : Int
         paddingRight =
@@ -1121,7 +1106,7 @@ viewBody tea model =
     column
         [ spacing 40
         , paddingEach
-            { top = 20
+            { top = 10
             , right = paddingRight
             , bottom = 20
             , left = paddingLeft
@@ -1359,7 +1344,9 @@ view :
 view tea model =
     layoutWith
         { options = [ focusStyle { borderColor = Nothing, backgroundColor = Nothing, shadow = Nothing } ] }
-        (viewElementAttrs model)
+        (viewElementAttrs model
+            ++ [ inFront <| viewHeader model ]
+        )
         (viewElement tea model)
 
 

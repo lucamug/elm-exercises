@@ -5232,10 +5232,7 @@ function _Url_percentDecode(string)
 	{
 		return $elm$core$Maybe$Nothing;
 	}
-}var $elm$core$Maybe$Just = function (a) {
-	return {$: 'Just', a: a};
-};
-var $elm$core$List$cons = _List_cons;
+}var $elm$core$List$cons = _List_cons;
 var $elm$core$Elm$JsArray$foldr = _JsArray_foldr;
 var $elm$core$Array$foldr = F3(
 	function (func, baseCase, _v0) {
@@ -5338,6 +5335,9 @@ var $elm$json$Json$Decode$OneOf = function (a) {
 };
 var $elm$core$Basics$False = {$: 'False'};
 var $elm$core$Basics$add = _Basics_add;
+var $elm$core$Maybe$Just = function (a) {
+	return {$: 'Just', a: a};
+};
 var $elm$core$Maybe$Nothing = {$: 'Nothing'};
 var $elm$core$String$all = _String_all;
 var $elm$core$Basics$and = _Basics_and;
@@ -12083,6 +12083,23 @@ var $mdgriffith$elm_ui$Internal$Model$FocusStyleOption = function (a) {
 	return {$: 'FocusStyleOption', a: a};
 };
 var $mdgriffith$elm_ui$Element$focusStyle = $mdgriffith$elm_ui$Internal$Model$FocusStyleOption;
+var $mdgriffith$elm_ui$Internal$Model$InFront = {$: 'InFront'};
+var $mdgriffith$elm_ui$Internal$Model$Nearby = F2(
+	function (a, b) {
+		return {$: 'Nearby', a: a, b: b};
+	});
+var $mdgriffith$elm_ui$Internal$Model$NoAttribute = {$: 'NoAttribute'};
+var $mdgriffith$elm_ui$Element$createNearby = F2(
+	function (loc, element) {
+		if (element.$ === 'Empty') {
+			return $mdgriffith$elm_ui$Internal$Model$NoAttribute;
+		} else {
+			return A2($mdgriffith$elm_ui$Internal$Model$Nearby, loc, element);
+		}
+	});
+var $mdgriffith$elm_ui$Element$inFront = function (element) {
+	return A2($mdgriffith$elm_ui$Element$createNearby, $mdgriffith$elm_ui$Internal$Model$InFront, element);
+};
 var $mdgriffith$elm_ui$Internal$Style$classes = {above: 'a', active: 'atv', alignBottom: 'ab', alignCenterX: 'cx', alignCenterY: 'cy', alignContainerBottom: 'acb', alignContainerCenterX: 'accx', alignContainerCenterY: 'accy', alignContainerRight: 'acr', alignLeft: 'al', alignRight: 'ar', alignTop: 'at', alignedHorizontally: 'ah', alignedVertically: 'av', any: 's', behind: 'bh', below: 'b', bold: 'w7', borderDashed: 'bd', borderDotted: 'bdt', borderNone: 'bn', borderSolid: 'bs', capturePointerEvents: 'cpe', clip: 'cp', clipX: 'cpx', clipY: 'cpy', column: 'c', container: 'ctr', contentBottom: 'cb', contentCenterX: 'ccx', contentCenterY: 'ccy', contentLeft: 'cl', contentRight: 'cr', contentTop: 'ct', cursorPointer: 'cptr', cursorText: 'ctxt', focus: 'fcs', focusedWithin: 'focus-within', fullSize: 'fs', grid: 'g', hasBehind: 'hbh', heightContent: 'hc', heightExact: 'he', heightFill: 'hf', heightFillPortion: 'hfp', hover: 'hv', imageContainer: 'ic', inFront: 'fr', inputLabel: 'lbl', inputMultiline: 'iml', inputMultilineFiller: 'imlf', inputMultilineParent: 'imlp', inputMultilineWrapper: 'implw', inputText: 'it', italic: 'i', link: 'lnk', nearby: 'nb', noTextSelection: 'notxt', onLeft: 'ol', onRight: 'or', opaque: 'oq', overflowHidden: 'oh', page: 'pg', paragraph: 'p', passPointerEvents: 'ppe', root: 'ui', row: 'r', scrollbars: 'sb', scrollbarsX: 'sbx', scrollbarsY: 'sby', seButton: 'sbt', single: 'e', sizeByCapital: 'cap', spaceEvenly: 'sev', strike: 'sk', text: 't', textCenter: 'tc', textExtraBold: 'w8', textExtraLight: 'w2', textHeavy: 'w9', textJustify: 'tj', textJustifyAll: 'tja', textLeft: 'tl', textLight: 'w3', textMedium: 'w5', textNormalWeight: 'w4', textRight: 'tr', textSemiBold: 'w6', textThin: 'w1', textUnitalicized: 'tun', transition: 'ts', transparent: 'clr', underline: 'u', widthContent: 'wc', widthExact: 'we', widthFill: 'wf', widthFillPortion: 'wfp', wrapped: 'wrp'};
 var $mdgriffith$elm_ui$Internal$Model$Attr = function (a) {
 	return {$: 'Attr', a: a};
@@ -18078,23 +18095,6 @@ var $pablohirafuji$elm_syntax_highlight$SyntaxHighlight$Theme$gitHub = $pablohir
 var $pablohirafuji$elm_syntax_highlight$SyntaxHighlight$gitHub = $pablohirafuji$elm_syntax_highlight$SyntaxHighlight$Theme($pablohirafuji$elm_syntax_highlight$SyntaxHighlight$Theme$gitHub);
 var $mdgriffith$elm_ui$Internal$Model$unstyled = A2($elm$core$Basics$composeL, $mdgriffith$elm_ui$Internal$Model$Unstyled, $elm$core$Basics$always);
 var $mdgriffith$elm_ui$Element$html = $mdgriffith$elm_ui$Internal$Model$unstyled;
-var $mdgriffith$elm_ui$Internal$Model$InFront = {$: 'InFront'};
-var $mdgriffith$elm_ui$Internal$Model$Nearby = F2(
-	function (a, b) {
-		return {$: 'Nearby', a: a, b: b};
-	});
-var $mdgriffith$elm_ui$Internal$Model$NoAttribute = {$: 'NoAttribute'};
-var $mdgriffith$elm_ui$Element$createNearby = F2(
-	function (loc, element) {
-		if (element.$ === 'Empty') {
-			return $mdgriffith$elm_ui$Internal$Model$NoAttribute;
-		} else {
-			return A2($mdgriffith$elm_ui$Internal$Model$Nearby, loc, element);
-		}
-	});
-var $mdgriffith$elm_ui$Element$inFront = function (element) {
-	return A2($mdgriffith$elm_ui$Element$createNearby, $mdgriffith$elm_ui$Internal$Model$InFront, element);
-};
 var $mdgriffith$elm_ui$Element$Font$sansSerif = $mdgriffith$elm_ui$Internal$Model$SansSerif;
 var $mdgriffith$elm_ui$Element$Font$size = function (i) {
 	return A2(
@@ -28657,7 +28657,7 @@ var $author$project$Internal$Views$viewTests = function (model) {
 var $author$project$Internal$Views$viewBody = F2(
 	function (tea, model) {
 		var paddingRight = 60;
-		var paddingLeft = 40;
+		var paddingLeft = 20;
 		var isLargeWindow = function (width) {
 			return width > 700;
 		};
@@ -28669,7 +28669,7 @@ var $author$project$Internal$Views$viewBody = F2(
 				[
 					$mdgriffith$elm_ui$Element$spacing(40),
 					$mdgriffith$elm_ui$Element$paddingEach(
-					{bottom: 20, left: paddingLeft, right: paddingRight, top: 20}),
+					{bottom: 20, left: paddingLeft, right: paddingRight, top: 10}),
 					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
 				]),
 			_Utils_ap(
@@ -29323,7 +29323,7 @@ var $feathericons$elm_feather$FeatherIcons$list = A2(
 			_List_Nil)
 		]));
 var $author$project$Internal$Views$icons = {contribute: $feathericons$elm_feather$FeatherIcons$heart, help: $feathericons$elm_feather$FeatherIcons$helpCircle, hints: $feathericons$elm_feather$FeatherIcons$crosshair, history: $feathericons$elm_feather$FeatherIcons$calendar, otherExercises: $feathericons$elm_feather$FeatherIcons$list, solutions: $feathericons$elm_feather$FeatherIcons$bookOpen};
-var $author$project$Internal$Views$version = '2.0.0';
+var $author$project$Internal$Views$version = '2.0.2';
 var $author$project$Internal$Views$viewFooter = A2(
 	$mdgriffith$elm_ui$Element$column,
 	_List_fromArray(
@@ -29471,6 +29471,7 @@ var $author$project$Internal$Views$viewHeader = function (model) {
 			[
 				$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
 				$mdgriffith$elm_ui$Element$spacing(20),
+				$mdgriffith$elm_ui$Element$padding(20),
 				$mdgriffith$elm_ui$Element$Background$color(
 				A3($mdgriffith$elm_ui$Element$rgb255, 53, 71, 92)),
 				$mdgriffith$elm_ui$Element$Background$color(
@@ -29480,8 +29481,7 @@ var $author$project$Internal$Views$viewHeader = function (model) {
 				$mdgriffith$elm_ui$Element$Background$color(
 				A3($mdgriffith$elm_ui$Element$rgb255, 0, 127, 196)),
 				$mdgriffith$elm_ui$Element$Font$color(
-				A3($mdgriffith$elm_ui$Element$rgb, 1, 1, 1)),
-				$mdgriffith$elm_ui$Element$padding(20)
+				A3($mdgriffith$elm_ui$Element$rgb, 1, 1, 1))
 			]),
 		_Utils_ap(
 			_List_Nil,
@@ -37262,7 +37262,13 @@ var $author$project$Internal$Views$view = F2(
 						{backgroundColor: $elm$core$Maybe$Nothing, borderColor: $elm$core$Maybe$Nothing, shadow: $elm$core$Maybe$Nothing})
 					])
 			},
-			$author$project$Internal$Views$viewElementAttrs(model),
+			_Utils_ap(
+				$author$project$Internal$Views$viewElementAttrs(model),
+				_List_fromArray(
+					[
+						$mdgriffith$elm_ui$Element$inFront(
+						$author$project$Internal$Views$viewHeader(model))
+					])),
 			A2($author$project$Internal$Views$viewElement, tea, model));
 	});
 var $author$project$Exercises$exerciseWithTea = function (tea) {
@@ -37275,147 +37281,42 @@ var $author$project$Exercises$exerciseWithTea = function (tea) {
 			view: $author$project$Internal$Views$view(tea2)
 		});
 };
-var $author$project$D023_exerciseWithTea$NewFace = function (a) {
-	return {$: 'NewFace', a: a};
-};
-var $elm$random$Random$Generate = function (a) {
-	return {$: 'Generate', a: a};
-};
-var $elm$random$Random$Seed = F2(
-	function (a, b) {
-		return {$: 'Seed', a: a, b: b};
-	});
-var $elm$random$Random$next = function (_v0) {
-	var state0 = _v0.a;
-	var incr = _v0.b;
-	return A2($elm$random$Random$Seed, ((state0 * 1664525) + incr) >>> 0, incr);
-};
-var $elm$random$Random$initialSeed = function (x) {
-	var _v0 = $elm$random$Random$next(
-		A2($elm$random$Random$Seed, 0, 1013904223));
-	var state1 = _v0.a;
-	var incr = _v0.b;
-	var state2 = (state1 + x) >>> 0;
-	return $elm$random$Random$next(
-		A2($elm$random$Random$Seed, state2, incr));
-};
-var $elm$random$Random$init = A2(
-	$elm$core$Task$andThen,
-	function (time) {
-		return $elm$core$Task$succeed(
-			$elm$random$Random$initialSeed(
-				$elm$time$Time$posixToMillis(time)));
-	},
-	$elm$time$Time$now);
-var $elm$random$Random$step = F2(
-	function (_v0, seed) {
-		var generator = _v0.a;
-		return generator(seed);
-	});
-var $elm$random$Random$onEffects = F3(
-	function (router, commands, seed) {
-		if (!commands.b) {
-			return $elm$core$Task$succeed(seed);
-		} else {
-			var generator = commands.a.a;
-			var rest = commands.b;
-			var _v1 = A2($elm$random$Random$step, generator, seed);
-			var value = _v1.a;
-			var newSeed = _v1.b;
-			return A2(
-				$elm$core$Task$andThen,
-				function (_v2) {
-					return A3($elm$random$Random$onEffects, router, rest, newSeed);
-				},
-				A2($elm$core$Platform$sendToApp, router, value));
-		}
-	});
-var $elm$random$Random$onSelfMsg = F3(
-	function (_v0, _v1, seed) {
-		return $elm$core$Task$succeed(seed);
-	});
-var $elm$random$Random$Generator = function (a) {
-	return {$: 'Generator', a: a};
-};
-var $elm$random$Random$map = F2(
-	function (func, _v0) {
-		var genA = _v0.a;
-		return $elm$random$Random$Generator(
-			function (seed0) {
-				var _v1 = genA(seed0);
-				var a = _v1.a;
-				var seed1 = _v1.b;
-				return _Utils_Tuple2(
-					func(a),
-					seed1);
-			});
-	});
-var $elm$random$Random$cmdMap = F2(
-	function (func, _v0) {
-		var generator = _v0.a;
-		return $elm$random$Random$Generate(
-			A2($elm$random$Random$map, func, generator));
-	});
-_Platform_effectManagers['Random'] = _Platform_createManager($elm$random$Random$init, $elm$random$Random$onEffects, $elm$random$Random$onSelfMsg, $elm$random$Random$cmdMap);
-var $elm$random$Random$command = _Platform_leaf('Random');
-var $elm$random$Random$generate = F2(
-	function (tagger, generator) {
-		return $elm$random$Random$command(
-			$elm$random$Random$Generate(
-				A2($elm$random$Random$map, tagger, generator)));
-	});
-var $elm$core$Bitwise$xor = _Bitwise_xor;
-var $elm$random$Random$peel = function (_v0) {
-	var state = _v0.a;
-	var word = (state ^ (state >>> ((state >>> 28) + 4))) * 277803737;
-	return ((word >>> 22) ^ word) >>> 0;
-};
-var $elm$random$Random$int = F2(
-	function (a, b) {
-		return $elm$random$Random$Generator(
-			function (seed0) {
-				var _v0 = (_Utils_cmp(a, b) < 0) ? _Utils_Tuple2(a, b) : _Utils_Tuple2(b, a);
-				var lo = _v0.a;
-				var hi = _v0.b;
-				var range = (hi - lo) + 1;
-				if (!((range - 1) & range)) {
-					return _Utils_Tuple2(
-						(((range - 1) & $elm$random$Random$peel(seed0)) >>> 0) + lo,
-						$elm$random$Random$next(seed0));
-				} else {
-					var threshhold = (((-range) >>> 0) % range) >>> 0;
-					var accountForBias = function (seed) {
-						accountForBias:
-						while (true) {
-							var x = $elm$random$Random$peel(seed);
-							var seedN = $elm$random$Random$next(seed);
-							if (_Utils_cmp(x, threshhold) < 0) {
-								var $temp$seed = seedN;
-								seed = $temp$seed;
-								continue accountForBias;
-							} else {
-								return _Utils_Tuple2((x % range) + lo, seedN);
-							}
-						}
-					};
-					return accountForBias(seed0);
-				}
-			});
-	});
-var $elm$random$Random$maxInt = 2147483647;
-var $elm$random$Random$minInt = -2147483648;
-var $author$project$D023_exerciseWithTea$init = _Utils_Tuple2(
-	{intSeed: 1},
-	A2(
-		$elm$random$Random$generate,
-		$author$project$D023_exerciseWithTea$NewFace,
-		A2($elm$random$Random$int, $elm$random$Random$minInt, $elm$random$Random$maxInt)));
-var $author$project$D023_exerciseWithTea$portLocalStoragePop = _Platform_incomingPort('portLocalStoragePop', $elm$json$Json$Decode$string);
-var $author$project$D023_exerciseWithTea$portLocalStoragePush = _Platform_outgoingPort('portLocalStoragePush', $elm$json$Json$Encode$string);
 var $elm$core$Platform$Sub$none = $elm$core$Platform$Sub$batch(_List_Nil);
-var $author$project$D023_exerciseWithTea$subscriptions = function (model) {
-	return $elm$core$Platform$Sub$none;
+var $author$project$Exercises$onlyTests = F2(
+	function (args, view) {
+		return {
+			init: _Utils_Tuple2(_Utils_Tuple0, $elm$core$Platform$Cmd$none),
+			portLocalStoragePop: args.portLocalStoragePop,
+			portLocalStoragePush: args.portLocalStoragePush,
+			subscriptions: function (_v0) {
+				return $elm$core$Platform$Sub$none;
+			},
+			tests: function (_v1) {
+				return args.tests;
+			},
+			update: F2(
+				function (_v2, _v3) {
+					return _Utils_Tuple2(_Utils_Tuple0, $elm$core$Platform$Cmd$none);
+				}),
+			view: A2(
+				$elm$core$Maybe$map,
+				function (v) {
+					return function (_v4) {
+						return v;
+					};
+				},
+				view)
+		};
+	});
+var $author$project$Exercises$exerciseWithView = function (args) {
+	return $author$project$Exercises$exerciseWithTea(
+		A2(
+			$author$project$Exercises$onlyTests,
+			args,
+			$elm$core$Maybe$Just(args.view)));
 };
+var $author$project$D090_exerciseWithView$portLocalStoragePop = _Platform_incomingPort('portLocalStoragePop', $elm$json$Json$Decode$string);
+var $author$project$D090_exerciseWithView$portLocalStoragePush = _Platform_outgoingPort('portLocalStoragePush', $elm$json$Json$Encode$string);
 var $elm_explorations$test$Test$Runner$Failure$Equality = F2(
 	function (a, b) {
 		return {$: 'Equality', a: a, b: b};
@@ -37470,175 +37371,265 @@ var $elm_explorations$test$Expect$equateWith = F4(
 	});
 var $elm_explorations$test$Expect$equal = A2($elm_explorations$test$Expect$equateWith, 'Expect.equal', $elm$core$Basics$eq);
 var $author$project$Exercises$equal = $elm_explorations$test$Expect$equal;
-var $elm_explorations$test$Expect$notEqual = A2($elm_explorations$test$Expect$equateWith, 'Expect.notEqual', $elm$core$Basics$neq);
-var $author$project$Exercises$notEqual = $elm_explorations$test$Expect$notEqual;
-var $author$project$D023_exerciseWithTea$randomSelect = F3(
-	function (seed, n, list) {
-		return _Utils_Tuple2(_List_Nil, seed);
+var $author$project$D090_exerciseWithView$isQueenUnderAttack = F3(
+	function (y, x, state) {
+		return A2(
+			$elm$core$List$any,
+			function (_v0) {
+				var yy = _v0.a;
+				var xx = _v0.b;
+				return _Utils_eq(xx, x) || (_Utils_eq(yy, y) || _Utils_eq(
+					$elm$core$Basics$abs(yy - y),
+					$elm$core$Basics$abs(xx - x)));
+			},
+			state);
 	});
-var $elm$core$List$sort = function (xs) {
-	return A2($elm$core$List$sortBy, $elm$core$Basics$identity, xs);
-};
-var $author$project$D023_exerciseWithTea$tests = function (modelExercise) {
-	var seed = $elm$random$Random$initialSeed(modelExercise.intSeed);
-	var _v0 = A3(
-		$author$project$D023_exerciseWithTea$randomSelect,
-		seed,
-		3,
-		A2($elm$core$List$range, 1, 1000));
-	var list2 = _v0.a;
-	var seed2 = _v0.b;
-	var _v1 = A3(
-		$author$project$D023_exerciseWithTea$randomSelect,
-		seed2,
-		3,
-		A2($elm$core$List$range, 1, 1000));
-	var list3 = _v1.a;
-	var seed3 = _v1.b;
-	var _v2 = A3(
-		$author$project$D023_exerciseWithTea$randomSelect,
-		seed3,
-		9,
-		A2($elm$core$List$range, 1, 9));
-	var list4 = _v2.a;
-	var seed4 = _v2.b;
-	var _v3 = A3(
-		$author$project$D023_exerciseWithTea$randomSelect,
-		seed4,
-		3,
-		_List_fromArray(
-			['a', 'b']));
-	var list5 = _v3.a;
-	var seed5 = _v3.b;
-	var _v4 = A3(
-		$author$project$D023_exerciseWithTea$randomSelect,
-		seed5,
-		0,
-		_List_fromArray(
-			[
-				_Utils_chr('a'),
-				_Utils_chr('b')
-			]));
-	var list6 = _v4.a;
-	var seed6 = _v4.b;
-	var _v5 = A3(
-		$author$project$D023_exerciseWithTea$randomSelect,
-		seed6,
-		-1,
-		_List_fromArray(
-			[
-				_Utils_chr('a'),
-				_Utils_chr('b')
-			]));
-	var list7 = _v5.a;
-	var seed7 = _v5.b;
-	var _v6 = A3($author$project$D023_exerciseWithTea$randomSelect, seed6, 1, _List_Nil);
-	var list8 = _v6.a;
-	var seed8 = _v6.b;
-	var _v7 = A3(
-		$author$project$D023_exerciseWithTea$randomSelect,
-		seed,
-		3,
-		A2($elm$core$List$range, 1, 1000));
-	var list1 = _v7.a;
-	var seed1 = _v7.b;
-	return _List_fromArray(
-		[
-			A2(
-			$author$project$Exercises$equal,
-			$elm$core$List$sort(list2),
-			$elm$core$List$sort(list1)),
-			A2($author$project$Exercises$notEqual, list3, list2),
-			A2(
-			$author$project$Exercises$equal,
-			A2($elm$core$List$range, 1, 9),
-			$elm$core$List$sort(list4)),
-			A2(
-			$author$project$Exercises$equal,
-			_List_fromArray(
-				['a', 'b']),
-			$elm$core$List$sort(list5)),
-			A2($author$project$Exercises$equal, _List_Nil, list6),
-			A2($author$project$Exercises$equal, _List_Nil, list7),
-			A2($author$project$Exercises$equal, _List_Nil, list8)
-		]);
-};
-var $author$project$D023_exerciseWithTea$update = F2(
-	function (msg, model) {
-		if (msg.$ === 'Test') {
+var $elm$core$Tuple$mapBoth = F3(
+	function (funcA, funcB, _v0) {
+		var x = _v0.a;
+		var y = _v0.b;
+		return _Utils_Tuple2(
+			funcA(x),
+			funcB(y));
+	});
+var $elm$core$List$unzip = function (pairs) {
+	var step = F2(
+		function (_v0, _v1) {
+			var x = _v0.a;
+			var y = _v0.b;
+			var xs = _v1.a;
+			var ys = _v1.b;
 			return _Utils_Tuple2(
-				model,
+				A2($elm$core$List$cons, x, xs),
+				A2($elm$core$List$cons, y, ys));
+		});
+	return A3(
+		$elm$core$List$foldr,
+		step,
+		_Utils_Tuple2(_List_Nil, _List_Nil),
+		pairs);
+};
+var $author$project$D090_exerciseWithView$oneMoreQueen = F3(
+	function (boardSize, solutions, state) {
+		var y = $elm$core$List$length(state);
+		return (_Utils_cmp(y, boardSize) < 0) ? A3(
+			$elm$core$Tuple$mapBoth,
+			$elm$core$List$concat,
+			$elm$core$List$concat,
+			$elm$core$List$unzip(
 				A2(
-					$elm$random$Random$generate,
-					$author$project$D023_exerciseWithTea$NewFace,
-					A2($elm$random$Random$int, $elm$random$Random$minInt, $elm$random$Random$maxInt)));
+					$elm$core$List$map,
+					A2($author$project$D090_exerciseWithView$oneMoreQueen, boardSize, solutions),
+					A2(
+						$elm$core$List$map,
+						function (x) {
+							return A2(
+								$elm$core$List$cons,
+								_Utils_Tuple2(y, x),
+								state);
+						},
+						A2(
+							$elm$core$List$filter,
+							function (x) {
+								return !A3($author$project$D090_exerciseWithView$isQueenUnderAttack, y, x, state);
+							},
+							A2($elm$core$List$range, 0, boardSize - 1)))))) : _Utils_Tuple2(
+			_List_Nil,
+			A2($elm$core$List$cons, state, solutions));
+	});
+var $author$project$D090_exerciseWithView$queens = function (n) {
+	return A2(
+		$elm$core$List$map,
+		$elm$core$List$map($elm$core$Tuple$second),
+		A3($author$project$D090_exerciseWithView$oneMoreQueen, n, _List_Nil, _List_Nil).b);
+};
+var $author$project$D090_exerciseWithView$tests = _List_fromArray(
+	[
+		A2(
+		$author$project$Exercises$equal,
+		0,
+		$elm$core$List$length(
+			$author$project$D090_exerciseWithView$queens(3))),
+		A2(
+		$author$project$Exercises$equal,
+		2,
+		$elm$core$List$length(
+			$author$project$D090_exerciseWithView$queens(4))),
+		A2(
+		$author$project$Exercises$equal,
+		10,
+		$elm$core$List$length(
+			$author$project$D090_exerciseWithView$queens(5))),
+		A2(
+		$author$project$Exercises$equal,
+		4,
+		$elm$core$List$length(
+			$author$project$D090_exerciseWithView$queens(6))),
+		A2(
+		$author$project$Exercises$equal,
+		40,
+		$elm$core$List$length(
+			$author$project$D090_exerciseWithView$queens(7))),
+		A2(
+		$author$project$Exercises$equal,
+		92,
+		$elm$core$List$length(
+			$author$project$D090_exerciseWithView$queens(8)))
+	]);
+var $author$project$D090_exerciseWithView$attrs = F2(
+	function (x, y) {
+		return _List_fromArray(
+			[
+				$mdgriffith$elm_ui$Element$width(
+				$mdgriffith$elm_ui$Element$px(30)),
+				$mdgriffith$elm_ui$Element$height(
+				$mdgriffith$elm_ui$Element$px(30)),
+				$mdgriffith$elm_ui$Element$Background$color(
+				(!A2($elm$core$Basics$modBy, 2, x + y)) ? A3($mdgriffith$elm_ui$Element$rgb255, 254, 207, 157) : A3($mdgriffith$elm_ui$Element$rgb255, 211, 138, 70))
+			]);
+	});
+var $author$project$D090_exerciseWithView$boardToElement = F3(
+	function (n, s, board) {
+		return A2(
+			$mdgriffith$elm_ui$Element$column,
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$Border$width(1),
+					$mdgriffith$elm_ui$Element$Border$color(
+					A3($mdgriffith$elm_ui$Element$rgb, 0.6, 0.6, 0.6)),
+					$mdgriffith$elm_ui$Element$inFront(
+					A2(
+						$mdgriffith$elm_ui$Element$el,
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$Font$size(n * 24),
+								$mdgriffith$elm_ui$Element$Font$bold,
+								$mdgriffith$elm_ui$Element$centerX,
+								$mdgriffith$elm_ui$Element$centerY,
+								$mdgriffith$elm_ui$Element$alpha(0.3)
+							]),
+						$mdgriffith$elm_ui$Element$text(
+							$elm$core$String$fromInt(s + 1))))
+				]),
+			A2(
+				$elm$core$List$indexedMap,
+				F2(
+					function (y, row_) {
+						return A2(
+							$mdgriffith$elm_ui$Element$row,
+							_List_Nil,
+							A2(
+								$elm$core$List$indexedMap,
+								F2(
+									function (x, _char) {
+										return _Utils_eq(
+											_char,
+											_Utils_chr('♛')) ? A2(
+											$mdgriffith$elm_ui$Element$image,
+											A2($author$project$D090_exerciseWithView$attrs, x, y),
+											{description: '', src: '/images/Chess_qlt45.svg.png'}) : A2(
+											$mdgriffith$elm_ui$Element$el,
+											A2($author$project$D090_exerciseWithView$attrs, x, y),
+											$mdgriffith$elm_ui$Element$none);
+									}),
+								row_));
+					}),
+				board));
+	});
+var $elm_community$list_extra$List$Extra$updateAt = F3(
+	function (index, fn, list) {
+		if (index < 0) {
+			return list;
 		} else {
-			var newSeed = msg.a;
-			return _Utils_Tuple2(
-				_Utils_update(
-					model,
-					{intSeed: newSeed}),
-				$elm$core$Platform$Cmd$none);
+			var tail = A2($elm$core$List$drop, index, list);
+			var head = A2($elm$core$List$take, index, list);
+			if (tail.b) {
+				var x = tail.a;
+				var xs = tail.b;
+				return _Utils_ap(
+					head,
+					A2(
+						$elm$core$List$cons,
+						fn(x),
+						xs));
+			} else {
+				return list;
+			}
 		}
 	});
-var $author$project$D023_exerciseWithTea$Test = {$: 'Test'};
-var $author$project$Exercises$attrsButton = $author$project$Internal$Views$attrsButton;
-var $author$project$D023_exerciseWithTea$view = function (model) {
-	return A2(
-		$mdgriffith$elm_ui$Element$column,
-		_List_fromArray(
-			[
-				$mdgriffith$elm_ui$Element$spacing(10)
-			]),
-		_List_fromArray(
-			[
-				A2(
-				$mdgriffith$elm_ui$Element$paragraph,
-				_List_Nil,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$text(
-						'Seed value: ' + $elm$core$String$fromInt(model.intSeed))
-					])),
-				A2(
-				$mdgriffith$elm_ui$Element$paragraph,
-				_List_Nil,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$text(
-						'Your die roll is ' + A2(
-							$elm$core$Maybe$withDefault,
-							'',
-							A2(
-								$elm$core$Maybe$map,
-								$elm$core$String$fromInt,
-								$elm$core$List$head(
-									A3(
-										$author$project$D023_exerciseWithTea$randomSelect,
-										$elm$random$Random$initialSeed(model.intSeed),
-										1,
-										A2($elm$core$List$range, 1, 6)).a))))
-					])),
-				A2(
-				$mdgriffith$elm_ui$Element$Input$button,
-				$author$project$Exercises$attrsButton,
-				{
-					label: $mdgriffith$elm_ui$Element$text('Test again'),
-					onPress: $elm$core$Maybe$Just($author$project$D023_exerciseWithTea$Test)
-				})
-			]));
-};
-var $author$project$D023_exerciseWithTea$main = $author$project$Exercises$exerciseWithTea(
-	{
-		init: $author$project$D023_exerciseWithTea$init,
-		portLocalStoragePop: $author$project$D023_exerciseWithTea$portLocalStoragePop,
-		portLocalStoragePush: $author$project$D023_exerciseWithTea$portLocalStoragePush,
-		subscriptions: $author$project$D023_exerciseWithTea$subscriptions,
-		tests: $author$project$D023_exerciseWithTea$tests,
-		update: $author$project$D023_exerciseWithTea$update,
-		view: $elm$core$Maybe$Just($author$project$D023_exerciseWithTea$view)
+var $elm_community$list_extra$List$Extra$setAt = F2(
+	function (index, value) {
+		return A2(
+			$elm_community$list_extra$List$Extra$updateAt,
+			index,
+			$elm$core$Basics$always(value));
 	});
-_Platform_export({'D023_exerciseWithTea':{'init':$author$project$D023_exerciseWithTea$main(
+var $author$project$D090_exerciseWithView$visualize = function (solution) {
+	return A2(
+		$elm$core$List$indexedMap,
+		F2(
+			function (index, x) {
+				return A3(
+					$elm_community$list_extra$List$Extra$setAt,
+					x,
+					_Utils_chr('♛'),
+					A2(
+						$elm$core$List$repeat,
+						$elm$core$List$length(solution),
+						_Utils_chr('•')));
+			}),
+		solution);
+};
+var $author$project$D090_exerciseWithView$view = A2(
+	$mdgriffith$elm_ui$Element$column,
+	_List_fromArray(
+		[
+			$mdgriffith$elm_ui$Element$spacing(20),
+			$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+		]),
+	A2(
+		$elm$core$List$map,
+		function (n) {
+			var solutions = $author$project$D090_exerciseWithView$queens(n);
+			var boards = A2(
+				$elm$core$List$map,
+				function (solution) {
+					return $author$project$D090_exerciseWithView$visualize(solution);
+				},
+				solutions);
+			return function (board) {
+				return A2(
+					$mdgriffith$elm_ui$Element$column,
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$spacing(5),
+							$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+						]),
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$text(
+							$elm$core$String$fromInt(n) + (' X ' + ($elm$core$String$fromInt(n) + (' (' + ($elm$core$String$fromInt(
+								$elm$core$List$length(boards)) + ' solutions)'))))),
+							board
+						]));
+			}(
+				A2(
+					$mdgriffith$elm_ui$Element$row,
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$spacing(15),
+							$mdgriffith$elm_ui$Element$scrollbars,
+							$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+						]),
+					A2(
+						$elm$core$List$indexedMap,
+						$author$project$D090_exerciseWithView$boardToElement(n),
+						boards)));
+		},
+		A2($elm$core$List$range, 3, 8)));
+var $author$project$D090_exerciseWithView$main = $author$project$Exercises$exerciseWithView(
+	{portLocalStoragePop: $author$project$D090_exerciseWithView$portLocalStoragePop, portLocalStoragePush: $author$project$D090_exerciseWithView$portLocalStoragePush, tests: $author$project$D090_exerciseWithView$tests, view: $author$project$D090_exerciseWithView$view});
+_Platform_export({'D090_exerciseWithView':{'init':$author$project$D090_exerciseWithView$main(
 	A2(
 		$elm$json$Json$Decode$andThen,
 		function (width) {
@@ -37660,4 +37651,4 @@ _Platform_export({'D023_exerciseWithTea':{'init':$author$project$D023_exerciseWi
 				},
 				A2($elm$json$Json$Decode$field, 'localStorage', $elm$json$Json$Decode$string));
 		},
-		A2($elm$json$Json$Decode$field, 'width', $elm$json$Json$Decode$int)))({"versions":{"elm":"0.19.1"},"types":{"message":"Internal.Data.Msg D023_exerciseWithTea.MsgExercise","aliases":{"Internal.Data.LocalStorageRecord":{"args":[],"type":"{ hints : Internal.Data.Show, solutions : Internal.Data.Show, menuOpen : Basics.Bool, menuContent : Internal.Data.MenuContent, firstSeen : Time.Posix, lastSeen : Time.Posix, solved : Maybe.Maybe Time.Posix, testsTotal : Basics.Int, testsPassed : Basics.Int }"}},"unions":{"Internal.Data.Msg":{"args":["msgExercise"],"tags":{"ShowHint":["Basics.Int"],"ShowHintsAll":[],"ShowHintsNone":[],"HideHint":["Basics.Int"],"ShowSolution":["Basics.Int"],"ShowSolutionsAll":[],"ShowSolutionsNone":[],"HideSolution":["Basics.Int"],"MsgTEA":["msgExercise"],"ChangeMenu":["Internal.Data.MenuContent"],"MenuOver":["Basics.Bool"],"PortLocalStoragePop":["String.String"],"PortLocalStoragePush":["Dict.Dict Basics.Int Internal.Data.LocalStorageRecord"],"UpdatePosix":["Time.Posix"],"RemoveFromHistory":["Basics.Int"],"RemoveHistory":[],"Resize":["Basics.Int","Basics.Int"]}},"D023_exerciseWithTea.MsgExercise":{"args":[],"tags":{"Test":[],"NewFace":["Basics.Int"]}},"Basics.Bool":{"args":[],"tags":{"True":[],"False":[]}},"Dict.Dict":{"args":["k","v"],"tags":{"RBNode_elm_builtin":["Dict.NColor","k","v","Dict.Dict k v","Dict.Dict k v"],"RBEmpty_elm_builtin":[]}},"Basics.Int":{"args":[],"tags":{"Int":[]}},"Maybe.Maybe":{"args":["a"],"tags":{"Just":["a"],"Nothing":[]}},"Internal.Data.MenuContent":{"args":[],"tags":{"ContentHints":[],"ContentSolutions":[],"ContentHistory":[],"ContentOtherExercises":[],"ContentHelp":[],"ContentContribute":[]}},"Time.Posix":{"args":[],"tags":{"Posix":["Basics.Int"]}},"Internal.Data.Show":{"args":[],"tags":{"ShowAll":[],"ShowNone":[],"Show":["Set.Set Basics.Int"]}},"String.String":{"args":[],"tags":{"String":[]}},"Dict.NColor":{"args":[],"tags":{"Red":[],"Black":[]}},"Set.Set":{"args":["t"],"tags":{"Set_elm_builtin":["Dict.Dict t ()"]}}}}})}});}(this));
+		A2($elm$json$Json$Decode$field, 'width', $elm$json$Json$Decode$int)))({"versions":{"elm":"0.19.1"},"types":{"message":"Internal.Data.Msg ()","aliases":{"Internal.Data.LocalStorageRecord":{"args":[],"type":"{ hints : Internal.Data.Show, solutions : Internal.Data.Show, menuOpen : Basics.Bool, menuContent : Internal.Data.MenuContent, firstSeen : Time.Posix, lastSeen : Time.Posix, solved : Maybe.Maybe Time.Posix, testsTotal : Basics.Int, testsPassed : Basics.Int }"}},"unions":{"Internal.Data.Msg":{"args":["msgExercise"],"tags":{"ShowHint":["Basics.Int"],"ShowHintsAll":[],"ShowHintsNone":[],"HideHint":["Basics.Int"],"ShowSolution":["Basics.Int"],"ShowSolutionsAll":[],"ShowSolutionsNone":[],"HideSolution":["Basics.Int"],"MsgTEA":["msgExercise"],"ChangeMenu":["Internal.Data.MenuContent"],"MenuOver":["Basics.Bool"],"PortLocalStoragePop":["String.String"],"PortLocalStoragePush":["Dict.Dict Basics.Int Internal.Data.LocalStorageRecord"],"UpdatePosix":["Time.Posix"],"RemoveFromHistory":["Basics.Int"],"RemoveHistory":[],"Resize":["Basics.Int","Basics.Int"]}},"Basics.Bool":{"args":[],"tags":{"True":[],"False":[]}},"Dict.Dict":{"args":["k","v"],"tags":{"RBNode_elm_builtin":["Dict.NColor","k","v","Dict.Dict k v","Dict.Dict k v"],"RBEmpty_elm_builtin":[]}},"Basics.Int":{"args":[],"tags":{"Int":[]}},"Maybe.Maybe":{"args":["a"],"tags":{"Just":["a"],"Nothing":[]}},"Internal.Data.MenuContent":{"args":[],"tags":{"ContentHints":[],"ContentSolutions":[],"ContentHistory":[],"ContentOtherExercises":[],"ContentHelp":[],"ContentContribute":[]}},"Time.Posix":{"args":[],"tags":{"Posix":["Basics.Int"]}},"Internal.Data.Show":{"args":[],"tags":{"ShowAll":[],"ShowNone":[],"Show":["Set.Set Basics.Int"]}},"String.String":{"args":[],"tags":{"String":[]}},"Dict.NColor":{"args":[],"tags":{"Red":[],"Black":[]}},"Set.Set":{"args":["t"],"tags":{"Set_elm_builtin":["Dict.Dict t ()"]}}}}})}});}(this));
