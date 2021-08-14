@@ -22,15 +22,12 @@ Represent the positions of the queens as a list of numbers 1..N. Example: [4,2,7
 """
     , example = ""
     , tests =
-        [ "List.length (queens 8) |> equal 92"
-        , "List.length (queens 7) |> equal 40"
-        , "List.length (queens 6) |> equal 4"
-        , "List.length (queens 5) |> equal 10"
+        [ "List.length (queens 3) |> equal 0"
         , "List.length (queens 4) |> equal 2"
-        , "List.length (queens 3) |> equal 0"
-        , "List.length (queens 2) |> equal 0"
-        , "List.length (queens 1) |> equal 1"
-        , "List.length (queens 0) |> equal 1"
+        , "List.length (queens 5) |> equal 10"
+        , "List.length (queens 6) |> equal 4"
+        , "List.length (queens 7) |> equal 40"
+        , "List.length (queens 8) |> equal 92"
         ]
     , hints =
         -- Add this: https://stackoverflow.com/questions/19998153/algorithm-of-n-queens

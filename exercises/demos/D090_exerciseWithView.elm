@@ -8,14 +8,14 @@ import Exercises exposing (..)
 import List.Extra
 
 
-queens2 : Int -> List (List Int)
-queens2 n =
+queens : Int -> List (List Int)
+queens n =
     -- Your implementation goes here
     []
 
 
-queens : Int -> List (List Int)
-queens n =
+queens2 : Int -> List (List Int)
+queens2 n =
     oneMoreQueen n [] []
         |> Tuple.second
         |> List.map (List.map Tuple.second)
