@@ -3,6 +3,7 @@
 * Make the "Result" title disappear if there is no Result
 * Add by categories list
 * Reverse the order in "Exercises by Category"
+* Add "Ignore the code below"
 
 # NOTE
 
