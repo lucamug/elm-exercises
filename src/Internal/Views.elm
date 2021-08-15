@@ -34,7 +34,7 @@ import Time
 
 version : String
 version =
-    "2.0.5"
+    "2.0.6"
 
 
 subtitle : String -> Element msg
@@ -1503,9 +1503,9 @@ failureReasonToString failureReason =
         -- Refer to https://package.elm-lang.org/packages/elm-explorations/test/latest/Test-Runner-Failure#Reason
         --
         Test.Runner.Failure.Equality expected actual ->
-            "because I was given `"
+            ", I was given `"
                 ++ actual
-                ++ "` instead of `"
+                ++ "` and `"
                 ++ expected
                 ++ "`"
 
